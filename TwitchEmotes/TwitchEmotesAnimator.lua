@@ -146,16 +146,12 @@ function TwitchEmotes_GetTexCoordsForFrame(animdata, framenum)
 	return 0, 1 ,framenum * fHeight / animdata.imageHeight, ((framenum * fHeight) + fHeight) / animdata.imageHeight
 end
 
+-- The texture escape is |Tpath:height:width:...|t, height first. Frames used to be square, so
+-- the argument order never mattered; 7TV packs have wide frames (64x32, 128x32), so the width
+-- is now derived from the frame's aspect ratio.
 function TwitchEmotes_BuildEmoteFrameString(imagepath, animdata, framenum)
-	local top = framenum * animdata.frameHeight;
-	local bottom = top + animdata.frameHeight;
-
-	local emoteStr = "|T" .. imagepath .. ":" .. animdata.frameWidth .. ":" ..
-						animdata.frameHeight .. ":0:0:" .. animdata.imageWidth ..
-						":" .. animdata.imageHeight .. ":0:" ..
-						animdata.frameWidth .. ":" .. top .. ":" .. bottom ..
-						"|t";
-	return emoteStr
+	return TwitchEmotes_BuildEmoteFrameStringWithDimensions(imagepath, animdata, framenum,
+		animdata.frameWidth, animdata.frameHeight)
 end
 
 function TwitchEmotes_BuildEmoteFrameStringWithDimensions(imagepath, animdata,
@@ -163,9 +159,11 @@ function TwitchEmotes_BuildEmoteFrameStringWithDimensions(imagepath, animdata,
 														frameheight)
 	local top = framenum * animdata.frameHeight;
 	local bottom = top + animdata.frameHeight;
+	local height = frameheight or framewidth;
+	local width = math.floor(height * animdata.frameWidth / animdata.frameHeight + 0.5);
 
-	local emoteStr = "|T" .. imagepath .. ":" .. framewidth .. ":" ..
-						frameheight .. ":0:0:" .. animdata.imageWidth .. ":" ..
+	local emoteStr = "|T" .. imagepath .. ":" .. height .. ":" ..
+						width .. ":0:0:" .. animdata.imageWidth .. ":" ..
 						animdata.imageHeight .. ":0:" .. animdata.frameWidth ..
 						":" .. top .. ":" .. bottom .. "|t";
 	return emoteStr

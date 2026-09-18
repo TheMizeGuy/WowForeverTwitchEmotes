@@ -124,13 +124,40 @@ if OpenMailBodyText then
 	end
 end
 
+-- Menu icon for one emote: static emotes use their stored size, animated ones show frame 0
+-- instead of the whole sprite sheet squashed into the line.
+local function TwitchEmotes_MenuIcon(name)
+	local path = TwitchEmotes_defaultpack[name]
+	if path == nil then
+		return ""
+	end
+	local animdata = TwitchEmotes_animation_metadata[path]
+	if animdata ~= nil then
+		return TwitchEmotes_BuildEmoteFrameStringWithDimensions(path, animdata, 0, 28, 28)
+	end
+	return "|T" .. path .. "|t"
+end
+
+local function TwitchEmotes_AddEmoteButtons(info, level, list, firstIndex)
+	for i = firstIndex, #list do
+		local va = list[i]
+		info.text = TwitchEmotes_MenuIcon(va) .. " " .. va;
+		info.value = va;
+		info.func = Emoticons_Dropdown_OnClick;
+		LibDD:UIDropDownMenu_AddButton(info, level);
+	end
+end
+
+-- Level 1 lists the built-in categories plus one entry per channel pack (TwitchEmotes_pack_menus,
+-- filled by generated Emotes_<pack>.lua files). A pack entry opens its alphabetical groups at
+-- level 2 and the emotes of a group at level 3; menuList carries "pack:<pack>[:<group>]".
 function Emoticons_LoadMiniMapDropdown(self, level, menuList)
 	local info = LibDD:UIDropDownMenu_CreateInfo();
-	-- local info = UIDropDownMenu_CreateInfo();
 	info.isNotRadio = true;
 	info.notCheckable = true;
 	info.notClickable = false;
-	if (level or 1) == 1 then
+	level = level or 1
+	if level == 1 then
 		for k, v in ipairs(TwitchEmotes_dropdown_options) do
 			if (Emoticons_Settings["FAVEMOTES"][k]) then
 				info.hasArrow = true;
@@ -138,26 +165,37 @@ function Emoticons_LoadMiniMapDropdown(self, level, menuList)
 				info.value = false;
 				info.menuList = k;
 				LibDD:UIDropDownMenu_AddButton(info);
-				-- UIDropDownMenu_AddButton(info);
 			end
 		end
-	else
-		first = true;
-		for ke, va in ipairs(TwitchEmotes_dropdown_options[menuList]) do
-			if (first) then
-				first = false;
-			else
-				-- if(TwitchEmotes_defaultpack[va] == nil) then
-				--     print(ke.." " .. va .. " is broken");
-				-- end
-				
-				info.text = "|T" .. TwitchEmotes_defaultpack[va] .. "|t " .. va;
-				info.value = va;
-				info.func = Emoticons_Dropdown_OnClick;
+		for p, pack in ipairs(TwitchEmotes_pack_menus or {}) do
+			info.hasArrow = true;
+			info.text = pack.label;
+			info.value = false;
+			info.menuList = "pack:" .. p;
+			LibDD:UIDropDownMenu_AddButton(info);
+		end
+	elseif type(menuList) == "string" then
+		local packIndex, groupIndex = string.match(menuList, "^pack:(%d+):?(%d*)$")
+		local pack = packIndex and TwitchEmotes_pack_menus and TwitchEmotes_pack_menus[tonumber(packIndex)]
+		if pack == nil then
+			return
+		end
+		if groupIndex == "" then
+			for g, group in ipairs(pack.groups) do
+				info.hasArrow = true;
+				info.text = group[1];
+				info.value = false;
+				info.menuList = "pack:" .. packIndex .. ":" .. g;
 				LibDD:UIDropDownMenu_AddButton(info, level);
-				-- UIDropDownMenu_AddButton(info, level);
+			end
+		else
+			local group = pack.groups[tonumber(groupIndex)]
+			if group ~= nil then
+				TwitchEmotes_AddEmoteButtons(info, level, group, 2)
 			end
 		end
+	elseif TwitchEmotes_dropdown_options[menuList] ~= nil then
+		TwitchEmotes_AddEmoteButtons(info, level, TwitchEmotes_dropdown_options[menuList], 2)
 	end
 end
 
@@ -496,12 +534,18 @@ function Emoticons_RenderSuggestionFN(text)
 	if(fullEmotePath ~= nil) then
 		local animdata = TwitchEmotes_animation_metadata[fullEmotePath]
 		if animdata ~= nil then
-			return TwitchEmotes_BuildEmoteFrameStringWithDimensions(fullEmotePath, animdata, 0, 16, 16) .. text;
+			return TwitchEmotes_BuildEmoteFrameStringWithDimensions(fullEmotePath, animdata, 0, 16, 16) .. " " .. text;
 		else
 			local size = string.match(fullEmotePath, ":(.*)")
 			local path_and_size = "";
 			if(size ~= nil) then
-				path_and_size = string.gsub(fullEmotePath, size, "16:16")
+				-- Keep wide emotes (28:56, 28:112) wide when shrinking them to the 16 px list.
+				local small = "16:16"
+				local h, w = string.match(size, "^(%d+):(%d+)$")
+				if h and w and tonumber(h) > 0 then
+					small = "16:" .. math.floor(16 * tonumber(w) / tonumber(h) + 0.5)
+				end
+				path_and_size = string.gsub(fullEmotePath, size, small)
 			else
 				path_and_size = fullEmotePath .. "16:16";
 			end

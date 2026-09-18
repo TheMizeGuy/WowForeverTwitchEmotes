@@ -11,3 +11,6 @@ Thumbs.db
 # packaging output
 /dist/
 *.zip
+
+# emote download cache for scripts/build-7tv-pack.py
+.cache/

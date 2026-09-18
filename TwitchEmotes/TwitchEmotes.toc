@@ -13,6 +13,7 @@
 # Keep in sync with TwitchEmotes_Camelot.toc; the client loads that one first and falls back to this file.
 Libs\load_libs.xml
 Emotes.lua
+Emotes_erobb221.lua
 DropdownItems.lua
 TwitchEmotesAnimator.lua
 TwitchEmotes.lua

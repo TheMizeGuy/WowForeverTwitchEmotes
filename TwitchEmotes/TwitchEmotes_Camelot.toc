@@ -13,6 +13,7 @@
 # Keep in sync with TwitchEmotes.toc, the fallback the client uses when no _Camelot file matches.
 Libs\load_libs.xml
 Emotes.lua
+Emotes_erobb221.lua
 DropdownItems.lua
 TwitchEmotesAnimator.lua
 TwitchEmotes.lua
