@@ -445,7 +445,7 @@ function Emoticons_OnEvent(self, event, ...)
 		
 		Broker_TwitchEmotes = LDB:NewDataObject("TwitchEmotes", {
 			type = "launcher",
-			text = "Twitch Emotes",
+			text = "Twitch Emotes WoW Forever",
 			icon = "Interface\\AddOns\\TwitchEmotes\\TwitchLogo.tga",
 			OnClick = TwitchEmotes_MinimapButton_OnClick
 		})

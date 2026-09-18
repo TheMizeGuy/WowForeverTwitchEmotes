@@ -1,4 +1,4 @@
-# WowForeverTwitchEmotes
+# Twitch Emotes WoW Forever
 
 Twitch Emotes for the World of Warcraft: Forever client (beta build 1.60.x, interface 16001).
 

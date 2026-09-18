@@ -100,7 +100,7 @@ Revert PowaBarSliderTemplate to inherit from OptionsSliderTemplate if it's fixed
     <Scripts>
       <OnLoad>
         if SettingsPanel then self:SetParent(SettingsPanel); else self:SetParent(InterfaceOptionsFramePanelContainer) end;
-        self.name = "TwitchEmotes";
+        self.name = "Twitch Emotes WoW Forever";
         local category = Settings.RegisterCanvasLayoutCategory(self, self.name)
         Settings.RegisterAddOnCategory(category)
 
