@@ -3,7 +3,7 @@
 ## IconTexture: Interface\AddOns\TwitchEmotes\TwitchLogo.tga
 ## Author: TheMizeGuy
 ## Notes: Adds popular Twitch & Discord emotes to your chat. Port of Twitch Emotes v2 for the WoW Forever (Camelot) client.
-## Version: 2.0.0-forever.2
+## Version: 2.0.0-forever.3
 ## Category: Chat & Communication
 ## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes
 ## SavedVariables: Emoticons_Settings, TwitchEmoteStatistics
@@ -12,6 +12,7 @@
 # Keep in sync with TwitchEmotes_Camelot.toc; the client loads that one first and falls back to this file.
 Libs\load_libs.xml
 Emotes.lua
+Emotes_graycen.lua
 Emotes_erobb221.lua
 DropdownItems.lua
 TwitchEmotesAnimator.lua
