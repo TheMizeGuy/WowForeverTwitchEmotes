@@ -1,11 +1,10 @@
 ## Interface: 16001
 ## Title: Twitch Emotes
 ## IconTexture: Interface\AddOns\TwitchEmotes\TwitchLogo.tga
-## Author: Ren - Illidan (US) & Jons - MirageRaceway (EU)
+## Author: TheMizeGuy
 ## Notes: Adds popular Twitch & Discord emotes to your chat. Port of Twitch Emotes v2 for the WoW Forever (Camelot) client.
-## Version: 2.0.0-forever.1
+## Version: 2.0.0-forever.2
 ## Category: Chat & Communication
-## X-Port: WoW Forever (Camelot) port by TheMizeGuy
 ## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes
 ## SavedVariables: Emoticons_Settings, TwitchEmoteStatistics
 ## OptionalDeps: LibStub, LibUIDropDownMenu
