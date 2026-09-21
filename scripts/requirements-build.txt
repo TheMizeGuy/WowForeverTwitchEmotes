@@ -1,0 +1,5 @@
+# Build and optimizer dependencies: python3 -m venv .venv && .venv/bin/pip install -r scripts/requirements-build.txt
+Pillow
+numpy
+imagequant
+deflate

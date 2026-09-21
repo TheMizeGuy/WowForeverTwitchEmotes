@@ -1,0 +1,16 @@
+{
+  "name": "FeelsOkayMan",
+  "source_page": "https://7tv.app/emotes/01GB46137R000BJ5HR8F6XV8J1",
+  "source_url": "https://cdn.7tv.app/emote/01GB46137R000BJ5HR8F6XV8J1/4x.webp",
+  "provider": "7TV",
+  "provider_owner": "TrippyColour",
+  "source_sha256": "afd555eb4b3f1331604f6e04173e3b6133af0b496674d66aea27898440602f30",
+  "source_width": 128,
+  "source_height": 128,
+  "asset": "assets/curseforge-icon.png",
+  "asset_sha256": "dc44a4035fe3c30b6521c8e8744595491c0b4461108f0209e66b7faba28a19ec",
+  "width": 1254,
+  "height": 1254,
+  "treatment": "High-resolution illustrated remaster of the referenced emote, preserving its expression with clean outlines on a deep purple background.",
+  "rights": "The underlying emote artwork remains with its respective rights holders and is excluded from the addon code copyright."
+}

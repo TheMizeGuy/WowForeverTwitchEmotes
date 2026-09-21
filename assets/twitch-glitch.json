@@ -1,0 +1,14 @@
+{
+  "source_page": "https://brand.twitch.com/",
+  "source_url": "https://brand.twitch.com/uploads/Twitch-Brand.zip",
+  "source_entry": "Twitch Brand/Twitch Logos/02. Glitch/04. White/glitch_flat_white.png",
+  "source_sha256": "b803640d64ab9c67737af2e0da8832b4d2f3840fea9c030747a446a2b43dcc4d",
+  "source_width": 1372,
+  "source_height": 1600,
+  "texture": "Media/UI/TwitchGlitch.tga",
+  "texture_sha256": "e87c3b909faecc438eca14aa774a6b06b3208c452f0ba7c36e9a27f03cc40d68",
+  "width": 64,
+  "height": 64,
+  "conversion": "Official white PNG resized to 55 x 64 with Lanczos filtering, centered on a transparent 64 x 64 RGBA TGA canvas.",
+  "rights_holder": "Twitch Interactive, Inc."
+}

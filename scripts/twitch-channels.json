@@ -1,0 +1,699 @@
+{
+  "retrieved_utc": "2026-09-20T03:06:41.028109+00:00",
+  "catalog": "https://twitchemotes.com/",
+  "channels": [
+    {
+      "login": "admiralbahroo",
+      "twitch_id": "40972890",
+      "title": "AdmiralBahroo",
+      "metadata_api": "https://twitchemotes.com/channels/40972890",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/AdmiralBahroo",
+        "https://twitchemotes.com/channels/40972890"
+      ]
+    },
+    {
+      "login": "admiralbulldog",
+      "twitch_id": "30816637",
+      "title": "AdmiralBulldog",
+      "metadata_api": "https://twitchemotes.com/channels/30816637",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/AdmiralBulldog",
+        "https://twitchemotes.com/channels/30816637"
+      ]
+    },
+    {
+      "login": "ahlaundoh",
+      "twitch_id": "32093909",
+      "title": "Ahlaundoh",
+      "metadata_api": "https://twitchemotes.com/channels/32093909",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/ahlaundoh",
+        "https://twitchemotes.com/channels/32093909"
+      ]
+    },
+    {
+      "login": "alinity",
+      "twitch_id": "38718052",
+      "title": "Alinity",
+      "metadata_api": "https://twitchemotes.com/channels/38718052",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Alinity",
+        "https://twitchemotes.com/channels/38718052"
+      ]
+    },
+    {
+      "login": "alkaizerx",
+      "twitch_id": "35916854",
+      "title": "Alkaizerx",
+      "metadata_api": "https://twitchemotes.com/channels/35916854",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Alkaizerx",
+        "https://twitchemotes.com/channels/35916854"
+      ]
+    },
+    {
+      "login": "anniefuchsia",
+      "twitch_id": "61294188",
+      "title": "AnnieFuchsia",
+      "metadata_api": "https://twitchemotes.com/channels/61294188",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/AnnieFuchsia",
+        "https://twitchemotes.com/channels/61294188"
+      ]
+    },
+    {
+      "login": "asmongold",
+      "twitch_id": "26261471",
+      "title": "Asmongold",
+      "metadata_api": "https://twitchemotes.com/channels/26261471",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Asmongold",
+        "https://twitchemotes.com/channels/26261471"
+      ]
+    },
+    {
+      "login": "avoidingthepuddle",
+      "twitch_id": "23528098",
+      "title": "AvoidingThePuddle",
+      "metadata_api": "https://twitchemotes.com/channels/23528098",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/AvoidingThePuddle",
+        "https://twitchemotes.com/channels/23528098"
+      ]
+    },
+    {
+      "login": "b0aty",
+      "twitch_id": "27107346",
+      "title": "B0aty",
+      "metadata_api": "https://twitchemotes.com/channels/27107346",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/B0aty",
+        "https://twitchemotes.com/channels/27107346"
+      ]
+    },
+    {
+      "login": "bobross",
+      "twitch_id": "105458682",
+      "title": "BobRoss",
+      "metadata_api": "https://twitchemotes.com/channels/105458682",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/BobRoss",
+        "https://twitchemotes.com/channels/105458682"
+      ]
+    },
+    {
+      "login": "cdewx",
+      "twitch_id": "24666044",
+      "title": "cdewx",
+      "metadata_api": "https://twitchemotes.com/channels/24666044",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/cdewx",
+        "https://twitchemotes.com/channels/24666044"
+      ]
+    },
+    {
+      "login": "dansgaming",
+      "twitch_id": "7236692",
+      "title": "DansGaming",
+      "metadata_api": "https://twitchemotes.com/channels/7236692",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/DansGaming",
+        "https://twitchemotes.com/channels/7236692"
+      ]
+    },
+    {
+      "login": "datto",
+      "twitch_id": "42296879",
+      "title": "Datto",
+      "metadata_api": "https://twitchemotes.com/channels/42296879",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Datto",
+        "https://twitchemotes.com/channels/42296879"
+      ]
+    },
+    {
+      "login": "drainerx",
+      "twitch_id": "27031399",
+      "title": "Drainerx",
+      "metadata_api": "https://twitchemotes.com/channels/27031399",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Drainerx",
+        "https://twitchemotes.com/channels/27031399"
+      ]
+    },
+    {
+      "login": "ducksauce",
+      "twitch_id": "31606651",
+      "title": "Ducksauce",
+      "metadata_api": "https://twitchemotes.com/channels/31606651",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Ducksauce",
+        "https://twitchemotes.com/channels/31606651"
+      ]
+    },
+    {
+      "login": "erobb221",
+      "twitch_id": "96858382",
+      "title": "erobb221",
+      "metadata_api": "https://twitchemotes.com/channels/96858382",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/erobb221",
+        "https://twitchemotes.com/channels/96858382"
+      ]
+    },
+    {
+      "login": "esfandtv",
+      "twitch_id": "38746172",
+      "title": "EsfandTV",
+      "metadata_api": "https://twitchemotes.com/channels/38746172",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/EsfandTV",
+        "https://twitchemotes.com/channels/38746172"
+      ]
+    },
+    {
+      "login": "finalbosstv",
+      "twitch_id": "25584648",
+      "title": "FinalBossTV",
+      "metadata_api": "https://twitchemotes.com/channels/25584648",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/FinalBossTV",
+        "https://twitchemotes.com/channels/25584648"
+      ]
+    },
+    {
+      "login": "forsen",
+      "twitch_id": "22484632",
+      "title": "Forsen",
+      "metadata_api": "https://twitchemotes.com/channels/22484632",
+      "identity_sources": [
+        "https://api.frankerfacez.com/v1/room/id/22484632",
+        "https://twitchemotes.com/channels/22484632",
+        "https://hearthstone.blizzard.com/en-us/news/20356129"
+      ]
+    },
+    {
+      "login": "fragnance",
+      "twitch_id": "25084072",
+      "title": "fragNance",
+      "metadata_api": "https://twitchemotes.com/channels/25084072",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/fragNance",
+        "https://twitchemotes.com/channels/25084072"
+      ]
+    },
+    {
+      "login": "giantwaffle",
+      "twitch_id": "22552479",
+      "title": "Giantwaffle",
+      "metadata_api": "https://twitchemotes.com/channels/22552479",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Giantwaffle",
+        "https://twitchemotes.com/channels/22552479"
+      ]
+    },
+    {
+      "login": "graycen",
+      "twitch_id": "25743612",
+      "title": "graycen",
+      "metadata_api": "https://twitchemotes.com/channels/25743612",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/graycen",
+        "https://twitchemotes.com/channels/25743612"
+      ]
+    },
+    {
+      "login": "greekgodx",
+      "twitch_id": "15310631",
+      "title": "Greekgodx",
+      "metadata_api": "https://twitchemotes.com/channels/15310631",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Greekgodx",
+        "https://twitchemotes.com/channels/15310631"
+      ]
+    },
+    {
+      "login": "hey_jase",
+      "twitch_id": "41783686",
+      "title": "Hey_Jase",
+      "metadata_api": "https://twitchemotes.com/channels/41783686",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Hey_Jase",
+        "https://twitchemotes.com/channels/41783686"
+      ]
+    },
+    {
+      "login": "hirona",
+      "twitch_id": "39655944",
+      "title": "Hirona",
+      "metadata_api": "https://twitchemotes.com/channels/39655944",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Hirona",
+        "https://twitchemotes.com/channels/39655944"
+      ]
+    },
+    {
+      "login": "horsepants",
+      "twitch_id": "19092542",
+      "title": "HORSEPANTS",
+      "metadata_api": "https://twitchemotes.com/channels/19092542",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/HORSEPANTS",
+        "https://twitchemotes.com/channels/19092542"
+      ]
+    },
+    {
+      "login": "hydramist",
+      "twitch_id": "24981496",
+      "title": "Hydramist",
+      "metadata_api": "https://twitchemotes.com/channels/24981496",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Hydramist",
+        "https://twitchemotes.com/channels/24981496"
+      ]
+    },
+    {
+      "login": "imaqtpie",
+      "twitch_id": "24991333",
+      "title": "imaqtpie",
+      "metadata_api": "https://twitchemotes.com/channels/24991333",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/imaqtpie",
+        "https://twitchemotes.com/channels/24991333"
+      ]
+    },
+    {
+      "login": "jessecox",
+      "twitch_id": "24716782",
+      "title": "JesseCox",
+      "metadata_api": "https://twitchemotes.com/channels/24716782",
+      "identity_sources": [
+        "https://twitchemotes.com/channels/24716782",
+        "https://linktr.ee/JesseCox",
+        "https://www.imirt.ie/news/2016/3/6/imirt-inspire-5-jesse-cox"
+      ]
+    },
+    {
+      "login": "joshog",
+      "twitch_id": "54706574",
+      "title": "JoshOG",
+      "metadata_api": "https://twitchemotes.com/channels/54706574",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/JoshOG",
+        "https://twitchemotes.com/channels/54706574"
+      ]
+    },
+    {
+      "login": "lacari",
+      "twitch_id": "29400754",
+      "title": "Lacari",
+      "metadata_api": "https://twitchemotes.com/channels/29400754",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Lacari",
+        "https://twitchemotes.com/channels/29400754"
+      ]
+    },
+    {
+      "login": "legendarylea",
+      "twitch_id": "37116492",
+      "title": "LegendaryLea",
+      "metadata_api": "https://twitchemotes.com/channels/37116492",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/LegendaryLea",
+        "https://twitchemotes.com/channels/37116492"
+      ]
+    },
+    {
+      "login": "lirik",
+      "twitch_id": "23161357",
+      "title": "Lirik",
+      "metadata_api": "https://twitchemotes.com/channels/23161357",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Lirik",
+        "https://twitchemotes.com/channels/23161357"
+      ]
+    },
+    {
+      "login": "loltyler1",
+      "twitch_id": "51496027",
+      "title": "loltyler1",
+      "metadata_api": "https://twitchemotes.com/channels/51496027",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/loltyler1",
+        "https://twitchemotes.com/channels/51496027"
+      ]
+    },
+    {
+      "login": "marche",
+      "twitch_id": "67029440",
+      "title": "Marche",
+      "metadata_api": "https://twitchemotes.com/channels/67029440",
+      "identity_sources": [
+        "https://api.frankerfacez.com/v1/room/id/67029440",
+        "https://twitchemotes.com/channels/67029440",
+        "https://news.blizzard.com/en-us/article/21866651/echoes-of-alterac-call-to-arms-streamer-event"
+      ]
+    },
+    {
+      "login": "misterrogers",
+      "twitch_id": "148018215",
+      "title": "MisterRogers",
+      "metadata_api": "https://twitchemotes.com/channels/148018215",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/MisterRogers",
+        "https://twitchemotes.com/channels/148018215"
+      ]
+    },
+    {
+      "login": "mizkif",
+      "twitch_id": "94753024",
+      "title": "Mizkif",
+      "metadata_api": "https://twitchemotes.com/channels/94753024",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Mizkif",
+        "https://twitchemotes.com/channels/94753024"
+      ]
+    },
+    {
+      "login": "moonmoon",
+      "twitch_id": "121059319",
+      "title": "MOONMOON",
+      "metadata_api": "https://twitchemotes.com/channels/121059319",
+      "identity_sources": [
+        "https://api.frankerfacez.com/v1/room/id/121059319",
+        "https://twitchemotes.com/channels/121059319",
+        "https://x.com/MOONMOON_OW/with_replies"
+      ]
+    },
+    {
+      "login": "mrfruit",
+      "twitch_id": "56001630",
+      "title": "MrFruit",
+      "metadata_api": "https://twitchemotes.com/channels/56001630",
+      "identity_sources": [
+        "https://twitchemotes.com/channels/56001630",
+        "https://solo.to/mrfruit"
+      ]
+    },
+    {
+      "login": "nl_kripp",
+      "twitch_id": "29795919",
+      "title": "nl_Kripp",
+      "metadata_api": "https://twitchemotes.com/channels/29795919",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/nl_Kripp",
+        "https://twitchemotes.com/channels/29795919"
+      ]
+    },
+    {
+      "login": "nymn",
+      "twitch_id": "62300805",
+      "title": "nymn",
+      "metadata_api": "https://twitchemotes.com/channels/62300805",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/nymn",
+        "https://twitchemotes.com/channels/62300805"
+      ]
+    },
+    {
+      "login": "pajlada",
+      "twitch_id": "11148817",
+      "title": "pajlada",
+      "metadata_api": "https://twitchemotes.com/channels/11148817",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/pajlada",
+        "https://twitchemotes.com/channels/11148817"
+      ]
+    },
+    {
+      "login": "pikabooirl",
+      "twitch_id": "27992608",
+      "title": "Pikabooirl",
+      "metadata_api": "https://twitchemotes.com/channels/27992608",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/pikabooirl",
+        "https://twitchemotes.com/channels/27992608"
+      ]
+    },
+    {
+      "login": "pokelawls",
+      "twitch_id": "12943173",
+      "title": "Pokelawls",
+      "metadata_api": "https://twitchemotes.com/channels/12943173",
+      "identity_sources": [
+        "https://twitchemotes.com/channels/12943173",
+        "https://www.twitch.tv/pokelawls"
+      ]
+    },
+    {
+      "login": "preachlfw",
+      "twitch_id": "23857542",
+      "title": "Preachlfw",
+      "metadata_api": "https://twitchemotes.com/channels/23857542",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Preachlfw",
+        "https://twitchemotes.com/channels/23857542"
+      ]
+    },
+    {
+      "login": "psherotv",
+      "twitch_id": "26341777",
+      "title": "PsheroTV",
+      "metadata_api": "https://twitchemotes.com/channels/26341777",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/PsheroTV",
+        "https://twitchemotes.com/channels/26341777"
+      ]
+    },
+    {
+      "login": "quin69",
+      "twitch_id": "56649026",
+      "title": "Quin69",
+      "metadata_api": "https://twitchemotes.com/channels/56649026",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Quin69",
+        "https://twitchemotes.com/channels/56649026"
+      ]
+    },
+    {
+      "login": "rhabby_v",
+      "twitch_id": "58599870",
+      "title": "Rhabby_v",
+      "metadata_api": "https://twitchemotes.com/channels/58599870",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Rhabby_v",
+        "https://twitchemotes.com/channels/58599870"
+      ]
+    },
+    {
+      "login": "sco",
+      "twitch_id": "12665",
+      "title": "Sco",
+      "metadata_api": "https://twitchemotes.com/channels/12665",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Sco",
+        "https://twitchemotes.com/channels/12665"
+      ]
+    },
+    {
+      "login": "sequisha",
+      "twitch_id": "25458544",
+      "title": "Sequisha",
+      "metadata_api": "https://twitchemotes.com/channels/25458544",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Sequisha",
+        "https://twitchemotes.com/channels/25458544"
+      ]
+    },
+    {
+      "login": "sivhd",
+      "twitch_id": "27686136",
+      "title": "SivHD",
+      "metadata_api": "https://twitchemotes.com/channels/27686136",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/SivHD",
+        "https://twitchemotes.com/channels/27686136"
+      ]
+    },
+    {
+      "login": "sloot",
+      "twitch_id": "29363507",
+      "title": "Sloot",
+      "metadata_api": "https://twitchemotes.com/channels/29363507",
+      "identity_sources": [
+        "https://api.frankerfacez.com/v1/room/id/29363507",
+        "https://twitchemotes.com/channels/29363507",
+        "https://x.com/Slootbag/with_replies"
+      ]
+    },
+    {
+      "login": "sneakylol",
+      "twitch_id": "24538518",
+      "title": "Sneaky",
+      "metadata_api": "https://twitchemotes.com/channels/24538518",
+      "identity_sources": [
+        "https://blog.twitch.tv/en/2020/02/17/welcome-to-league-week-on-twitch-watch-compete-and-improve-your-game/",
+        "https://twitchemotes.com/channels/24538518"
+      ]
+    },
+    {
+      "login": "sodapoppin",
+      "twitch_id": "26301881",
+      "title": "sodapoppin",
+      "metadata_api": "https://twitchemotes.com/channels/26301881",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/sodapoppin",
+        "https://twitchemotes.com/channels/26301881"
+      ]
+    },
+    {
+      "login": "summit1g",
+      "twitch_id": "26490481",
+      "title": "Summit1g",
+      "metadata_api": "https://twitchemotes.com/channels/26490481",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Summit1g",
+        "https://twitchemotes.com/channels/26490481"
+      ]
+    },
+    {
+      "login": "swifty",
+      "twitch_id": "23524577",
+      "title": "Swifty",
+      "metadata_api": "https://twitchemotes.com/channels/23524577",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/swifty",
+        "https://twitchemotes.com/channels/23524577"
+      ]
+    },
+    {
+      "login": "timthetatman",
+      "twitch_id": "36769016",
+      "title": "TimTheTatman",
+      "metadata_api": "https://twitchemotes.com/channels/36769016",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/TimTheTatman",
+        "https://twitchemotes.com/channels/36769016"
+      ]
+    },
+    {
+      "login": "trainwreckstv",
+      "twitch_id": "71190292",
+      "title": "Trainwreckstv",
+      "metadata_api": "https://twitchemotes.com/channels/71190292",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Trainwreckstv",
+        "https://twitchemotes.com/channels/71190292"
+      ]
+    },
+    {
+      "login": "twitchpresents",
+      "twitch_id": "149747285",
+      "title": "TwitchPresents",
+      "metadata_api": "https://twitchemotes.com/channels/149747285",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/TwitchPresents",
+        "https://twitchemotes.com/channels/149747285"
+      ]
+    },
+    {
+      "login": "vinesauce",
+      "twitch_id": "25725272",
+      "title": "Vinesauce",
+      "metadata_api": "https://twitchemotes.com/channels/25725272",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/Vinesauce",
+        "https://twitchemotes.com/channels/25725272"
+      ]
+    },
+    {
+      "login": "witwix",
+      "twitch_id": "11558942",
+      "title": "witwix",
+      "metadata_api": "https://twitchemotes.com/channels/11558942",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/witwix",
+        "https://twitchemotes.com/channels/11558942"
+      ]
+    },
+    {
+      "login": "xaryu",
+      "twitch_id": "32085830",
+      "title": "Xaryu",
+      "metadata_api": "https://twitchemotes.com/channels/32085830",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/xaryu",
+        "https://twitchemotes.com/channels/32085830"
+      ]
+    },
+    {
+      "login": "xqc",
+      "twitch_id": "71092938",
+      "title": "xQc",
+      "metadata_api": "https://twitchemotes.com/channels/71092938",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/xQc",
+        "https://twitchemotes.com/channels/71092938"
+      ]
+    },
+    {
+      "login": "ziqoftw",
+      "twitch_id": "20567961",
+      "title": "Ziqoftw",
+      "metadata_api": "https://twitchemotes.com/channels/20567961",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/ziqoftw",
+        "https://twitchemotes.com/channels/20567961"
+      ]
+    },
+    {
+      "login": "zubatlel",
+      "twitch_id": "131376461",
+      "title": "ZubatLEL",
+      "metadata_api": "https://twitchemotes.com/channels/131376461",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/ZubatLEL",
+        "https://twitchemotes.com/channels/131376461"
+      ]
+    }
+  ],
+  "unavailable": [
+    {
+      "login": "chinglish",
+      "twitch_id": "4732150",
+      "reason": "Twitch catalog has no emote metadata"
+    },
+    {
+      "login": "destiny",
+      "twitch_id": "18074328",
+      "reason": "Public native catalog returned HTTP 500; DecAPI login unavailable",
+      "identity_source": "https://api.frankerfacez.com/v1/room/destiny"
+    },
+    {
+      "login": "gneko",
+      "twitch_id": "444821739",
+      "reason": "Twitch catalog has no emote metadata"
+    },
+    {
+      "login": "og_feedback",
+      "twitch_id": "808213664",
+      "reason": "Twitch catalog has no emote metadata"
+    },
+    {
+      "login": "suze",
+      "twitch_id": "592999263",
+      "reason": "Twitch catalog has no emote metadata"
+    },
+    {
+      "login": "taurendairyco",
+      "twitch_id": null,
+      "reason": "No public native Twitch catalog available"
+    },
+    {
+      "login": "typeg",
+      "twitch_id": "1395022336",
+      "reason": "Twitch catalog has no emote metadata"
+    }
+  ]
+}

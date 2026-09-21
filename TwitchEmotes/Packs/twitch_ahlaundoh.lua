@@ -1,0 +1,24 @@
+local addonName, E = ...
+-- Generated from provider sources; see packs/twitch_ahlaundoh.json.
+E:RegisterPack({
+  id = "twitch_ahlaundoh",
+  title = "Ahlaundoh",
+  provider = "Twitch",
+  priority = 20,
+  source = "https://www.twitch.tv/ahlaundoh",
+  group = "ahlaundoh",
+  groupTitle = "Ahlaundoh",
+  emotes = {
+    { name = "ahlBahld", id = "twitch:emotesv2_f003d31070634b339a8595ff716704ba", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_f003d31070634b339a8595ff716704ba", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_f003d31070634b339a8595ff716704ba.blp" },
+    { name = "ahlDervinCrafting", id = "twitch:emotesv2_8068468f61bc43f4a113f9a06372cf1d", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_8068468f61bc43f4a113f9a06372cf1d", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_8068468f61bc43f4a113f9a06372cf1d.blp" },
+    { name = "ahlGlaivedUp", id = "twitch:emotesv2_8d700d0beb8a4b6ea6e138df40cce1ac", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_8d700d0beb8a4b6ea6e138df40cce1ac", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_8d700d0beb8a4b6ea6e138df40cce1ac.blp" },
+    { name = "ahlGlaiveless", id = "twitch:emotesv2_083e3c1c94194cb2b05300b71591a5ae", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_083e3c1c94194cb2b05300b71591a5ae", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_083e3c1c94194cb2b05300b71591a5ae.blp" },
+    { name = "ahlLoot", id = "twitch:emotesv2_923e4c09f1af40a5994ceb0e850eb873", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_923e4c09f1af40a5994ceb0e850eb873", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_923e4c09f1af40a5994ceb0e850eb873.blp" },
+    { name = "ahlRatChest", id = "twitch:emotesv2_f7835bc69bd34b6cb843b5a316b2d914", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_f7835bc69bd34b6cb843b5a316b2d914", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_f7835bc69bd34b6cb843b5a316b2d914.blp" },
+    { name = "ahlRatto", id = "twitch:307463796", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/307463796", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\307463796.blp" },
+    { name = "ahlRattoFront", id = "twitch:emotesv2_a121e2a4b8324cd2a094aaf0c2c760fa", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_a121e2a4b8324cd2a094aaf0c2c760fa", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_a121e2a4b8324cd2a094aaf0c2c760fa.blp" },
+    { name = "ahlRattoSide", id = "twitch:emotesv2_2a86a404d52745038d6594fa0a767428", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_2a86a404d52745038d6594fa0a767428", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_2a86a404d52745038d6594fa0a767428.blp" },
+    { name = "ahlSquawk", id = "twitch:emotesv2_e51b49c2106946b6b64f1a20e2cd3d8e", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_e51b49c2106946b6b64f1a20e2cd3d8e", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_e51b49c2106946b6b64f1a20e2cd3d8e.blp" },
+    { name = "ahlWhyDagger", id = "twitch:emotesv2_7d361d2763054f8fa6da1605b381df32", width = 64, height = 64, frames = 1, fps = 0, cellWidth = 64, columns = 1, sheetWidth = 64, sheetHeight = 64, creator = "Ahlaundoh", source = "https://twitchemotes.com/channels/32093909/emotes/emotesv2_7d361d2763054f8fa6da1605b381df32", path = "Interface\\AddOns\\TwitchEmotes\\Media\\twitch\\emotesv2_7d361d2763054f8fa6da1605b381df32.blp" },
+  },
+})

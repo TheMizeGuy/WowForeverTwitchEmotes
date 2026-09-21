@@ -1,0 +1,49 @@
+{
+  "project_id": 1700569,
+  "name": "Twitch Emotes WoW Forever",
+  "slug": "twitch-emotes",
+  "summary": "Adds animated Twitch, 7TV, BetterTTV, and FrankerFaceZ emotes to WoW Forever chat, with search, autocomplete, favorites, and per-channel controls.",
+  "main_category": "Chat & Communication",
+  "additional_categories": [
+    "Twitch Integration"
+  ],
+  "game_flavors": [
+    "Forever"
+  ],
+  "game_versions": [
+    "1.60.1"
+  ],
+  "license": "All Rights Reserved",
+  "comments_enabled": true,
+  "icon": "assets/curseforge-icon.png",
+  "description": "release/curseforge-description.md",
+  "gallery": [
+    {
+      "file": "assets/screenshots/emote-browser.png",
+      "title": "Browse your emote collection",
+      "caption": "Search emote previews, manage favorites and hidden names, and enable a group directly from Browse.",
+      "width": 1069,
+      "height": 705,
+      "sha256": "3ca65cf21af21b863e12ee293a37c35a84e14e33b2c5e6d0daf75eebb07621a8",
+      "featured": true
+    },
+    {
+      "file": "assets/screenshots/chat-display-settings.png",
+      "title": "Customize emotes in chat",
+      "caption": "Adjust emote size and animation playback, choose chat types, and control which group supplies shared names.",
+      "width": 1062,
+      "height": 705,
+      "sha256": "81cf41916802145d90584741d44d42e4d7b2621680a1e970c6870f8bab41b46a",
+      "featured": false
+    },
+    {
+      "file": "assets/screenshots/channel-selection.png",
+      "title": "Choose your channel groups",
+      "caption": "Search 66 groups and tick the channels you want to see in chat, with General and five groups enabled by default.",
+      "width": 1069,
+      "height": 710,
+      "sha256": "e871854747f6d796cde07331f100f6ef5823b79a1dfee7980b15e051a94357e3",
+      "featured": false
+    }
+  ]
+}

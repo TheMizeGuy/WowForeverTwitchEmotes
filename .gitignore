@@ -1,0 +1,19 @@
+# agent/tool state, never shipped
+.claude/
+.serena/
+.anti-slop/
+.remember/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# packaging output
+/dist/
+*.zip
+
+# emote download cache for scripts/build-7tv-pack.py
+.cache/
+__pycache__/
+*.pyc
+.venv/

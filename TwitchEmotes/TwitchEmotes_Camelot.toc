@@ -1,0 +1,95 @@
+## Interface: 16001
+## Title: Twitch Emotes WoW Forever
+## IconTexture: Interface\Icons\INV_Misc_Dice_01
+## Author: TheMizeGuy
+## Notes: Animated chat emotes, a visual channel browser, favorites, and name completion.
+## Version: 3.0.0
+## Category: Chat & Communication
+## X-License: All Rights Reserved
+## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes
+## SavedVariables: ForeverEmotesDB, Emoticons_Settings, TwitchEmoteStatistics
+
+Core.lua
+Text.lua
+Packs\bttv_global.lua
+Packs\ffz_global.lua
+Packs\seventv_global.lua
+Packs\ahlaundoh.lua
+Packs\bttv_pikabooirl.lua
+Packs\bttv_swifty.lua
+Packs\graycen.lua
+Packs\summit1g.lua
+Packs\twitch_admiralbahroo.lua
+Packs\twitch_admiralbulldog.lua
+Packs\twitch_ahlaundoh.lua
+Packs\twitch_alinity.lua
+Packs\twitch_alkaizerx.lua
+Packs\twitch_anniefuchsia.lua
+Packs\twitch_asmongold.lua
+Packs\twitch_avoidingthepuddle.lua
+Packs\twitch_b0aty.lua
+Packs\twitch_bobross.lua
+Packs\twitch_cdewx.lua
+Packs\twitch_dansgaming.lua
+Packs\twitch_datto.lua
+Packs\twitch_drainerx.lua
+Packs\twitch_ducksauce.lua
+Packs\twitch_erobb221.lua
+Packs\twitch_esfandtv.lua
+Packs\twitch_finalbosstv.lua
+Packs\twitch_forsen.lua
+Packs\twitch_fragnance.lua
+Packs\twitch_giantwaffle.lua
+Packs\twitch_global.lua
+Packs\twitch_graycen.lua
+Packs\twitch_greekgodx.lua
+Packs\twitch_hey_jase.lua
+Packs\twitch_hirona.lua
+Packs\twitch_horsepants.lua
+Packs\twitch_hydramist.lua
+Packs\twitch_imaqtpie.lua
+Packs\twitch_jessecox.lua
+Packs\twitch_joshog.lua
+Packs\twitch_lacari.lua
+Packs\twitch_legendarylea.lua
+Packs\twitch_lirik.lua
+Packs\twitch_loltyler1.lua
+Packs\twitch_marche.lua
+Packs\twitch_misterrogers.lua
+Packs\twitch_mizkif.lua
+Packs\twitch_moonmoon.lua
+Packs\twitch_mrfruit.lua
+Packs\twitch_nl_kripp.lua
+Packs\twitch_nymn.lua
+Packs\twitch_pajlada.lua
+Packs\twitch_pikabooirl.lua
+Packs\twitch_pokelawls.lua
+Packs\twitch_preachlfw.lua
+Packs\twitch_psherotv.lua
+Packs\twitch_quin69.lua
+Packs\twitch_rhabby_v.lua
+Packs\twitch_sco.lua
+Packs\twitch_sequisha.lua
+Packs\twitch_sivhd.lua
+Packs\twitch_sloot.lua
+Packs\twitch_sneakylol.lua
+Packs\twitch_sodapoppin.lua
+Packs\twitch_summit1g.lua
+Packs\twitch_swifty.lua
+Packs\twitch_timthetatman.lua
+Packs\twitch_trainwreckstv.lua
+Packs\twitch_twitchpresents.lua
+Packs\twitch_vinesauce.lua
+Packs\twitch_witwix.lua
+Packs\twitch_xaryu.lua
+Packs\twitch_xqc.lua
+Packs\twitch_ziqoftw.lua
+Packs\twitch_zubatlel.lua
+Packs\xaryu.lua
+Packs\ziqoftw.lua
+Packs\ffz_pikabooirl.lua
+Packs\erobb221.lua
+Animation.lua
+UI.lua
+Completion.lua
+Runtime.lua
