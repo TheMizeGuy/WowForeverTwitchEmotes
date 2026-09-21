@@ -45,7 +45,7 @@ end
 function E:InitializeDB(saved, legacySettings, legacyStatistics)
     local s, old = tableOrEmpty(saved), tableOrEmpty(legacySettings)
     local migrate = type(saved) ~= "table"
-    local d = {schema=3, channels={}, packs={}, favorites={}, hidden={}, recent={}, stats={}}
+    local d = {schema=4, channels={}, packs={}, favorites={}, hidden={}, recent={}, stats={}}
     d.enabled = boolean(s.enabled, true)
     local savedSize=s.size
     if (type(s.schema)~="number" or s.schema<2) and savedSize==22 then savedSize=nil end
@@ -70,9 +70,10 @@ function E:InitializeDB(saved, legacySettings, legacyStatistics)
     for name, hidden in pairs(tableOrEmpty(s.hidden)) do
         if validName(name) and hidden == true and count < 8192 then d.hidden[name]=true; count=count+1 end
     end
-    -- Text faces and everyday chat words start hidden (schema 3 added <3, 1G, Retail and Classic); an explicit restore wins.
-    if type(s.schema)~="number" or s.schema<3 then
-        for _,name in ipairs({":)",":(",":O",":D","D:","<3","1G","Retail","Classic","classic","CLASSIC"}) do
+    -- Twitch's global text faces (every global name with punctuation), D:, and everyday chat or WoW words (BOP) start hidden;
+    -- schema 4 covers the whole face set. An explicit restore wins.
+    if type(s.schema)~="number" or s.schema<4 then
+        for _,name in ipairs({":)",":(",":O",":D","D:","8-)",":-(",":-)",":-/",":-\\",":-D",":-O",":-o",":-P",":-p",":-Z",":-z",":/",":\\",":o",":P",":p",":Z",":z",";)",";-)",";-P",";-p",";P",";p","<3",">(","B)","B-)","O.O","O.o","o.O","o.o","O_O","O_o","o_O","o_o","R)","R-)","1G","BOP","Retail","Classic","classic","CLASSIC"}) do
             if tableOrEmpty(s.hidden)[name]~=false then d.hidden[name]=true end
         end
     end

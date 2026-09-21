@@ -191,6 +191,17 @@ test("emote hover previews are throttled and release update scripts immediately"
     E:SetOption("animate", true)
 end)
 
+test("every Twitch global text face starts hidden with a fresh profile", function()
+    -- startup ran with no saved profile, so E.db.hidden holds the release defaults
+    local faces = 0
+    for _, entry in ipairs(E.packs.twitch_global.emotes) do
+        if entry.name:find("[^%w]") then faces = faces + 1; assert(E.db.hidden[entry.name], entry.name .. " must start hidden") end
+    end
+    assert(faces >= 40, "expected the Twitch global text faces to be registered")
+    for _, name in ipairs({"D:", "1G", "BOP", "Retail", "Classic"}) do assert(E.db.hidden[name], name .. " must start hidden") end
+    assert(not E.db.hidden.Kappa)
+end)
+
 test("registered texture dimensions match real TGA and BLP files and retain aspect ratio", function()
     local checked = {}
     local entries = { animated, wide }
@@ -247,6 +258,8 @@ test("Hidden view restores names across groups without enabling disabled channel
     E:SetGroupEnabled(group,false); E:OpenPanel("settings")
     B.find("Hidden emotes"):Click(); equal(E.ui.mode,"hidden")
     equal(E.ui.search:GetText(),""); equal(E.ui.groupTitle:GetText(),"Hidden emotes · all groups")
+    -- the release hides dozens of text faces, so the name can sit past the first page: search for it
+    E.ui.search:SetText(animated.name)
     local row
     for _,candidate in ipairs(E.ui.rows) do if candidate.entry and candidate.entry.name==animated.name then row=candidate; break end end
     assert(row,"hidden emote remains manageable while its channel is disabled")

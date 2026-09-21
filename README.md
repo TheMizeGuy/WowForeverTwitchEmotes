@@ -23,8 +23,8 @@ Click an emote in chat for its menu, then choose **Hide this emote** to display 
 name as ordinary text across channels and remove it from autocomplete.
 Restore individual names under **Browse > Hidden**
 or **Settings > Hidden emotes**. Shift-click still inserts a name into your draft.
-The text faces `:)`, `:(`, `:O`, `:D`, `D:`, and `<3`, and the chat words `1G`, `Retail`, and
-`Classic` start hidden. Restoring one overrides that default.
+Every Twitch global text face (`:)`, `:-P`, `:/`, `<3`, `O_o`, `B)` and the rest), `D:`, and the
+chat words `1G`, `BOP`, `Retail`, and `Classic` start hidden. Restoring one overrides that default.
 
 The purple and charcoal window includes a channel sidebar and a channel picker.
 Additional channels can be enabled individually. When names overlap,
