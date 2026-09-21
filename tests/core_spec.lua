@@ -319,19 +319,22 @@ end)
 
 test("larger defaults migrate once and preserve deliberately chosen sizes", function()
     local E=loadEngine(); equal(E.db.size,28)
-    E:InitializeDB({schema=1,size=22}); equal(E.db.size,28); equal(E.db.schema,2)
+    E:InitializeDB({schema=1,size=22}); equal(E.db.size,28); equal(E.db.schema,3)
     E:SetOption("size",22); E:InitializeDB(E.db); equal(E.db.size,22)
     E:InitializeDB({schema=1,size=35}); equal(E.db.size,35)
 end)
 
-test("common text faces start hidden and explicit restoration survives reload", function()
-    local E=loadEngine(); local faces={":)",":(",":O",":D","D:"}; local entries={}
+test("common text faces and chat words start hidden and explicit restoration survives reload", function()
+    local E=loadEngine(); local faces={":)",":(",":O",":D","D:","<3","1G","Retail","Classic","classic","CLASSIC"}; local entries={}
     for _,name in ipairs(faces) do entries[#entries+1]=entry(name) end
     E:RegisterPack({id="twitch_global",emotes=entries}); E:RebuildCatalog()
     for _,name in ipairs(faces) do equal(E:Transform(name),name); assert(E:IsEmoteHidden(name),name.." must start hidden") end
     E:SetEmoteHidden(":)",false); E:InitializeDB(E.db); E:RebuildCatalog()
     assert(E:GetEmote(":)")); equal(E:IsEmoteHidden(":)"),false); equal(E:IsEmoteHidden(":("),true)
     E:InitializeDB({schema=1,size=22}); E:RebuildCatalog(); equal(E:IsEmoteHidden(":)"),true)
+    -- a 3.0.0 install saved under schema 2 gains the new words but keeps a deliberate restore
+    E:InitializeDB({schema=2,hidden={Retail=false}}); E:RebuildCatalog()
+    equal(E:IsEmoteHidden("Retail"),false); equal(E:IsEmoteHidden("1G"),true); equal(E:IsEmoteHidden("<3"),true); equal(E.db.schema,3)
 end)
 
 print(string.format("core: %d passed, %d failed",passed,failed))

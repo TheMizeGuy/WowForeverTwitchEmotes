@@ -45,7 +45,7 @@ end
 function E:InitializeDB(saved, legacySettings, legacyStatistics)
     local s, old = tableOrEmpty(saved), tableOrEmpty(legacySettings)
     local migrate = type(saved) ~= "table"
-    local d = {schema=2, channels={}, packs={}, favorites={}, hidden={}, recent={}, stats={}}
+    local d = {schema=3, channels={}, packs={}, favorites={}, hidden={}, recent={}, stats={}}
     d.enabled = boolean(s.enabled, true)
     local savedSize=s.size
     if (type(s.schema)~="number" or s.schema<2) and savedSize==22 then savedSize=nil end
@@ -70,8 +70,9 @@ function E:InitializeDB(saved, legacySettings, legacyStatistics)
     for name, hidden in pairs(tableOrEmpty(s.hidden)) do
         if validName(name) and hidden == true and count < 8192 then d.hidden[name]=true; count=count+1 end
     end
-    if type(s.schema)~="number" or s.schema<2 then
-        for _,name in ipairs({":)",":(",":O",":D","D:"}) do
+    -- Text faces and everyday chat words start hidden (schema 3 added <3, 1G, Retail and Classic); an explicit restore wins.
+    if type(s.schema)~="number" or s.schema<3 then
+        for _,name in ipairs({":)",":(",":O",":D","D:","<3","1G","Retail","Classic","classic","CLASSIC"}) do
             if tableOrEmpty(s.hidden)[name]~=false then d.hidden[name]=true end
         end
     end
