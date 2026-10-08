@@ -2,7 +2,7 @@
 local addonName, E = ...
 
 E.title = "Twitch Emotes WoW Forever"
-E.version = "3.0.0"
+E.version = "3.0.1"
 E.addonName = addonName
 E.packs, E.packOrder, E.catalog, E.names = {}, {}, {}, {}
 E.revision = 0
@@ -42,22 +42,21 @@ function E:IsRestricted(value)
     return canaccessvalue and not canaccessvalue(value) or false
 end
 
-function E:InitializeDB(saved, legacySettings, legacyStatistics)
-    local s, old = tableOrEmpty(saved), tableOrEmpty(legacySettings)
-    local migrate = type(saved) ~= "table"
+function E:InitializeDB(saved)
+    local s = tableOrEmpty(saved)
     local d = {schema=4, channels={}, packs={}, favorites={}, hidden={}, recent={}, stats={}}
     d.enabled = boolean(s.enabled, true)
     local savedSize=s.size
     if (type(s.schema)~="number" or s.schema<2) and savedSize==22 then savedSize=nil end
     d.size = floor(number(savedSize, 28, 12, 40))
-    d.animate = boolean(s.animate, not (migrate and old.ENABLE_ANIMATEDEMOTES == false))
+    d.animate = boolean(s.animate, true)
     d.animationFPS = floor(number(s.animationFPS, 60, 5, 60))
-    d.minimap = boolean(s.minimap, not (migrate and old.MINIMAPBUTTON == false))
-    d.minimapAngle = number(s.minimapAngle, migrate and number(tableOrEmpty(old.MINIMAPDATA).minimapPos,220,0,360) or 220,0,360)
+    d.minimap = boolean(s.minimap, true)
+    d.minimapAngle = number(s.minimapAngle,220,0,360)
     d.setupComplete = boolean(s.setupComplete,false)
     d.preferredGroup = type(s.preferredGroup)=="string" and s.preferredGroup:match("^[%w_-]+$") and #s.preferredGroup<=64 and s.preferredGroup or nil
     for event in pairs(self.channelLabels) do
-        d.channels[event] = boolean(tableOrEmpty(s.channels)[event], not (migrate and old[event] == false))
+        d.channels[event] = boolean(tableOrEmpty(s.channels)[event], true)
     end
     for id, enabled in pairs(tableOrEmpty(s.packs)) do
         if type(id)=="string" and #id <= 64 and type(enabled)=="boolean" then d.packs[id]=enabled end
@@ -83,11 +82,9 @@ function E:InitializeDB(saved, legacySettings, legacyStatistics)
         if validName(name) and not recentSeen[name] then d.recent[#d.recent+1]=name; recentSeen[name]=true end
     end
     count=0
-    local stats = migrate and tableOrEmpty(legacyStatistics) or tableOrEmpty(s.stats)
-    for name, value in pairs(stats) do
+    for name, value in pairs(tableOrEmpty(s.stats)) do
         if validName(name) and type(value)=="table" and count < 8192 then
             local sent, seen = value.sent, value.seen
-            if migrate then sent,seen=value[2],value[3] end
             d.stats[name]={sent=floor(number(sent,0,0,2147483647)), seen=floor(number(seen,0,0,2147483647))}
             count=count+1
         end

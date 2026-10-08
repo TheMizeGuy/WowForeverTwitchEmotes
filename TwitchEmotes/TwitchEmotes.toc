@@ -3,11 +3,11 @@
 ## IconTexture: Interface\Icons\INV_Misc_Dice_01
 ## Author: TheMizeGuy
 ## Notes: Animated chat emotes, a visual channel browser, favorites, and name completion.
-## Version: 3.0.0
+## Version: 3.0.1
 ## Category: Chat & Communication
 ## X-License: All Rights Reserved
 ## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes
-## SavedVariables: ForeverEmotesDB, Emoticons_Settings, TwitchEmoteStatistics
+## SavedVariables: ForeverEmotesDB
 
 Core.lua
 Text.lua

@@ -43,10 +43,11 @@ chat input.
 
 Place the `TwitchEmotes` folder in the Forever client's `Interface/AddOns` directory.
 Keep the folder name `TwitchEmotes`. **Fully exit and restart WoW after installing
-3.0.0**, including updates from an earlier build: `/reload` alone can leave newly
+3.0.1**, including updates from an earlier build: `/reload` alone can leave newly
 installed textures as green boxes until the client restarts. Later Lua-only updates
 take `/reload`; new textures or a changed TOC require a restart. Preferences and usage are saved
-in `ForeverEmotesDB`; compatible existing preferences are imported automatically.
+in `ForeverEmotesDB`. Version 3.0.1 retains existing 3.x preferences and usage counts;
+it no longer imports settings or statistics from the earlier port.
 If preferences reset, `/te status` reports the settings received during startup and
 whether the active settings still match WoW's saved table.
 
@@ -104,7 +105,7 @@ testing; they do not emulate Blizzard's restricted execution engine or renderer.
 Run `luajit tests/integration_spec.lua` to load the actual TOC and all packs through
 the external WoW boundary. `python3 scripts/package.py` verifies every texture
 hash, format, TOC reference, playback sequence, and generated Lua manifest; add
-`--output dist/TwitchEmotes-3.0.0.zip` to create a release archive. Members are
+`--output dist/TwitchEmotes-3.0.1.zip` to create a release archive. Members are
 deflated in parallel (`--workers`) with libdeflate level 12, zopfli, or zlib level 9,
 whichever `--compressor auto` finds installed, always as an ordinary ZIP with fixed
 timestamps, so one install packs to the same bytes every time. The finished archive

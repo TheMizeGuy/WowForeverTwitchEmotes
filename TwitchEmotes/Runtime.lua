@@ -147,7 +147,7 @@ frame:SetScript("OnEvent",function(_,event,...)
         local loaded=...
         if loaded~=addonName then return end
         startupSettings[#startupSettings+1]="Saved at load: "..describeSettings(_G.ForeverEmotesDB)
-        _G.ForeverEmotesDB=E:InitializeDB(_G.ForeverEmotesDB,_G.Emoticons_Settings,_G.TwitchEmoteStatistics)
+        _G.ForeverEmotesDB=E:InitializeDB(_G.ForeverEmotesDB)
         _G.ForeverEmotesDB._startup=startupSettings
         E:PrepareSetup()
         E:RebuildCatalog(); clearCache()

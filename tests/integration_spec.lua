@@ -77,9 +77,19 @@ for _, entry in ipairs(E.names) do
 end
 assert(sample and animated and wide, "real packs must contain searchable, animated and wide emotes")
 
-test("actual startup migrates the published saved globals and initializes once", function()
-    equal(E.db, ForeverEmotesDB); equal(E.db.size, 28); equal(E.db.minimap, false)
-    equal(E:Stats(seed.name).sent, 5); equal(E:Stats(seed.name).seen, 7)
+test("both manifests persist only the native database and match the runtime version", function()
+    for _,name in ipairs({"TwitchEmotes.toc","TwitchEmotes_Camelot.toc"}) do
+        local file=assert(io.open(addonDirectory.."/"..name,"r"))
+        local text=file:read("*a"); file:close()
+        equal(text:match("## SavedVariables: ([^\r\n]+)"),"ForeverEmotesDB")
+        equal(text:match("## Version: ([^\r\n]+)"),E.version)
+    end
+end)
+
+test("actual startup ignores legacy saved globals and initializes once", function()
+    equal(E.db, ForeverEmotesDB); equal(E.db.size, 28); equal(E.db.minimap, true)
+    equal(E:Stats(seed.name).sent, 0); equal(E:Stats(seed.name).seen, 0)
+    equal(Emoticons_Settings.MINIMAPBUTTON,false); equal(TwitchEmoteStatistics[seed.name][2],5)
     assert(#E.names > 50, "expected real provider catalog")
     assert(not panelShownAtLogin, "startup must not open a configuration window")
     assert(not E.ui.panel or not E.ui.panel:IsShown(), "world entry must not open first-run setup")

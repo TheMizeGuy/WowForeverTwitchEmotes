@@ -136,12 +136,25 @@ test("unknown entries never grow saved usage", function()
     local E=setup(); for i=1,1000 do E:Record({"unknown"..i},"seen",i) end
     equal(next(E.db.stats),nil); equal(#E.db.recent,0)
 end)
-test("legacy preferences and usage migrate without sharing source tables", function()
-    local legacy={LARGEEMOTES=true, ENABLE_ANIMATEDEMOTES=false, MINIMAPBUTTON=false, CHAT_MSG_GUILD=false, MINIMAPDATA={minimapPos=45}}
-    local E=loadEngine(); E:InitializeDB(nil,legacy,{KEKW={"ignored",4,8}})
+test("native preferences and usage load without sharing source tables", function()
+    local saved={schema=4,animate=false,minimap=false,minimapAngle=45,channels={CHAT_MSG_GUILD=false},stats={KEKW={sent=4,seen=8}}}
+    local E=loadEngine(); E:InitializeDB(saved)
     equal(E.db.animate,false); equal(E.db.minimap,false); equal(E.db.channels.CHAT_MSG_GUILD,false); equal(E.db.size,28); equal(E.db.minimapAngle,45)
     equal(E:Stats("KEKW").sent,4); equal(E:Stats("KEKW").seen,8)
-    E.db.channels.CHAT_MSG_GUILD=true; equal(legacy.CHAT_MSG_GUILD,false)
+    E.db.channels.CHAT_MSG_GUILD=true; E.db.stats.KEKW.sent=9
+    equal(saved.channels.CHAT_MSG_GUILD,false); equal(saved.stats.KEKW.sent,4)
+end)
+
+test("fresh settings ignore legacy arguments without reading their schema", function()
+    local legacy=setmetatable({}, {__index=function() error("legacy settings were read") end})
+    local E=loadEngine(); E:InitializeDB(nil,legacy,{KEKW={"ignored",4,8}})
+    equal(E.db.animate,true); equal(E.db.minimap,true); equal(E.db.minimapAngle,220)
+    equal(E.db.channels.CHAT_MSG_GUILD,true); equal(next(E.db.stats),nil)
+end)
+
+test("legacy statistics never populate a fresh native database", function()
+    local E=loadEngine(); E:InitializeDB(nil,{}, {KEKW={"ignored",4,8}})
+    equal(next(E.db.stats),nil)
 end)
 test("corrupt saved state and options are sanitized", function()
     local E=loadEngine(); E:InitializeDB({size=math.huge,animationFPS=-3,channels="bad",packs=false,stats={x={sent=-3,seen="bad"}},recent=false,minimapAngle=0/0})

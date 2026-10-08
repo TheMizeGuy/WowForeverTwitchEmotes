@@ -54,7 +54,7 @@ local function setup(saved)
     world.eventFrame=world.frames[1]
     world.eventFrame:Fire("ADDON_LOADED","TwitchEmotes")
     world.eventFrame:Fire("PLAYER_LOGIN")
-    world.migratedMinimap=E.db.minimap; world.migratedSent=E:Stats("KEKW").sent
+    world.loadedMinimap=E.db.minimap; world.loadedSent=E:Stats("KEKW").sent; world.loadedSeen=E:Stats("KEKW").seen
     E.db.stats={}
     function world:Chat(text,guid,id,event)
         self.eventFrame:Fire(event or "CHAT_MSG_SAY",text,"Name","Common","",nil,nil,0,0,"",0,id,guid,0,false,nil,nil,nil,nil)
@@ -87,7 +87,13 @@ test("login initializes once and slash command opens picker",function()
     local E,w=setup(); equal(E.db,ForeverEmotesDB); equal(w.ui,1)
     w.eventFrame:Fire("PLAYER_LOGIN"); equal(w.ui,1)
     assert(w.filters.CHAT_MSG_SAY); SlashCmdList.FOREVEREMOTES(""); equal(w.open,true)
-    equal(w.migratedMinimap,false); equal(w.migratedSent,2)
+    equal(w.loadedMinimap,true); equal(w.loadedSent,0); equal(w.loadedSeen,0)
+end)
+
+test("startup retains native preferences and statistics despite legacy globals",function()
+    local E,w=setup({schema=4,minimap=false,stats={KEKW={sent=9,seen=11}}})
+    equal(E.db,ForeverEmotesDB); equal(w.loadedMinimap,false)
+    equal(w.loadedSent,9); equal(w.loadedSeen,11)
 end)
 
 test("status distinguishes missing saved data from loaded preferences before defaults",function()
