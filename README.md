@@ -122,9 +122,15 @@ temporal cleanup, sequences, layout, allocation, shared references, quality fall
 and repeatable conversion. Run
 `python3 tests/test_pack_builder.py` after changing the builder or its publication logic.
 
-`scripts/deploy.sh [ssh-host] [addons-dir]` stages and verifies every file before
-replacing this addon's folder. It defaults to the author's WoW Forever client
-(`_forever_`) on `mizepc`; pass another client's `Interface\AddOns` path to deploy there.
+`scripts/deploy.sh [ssh-host] [addons-dir] [--replace-foreign]` stages and verifies
+every file before replacing this addon's folder. It defaults to the author's WoW Forever
+client (`_forever_`) on `mizepc`; pass another client's `Interface\AddOns` path to deploy
+there. It refuses a path whose client folder, two levels above `AddOns`, holds neither
+`.flavor.info` nor a `Wow*.exe`, so a mistyped path creates nothing. It also refuses to
+replace a `TwitchEmotes` folder whose TOC lacks `## Author: TheMizeGuy`, such as another
+addon published under that folder name, unless `--replace-foreign` is given. The folder it
+replaces is moved to `TwitchEmotes.previous-<yyyyMMddHHmmss>` in the same `AddOns` folder,
+which the client ignores; delete it by hand once the new build works.
 
 ## Rights
 
