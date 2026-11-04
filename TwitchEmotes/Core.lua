@@ -42,6 +42,15 @@ local function powerOfTwo(value)
     while value > 1 do if value % 2 ~= 0 then return false end; value = value / 2 end
     return true
 end
+local function byName(a,b)
+    if a.searchName==b.searchName then if a.name==b.name then return a.packID<b.packID end; return a.name<b.name end
+    return a.searchName<b.searchName
+end
+local function byCompletion(a,b)
+    if a.completionName==b.completionName then if a.name==b.name then return a.packID<b.packID end; return a.name<b.name end
+    return a.completionName<b.completionName
+end
+local sortedEntries, completionEntries
 E.ValidEmoteName = validName
 
 function E:IsRestricted(value)
@@ -151,42 +160,52 @@ function E:RegisterPack(def)
     end
     if not self.packs[def.id] then self.packOrder[#self.packOrder+1]=def.id end
     self.packs[def.id]=pack
+    sortedEntries=nil
+end
+
+-- Settings never change this index: the preferred-group bonus is equal within a group, so each group's winner is fixed.
+local function indexPacks(self)
+    local known,groups,groupPriority,entries,winners,browseNames={},{},{},{},{},{}
+    for _, id in ipairs(self.packOrder) do
+        local pack=self.packs[id]
+        local group,ranks=groups[pack.group] or {},groupPriority[pack.group] or {}
+        groups[pack.group],groupPriority[pack.group]=group,ranks
+        for _, entry in ipairs(pack.emotes) do
+            known[entry.name]=true; entries[#entries+1]=entry
+            if not ranks[entry.name] or pack.priority>=ranks[entry.name] then group[entry.name]=entry; ranks[entry.name]=pack.priority end
+        end
+    end
+    local completion={}; for i,entry in ipairs(entries) do completion[i]=entry end
+    table.sort(entries,byName); table.sort(completion,byCompletion)
+    for _,group in pairs(groups) do for _,entry in pairs(group) do winners[entry]=true end end
+    for _,entry in ipairs(entries) do if winners[entry] then browseNames[#browseNames+1]=entry end end
+    sortedEntries,completionEntries=entries,completion
+    self.known,self.browseNames=known,browseNames
 end
 
 function E:RebuildCatalog()
     if not self.db then self:InitializeDB() end
-    local catalog,priority,known,available,allPriority,groups,groupPriority={},{},{},{},{},{},{}
+    if not sortedEntries then indexPacks(self) end
+    local catalog,priority,available,allPriority={},{},{},{}
+    local hidden,choices,preferred=self.db.hidden,self.db.packs,self.db.preferredGroup
     for _, id in ipairs(self.packOrder) do
         local pack=self.packs[id]
-        local rank=pack.priority+(pack.group==self.db.preferredGroup and 10000 or 0)
-        groups[pack.group]=groups[pack.group] or {}; groupPriority[pack.group]=groupPriority[pack.group] or {}
+        local rank=pack.priority+(pack.group==preferred and 10000 or 0)
+        local enabled=choices[id]~=false
         for _, entry in ipairs(pack.emotes) do
-            known[entry.name]=true
-            if not allPriority[entry.name] or rank>=allPriority[entry.name] then
-                available[entry.name]=entry; allPriority[entry.name]=rank
-            end
-            if not groupPriority[pack.group][entry.name] or rank>=groupPriority[pack.group][entry.name] then
-                groups[pack.group][entry.name]=entry; groupPriority[pack.group][entry.name]=rank
-            end
-            if not self.db.hidden[entry.name] and self.db.packs[id]~=false and (not priority[entry.name] or rank>=priority[entry.name]) then
-                catalog[entry.name]=entry; priority[entry.name]=rank
-            end
+            local name=entry.name
+            if not allPriority[name] or rank>=allPriority[name] then available[name]=entry; allPriority[name]=rank end
+            if enabled and not hidden[name] and (not priority[name] or rank>=priority[name]) then catalog[name]=entry; priority[name]=rank end
         end
     end
-    local names,browseNames,hiddenNames={},{},{}
-    for _, entry in pairs(catalog) do names[#names+1]=entry end
-    for _,group in pairs(groups) do for _,entry in pairs(group) do browseNames[#browseNames+1]=entry end end
-    for name in pairs(self.db.hidden) do if available[name] then hiddenNames[#hiddenNames+1]=available[name] end end
-    local function byName(a,b)
-        if a.searchName==b.searchName then if a.name==b.name then return a.packID<b.packID end; return a.name<b.name end
-        return a.searchName<b.searchName
-    end
-    table.sort(names,byName); table.sort(browseNames,byName); table.sort(hiddenNames,byName)
-    local completionNames={}; for i,entry in ipairs(names) do completionNames[i]=entry end
-    table.sort(completionNames,function(a,b) if a.completionName==b.completionName then return a.name<b.name end; return a.completionName<b.completionName end)
-    self.catalog,self.names,self.known,self.completionNames=catalog,names,known,completionNames
-    self.available,self.browseNames,self.hiddenNames=available,browseNames,hiddenNames
-    for i=#self.db.recent,1,-1 do if not known[self.db.recent[i]] then table.remove(self.db.recent,i) end end
+    local names,completionNames,hiddenNames={},{},{}
+    for _,entry in ipairs(sortedEntries) do if catalog[entry.name]==entry then names[#names+1]=entry end end
+    for _,entry in ipairs(completionEntries) do if catalog[entry.name]==entry then completionNames[#completionNames+1]=entry end end
+    for name in pairs(hidden) do if available[name] then hiddenNames[#hiddenNames+1]=available[name] end end
+    table.sort(hiddenNames,byName)
+    self.catalog,self.names,self.completionNames=catalog,names,completionNames
+    self.available,self.hiddenNames=available,hiddenNames
+    for i=#self.db.recent,1,-1 do if not self.known[self.db.recent[i]] then table.remove(self.db.recent,i) end end
     self.revision=self.revision+1
     if self.BuildMatcher then self:BuildMatcher() end
 end

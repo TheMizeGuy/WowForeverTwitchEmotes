@@ -356,6 +356,49 @@ test("saved row limits keep a whole profile and stay above every shipped name", 
     assert(known<limit, known.." distinct shipped names reach the saved row limit "..limit)
 end)
 
+test("toggles reuse the pack index instead of resorting it until a pack registers", function()
+    local E=loadEngine(); local entries={}
+    for i=1,40 do entries[i]=entry("emote"..i) end
+    E:RegisterPack({id="base",emotes=entries})
+    E:RegisterPack({id="channel",group="channel",priority=20,emotes={entry("emote1"),entry("emote2"),entry(":emote2")}})
+    E:RebuildCatalog()
+    local browse,known,realSort,sorted=E.browseNames,E.known,table.sort,0
+    table.sort=function(t,f) if #t>5 then sorted=sorted+1 end; return realSort(t,f) end
+    local ok,err=pcall(function()
+        assert(E:SetEmoteHidden("emote3",true)); E:SetGroupEnabled("channel",false); E:SetPackEnabled("base",true)
+        E:SetGroupEnabled("channel",true); E:SetOption("preferredGroup","base")
+    end)
+    table.sort=realSort; assert(ok,err)
+    equal(sorted,0); assert(E.browseNames==browse,"browse list was rebuilt"); assert(E.known==known,"known names were rebuilt")
+    equal(E:GetEmote("emote1").packID,"base"); equal(E:GetEmote("emote3"),nil)
+    E:RegisterPack({id="late",emotes={entry("lateEmote")}}); E:RebuildCatalog()
+    assert(E.browseNames~=browse); assert(E.known.lateEmote); assert(E:GetEmote("lateEmote"))
+    assert(E:Transform("lateEmote")~="lateEmote"); equal(E:Complete(":late",5).entries[1].name,"lateEmote")
+end)
+
+test("filtered catalog lists equal a fresh sort in every settings state", function()
+    local E=realPacks()
+    local function byName(a,b)
+        if a.searchName==b.searchName then if a.name==b.name then return a.packID<b.packID end; return a.name<b.name end
+        return a.searchName<b.searchName
+    end
+    local function byCompletion(a,b) if a.completionName==b.completionName then return a.name<b.name end; return a.completionName<b.completionName end
+    local function check(label)
+        local names,completion={},{}
+        for _,e in pairs(E.catalog) do names[#names+1]=e; completion[#completion+1]=e end
+        table.sort(names,byName); table.sort(completion,byCompletion)
+        assert(#E.names==#names and #E.completionNames==#names,label.." list length")
+        for i=1,#names do
+            assert(E.names[i]==names[i],label.." names differ at "..i); assert(E.completionNames[i]==completion[i],label.." completion differs at "..i)
+        end
+    end
+    check("default groups")
+    for _,id in ipairs(E.packOrder) do E.db.packs[id]=true end; E:RebuildCatalog(); check("all packs")
+    E:SetOption("preferredGroup","xqc"); check("preferred group")
+    local n=0; for name in pairs(E.known) do if n<200 then E.db.hidden[name]=true; n=n+1 end end
+    E:RebuildCatalog(); check("hidden names")
+end)
+
 test("browsing disabled groups shows their own deduplicated catalog", function()
     local E=setup()
     E:RegisterPack({id="channel",group="channel",priority=20,emotes={entry("KEKW"),entry("exclusive")}})
