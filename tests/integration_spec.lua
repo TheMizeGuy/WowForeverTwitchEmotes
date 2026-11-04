@@ -33,11 +33,18 @@ B.chats = { chat }
 local modules = { ["Core.lua"] = true, ["Text.lua"] = true, ["UI.lua"] = true, ["Completion.lua"] = true, ["Animation.lua"] = true, ["Runtime.lua"] = true }
 local expectedPacks = { "bttv_global", "ffz_global", "seventv_global", "graycen", "erobb221" }
 for _, id in ipairs(expectedPacks) do modules["Packs/" .. id .. ".lua"] = true end
--- One manifest per client family. Forever (game type camelot) reads the Mainline manifest, so that one carries both numbers.
+-- One manifest per game type plus the Mainline family fallback, which retail (Standard) and Forever (Camelot) read
+-- only when their own manifest is missing, so it carries both numbers. Titles name the game version.
 local manifests = {
     ["TwitchEmotes.toc"] = "120105, 50504, 20506, 11509, 16001", ["TwitchEmotes_Mainline.toc"] = "120105, 16001",
+    ["TwitchEmotes_Standard.toc"] = "120105", ["TwitchEmotes_Camelot.toc"] = "16001",
     ["TwitchEmotes_Mists.toc"] = "50504", ["TwitchEmotes_TBC.toc"] = "20506", ["TwitchEmotes_Vanilla.toc"] = "11509",
-    ["TwitchEmotes_Camelot.toc"] = "16001",
+}
+local titles = {
+    ["TwitchEmotes.toc"] = "Twitch Emotes", ["TwitchEmotes_Mainline.toc"] = "Twitch Emotes",
+    ["TwitchEmotes_Standard.toc"] = "Twitch Emotes (Retail)", ["TwitchEmotes_Camelot.toc"] = "Twitch Emotes (WoW Forever)",
+    ["TwitchEmotes_Mists.toc"] = "Twitch Emotes (Mists Classic)", ["TwitchEmotes_TBC.toc"] = "Twitch Emotes (TBC Anniversary)",
+    ["TwitchEmotes_Vanilla.toc"] = "Twitch Emotes (Classic Era)",
 }
 local function readManifest(name)
     local toc = assert(io.open(addonDirectory .. "/" .. name, "r"))
@@ -98,12 +105,13 @@ for _, entry in ipairs(E.names) do
 end
 assert(sample and animated and wide, "real packs must contain searchable, animated and wide emotes")
 
-test("every manifest persists only the native database and matches the runtime version", function()
+test("every manifest persists only the native database, matches the runtime version and names its game version", function()
     for name in pairs(manifests) do
         local file=assert(io.open(addonDirectory.."/"..name,"r"))
         local text=file:read("*a"); file:close()
         equal(text:match("## SavedVariables: ([^\r\n]+)"),"ForeverEmotesDB")
         equal(text:match("## Version: ([^\r\n]+)"),E.version)
+        equal(text:match("## Title: ([^\r\n]+)"),titles[name],name)
     end
 end)
 

@@ -46,10 +46,12 @@ chat input.
 
 Place the `TwitchEmotes` folder in the client's `Interface/AddOns` directory (`_retail_`,
 `_classic_`, `_anniversary_`, `_classic_era_`, or `_forever_`). Keep the folder name
-`TwitchEmotes`. One install serves every client: each family reads its own manifest
-(`TwitchEmotes_Mainline.toc` for Retail and Forever, `_Mists`, `_TBC`, `_Vanilla`, with
-`TwitchEmotes.toc` as the fallback), all listing the same files. The Interface numbers are
-the live builds the release was audited against: 120105, 50504, 20506, 11509, and 16001.
+`TwitchEmotes`. One install serves every client: each game type reads its own manifest
+(`TwitchEmotes_Standard.toc` for Retail, `_Camelot` for Forever, `_Mists`, `_TBC`, `_Vanilla`;
+`_Mainline` is the family fallback Retail and Forever share, and `TwitchEmotes.toc` the last
+resort), all listing the same files and each titled for its game version in the AddOn List,
+such as "Twitch Emotes (Classic Era)". The Interface numbers are the live builds the release
+was audited against: 120105, 50504, 20506, 11509, and 16001.
 **Fully exit and restart WoW after installing 3.1.0**, including updates from an earlier
 build: `/reload` alone can leave newly installed textures as green boxes until the client
 restarts. Later Lua-only updates take `/reload`; new textures or a changed TOC require a

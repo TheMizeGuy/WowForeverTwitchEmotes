@@ -24,15 +24,15 @@ MODULES = ('Core.lua', 'Text.lua', 'Animation.lua', 'UI.lua', 'Completion.lua', 
 builder = {}
 
 
-def toc_text(interface, modules=MODULES):
-    header = ['## Interface: ' + interface, '## Title: Twitch Emotes', '## Author: TheMizeGuy',
+def toc_text(interface, modules=MODULES, title='Twitch Emotes'):
+    header = ['## Interface: ' + interface, '## Title: ' + title, '## Author: TheMizeGuy',
               '## Version: 3.1.0', '## X-License: All Rights Reserved', '## SavedVariables: ForeverEmotesDB', '']
     return '\n'.join(header + list(modules) + ['Packs\\first.lua', ''])
 
 
 def write_tocs(addon, modules=MODULES):
     for name, interface in package.FLAVOR_TOCS.items():
-        (addon / name).write_text(toc_text(interface, modules))
+        (addon / name).write_text(toc_text(interface, modules, package.FLAVOR_TITLES[name]))
 
 
 def render_lua(pack):
@@ -114,15 +114,19 @@ class VerifyTests(unittest.TestCase):
                 'Packs/first.lua', 'LICENSE', 'ASSET-NOTICES.md',
                 'Media/7tv/catjam.blp', 'Media/7tv/gz.tga', 'Media/UI/TwitchGlitch.tga'})
 
-    def test_every_client_family_has_a_manifest_with_its_own_interface(self):
+    def test_every_game_type_has_a_manifest_with_its_own_interface_and_title(self):
         self.assertEqual(set(package.FLAVOR_TOCS), {'TwitchEmotes.toc', 'TwitchEmotes_Mainline.toc',
+                                                    'TwitchEmotes_Standard.toc', 'TwitchEmotes_Camelot.toc',
                                                     'TwitchEmotes_Mists.toc', 'TwitchEmotes_TBC.toc',
-                                                    'TwitchEmotes_Vanilla.toc', 'TwitchEmotes_Camelot.toc'})
-        self.assertIn('16001', package.FLAVOR_TOCS['TwitchEmotes_Mainline.toc'].split(', '),
-                      'Forever loads the Mainline manifest, so it must list the Forever interface')
+                                                    'TwitchEmotes_Vanilla.toc'})
+        self.assertEqual(set(package.FLAVOR_TITLES), set(package.FLAVOR_TOCS))
+        for name in ('TwitchEmotes_Standard.toc', 'TwitchEmotes_Camelot.toc'):
+            self.assertIn(package.FLAVOR_TOCS[name], package.FLAVOR_TOCS['TwitchEmotes_Mainline.toc'].split(', '),
+                          'retail and Forever fall back to the Mainline manifest, so it must list their interfaces')
         for name, interface in package.FLAVOR_TOCS.items():
             for value in interface.split(', '):
                 self.assertRegex(value, r'^\d{5,6}$', name)
+            self.assertTrue(package.FLAVOR_TITLES[name].startswith('Twitch Emotes'), name)
 
     def test_a_manifest_with_the_wrong_interface_or_file_list_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -135,8 +139,16 @@ class VerifyTests(unittest.TestCase):
             root = Path(directory)
             fixture(root)
             (root / 'TwitchEmotes/TwitchEmotes_Mists.toc').write_text(
-                toc_text(package.FLAVOR_TOCS['TwitchEmotes_Mists.toc'], MODULES[:-1]))
+                toc_text(package.FLAVOR_TOCS['TwitchEmotes_Mists.toc'], MODULES[:-1],
+                         package.FLAVOR_TITLES['TwitchEmotes_Mists.toc']))
             with self.assertRaisesRegex(ValueError, 'TwitchEmotes_Mists.toc differs'):
+                package.verify(root)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture(root)
+            (root / 'TwitchEmotes/TwitchEmotes_Camelot.toc').write_text(
+                toc_text(package.FLAVOR_TOCS['TwitchEmotes_Camelot.toc'], title='Twitch Emotes (Retail)'))
+            with self.assertRaisesRegex(ValueError, 'TwitchEmotes_Camelot.toc must declare "## Title'):
                 package.verify(root)
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

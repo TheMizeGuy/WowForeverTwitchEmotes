@@ -17,15 +17,27 @@ import zlib
 from texture_formats import texture_dimensions
 
 COMPRESSORS = ('libdeflate', 'zopfli', 'zlib')
-# One manifest per client family; the Interface values are the live builds the release was audited against.
-# Forever (game type camelot) reads the Mainline manifest, so that one lists both interface numbers.
+# One manifest per game type plus the Mainline family fallback; the Interface values are the live builds the
+# release was audited against. A client reads its game-type manifest (Standard for retail, Camelot for Forever)
+# before the family one and the bare TOC, so Mainline lists both of its numbers and the bare TOC lists every one.
 FLAVOR_TOCS = {
     'TwitchEmotes.toc': '120105, 50504, 20506, 11509, 16001',
     'TwitchEmotes_Mainline.toc': '120105, 16001',
+    'TwitchEmotes_Standard.toc': '120105',
+    'TwitchEmotes_Camelot.toc': '16001',
     'TwitchEmotes_Mists.toc': '50504',
     'TwitchEmotes_TBC.toc': '20506',
     'TwitchEmotes_Vanilla.toc': '11509',
-    'TwitchEmotes_Camelot.toc': '16001',
+}
+# The AddOn List title names the game version; the fallbacks that several clients could read stay generic.
+FLAVOR_TITLES = {
+    'TwitchEmotes.toc': 'Twitch Emotes',
+    'TwitchEmotes_Mainline.toc': 'Twitch Emotes',
+    'TwitchEmotes_Standard.toc': 'Twitch Emotes (Retail)',
+    'TwitchEmotes_Camelot.toc': 'Twitch Emotes (WoW Forever)',
+    'TwitchEmotes_Mists.toc': 'Twitch Emotes (Mists Classic)',
+    'TwitchEmotes_TBC.toc': 'Twitch Emotes (TBC Anniversary)',
+    'TwitchEmotes_Vanilla.toc': 'Twitch Emotes (Classic Era)',
 }
 ENCODER_MODULES = {'libdeflate': 'deflate', 'zopfli': 'zopfli.zlib', 'zlib': 'zlib'}
 ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
@@ -144,17 +156,19 @@ def playback_sequence(entry):
 
 
 def verify_tocs(addon):
-    """Every flavor manifest carries its own Interface line and is otherwise identical; return the shared lines."""
+    """Every flavor manifest carries its own Interface and Title lines and is otherwise identical; return the shared lines."""
     shared = None
     for name, interface in FLAVOR_TOCS.items():
         lines = (addon / name).read_text().splitlines()
         if ('## Interface: ' + interface) not in lines:
             raise ValueError(f'{name} must declare "## Interface: {interface}"')
-        rest = [line for line in lines if not line.startswith('## Interface:')]
+        if ('## Title: ' + FLAVOR_TITLES[name]) not in lines:
+            raise ValueError(f'{name} must declare "## Title: {FLAVOR_TITLES[name]}"')
+        rest = [line for line in lines if not line.startswith(('## Interface:', '## Title:'))]
         if shared is None:
             shared = rest
         elif rest != shared:
-            raise ValueError(name + ' differs from the other manifests beyond its Interface line')
+            raise ValueError(name + ' differs from the other manifests beyond its Interface and Title lines')
     for directive in ('## Author: TheMizeGuy', '## X-License: All Rights Reserved', '## SavedVariables: ForeverEmotesDB'):
         if directive not in shared:
             raise ValueError('missing TOC metadata: ' + directive)

@@ -1,5 +1,5 @@
 ## Interface: 11509
-## Title: Twitch Emotes WoW Forever
+## Title: Twitch Emotes (Classic Era)
 ## IconTexture: Interface\Icons\INV_Misc_Dice_01
 ## Author: TheMizeGuy
 ## Notes: Animated chat emotes, a visual channel browser, favorites, and name completion.
