@@ -222,9 +222,9 @@ test("each tick checks a chat frame once, not once per line",function()
     local E,w=setup(); local f=w:Attached(6)
     for i=1,6 do f:AddMessage(E:Transform("catJAM "..i)) end
     f:Update(); equal(w:Live(),1)
-    f.calls.IsShown=0
+    f.calls.IsShown,f.calls.GetTop=0,0
     w:Tick(0.15)
-    equal(f.calls.IsShown,1,"frame IsShown per tick")
+    equal(f.calls.IsShown,1,"frame IsShown per tick"); equal(f.calls.GetTop,1,"container GetTop per tick")
     for slot=1,6 do equal(f.visibleLines[slot].writes,1,"slot "..slot) end
 end)
 
@@ -244,6 +244,28 @@ test("a line with more than 16 emotes shows still frames and never ticks",functi
     w:Tick(0.92)
     equal(f.visibleLines[1].writes,slots[1]+1,"three emotes animate"); equal(f.visibleLines[2].writes,slots[2]+1,"sixteen emotes animate")
     equal(f.visibleLines[3].writes,slots[3],"seventeen emotes stay still"); equal(f.visibleLines[4].writes,slots[4],"128 emotes stay still")
+end)
+
+test("slots above the clipped container neither animate nor start the ticker",function()
+    local E,w=setup(); local f=w:Attached(2,28)
+    f:AddMessage(E:Transform("catJAM")); f:AddMessage(E:Transform("KEKW"),2); f:Update()
+    local above=f.visibleLines[2]
+    equal(above.bottom,28); equal(above.shown,true); equal(w:Live(),0)
+    f=w:Attached(2,28)
+    f:AddMessage(E:Transform("catJAM")); f:AddMessage(E:Transform("catJAM"),2); f:Update()
+    local below; below,above=f.visibleLines[1],f.visibleLines[2]
+    equal(above.bottom,28); equal(w:Live(),1)
+    w:Tick(0.15); equal(below.writes,1); equal(above.writes,0)
+    below.bottom=40; w:Tick(0.25); equal(below.writes,1); equal(w:Live(),0)
+end)
+
+test("unreadable geometry never hides a line",function()
+    local E,w=setup(); local f=w:Attached(2,28)
+    f.top=w.secret; f:AddMessage(E:Transform("catJAM")); f:AddMessage(E:Transform("KEKW"),2); f:Update()
+    local line=f.visibleLines[2]; equal(line.bottom,28); equal(w:Live(),1)
+    w:Tick(0.15); equal(line.writes,1)
+    f.top=nil; line.bottom=w.secret; w:Tick(0.25); equal(line.writes,2)
+    f.top=false; line.bottom=40; w:Tick(0.35); equal(line.writes,3)
 end)
 
 test("hovering one line freezes only that line",function()

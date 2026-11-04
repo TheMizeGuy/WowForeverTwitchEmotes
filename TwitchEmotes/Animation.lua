@@ -30,6 +30,27 @@ local function visible(object)
     return true
 end
 
+local function coordinate(value)
+    if E:IsRestricted(value) or type(value)~="number" then return nil end
+    return value
+end
+
+-- The clipped FontStringContainer hides the oldest slots, which stay shown above its top edge.
+local function containerTop(frame)
+    local container=frame.FontStringContainer
+    if E:IsRestricted(container) or type(container)~="table" or not E:CanAccessObject(container) or not container.GetTop then return nil end
+    return coordinate(container:GetTop())
+end
+
+local function lineVisible(line,top)
+    if not visible(line) then return false end
+    if top and line.GetBottom then
+        local bottom=coordinate(line:GetBottom())
+        if bottom and bottom>=top then return false end
+    end
+    return true
+end
+
 local function animatedEntries(text)
     local entries,count,pos={},0,1
     while true do
@@ -89,8 +110,9 @@ local function tick()
     local now=GetTime()
     for frame,lines in pairs(active) do
         if visible(frame) then
+            local top=containerTop(frame)
             for line,record in pairs(lines) do
-                if not visible(line) then
+                if not lineVisible(line,top) then
                     lines[line]=nil
                 else
                     local text=line:GetText()
@@ -129,9 +151,9 @@ local function scan(frame)
     -- Read only the current display; never rewrite its history buffer.
     local lines=frame.visibleLines
     if E:IsRestricted(lines) or type(lines)~="table" then stopIfIdle(); return end
-    local now,records=GetTime(),nil
+    local top,now,records=containerTop(frame),GetTime(),nil
     for _,line in ipairs(lines) do
-        if visible(line) and line.GetText and line.SetText then
+        if lineVisible(line,top) and line.GetText and line.SetText then
             local text=line:GetText()
             if not E:IsRestricted(text) and type(text)=="string" and find(text,LINK,1,true) then
                 local entries=E.db.enabled and E.db.animate and animatedEntries(text)
