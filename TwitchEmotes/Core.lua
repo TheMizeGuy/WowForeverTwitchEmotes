@@ -6,6 +6,7 @@ E.version = "3.1.0"
 E.addonName = addonName
 E.packs, E.packOrder, E.catalog, E.names = {}, {}, {}, {}
 E.revision = 0
+E.savedRowLimit = 16384
 E.channelLabels = {
     CHAT_MSG_SAY = "Say", CHAT_MSG_YELL = "Yell", CHAT_MSG_GUILD = "Guild",
     CHAT_MSG_OFFICER = "Officer", CHAT_MSG_PARTY = "Party", CHAT_MSG_PARTY_LEADER = "Party leader",
@@ -67,13 +68,13 @@ function E:InitializeDB(saved)
     for id, enabled in pairs(tableOrEmpty(s.packs)) do
         if type(id)=="string" and #id <= 64 and type(enabled)=="boolean" then d.packs[id]=enabled end
     end
-    local count=0
+    local count,rows=0,self.savedRowLimit
     for name, favorite in pairs(tableOrEmpty(s.favorites)) do
-        if validName(name) and favorite == true and count < 8192 then d.favorites[name]=true; count=count+1 end
+        if validName(name) and favorite == true and count < rows then d.favorites[name]=true; count=count+1 end
     end
     count=0
     for name, hidden in pairs(tableOrEmpty(s.hidden)) do
-        if validName(name) and hidden == true and count < 8192 then d.hidden[name]=true; count=count+1 end
+        if validName(name) and hidden == true and count < rows then d.hidden[name]=true; count=count+1 end
     end
     -- A restore is stored as absence, so each name is hidden only by the schema that added it.
     local schema=type(s.schema)=="number" and s.schema or 0
@@ -87,7 +88,7 @@ function E:InitializeDB(saved)
     end
     count=0
     for name, value in pairs(tableOrEmpty(s.stats)) do
-        if validName(name) and type(value)=="table" and count < 8192 then
+        if validName(name) and type(value)=="table" and count < rows then
             local sent, seen = value.sent, value.seen
             d.stats[name]={sent=floor(number(sent,0,0,2147483647)), seen=floor(number(seen,0,0,2147483647))}
             count=count+1

@@ -23,6 +23,17 @@ local function entry(name, path, frames)
         width = 64, height = 32, sheetWidth = 64, sheetHeight = frames and 128 or 32,
         frames = frames or 1, fps = frames and 10 or 0, creator = "Artist", source = "https://7tv.app/emotes/test"}
 end
+local function realPacks()
+    local E = loadEngine()
+    for line in io.lines("TwitchEmotes/TwitchEmotes.toc") do
+        local file = line:gsub("\r", ""):match("^Packs\\([%w_%-]+%.lua)$")
+        if file then assert(loadfile("TwitchEmotes/Packs/" .. file))("TwitchEmotes", E) end
+    end
+    assert(#E.packOrder > 50, "expected the shipped packs")
+    E:PrepareSetup(); E:RebuildCatalog()
+    return E
+end
+local function count(values) local n = 0; for _ in pairs(values) do n = n + 1 end; return n end
 local function setup()
     local E = loadEngine()
     E:RegisterPack({id="base", title="Base", priority=0, emotes={entry("KEKW"), entry("Kappa"), entry("catJAM", nil, 4), entry("!spin"), entry("plink-182"), entry(":smile:")}})
@@ -332,6 +343,17 @@ test("choices for a name that leaves every pack survive until it returns", funct
     assert(E:IsEmoteHidden("Retail")); equal(E:Transform("Retail"),"Retail")
     assert(E:IsEmoteHidden("Kappa")); equal(E:Transform("Kappa"),"Kappa")
     equal(E.db.favorites.KEKW,true); equal(E:Stats("KEKW").seen,1); equal(E:Stats("KEKW").sent,1)
+end)
+
+test("saved row limits keep a whole profile and stay above every shipped name", function()
+    local limit=loadEngine().savedRowLimit
+    assert(type(limit)=="number" and limit>=16384, "saved row limit must be at least 16384")
+    local saved={schema=4,favorites={},hidden={},stats={}}
+    for i=1,limit+1 do local name="emote"..i; saved.favorites[name]=true; saved.hidden[name]=true; saved.stats[name]={sent=1,seen=2} end
+    local E=loadEngine(); E:InitializeDB(saved)
+    equal(count(E.db.favorites),limit); equal(count(E.db.hidden),limit); equal(count(E.db.stats),limit)
+    local known=count(realPacks().known)
+    assert(known<limit, known.." distinct shipped names reach the saved row limit "..limit)
 end)
 
 test("browsing disabled groups shows their own deduplicated catalog", function()
