@@ -14,9 +14,11 @@ Browse and search any installed channel, including disabled ones. Its **Enabled 
 chat** checkbox controls display without leaving Browse. Enabled channels have a
 purple highlight and checkmark in the group list.
 
-Click an emote to insert its plain name into chat. Type a colon followed by a name
-to see suggestions with emote image previews; use Tab or the arrow keys to select, Enter to accept, and Escape
-to dismiss. Hover over a chat emote for its name and source; Shift-click to insert it.
+Open chat, then click an emote (Shift-click when the line is empty) to insert its plain name.
+Type a colon followed by at least two characters of a name to see suggestions with emote image
+previews in the addon's own popup; Tab inserts the highlighted one, the arrow keys move the
+highlight, a click picks any row, Enter always sends the line as typed, and Escape
+dismisses. Hover over a chat emote for its name and source; Shift-click to insert it.
 The addon sends ordinary text, so other players do not need it to read your messages.
 
 Click an emote in chat for its menu, then choose **Hide this emote** to display that
@@ -104,11 +106,16 @@ each entry's source sheet under `lossless`, regenerates the pack Lua, and stages
 replacements with rollback; `--dry-run` only measures. Output is deterministic for the
 same input and parameters.
 
-Run focused checks with `luajit tests/core_spec.lua`, `luajit tests/runtime_spec.lua`,
-and `luajit tests/ui_spec.lua`. The external WoW boundary tests complement in-client
-testing; they do not emulate Blizzard's restricted execution engine or renderer.
-Run `luajit tests/integration_spec.lua` to load the actual TOC and all packs through
-the external WoW boundary. `python3 scripts/package.py` verifies every texture
+Run focused checks with `luajit tests/core_spec.lua`, `luajit tests/text_spec.lua`,
+`luajit tests/runtime_spec.lua`, `luajit tests/animation_spec.lua` and `luajit tests/ui_spec.lua`.
+The external WoW boundary tests complement in-client testing; they do not emulate Blizzard's
+restricted execution engine or renderer, but the boundary does trace which Blizzard-owned
+fields the addon writes while running insecure, and it refuses combat-restricted calls in
+combat. Pass `classic` as the first argument (or set `TWITCHEMOTES_PROFILE=classic`) to run
+`ui_spec` and `integration_spec` under a client shape without the Forbidden-aspect API, the
+retail minimap atlas or `GetCurrentKeyBoardFocus`.
+Run `luajit tests/integration_spec.lua [classic]` to load the actual manifests and all packs
+through the external WoW boundary. `python3 scripts/package.py` verifies every texture
 hash, format, TOC reference, playback sequence, and generated Lua manifest; add
 `--output dist/TwitchEmotes-3.1.0.zip` to create a release archive. Members are
 deflated in parallel (`--workers`) with libdeflate level 12, zopfli, or zlib level 9,

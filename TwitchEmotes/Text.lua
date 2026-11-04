@@ -218,6 +218,10 @@ function E:ApplyCompletion(text,completion,name,limit)
     if not completion or not self.catalog[name] then return text,nil end
     local prefix,suffix=sub(text,1,completion.first-1),sub(text,completion.last+1)
     local result=prefix..name..suffix
-    if not self:IsRestricted(limit) and type(limit)=="number" and limit>0 and #result>limit then return text,nil end
+    if not self:IsRestricted(limit) and type(limit)=="number" and limit>0 then
+        -- The chat box's limit counts visible bytes, so link and texture markup in the draft does not count.
+        local size=self.VisibleTextBytes and self:VisibleTextBytes(result) or #result
+        if size>limit then return text,nil end
+    end
     return result,#prefix+#name
 end
