@@ -59,8 +59,8 @@ local function animatedEntries(text)
         if not close then return entries end
         count=count+1
         if count>MAX_ANIMATED_LINKS then return nil end
-        local name=E:NameFromLink(sub(text,start+2,close-1))
-        local entry=name and E.catalog[name]
+        local entry=E.linkEntries and E.linkEntries[sub(text,start,close+1)]
+        if not entry then local name=E:NameFromLink(sub(text,start+2,close-1)); entry=name and E.catalog[name] end
         if entry and entry.frames>1 then entries[#entries+1]=entry end
         pos=close+2
     end
