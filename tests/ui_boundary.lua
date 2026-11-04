@@ -45,7 +45,8 @@ local function blizzard(fn)
     end
 end
 local function native(frame, event, fn) frame.scripts[event] = blizzard(fn) end
-function B.resetTrace() B.violations, B.tainted = {}, {} end
+-- Violations accumulate for a whole run (the spec runners assert none); only the tainted log is per window.
+function B.resetTrace() B.tainted = {} end
 
 function Frame:SetScript(event, fn) self.scripts[event] = B.addon(fn) end
 function Frame:GetScript(event) return self.scripts[event] end
@@ -87,9 +88,13 @@ function Frame:IsShown() return self.shown end
 function Frame:IsVisible() return self.shown and (not self.parent or self.parent:IsVisible()) end
 function Frame:IsMouseOver() return self.mouseOver or false end
 function Frame:SetShown(value) if value then self:Show() else self:Hide() end end
+-- The engine's visible-byte limit ignores colour codes, link wrappers, textures and atlases.
+local function visibleBytes(text)
+    return #(text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|cn[^:|]*:", ""):gsub("|r", ""):gsub("|H.-|h", ""):gsub("|h", ""):gsub("|T.-|t", ""):gsub("|A.-|a", ""))
+end
 function Frame:SetText(text)
     text = tostring(text)
-    if self.visibleBytes and #text > self.visibleBytes then text = text:sub(1, self.visibleBytes) end
+    while self.visibleBytes and visibleBytes(text) > self.visibleBytes do text = text:sub(1, -2) end
     self.text = text; self.cursor = #self.text
     if self.font then self.font:SetText(self.text) end
     self:Run("OnTextChanged", false)
@@ -262,6 +267,8 @@ _G.C_Timer = { After = function(_, callback) B.after[#B.after + 1] = B.addon(cal
 end }
 _G.EventRegistry = { RegisterCallback = function(_, name, callback, owner)
     B.callbacks[name] = B.callbacks[name] or {}; B.callbacks[name][#B.callbacks[name] + 1] = { callback = B.addon(callback), owner = owner }
+end, TriggerEvent = function(_, name, ...)
+    for _, record in ipairs(B.callbacks[name] or {}) do record.callback(record.owner, ...) end
 end }
 _G.GetCursorPosition = function() return 210, 100 end
 _G.InCombatLockdown = function() return B.combat end
@@ -282,8 +289,12 @@ _G.Settings = {
 }
 _G.C_Texture = { GetAtlasInfo = function(atlas) if B.atlases[atlas] then return { width = 32, height = 32 } end end }
 _G.C_EventUtils = { IsEventValid = function(event) return not B.invalidEvents[event] end }
+local stickyFocusFrames = {}
 _G.ChatFrameUtil = {
     GetActiveWindow = function() return B.active end,
+    RegisterForStickyFocus = function(frame) stickyFocusFrames[frame] = true end,
+    UnregisterForStickyFocus = function(frame) stickyFocusFrames[frame] = nil end,
+    HasStickyFocus = function() for frame in pairs(stickyFocusFrames) do if frame:HasStickyFocus() then return true end end; return false end,
     ChooseBoxForSend = guarded("ChatFrameUtil.ChooseBoxForSend", function() return B.editor end),
     ActivateChat = guarded("ChatFrameUtil.ActivateChat", function(editor) B.active = editor; editor:Show(); editor:SetFocus() end),
     AddMessageEventFilter = function(event, callback)
@@ -394,7 +405,12 @@ function B.editorFrame()
         if not target or target:sub(1, 1) == "|" or self.disallowAutoComplete then AutoComplete_HideIfAttachedTo(self); return end
         if userInput then AutoComplete_Update(self, target, #target) end
     end)
-    native(editor, "OnEditFocusLost", function(self) AutoComplete_HideIfAttachedTo(self) end)
+    -- Classic deactivates chat on every focus loss; Mainline only when the line is empty (ChatFrameEditBoxOverrides.lua).
+    native(editor, "OnEditFocusLost", function(self)
+        AutoComplete_HideIfAttachedTo(self)
+        if not B.mainline or self:GetText() == "" then self:Hide() end
+    end)
+    editor.HasStickyFocus = function() return ChatFrameUtil.HasStickyFocus() end
     return B.trace(editor, "editor", B.editorCalls)
 end
 function B.find(text, parent)
@@ -404,8 +420,26 @@ function B.find(text, parent)
         if frame.Text and frame.Text.text == text and (not parent or frame.parent == parent) then return frame end
     end
 end
+-- A plain left mouse-down on `frame`, as each engine handles it: the focused box keeps focus only through its own
+-- HasStickyFocus (classic) or when the click lands on a frame answering UI.QueryStickyFocusFrames (Mainline).
+local function descends(frame, ancestor)
+    while frame do if frame == ancestor then return true end; frame = frame.parent end
+    return false
+end
+function B.mouseDown(frame)
+    local focus = B.focus
+    if not focus or not focus.ClearFocus then return end
+    if focus.HasStickyFocus and focus:HasStickyFocus() then return end
+    if B.mainline then
+        local request = { frames = {} }
+        function request:AddFrame(sticky) self.frames[#self.frames + 1] = sticky end
+        EventRegistry:TriggerEvent("UI.QueryStickyFocusFrames", request)
+        for _, sticky in ipairs(request.frames) do if sticky:IsVisible() and descends(frame, sticky) then return end end
+    end
+    focus:ClearFocus()
+end
 function B.type(editor, text, cursor)
-    editor:SetFocus(); editor.text = text; editor.cursor = cursor or #text
+    editor:Show(); editor:SetFocus(); editor.text = text; editor.cursor = cursor or #text
     editor:Run("OnTextChanged", true)
 end
 function B.event(event, ...)
@@ -439,6 +473,8 @@ function B.profile(name)
     Frame.CanBeAccessedInContext = profile.mainline and canBeAccessed or nil
     Frame.HasAnyForbiddenAspects = profile.mainline and hasForbiddenAspects or nil
     _G.GetCurrentKeyBoardFocus = profile.mainline and function() return B.focus end or nil
+    -- Only the Mainline engine clears keyboard focus from Lua (Blizzard_Game/Mainline/EventImplementation.lua).
+    _G.GameEvent = profile.mainline and { HandleGlobalMouseEvent = function() end } or nil
 end
 function B.profileArgument(value) return profiles[value] and value or nil end
 B.profile(os.getenv("TWITCHEMOTES_PROFILE") or B.profileArgument(arg and arg[1]) or "retail")

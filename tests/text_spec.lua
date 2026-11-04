@@ -118,6 +118,17 @@ test("completion refuses a replacement longer than the byte limit", function()
     result, cursor = E:ApplyCompletion(text, completion, LONG)
     equal(#result, 335); equal(cursor, 201)
     equal(select(2, E:ApplyCompletion(text, completion, LONG, 335)), 201)
+    -- The chat box counts visible bytes: colour codes, link wrappers, textures and atlas pips are free.
+    equal(E:VisibleTextBytes("|cnIQ3:|Hitem:1::|h[X|A:a:1:1|a]|h|r"), 3)
+    equal(E:VisibleTextBytes("|cff00ff00KEKW|r |T" .. "Interface\\Icons\\x:16:16|t"), 5)
+    local link = "|cff0070dd|Hitem:19019::::::::70:::::|h[Thunderfury, Blessed Blade of the Windseeker]|h|r"
+    local linked = string.rep("x", 100) .. " " .. link .. " :Ka " .. string.rep("y", 70)
+    assert(#linked > 255, "the raw draft is already over the limit")
+    local linkedCompletion = E:Complete(linked, 100 + 1 + #link + 4); equal(linkedCompletion.entries[1].name, "Kappa")
+    local applied, position = E:ApplyCompletion(linked, linkedCompletion, "Kappa", 255)
+    equal(applied, string.rep("x", 100) .. " " .. link .. " Kappa " .. string.rep("y", 70), "a result over 255 raw bytes but under 255 visible bytes applies")
+    equal(position, 100 + 1 + #link + 1 + 5); equal(E:VisibleTextBytes(applied), 100 + 1 + 46 + 1 + 5 + 1 + 70)
+    equal(select(2, E:ApplyCompletion(linked, linkedCompletion, "Kappa", E:VisibleTextBytes(applied) - 1)), nil)
     for _, ignored in ipairs({0, -1, "255"}) do equal(select(2, E:ApplyCompletion(text, completion, LONG, ignored)), 201) end
 end)
 

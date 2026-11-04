@@ -114,10 +114,6 @@ local function tooltipOwnedBy(frame)
     return false
 end
 
-function E:VisibleTextBytes(text)
-    return #(text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h", ""):gsub("|h", ""):gsub("|T.-|t", ""))
-end
-
 -- Check native editbox access before reading text, comparing values, or mutating input.
 function E:GetSafeEditorText(editor)
     if restricted(editor) or not editor then return nil end
@@ -213,24 +209,27 @@ local function input(parent)
     return control
 end
 
-local function feedback(text)
+local function feedback(text, warn)
     if ui.hint then ui.hint:SetText(text) end
+    -- The hint line lives on the Browse tab; a refusal from the emote menu or a chat link needs a visible home too.
+    local browsing = ui.panel and ui.panel:IsShown() and ui.tab == "browse"
+    if warn and not browsing and _G.UIErrorsFrame and _G.UIErrorsFrame.AddMessage then _G.UIErrorsFrame:AddMessage(text) end
 end
 
 -- Insert only into a chat box the player already opened: activating or focusing one from addon code taints it.
 function E:InsertEmote(name)
     if restricted(name) or type(name) ~= "string" or not self:GetEmote(name, true) then return false end
     local editor = activeChat()
-    if not editor or not editor.IsShown or not editor:IsShown() then feedback("Press Enter to open chat, then Shift-click the emote."); return false end
+    if not editor or not editor.IsShown or not editor:IsShown() then feedback("Press Enter to open chat, then Shift-click the emote.", true); return false end
     local text, cursor = self:GetSafeEditorText(editor)
-    if not text then feedback("Chat input is unavailable."); return false end
-    if text:sub(1, 1) == "/" then feedback("Finish the chat command first, then click the emote."); return false end
+    if not text then feedback("Chat input is unavailable.", true); return false end
+    if text:sub(1, 1) == "/" then feedback("Finish the chat command first, then click the emote.", true); return false end
     local before = cursor > 0 and not text:sub(cursor, cursor):match("%s") and " " or ""
     local after = text:sub(cursor + 1, cursor + 1):match("%s") and "" or " "
     local insertion = before .. name .. after
     local limit = editor.GetVisibleTextByteLimit and editor:GetVisibleTextByteLimit()
     if not restricted(limit) and type(limit) == "number" and limit > 0 and self:VisibleTextBytes(text) + #insertion > limit then
-        feedback("The chat line is full."); return false
+        feedback("The chat line is full.", true); return false
     end
     editor:Insert(insertion)
     feedback("Inserted " .. display(name))
@@ -924,6 +923,9 @@ function E:OpenEmoteMenu(name)
     menu.title:SetText(display(name)); menu.source:SetText(display(entry.provider))
     menu.hideEmote:SetText(self:IsEmoteHidden(name) and "Restore this emote" or "Hide this emote")
     menu.favorite:SetText(self.db.favorites[name] and "Remove favorite" or "Add favorite")
+    local editor = activeChat()
+    local canInsert = editor ~= nil and editor.IsShown and editor:IsShown() and true or false
+    menu.insert:SetEnabled(canInsert); menu.insert.tooltipText = not canInsert and "Press Enter to open chat first." or nil
     local x, y = _G.GetCursorPosition(); local scale = menu:GetEffectiveScale()
     menu:ClearAllPoints(); menu:SetPoint("TOPLEFT", _G.UIParent, "BOTTOMLEFT", x / scale, y / scale)
     if _G.GameTooltip then _G.GameTooltip:Hide() end

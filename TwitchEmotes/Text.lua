@@ -214,14 +214,15 @@ function E:Complete(text,cursor,limit)
     return {first=first,last=last,query=query,entries=entries}
 end
 
+-- The chat box's visible-byte limit ignores markup: colour codes (|cAARRGGBB and |cname:), |r, link wrappers, textures and atlases.
+function E:VisibleTextBytes(text)
+    return #(text:gsub("|c%x%x%x%x%x%x%x%x",""):gsub("|cn[^:|]*:",""):gsub("|r",""):gsub("|H.-|h",""):gsub("|h",""):gsub("|T.-|t",""):gsub("|A.-|a",""))
+end
+
 function E:ApplyCompletion(text,completion,name,limit)
     if not completion or not self.catalog[name] then return text,nil end
     local prefix,suffix=sub(text,1,completion.first-1),sub(text,completion.last+1)
     local result=prefix..name..suffix
-    if not self:IsRestricted(limit) and type(limit)=="number" and limit>0 then
-        -- The chat box's limit counts visible bytes, so link and texture markup in the draft does not count.
-        local size=self.VisibleTextBytes and self:VisibleTextBytes(result) or #result
-        if size>limit then return text,nil end
-    end
+    if not self:IsRestricted(limit) and type(limit)=="number" and limit>0 and self:VisibleTextBytes(result)>limit then return text,nil end
     return result,#prefix+#name
 end

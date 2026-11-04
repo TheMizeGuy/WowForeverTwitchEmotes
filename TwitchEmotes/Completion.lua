@@ -14,11 +14,25 @@ local function restricted(value)
     return E.IsRestricted and E:IsRestricted(value) or false
 end
 
+-- Blizzard's list clears its parent when it detaches, so the field alone says whether it is attached here (a read only).
+local function nativeListAttached(editor)
+    local box = _G.AutoCompleteBox
+    return box ~= nil and not restricted(box) and box.parent == editor
+end
+
+-- Blizzard's list captures the arrow mode when it attaches and restores only a true value, so while it is open the
+-- mode stays pending and is put back once that list has gone.
+local function settleArrows(editor, state)
+    if state.pendingArrows ~= nil and not nativeListAttached(editor) then
+        editor:SetAltArrowKeyMode(state.pendingArrows); state.pendingArrows = nil
+    end
+end
+
 local function dismiss(editor)
     local state = attached[editor]
     if not state or not state.active then return end
     state.active, state.completion, state.text, state.cursor, state.selected = false, nil, nil, nil, nil
-    if state.arrows ~= nil then editor:SetAltArrowKeyMode(state.arrows); state.arrows = nil end
+    if state.arrows ~= nil then state.pendingArrows, state.arrows = state.arrows, nil; settleArrows(editor, state) end
     if owner == editor then
         owner = nil
         if popup then popup:Hide() end
@@ -58,8 +72,20 @@ local function createPopup()
     end
     popup.hint = popup:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     popup.hint:SetPoint("BOTTOMLEFT", popup, "BOTTOMLEFT", PADDING + 6, PADDING - 2)
-    popup.hint:SetText(type(_G.PRESS_TAB) == "string" and _G.PRESS_TAB or "Press Tab")
+    popup.hint:SetText("Tab inserts. Esc closes chat.")
     popup:SetScript("OnLeave", leave)
+    -- A plain mouse-down clears chat focus unless the click lands on a sticky frame. The Mainline engine asks through
+    -- UI.QueryStickyFocusFrames, answered only while the popup is under the mouse so its secure clearer never runs
+    -- tainted; the classic engine consults the chat box's HasStickyFocus, which reads ChatFrameUtil's registry.
+    if _G.EventRegistry and _G.EventRegistry.RegisterCallback then
+        _G.EventRegistry:RegisterCallback("UI.QueryStickyFocusFrames", function(_, request)
+            if popup:IsShown() and popup:IsMouseOver() and type(request) == "table" and request.AddFrame then request:AddFrame(popup) end
+        end, popup)
+    end
+    if not (_G.GameEvent and _G.GameEvent.HandleGlobalMouseEvent) and _G.ChatFrameUtil and _G.ChatFrameUtil.RegisterForStickyFocus then
+        popup.HasStickyFocus = function(self) return self:IsShown() and self:IsMouseOver() end
+        _G.ChatFrameUtil.RegisterForStickyFocus(popup)
+    end
     popup:Hide()
 end
 
@@ -90,6 +116,7 @@ end
 local function update(editor)
     local state = attached[editor]
     if not state or state.applying then return end
+    settleArrows(editor, state)
     local text, cursor = E:GetSafeEditorText(editor)
     if not text or not E.db or not E.db.enabled or not editor:HasFocus() or not editor:IsShown() or editor.disallowAutoComplete or text:sub(1, 1) == "/" then
         dismiss(editor); return
@@ -146,6 +173,15 @@ local function focusLost(editor)
     dismiss(editor)
 end
 
+-- Every hook settles a pending arrow mode first: Blizzard's own list may have just closed (Escape, a pick, a hide).
+local function settled(fn)
+    return function(editor, ...)
+        local state = attached[editor]
+        if state then settleArrows(editor, state) end
+        return fn(editor, ...)
+    end
+end
+
 function E:AttachCompletion(editor)
     if restricted(editor) or not editor or attached[editor] or not editor.HookScript then return end
     if not events then
@@ -168,8 +204,8 @@ function E:AttachCompletion(editor)
     editor:HookScript("OnTextChanged", function(self) update(self) end)
     editor:HookScript("OnCursorChanged", function(self) update(self) end)
     editor:HookScript("OnEditFocusGained", function(self) update(self) end)
-    editor:HookScript("OnEditFocusLost", focusLost)
-    editor:HookScript("OnHide", function(self) dismiss(self) end)
-    editor:HookScript("OnEscapePressed", function(self) dismiss(self) end)
+    editor:HookScript("OnEditFocusLost", settled(focusLost))
+    editor:HookScript("OnHide", settled(dismiss))
+    editor:HookScript("OnEscapePressed", settled(dismiss))
     editor:HookScript("OnArrowPressed", arrow)
 end

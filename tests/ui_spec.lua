@@ -37,10 +37,12 @@ function E:Complete(text, cursor, limit)
     if not first then return nil end
     return { first = first, last = last, query = query, entries = self:Search(query, limit) }
 end
--- Text.lua contract: a result longer than the limit is refused with a nil position.
+-- Text.lua contract: a result whose visible bytes exceed the limit is refused with a nil position; the real counter
+-- is borrowed from Text.lua so markup in a draft is measured the way the shipped addon measures it.
+do local T = {}; loadfile("TwitchEmotes/Text.lua")("TwitchEmotes", T); E.VisibleTextBytes = T.VisibleTextBytes end
 function E:ApplyCompletion(text, completion, name, limit)
     local result = text:sub(1, completion.first - 1) .. name .. text:sub(completion.last + 1)
-    if limit and #result > limit then return text, nil end
+    if limit and self:VisibleTextBytes(result) > limit then return text, nil end
     return result, completion.first - 1 + #name
 end
 
@@ -267,10 +269,11 @@ test("the size slider clears only the addon's own inputs, also in combat", funct
 end)
 
 test("Clear buttons never pull focus away from an open chat box", function()
-    E:OpenPanel("browse"); B.active = B.editor; B.editor:SetFocus(); B.resetTrace()
+    E:OpenPanel("browse"); B.active = B.editor; B.editor:SetText("draft"); B.editor:SetFocus(); B.resetTrace()
     E.ui.clear:Click(); equal(B.editor:HasFocus(), true); equal(E.ui.search:HasFocus(), false); clean()
-    B.editor:ClearFocus(); E.ui.clear:Click(); equal(E.ui.search:HasFocus(), true)
-    E.ui.search:ClearFocus()
+    E:OpenPanel("setup"); E.ui.setupClear:Click(); equal(B.editor:HasFocus(), true, "the Setup tab's Clear is guarded too"); equal(E.ui.setupSearch:HasFocus(), false); clean()
+    E:OpenPanel("browse"); B.editor:ClearFocus(); E.ui.clear:Click(); equal(E.ui.search:HasFocus(), true)
+    E.ui.search:ClearFocus(); B.editor:Show(); B.editor:SetText("")
 end)
 
 test("combat alone does not disable insertion or completion; chat lockdown does", function()
@@ -321,8 +324,10 @@ test("Enter sends the line as typed while suggestions are shown", function()
     B.editor:Run("OnEnterPressed"); equal(B.sent, "lol :Em"); equal(suggesting(), false)
 end)
 
-test("Escape dismisses and Tab without suggestions keeps native and chained handlers", function()
+test("Escape closes chat as Blizzard does and Tab without suggestions keeps native and chained handlers", function()
+    -- Blizzard's OnEscapePressed clears the line unless its own list is attached; the addon's list cannot change that.
     B.type(B.editor, "draft :Em"); B.editor:Run("OnEscapePressed"); equal(suggesting(), false)
+    equal(B.editor:GetText(), "", "Escape clears the draft, as documented"); equal(B.editor:HasFocus(), false)
     local native, custom = B.nativeTabs or 0, B.customTabs or 0
     B.type(B.editor, "plain words"); B.editor:Run("OnTabPressed")
     equal(B.nativeTabs, native + 1); equal(B.customTabs, custom + 1, "previous ChatEdit_CustomTabPressed still runs")
@@ -334,7 +339,11 @@ test("a native whisper list survives an active emote session", function()
     B.type(B.editor, "hi :Em"); assert(suggesting())
     B.type(B.editor, "/w Bo"); equal(suggesting(), false)
     equal(AutoCompleteBox:IsShown(), true, "whisper list stays open"); equal(AutoCompleteButton1.nameInfo.name, "Bobby")
-    AutoComplete_HideIfAttachedTo(B.editor); equal(B.editor:GetAltArrowKeyMode(), true)
+    equal(B.editor:GetAltArrowKeyMode(), false, "the native list keeps the arrows while it is open")
+    B.type(B.editor, "/w Bob"); equal(AutoCompleteBox:IsShown(), true); equal(B.editor:GetAltArrowKeyMode(), false)
+    -- Escape closes Blizzard's list the way the client does; the addon's hook then puts the arrow mode back.
+    B.editor:Run("OnEscapePressed"); equal(AutoCompleteBox:IsShown(), false)
+    equal(B.editor:GetAltArrowKeyMode(), true, "the arrow mode comes back once the native list is gone")
     B.editor.autoCompleteSource, B.editor.autoCompleteParams = nil, nil; B.editor:SetText("")
 end)
 
@@ -374,13 +383,14 @@ test("slash commands and native backspace suppression offer nothing", function()
     B.editor:SetText("")
 end)
 
-test("a click on a row applies it, also after retail moved focus off the box", function()
-    B.type(B.editor, "pick :Em"); suggest().mouseOver = true
-    B.editor:ClearFocus(); assert(suggesting(), "focus lost to a click on the list keeps it open")
+test("a click on a suggestion row applies it and chat keeps focus on both engines", function()
+    B.type(B.editor, "pick :Em"); assert(suggesting()); suggest().mouseOver = true
+    B.mouseDown(suggest().rows[2]); assert(suggesting(), "a mouse-down on the list keeps it open"); equal(B.editor:HasFocus(), true, "chat keeps focus through the click")
     suggest().rows[2]:Click(); equal(B.editor:GetText(), "pick Emote02"); equal(suggesting(), false)
+    equal(B.editor:HasFocus(), true, "chat is still focused after the pick"); equal(B.editor:IsShown(), true)
     suggest().mouseOver = false
-    B.type(B.editor, "x :Em"); B.editor:ClearFocus(); equal(suggesting(), false)
-    B.editor:SetText("")
+    B.type(B.editor, "x :Em"); B.mouseDown(UIParent); equal(suggesting(), false); equal(B.editor:HasFocus(), false, "a click elsewhere still clears chat focus")
+    B.editor:Show(); B.editor:SetText("")
 end)
 
 test("completion and insertion refuse to overflow the chat line", function()
@@ -388,6 +398,11 @@ test("completion and insertion refuse to overflow the chat line", function()
     B.type(B.editor, draft); assert(suggesting()); B.editor:Run("OnTabPressed")
     equal(B.editor:GetText(), draft, "a completion past 255 bytes is not applied")
     B.type(B.editor, "short :Em"); B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "short Emote01")
+    -- Link markup does not count toward the chat box's visible-byte limit.
+    local link = "|cff0070dd|Hitem:19019::::::::70:::::|h[Thunderfury, Blessed Blade of the Windseeker]|h|r"
+    local linked = string.rep("a", 190) .. " " .. link .. " :Em"
+    assert(#linked > 255, "raw bytes exceed the limit"); B.type(B.editor, linked); assert(suggesting()); B.editor:Run("OnTabPressed")
+    equal(B.editor:GetText(), string.rep("a", 190) .. " " .. link .. " Emote01", "a completion that fits in visible bytes applies")
     B.active = B.editor; B.editor:SetText(string.rep("b", 250))
     equal(E:InsertEmote("Emote01"), false); equal(B.editor:GetText(), string.rep("b", 250)); equal(E.ui.hint:GetText(), "The chat line is full.")
     B.editor:SetText("")
@@ -430,6 +445,7 @@ end)
 
 for _, case in ipairs(tests) do
     local ok, err = pcall(case[2])
+    if ok and #B.violations > 0 then ok, err = false, "addon touched Blizzard chat state: " .. table.concat(B.violations, ", ") end
     if not ok then io.stderr:write("FAIL " .. case[1] .. "\n" .. tostring(err) .. "\n"); os.exit(1) end
     passed = passed + 1; print("PASS " .. case[1])
 end

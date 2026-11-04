@@ -14,6 +14,7 @@ local function equal(actual, expected, message)
 end
 local function test(name, body)
     local ok, err = pcall(body)
+    if ok and B.violations and #B.violations > 0 then ok, err = false, "addon touched Blizzard chat state: " .. table.concat(B.violations, ", ") end
     if ok then passed = passed + 1; print("PASS " .. name)
     else failed = failed + 1; io.stderr:write("FAIL " .. name .. "\n" .. tostring(err) .. "\n") end
 end

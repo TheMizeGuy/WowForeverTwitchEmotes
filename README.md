@@ -17,8 +17,9 @@ purple highlight and checkmark in the group list.
 Open chat, then click an emote (Shift-click when the line is empty) to insert its plain name.
 Type a colon followed by at least two characters of a name to see suggestions with emote image
 previews in the addon's own popup; Tab inserts the highlighted one, the arrow keys move the
-highlight, a click picks any row, Enter always sends the line as typed, and Escape
-dismisses. Hover over a chat emote for its name and source; Shift-click to insert it.
+highlight, a click picks any row, and Enter always sends the line as typed. Escape closes chat as
+it always does (the line is cleared), so to leave the list just keep typing. Hover over a chat
+emote for its name and source; Shift-click to insert it.
 The addon sends ordinary text, so other players do not need it to read your messages.
 
 Click an emote in chat for its menu, then choose **Hide this emote** to display that
