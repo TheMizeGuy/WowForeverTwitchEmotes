@@ -115,7 +115,12 @@ combat. Pass `classic` as the first argument (or set `TWITCHEMOTES_PROFILE=class
 `ui_spec` and `integration_spec` under a client shape without the Forbidden-aspect API, the
 retail minimap atlas or `GetCurrentKeyBoardFocus`.
 Run `luajit tests/integration_spec.lua [classic]` to load the actual manifests and all packs
-through the external WoW boundary. `python3 scripts/package.py` verifies every texture
+through the external WoW boundary. `python3 -I scripts/api-xref.py TwitchEmotes <wowui-root> out.json`
+cross-references every global, namespace member, template, event and EventRegistry callback the
+runtime modules use against shallow clones of Blizzard's shipped UI source
+(`github.com/Gethe/wow-ui-source`, one clone per branch under `<wowui-root>`: `live`, `classic`,
+`classic_anniversary`, `classic_era`, `forever`) and flags anything a client lacks; every name it
+flags today is guarded in the code. `python3 scripts/package.py` verifies every texture
 hash, format, TOC reference, playback sequence, and generated Lua manifest; add
 `--output dist/TwitchEmotes-3.1.0.zip` to create a release archive. Members are
 deflated in parallel (`--workers`) with libdeflate level 12, zopfli, or zlib level 9,
