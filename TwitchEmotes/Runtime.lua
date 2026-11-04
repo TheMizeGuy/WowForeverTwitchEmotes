@@ -65,6 +65,11 @@ local function record(event,text,...)
     if own then E:Record(names,"sent",lineID) end
 end
 
+local function eachChatFrame(fn)
+    if ChatFrameUtil and ChatFrameUtil.ForEachChatFrame then ChatFrameUtil.ForEachChatFrame(fn)
+    else for i=1,(NUM_CHAT_WINDOWS or 10) do if _G["ChatFrame"..i] then fn(_G["ChatFrame"..i]) end end end
+end
+
 function E:IsEventSupported(event)
     local events=_G.C_EventUtils
     return not (events and events.IsEventValid) or events.IsEventValid(event)
@@ -81,8 +86,7 @@ function E:AttachChatWindows()
         end
         if editBox then self:AttachCompletion(editBox) end
     end
-    if ChatFrameUtil and ChatFrameUtil.ForEachChatFrame then ChatFrameUtil.ForEachChatFrame(attach)
-    else for i=1,(NUM_CHAT_WINDOWS or 10) do if _G["ChatFrame"..i] then attach(_G["ChatFrame"..i]) end end end
+    eachChatFrame(attach)
 end
 
 function E:Refresh()
@@ -95,6 +99,30 @@ local function ownedEntry(link)
     if E:IsRestricted(link) then return nil end
     local name=E:NameFromLink(link)
     return name and E:GetEmote(name)
+end
+
+-- Blizzard rebuilds a revealed censored line from C_ChatInfo.GetChatLineText without running message filters.
+local function revealCensored(link)
+    if E:IsRestricted(link) or type(link)~="string" or not E.db.enabled then return end
+    local lineID=tonumber(link:match("^censoredmessage:(%d+)"))
+    local report=_G.CENSORED_MESSAGE_REPORT
+    if not lineID or type(report)~="string" or not (C_ChatInfo and C_ChatInfo.GetChatLineText) then return end
+    local text,names=transform(C_ChatInfo.GetChatLineText(lineID))
+    if #names==0 then return end
+    local shown
+    local function matches(_,_,_,_,_,_,_,event,eventArgs)
+        if type(eventArgs)~="table" or E:IsRestricted(event) or E:IsRestricted(eventArgs[11]) then return false end
+        return eventArgs[11]==lineID and E.db.channels[event]~=false
+    end
+    local function rebuild(message,r,g,b,infoID,accessID,typeID,event,eventArgs,formatter,...)
+        if type(formatter)~="function" then return message,r,g,b,infoID,accessID,typeID,event,eventArgs,formatter,... end
+        shown=true
+        return report:format(formatter(text),lineID),r,g,b,infoID,accessID,typeID,event,eventArgs,formatter,...
+    end
+    eachChatFrame(function(chat)
+        if chat.TransformMessages and E:CanAccessObject(chat) then chat:TransformMessages(matches,rebuild) end
+    end)
+    if shown then E:Record(names,"seen",lineID) end
 end
 
 local function installLinks()
@@ -143,6 +171,7 @@ local function login()
     frame:RegisterEvent("UPDATE_CHAT_WINDOWS")
     frame:RegisterEvent("UPDATE_FLOATING_CHAT_WINDOWS")
     if type(_G.FCF_OpenTemporaryWindow)=="function" and hooksecurefunc then hooksecurefunc("FCF_OpenTemporaryWindow",function() E:AttachChatWindows() end) end
+    if type(_G.SetItemRef)=="function" and hooksecurefunc then hooksecurefunc("SetItemRef",revealCensored) end
     _G.SLASH_FOREVEREMOTES1="/te"
     _G.SLASH_FOREVEREMOTES2="/twitch"
     SlashCmdList.FOREVEREMOTES=function(message)

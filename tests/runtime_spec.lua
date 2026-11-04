@@ -49,6 +49,7 @@ local function setup(saved,options)
     }
     _G.hooksecurefunc=function(name,fn) world.hooks[name]=fn end
     _G.FCF_OpenTemporaryWindow=function() end
+    _G.SetItemRef=function() end
     _G.EventRegistry={RegisterCallback=function(_,name,fn,owner) world.callbacks[name]={fn=fn,owner=owner} end}
     _G.GameTooltip={SetOwner=function() end,AddLine=function() end,Show=function() world.tooltip=true end,Hide=function() world.tooltip=false end}
     for _,name in ipairs({"Core","Text","Animation","Runtime"}) do
@@ -86,12 +87,27 @@ local function setup(saved,options)
         return l
     end
     function world:ChatFrame(lines)
-        local f={visibleLines=lines,scripts={},shown=true,editBox={}}
+        local f={visibleLines=lines,scripts={},shown=true,editBox={},history={}}
         function f:AddOnDisplayRefreshedCallback(fn) self.refresh=fn end
         function f:HookScript(event,fn) self.scripts[event]=fn end
         function f:IsShown() return self.shown end
         function f:IsForbidden() return false end
+        -- Mirrors ScrollingMessageFrameMixin:TransformMessages with PackageEntry/UnpackageEntry.
+        function f:TransformMessages(predicate,transform)
+            for i,entry in ipairs(self.history) do
+                local x=entry.extraData
+                if predicate(entry.message,entry.r,entry.g,entry.b,unpack(x,1,x.n)) then
+                    local out=pack(transform(entry.message,entry.r,entry.g,entry.b,unpack(x,1,x.n)))
+                    self.history[i]={message=out[1],r=out[2],g=out[3],b=out[4],extraData={n=out.n-4,unpack(out,5,out.n)}}
+                    self.dirty=true
+                end
+            end
+        end
         return f
+    end
+    function world:Entry(message,event,lineID,formatter)
+        local args={"censored placeholder","Bob","Common","",nil,nil,0,0,"",0,lineID,"Player-bob",n=12}
+        return {message=message,r=1,g=0.5,b=1,extraData={n=6,1,"accessID","typeID",event,args,formatter}}
     end
     return E,world,secret
 end
@@ -228,6 +244,31 @@ test("temporary whisper windows opened after login attach display and completion
     local f=w:ChatFrame({}); w.chats={f}
     w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); assert(f.refresh); equal(f.editBox.attached,true)
     local callback=f.refresh; w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); equal(f.refresh,callback)
+end)
+test("revealing a censored line renders its emotes and records it once",function()
+    local E,w,secret=setup(); assert(w.hooks.SetItemRef,"SetItemRef post-hook")
+    _G.CENSORED_MESSAGE_REPORT="%s |Hreportcensoredmessage:%d|h[Report]|h"
+    local lines={[77]="KEKW",[79]="KEKW",[80]=secret}
+    _G.C_ChatInfo={GetChatLineText=function(id) return lines[id] end}
+    local function formatter(text) return "[Bob] whispers: "..text end
+    local f=w:ChatFrame({}); w.chats={f}
+    local revealed=CENSORED_MESSAGE_REPORT:format(formatter("KEKW"),77)
+    f.history={w:Entry(revealed,"CHAT_MSG_WHISPER",77,formatter),w:Entry("other line","CHAT_MSG_WHISPER",78,formatter),
+        w:Entry("say line","CHAT_MSG_SAY",79,formatter),w:Entry("secret line","CHAT_MSG_WHISPER",80,formatter)}
+    local untouched,args=f.history[2],f.history[1].extraData[5]
+    w.hooks.SetItemRef("item:1","[Item]","LeftButton",f); equal(f.dirty,nil)
+    w.hooks.SetItemRef("censoredmessage:77","[Show]","LeftButton",f)
+    local entry=f.history[1]
+    equal(entry.message,CENSORED_MESSAGE_REPORT:format(formatter((E:Transform("KEKW"))),77))
+    assert(entry.message:find("|H"..E.linkPrefix.."4b454b57|h",1,true))
+    equal(entry.r,1); equal(entry.g,0.5); equal(entry.b,1); equal(entry.extraData.n,6)
+    equal(entry.extraData[4],"CHAT_MSG_WHISPER"); equal(entry.extraData[5],args); equal(entry.extraData[6],formatter)
+    equal(f.history[2],untouched); equal(E:Stats("KEKW").seen,1)
+    w.hooks.SetItemRef("censoredmessage:77","[Show]","LeftButton",f); equal(E:Stats("KEKW").seen,1)
+    E:SetOption("channels",{CHAT_MSG_SAY=false}); w.hooks.SetItemRef("censoredmessage:79","[Show]","LeftButton",f)
+    equal(f.history[3].message,"say line"); equal(E:Stats("KEKW").seen,1)
+    w.hooks.SetItemRef("censoredmessage:80","[Show]","LeftButton",f); equal(f.history[4].message,"secret line")
+    w.hooks.SetItemRef(secret,"[Show]","LeftButton",f)
 end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
