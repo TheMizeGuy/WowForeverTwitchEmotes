@@ -4,7 +4,7 @@
 set -euo pipefail
 
 deploy_host="${1:-mizepc}"
-addons_dir="${2:-C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Interface\\AddOns}"
+addons_dir="${2:-C:\\Program Files (x86)\\World of Warcraft\\_forever_\\Interface\\AddOns}"
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 if [[ ! "$deploy_host" =~ ^[A-Za-z0-9][A-Za-z0-9._@-]*$ ]] || [[ "$addons_dir" == *[\"\'\$\`\;\&\|]* ]]; then
   echo 'Unsupported deployment target characters' >&2; exit 1

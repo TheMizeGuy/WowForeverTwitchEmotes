@@ -30,17 +30,33 @@ B.chats = { chat }
 local modules = { ["Core.lua"] = true, ["Text.lua"] = true, ["UI.lua"] = true, ["Completion.lua"] = true, ["Animation.lua"] = true, ["Runtime.lua"] = true }
 local expectedPacks = { "bttv_global", "ffz_global", "seventv_global", "graycen", "erobb221" }
 for _, id in ipairs(expectedPacks) do modules["Packs/" .. id .. ".lua"] = true end
-local toc = assert(io.open(addonDirectory .. "/TwitchEmotes_Camelot.toc", "r"))
-local files, packFiles = {}, {}
-for line in toc:lines() do
-    line = line:gsub("\r", ""):match("^%s*(.-)%s*$"):gsub("\\", "/")
-    if line ~= "" and line:sub(1, 1) ~= "#" then
-        assert(modules[line] or line:match("^Packs/[%w_-]+%.lua$"), "Unexpected module in TOC: " .. line)
-        files[#files + 1] = line
-        if line:sub(1, 6) == "Packs/" then packFiles[#packFiles + 1] = line end
+-- One manifest per client family. Forever (game type camelot) reads the Mainline manifest, so that one carries both numbers.
+local manifests = {
+    ["TwitchEmotes.toc"] = "120105, 50504, 20506, 11509, 16001", ["TwitchEmotes_Mainline.toc"] = "120105, 16001",
+    ["TwitchEmotes_Mists.toc"] = "50504", ["TwitchEmotes_TBC.toc"] = "20506", ["TwitchEmotes_Vanilla.toc"] = "11509",
+    ["TwitchEmotes_Camelot.toc"] = "16001",
+}
+local function readManifest(name)
+    local toc = assert(io.open(addonDirectory .. "/" .. name, "r"))
+    local list, interface = {}, nil
+    for line in toc:lines() do
+        line = line:gsub("\r", ""):match("^%s*(.-)%s*$"):gsub("\\", "/")
+        if line:sub(1, 13) == "## Interface:" then interface = line:match("^## Interface:%s*(.-)%s*$")
+        elseif line ~= "" and line:sub(1, 1) ~= "#" then
+            assert(modules[line] or line:match("^Packs/[%w_-]+%.lua$"), "Unexpected module in " .. name .. ": " .. line)
+            list[#list + 1] = line
+        end
     end
+    toc:close()
+    return list, interface
 end
-toc:close()
+local files, packFiles = readManifest("TwitchEmotes_Mainline.toc"), {}
+for _, line in ipairs(files) do if line:sub(1, 6) == "Packs/" then packFiles[#packFiles + 1] = line end end
+for name, expectedInterface in pairs(manifests) do
+    local list, interface = readManifest(name)
+    assert(interface == expectedInterface, name .. " must declare Interface " .. expectedInterface .. ", found " .. tostring(interface))
+    assert(table.concat(list, "\n") == table.concat(files, "\n"), name .. " must list the same modules as the Mainline manifest")
+end
 local loaded = {}
 for _, path in ipairs(files) do
     assert(not loaded[path], "Duplicate TOC module: " .. path)
@@ -77,8 +93,8 @@ for _, entry in ipairs(E.names) do
 end
 assert(sample and animated and wide, "real packs must contain searchable, animated and wide emotes")
 
-test("both manifests persist only the native database and match the runtime version", function()
-    for _,name in ipairs({"TwitchEmotes.toc","TwitchEmotes_Camelot.toc"}) do
+test("every manifest persists only the native database and matches the runtime version", function()
+    for name in pairs(manifests) do
         local file=assert(io.open(addonDirectory.."/"..name,"r"))
         local text=file:read("*a"); file:close()
         equal(text:match("## SavedVariables: ([^\r\n]+)"),"ForeverEmotesDB")

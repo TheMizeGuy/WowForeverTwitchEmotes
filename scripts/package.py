@@ -17,6 +17,16 @@ import zlib
 from texture_formats import texture_dimensions
 
 COMPRESSORS = ('libdeflate', 'zopfli', 'zlib')
+# One manifest per client family; the Interface values are the live builds the release was audited against.
+# Forever (game type camelot) reads the Mainline manifest, so that one lists both interface numbers.
+FLAVOR_TOCS = {
+    'TwitchEmotes.toc': '120105, 50504, 20506, 11509, 16001',
+    'TwitchEmotes_Mainline.toc': '120105, 16001',
+    'TwitchEmotes_Mists.toc': '50504',
+    'TwitchEmotes_TBC.toc': '20506',
+    'TwitchEmotes_Vanilla.toc': '11509',
+    'TwitchEmotes_Camelot.toc': '16001',
+}
 ENCODER_MODULES = {'libdeflate': 'deflate', 'zopfli': 'zopfli.zlib', 'zlib': 'zlib'}
 ZIP_TIMESTAMP = (1980, 1, 1, 0, 0, 0)
 
@@ -133,15 +143,28 @@ def playback_sequence(entry):
     return tuple(sequence)
 
 
+def verify_tocs(addon):
+    """Every flavor manifest carries its own Interface line and is otherwise identical; return the shared lines."""
+    shared = None
+    for name, interface in FLAVOR_TOCS.items():
+        lines = (addon / name).read_text().splitlines()
+        if ('## Interface: ' + interface) not in lines:
+            raise ValueError(f'{name} must declare "## Interface: {interface}"')
+        rest = [line for line in lines if not line.startswith('## Interface:')]
+        if shared is None:
+            shared = rest
+        elif rest != shared:
+            raise ValueError(name + ' differs from the other manifests beyond its Interface line')
+    for directive in ('## Author: TheMizeGuy', '## X-License: All Rights Reserved', '## SavedVariables: ForeverEmotesDB'):
+        if directive not in shared:
+            raise ValueError('missing TOC metadata: ' + directive)
+    return shared
+
+
 def verify(root):
     addon = root / 'TwitchEmotes'
-    toc = (addon / 'TwitchEmotes_Camelot.toc').read_text()
-    if toc != (addon / 'TwitchEmotes.toc').read_text():
-        raise ValueError('client and fallback TOCs differ')
-    for directive in ('## Interface: 16001', '## Author: TheMizeGuy', '## X-License: All Rights Reserved'):
-        if directive not in toc.splitlines():
-            raise ValueError('missing TOC metadata: ' + directive)
-    files = [line.strip().replace('\\', '/') for line in toc.splitlines()
+    toc = verify_tocs(addon)
+    files = [line.strip().replace('\\', '/') for line in toc
              if line.strip() and not line.startswith('#')]
     if len(files) != len(set(files)):
         raise ValueError('duplicate TOC entries')
@@ -153,7 +176,7 @@ def verify(root):
         if not path.is_file() or path.is_symlink() or '..' in Path(file).parts:
             raise ValueError('missing or unsafe module: ' + file)
         subprocess.run(['luajit', '-bl', str(path)], check=True, stdout=subprocess.DEVNULL)
-    expected = set(files) | {'TwitchEmotes.toc', 'TwitchEmotes_Camelot.toc', 'LICENSE', 'ASSET-NOTICES.md'}
+    expected = set(files) | set(FLAVOR_TOCS) | {'LICENSE', 'ASSET-NOTICES.md'}
     render_lua = runpy.run_path(str(Path(__file__).with_name('build-7tv-pack.py')))['render_lua']
     checked, aliases, groups = {}, 0, set()
     for file in files:

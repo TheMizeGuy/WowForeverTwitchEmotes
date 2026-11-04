@@ -2,7 +2,7 @@
 local addonName, E = ...
 
 E.title = "Twitch Emotes WoW Forever"
-E.version = "3.0.1"
+E.version = "3.1.0"
 E.addonName = addonName
 E.packs, E.packOrder, E.catalog, E.names = {}, {}, {}, {}
 E.revision = 0

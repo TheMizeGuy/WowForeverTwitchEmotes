@@ -3,7 +3,7 @@
 ## IconTexture: Interface\Icons\INV_Misc_Dice_01
 ## Author: TheMizeGuy
 ## Notes: Animated chat emotes, a visual channel browser, favorites, and name completion.
-## Version: 3.0.1
+## Version: 3.1.0
 ## Category: Chat & Communication
 ## X-License: All Rights Reserved
 ## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes

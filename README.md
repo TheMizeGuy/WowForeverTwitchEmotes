@@ -1,7 +1,7 @@
 # Twitch Emotes WoW Forever
 
-Animated emotes, a searchable visual browser, and chat completion for WoW Forever
-(Camelot, interface 16001).
+Animated emotes, a searchable visual browser, and chat completion for every live World of
+Warcraft client: Retail, Mists of Pandaria Classic, Anniversary, Classic Era, and WoW Forever.
 
 ## In game
 
@@ -41,13 +41,18 @@ chat input.
 
 ## Install
 
-Place the `TwitchEmotes` folder in the Forever client's `Interface/AddOns` directory.
-Keep the folder name `TwitchEmotes`. **Fully exit and restart WoW after installing
-3.0.1**, including updates from an earlier build: `/reload` alone can leave newly
-installed textures as green boxes until the client restarts. Later Lua-only updates
-take `/reload`; new textures or a changed TOC require a restart. Preferences and usage are saved
-in `ForeverEmotesDB`. Version 3.0.1 retains existing 3.x preferences and usage counts;
-it no longer imports settings or statistics from the earlier port.
+Place the `TwitchEmotes` folder in the client's `Interface/AddOns` directory (`_retail_`,
+`_classic_`, `_anniversary_`, `_classic_era_`, or `_forever_`). Keep the folder name
+`TwitchEmotes`. One install serves every client: each family reads its own manifest
+(`TwitchEmotes_Mainline.toc` for Retail and Forever, `_Mists`, `_TBC`, `_Vanilla`, with
+`TwitchEmotes.toc` as the fallback), all listing the same files. The Interface numbers are
+the live builds the release was audited against: 120105, 50504, 20506, 11509, and 16001.
+**Fully exit and restart WoW after installing 3.1.0**, including updates from an earlier
+build: `/reload` alone can leave newly installed textures as green boxes until the client
+restarts. Later Lua-only updates take `/reload`; new textures or a changed TOC require a
+restart. Preferences and usage are saved in `ForeverEmotesDB`, one table per client. Since
+3.0.1 the addon keeps existing 3.x preferences and usage counts and imports nothing from
+other emote addons.
 If preferences reset, `/te status` reports the settings received during startup and
 whether the active settings still match WoW's saved table.
 
@@ -105,7 +110,7 @@ testing; they do not emulate Blizzard's restricted execution engine or renderer.
 Run `luajit tests/integration_spec.lua` to load the actual TOC and all packs through
 the external WoW boundary. `python3 scripts/package.py` verifies every texture
 hash, format, TOC reference, playback sequence, and generated Lua manifest; add
-`--output dist/TwitchEmotes-3.0.1.zip` to create a release archive. Members are
+`--output dist/TwitchEmotes-3.1.0.zip` to create a release archive. Members are
 deflated in parallel (`--workers`) with libdeflate level 12, zopfli, or zlib level 9,
 whichever `--compressor auto` finds installed, always as an ordinary ZIP with fixed
 timestamps, so one install packs to the same bytes every time. The finished archive
@@ -118,8 +123,8 @@ and repeatable conversion. Run
 `python3 tests/test_pack_builder.py` after changing the builder or its publication logic.
 
 `scripts/deploy.sh [ssh-host] [addons-dir]` stages and verifies every file before
-replacing this addon's folder. It defaults to the author's WoW Forever beta client
-on `mizepc`.
+replacing this addon's folder. It defaults to the author's WoW Forever client
+(`_forever_`) on `mizepc`; pass another client's `Interface\AddOns` path to deploy there.
 
 ## Rights
 

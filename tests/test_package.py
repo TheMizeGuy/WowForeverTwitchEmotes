@@ -21,9 +21,18 @@ import package
 import texture_formats
 
 MODULES = ('Core.lua', 'Text.lua', 'Animation.lua', 'UI.lua', 'Completion.lua', 'Runtime.lua')
-TOC_HEADER = ['## Interface: 16001', '## Title: Twitch Emotes', '## Author: TheMizeGuy',
-              '## Version: 3.0.0', '## X-License: All Rights Reserved', '']
 builder = {}
+
+
+def toc_text(interface, modules=MODULES):
+    header = ['## Interface: ' + interface, '## Title: Twitch Emotes', '## Author: TheMizeGuy',
+              '## Version: 3.1.0', '## X-License: All Rights Reserved', '## SavedVariables: ForeverEmotesDB', '']
+    return '\n'.join(header + list(modules) + ['Packs\\first.lua', ''])
+
+
+def write_tocs(addon, modules=MODULES):
+    for name, interface in package.FLAVOR_TOCS.items():
+        (addon / name).write_text(toc_text(interface, modules))
 
 
 def render_lua(pack):
@@ -52,8 +61,13 @@ def write_texture(path, image, indexed):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def publish(root, pack):
+def write_manifest(root, pack):
+    """Write only the pack manifest, so verify() meets a manifest the builder would have refused to render."""
     (root / 'packs' / (pack['id'] + '.json')).write_text(json.dumps(pack), encoding='utf-8')
+
+
+def publish(root, pack):
+    write_manifest(root, pack)
     (root / 'TwitchEmotes/Packs' / (pack['id'] + '.lua')).write_text(render_lua(pack), encoding='utf-8')
 
 
@@ -70,9 +84,7 @@ def fixture(root):
     (addon / 'ASSET-NOTICES.md').write_text('# Asset notices\n')
     for name in MODULES:
         (addon / name).write_text('local addonName, E = ...\nreturn E\n')
-    toc = '\n'.join(TOC_HEADER + list(MODULES) + ['Packs\\first.lua', ''])
-    (addon / 'TwitchEmotes.toc').write_text(toc)
-    (addon / 'TwitchEmotes_Camelot.toc').write_text(toc)
+    write_tocs(addon)
     icon_digest = write_texture(addon / 'Media/UI/TwitchGlitch.tga', noise((64, 64), 1), False)
     (root / 'assets/twitch-glitch.json').write_text(json.dumps(
         {'texture': 'Media/UI/TwitchGlitch.tga', 'texture_sha256': icon_digest}))
@@ -98,9 +110,40 @@ class VerifyTests(unittest.TestCase):
             fixture(root)
             files = package.verify(root)
             self.assertEqual(files, sorted(files))
-            self.assertEqual(set(files), set(MODULES) | {
-                'Packs/first.lua', 'TwitchEmotes.toc', 'TwitchEmotes_Camelot.toc', 'LICENSE',
-                'ASSET-NOTICES.md', 'Media/7tv/catjam.blp', 'Media/7tv/gz.tga', 'Media/UI/TwitchGlitch.tga'})
+            self.assertEqual(set(files), set(MODULES) | set(package.FLAVOR_TOCS) | {
+                'Packs/first.lua', 'LICENSE', 'ASSET-NOTICES.md',
+                'Media/7tv/catjam.blp', 'Media/7tv/gz.tga', 'Media/UI/TwitchGlitch.tga'})
+
+    def test_every_client_family_has_a_manifest_with_its_own_interface(self):
+        self.assertEqual(set(package.FLAVOR_TOCS), {'TwitchEmotes.toc', 'TwitchEmotes_Mainline.toc',
+                                                    'TwitchEmotes_Mists.toc', 'TwitchEmotes_TBC.toc',
+                                                    'TwitchEmotes_Vanilla.toc', 'TwitchEmotes_Camelot.toc'})
+        self.assertIn('16001', package.FLAVOR_TOCS['TwitchEmotes_Mainline.toc'].split(', '),
+                      'Forever loads the Mainline manifest, so it must list the Forever interface')
+        for name, interface in package.FLAVOR_TOCS.items():
+            for value in interface.split(', '):
+                self.assertRegex(value, r'^\d{5,6}$', name)
+
+    def test_a_manifest_with_the_wrong_interface_or_file_list_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture(root)
+            (root / 'TwitchEmotes/TwitchEmotes_Vanilla.toc').write_text(toc_text('16001'))
+            with self.assertRaisesRegex(ValueError, 'TwitchEmotes_Vanilla.toc must declare'):
+                package.verify(root)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture(root)
+            (root / 'TwitchEmotes/TwitchEmotes_Mists.toc').write_text(
+                toc_text(package.FLAVOR_TOCS['TwitchEmotes_Mists.toc'], MODULES[:-1]))
+            with self.assertRaisesRegex(ValueError, 'TwitchEmotes_Mists.toc differs'):
+                package.verify(root)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture(root)
+            (root / 'TwitchEmotes/TwitchEmotes_TBC.toc').unlink()
+            with self.assertRaises(FileNotFoundError):
+                package.verify(root)
 
     def test_playback_sequences_must_index_stored_frames(self):
         broken = ([0], list(range(257)), [0, 8], [0, -1], [0, 1.0], [0, True], 'ab', 4, [[0], [1]])
@@ -109,18 +152,24 @@ class VerifyTests(unittest.TestCase):
                 root = Path(directory)
                 pack = fixture(root)
                 pack['emotes'][0]['sequence'] = sequence
-                publish(root, pack)
+                write_manifest(root, pack)
                 with self.assertRaisesRegex(ValueError, 'sequence'):
                     package.verify(root)
+                entry = dict(id='7tv:catjam', frames=8, sequence=sequence)
+                with self.assertRaisesRegex(ValueError, 'invalid playback sequence'):
+                    package.playback_sequence(entry)
 
     def test_a_sequence_needs_at_least_two_stored_frames(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             pack = fixture(root)
             pack['emotes'][0].update(frames=1, sequence=[0, 0])
-            publish(root, pack)
+            write_manifest(root, pack)
             with self.assertRaisesRegex(ValueError, 'sequence'):
                 package.verify(root)
+        with self.assertRaisesRegex(ValueError, 'invalid playback sequence'):
+            package.playback_sequence(dict(id='7tv:catjam', frames=1, sequence=[0, 0]))
+        self.assertEqual(package.playback_sequence(dict(id='7tv:gz', frames=1)), ())
 
     def test_valid_sequences_and_absent_sequences_pass(self):
         for sequence in ([0, 0], [7, 0, 3], list(range(8)) * 32, None):
