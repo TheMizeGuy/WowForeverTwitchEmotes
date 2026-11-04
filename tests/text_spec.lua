@@ -18,7 +18,7 @@ local function setup()
     for _, name in ipairs({"Core", "Text"}) do assert(loadfile("TwitchEmotes/" .. name .. ".lua"))("TwitchEmotes", E) end
     E:InitializeDB()
     local emotes = {}
-    for _, name in ipairs({"KEKW", "Kappa", "!spin", "forsen", "Clap", "???", "Me:", ":tf:", ":3", "PagBounce", "dada", "o7", "L", LONG}) do
+    for _, name in ipairs({"KEKW", "Kappa", "!spin", "forsen", "Clap", "???", "Me:", "(7TV)", ":tf:", ":3", "PagBounce", "dada", "o7", "L", LONG}) do
         emotes[#emotes + 1] = entry(name)
     end
     emotes[#emotes + 1] = entry("catJAM", 4)
@@ -49,6 +49,8 @@ test("a punctuation edge never matches inside a longer run of the same byte", fu
     for _, t in ipairs({"????", "?????", "??????", "Me::", "!!spin"}) do equal(E:Transform(t), t) end
     equal(names(E, "??? ok")[1], "???"); equal(names(E, "ok ???")[1], "???")
     equal(names(E, "Me: hi")[1], "Me:"); equal(names(E, "(!spin)")[1], "!spin")
+    -- The same rule applies to bracket edges: (7TV) matches on its own but not wrapped in another pair of parentheses.
+    equal(names(E, "see (7TV) ok")[1], "(7TV)"); equal(E:Transform("((7TV))"), "((7TV))")
 end)
 
 test("escaped pipes and URL or email tokens stop before a glued hyperlink", function()
