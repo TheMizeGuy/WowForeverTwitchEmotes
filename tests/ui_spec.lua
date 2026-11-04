@@ -53,6 +53,18 @@ module("TwitchEmotes/UI.lua"); module("TwitchEmotes/Completion.lua")
 local function suggest() return _G.ForeverEmotesSuggest end
 local function suggesting() return suggest() ~= nil and suggest():IsShown() end
 
+test("first panel and menu opened in combat keep every key flowing", function()
+    B.combat = true
+    E:InitializeUI(); E:OpenPanel()
+    equal(E.ui.panel.propagate, true, "panel created in combat propagates"); equal(B.blocked, nil, "blocked propagation calls")
+    E.ui.panel:Run("OnKeyDown", "W"); equal(E.ui.panel.propagate, true); equal(B.blocked, nil)
+    assert(E:OpenEmoteMenu("Emote01")); local menu = E.ui.emoteMenu
+    equal(menu.propagate, true, "menu created in combat propagates")
+    menu:Run("OnKeyDown", "1"); menu:Run("OnKeyDown", "SPACE")
+    equal(B.blocked, nil); equal(menu.propagate, true); equal(E:IsEmoteHidden("Emote01"), false)
+    B.combat = false; menu:Hide(); E.ui.panel:Hide()
+end)
+
 test("panel construction is lazy and reused across search, pages and settings", function()
     assert(type(E.InitializeUI) == "function", "InitializeUI is required")
     E:InitializeUI(); local before = #B.frames; E:InitializeUI(); equal(#B.frames, before); equal(B.categories, 1)
@@ -68,9 +80,15 @@ test("picker inserts only a plain name at the current chat cursor", function()
     assert(not B.editor:GetText():find("|", 1, true)); equal(E:InsertEmote("unknown"), false)
 end)
 
-test("insertion chooses an editor without discarding an unsent draft", function()
-    B.active = nil; B.editor:SetText("draft ")
-    assert(E:InsertEmote("Emote02")); equal(B.editor:GetText(), "draft Emote02 ")
+test("insertion needs a chat box the player opened and never activates one", function()
+    B.active = nil; B.editor:SetText("draft "); B.resetTrace()
+    equal(B.call(E.InsertEmote, E, "Emote02"), false); equal(B.editor:GetText(), "draft ")
+    equal(E.ui.hint:GetText(), "Press Enter to open chat, then Shift-click the emote.")
+    E:OpenPanel("browse"); E.ui.rows[1]:Click(); E.ui.search:Run("OnEnterPressed")
+    equal(B.editor:GetText(), "draft "); clean("no chat activation without an open box")
+    B.active = B.editor; B.editor:SetText("/1 x")
+    equal(B.call(E.InsertEmote, E, "Emote02"), false); equal(B.editor:GetText(), "/1 x"); clean()
+    B.editor:SetText("")
 end)
 
 test("secret and forbidden editor values never reach text processing", function()
@@ -120,6 +138,32 @@ test("minimap launcher draws above the native rim in the minimap's strata", func
     assert(E.ui.minimap:GetFrameLevel() > MinimapBackdrop:GetFrameLevel(), "native minimap rim must not cover the launcher")
 end)
 
+test("minimap rim uses the Mainline atlas only where the client has it", function()
+    local background = E.ui.minimap.background
+    if B.mainline then
+        equal(background.atlas, "ui-hud-minimap-button"); assert(C_Texture.GetAtlasInfo(background.atlas))
+        equal(E.ui.minimap.border, nil)
+    else
+        equal(background.atlas, nil); equal(background.texture, "Interface\\Minimap\\UI-Minimap-Background")
+        local border = E.ui.minimap.border
+        equal(border.texture, "Interface\\Minimap\\MiniMap-TrackingBorder"); equal(border:GetWidth(), 52); equal(border:GetPoint(), "TOPLEFT")
+        equal(E.ui.minimap:GetWidth(), 33)
+    end
+end)
+
+test("square minimaps keep the launcher on the square's edge", function()
+    local radius = Minimap:GetWidth() / 2 + 2
+    local function offset() local point = E.ui.minimap.point; return point[4], point[5] end
+    _G.GetMinimapShape = function() return "SQUARE" end
+    E.db.minimapAngle = 45; E:RefreshUI()
+    local x, y = offset(); assert(math.abs(x - radius) < 1 and math.abs(y - radius) < 1, "45 degrees sits on the corner: " .. x .. ", " .. y)
+    E.db.minimapAngle = 30; E:RefreshUI(); x, y = offset()
+    assert(math.abs(x - radius) < 1 and y > 0 and y < radius, "30 degrees rides the right edge: " .. x .. ", " .. y)
+    _G.GetMinimapShape = nil; E.db.minimapAngle = 45; E:RefreshUI(); x, y = offset()
+    assert(math.abs(x * x + y * y - radius * radius) < 1, "round minimaps keep the circle")
+    E.db.minimapAngle = 220; E:RefreshUI()
+end)
+
 test("settings and minimap visibility update saved values", function()
     B.find("Settings"):Click(); B.find("Show minimap button"):Click(); equal(E.db.minimap, false); equal(E.ui.minimap:IsShown(), false)
     B.find("Show minimap button"):Click(); equal(E.ui.minimap:IsShown(), true)
@@ -138,12 +182,104 @@ test("animation settings offer 15, 30 and 60 FPS and stop at the bounds", functi
     B.find("Decrease animation fps"):Click(); equal(E.db.animationFPS, 15)
 end)
 
-test("panel keyboard navigation consumes its keys and releases chat input", function()
-    E.ui.panel:Hide(); E:OpenPanel("browse")
-    B.focus = nil; E.ui.panel:Run("OnKeyDown", "TAB"); equal(E.ui.panel.propagate, false)
+test("channel toggles include Guild Discord where the client has it and fit the settings frame", function()
+    E:OpenPanel("settings")
+    local discord = E.ui.channels.CHAT_MSG_GUILD_DISCORD
+    if B.mainline then assert(discord, "Guild Discord toggle missing"); equal(discord.Text:GetText(), "Guild Discord")
+    else equal(discord, nil, "classic clients have no Guild Discord event") end
+    local seen, count = {}, 0
+    for _, control in pairs(E.ui.channels) do
+        local _, _, _, x, y = control:GetPoint()
+        assert(y <= -228 and y - control:GetHeight() >= -462, "channel toggle leaves the settings frame at y=" .. y)
+        assert(not seen[x .. ":" .. y], "two channel toggles overlap"); seen[x .. ":" .. y] = true; count = count + 1
+    end
+    equal(count, B.mainline and 17 or 16)
+end)
+
+test("an idle panel lets Enter, Space and arrows reach the game; Tab over it starts navigation", function()
+    E.ui.panel:Hide(); E:OpenPanel("browse"); B.focus = nil; E.ui.panel.mouseOver = false
+    for _, key in ipairs({ "ENTER", "SPACE", "UP", "DOWN", "LEFT", "RIGHT", "TAB" }) do
+        E.ui.panel:Run("OnKeyDown", key); equal(E.ui.panel.propagate, true, key .. " propagates"); equal(E.ui.tab, "browse"); equal(E.ui.keyboardControl, nil)
+    end
+    E.ui.panel.mouseOver = true
+    E.ui.panel:Run("OnKeyDown", "TAB"); equal(E.ui.panel.propagate, false)
     E.ui.panel:Run("OnKeyDown", "ENTER"); equal(E.ui.panel.propagate, false)
     equal(E.ui.tab, "settings", "keyboard traversal skips the disabled current tab")
     B.editor:SetFocus(); E.ui.panel:Run("OnKeyDown", "A"); equal(E.ui.panel.propagate, true)
+    B.editor:ClearFocus(); E.ui.panel.mouseOver = false
+end)
+
+test("keyboard capture is released before combat and never changed during it", function()
+    E:OpenPanel("browse"); B.focus = nil; E.ui.panel.mouseOver = true
+    E.ui.panel:Run("OnKeyDown", "TAB"); equal(E.ui.panel.propagate, false)
+    B.event("PLAYER_REGEN_DISABLED"); B.combat = true; B.blocked = nil
+    E.ui.panel:Run("OnKeyDown", "1"); E.ui.panel:Run("OnKeyDown", "TAB")
+    equal(B.blocked, nil, "no restricted call in combat"); equal(E.ui.panel.propagate, true)
+    B.combat = false
+    E.ui.panel:Run("OnKeyDown", "TAB"); equal(E.ui.panel.propagate, false); E.ui.panel.CloseButton:Click()
+    equal(E.ui.panel.propagate, true, "hiding the panel hands keys back")
+    E:OpenEmoteMenu("Emote02"); local menu = E.ui.emoteMenu; menu.mouseOver = true
+    menu:Run("OnKeyDown", "TAB"); equal(menu.propagate, false)
+    B.event("PLAYER_REGEN_DISABLED"); B.combat = true
+    menu:Run("OnKeyDown", "1"); menu:Run("OnKeyDown", "SPACE")
+    equal(B.blocked, nil); equal(menu.propagate, true); equal(E:IsEmoteHidden("Emote02"), false)
+    B.combat = false; menu.mouseOver = false; menu:Hide(); E.ui.panel.mouseOver = false
+end)
+
+test("the emote menu opens with nothing selected and acts only after keyboard focus moves into it", function()
+    B.focus = nil; E:OpenEmoteMenu("Emote03"); local menu = E.ui.emoteMenu; menu.mouseOver = false
+    equal(menu.hideEmote.highlighted, false, "nothing preselected")
+    menu:Run("OnKeyDown", "ENTER"); equal(E:IsEmoteHidden("Emote03"), false); equal(menu.propagate, true)
+    menu:Run("OnKeyDown", "SPACE"); equal(E:IsEmoteHidden("Emote03"), false); equal(menu.propagate, true)
+    menu:Run("OnKeyDown", "TAB"); equal(menu.propagate, true, "Tab away from the menu reaches the game"); equal(menu.focusIndex, nil)
+    menu.mouseOver = true
+    menu:Run("OnKeyDown", "TAB"); equal(menu.focusIndex, 1); equal(menu.hideEmote.highlighted, true); equal(menu.propagate, false)
+    menu:Run("OnKeyDown", "ENTER"); equal(E:IsEmoteHidden("Emote03"), true); equal(menu:IsShown(), false)
+    E:SetEmoteHidden("Emote03", false)
+    E:OpenEmoteMenu("Emote03"); equal(menu.focusIndex, nil)
+    menu:Run("OnKeyDown", "ESCAPE"); equal(menu:IsShown(), false); equal(menu.propagate, false, "Escape stays with the menu")
+    menu.mouseOver = false
+end)
+
+test("tooltips follow row content and only the owner's window hides them", function()
+    E:OpenPanel("browse"); E.ui.mode = "all"; E.ui.page = 1; E:RefreshUI()
+    local row = E.ui.rows[1]; row:Run("OnEnter"); equal(GameTooltip.lines[1], row.entry.name)
+    E.ui.browse:Run("OnMouseWheel", -1); equal(E.ui.page, 2)
+    equal(GameTooltip:GetOwner(), row); equal(GameTooltip.lines[1], row.entry.name, "tooltip names the emote now under the cursor")
+    row.favorite:Run("OnEnter"); equal(GameTooltip.lines[1], "Add favorite")
+    row.favorite:Click(); equal(GameTooltip.lines[1], "Remove favorite"); row.favorite:Click()
+    local other = B.new("Frame", nil, UIParent)
+    E:OpenEmoteMenu("Emote01"); GameTooltip:SetOwner(other); GameTooltip:Show()
+    E.ui.emoteMenu:Hide(); equal(GameTooltip:IsShown(), true, "menu leaves a foreign tooltip alone")
+    E.ui.panel:Hide(); equal(GameTooltip:IsShown(), true, "panel leaves a foreign tooltip alone")
+    E:OpenPanel("browse"); E.ui.rows[2]:Run("OnEnter"); E.ui.panel:Hide(); equal(GameTooltip:IsShown(), false)
+    E.ui.page = 1
+end)
+
+test("the size slider clears only the addon's own inputs, also in combat", function()
+    E:OpenPanel("settings"); local slider = E.ui.options.size.slider
+    E.ui.groupSearch:SetFocus(); B.combat = true
+    slider:Run("OnMouseDown", "LeftButton"); B.combat = false
+    equal(E.ui.groupSearch:HasFocus(), false); equal(E.ui.keyboardControl, slider)
+    B.active = B.editor; B.editor:SetFocus(); B.resetTrace()
+    slider:Run("OnMouseDown", "LeftButton"); equal(B.editor:HasFocus(), true, "chat focus stays with the player"); clean()
+    B.editor:ClearFocus()
+end)
+
+test("Clear buttons never pull focus away from an open chat box", function()
+    E:OpenPanel("browse"); B.active = B.editor; B.editor:SetFocus(); B.resetTrace()
+    E.ui.clear:Click(); equal(B.editor:HasFocus(), true); equal(E.ui.search:HasFocus(), false); clean()
+    B.editor:ClearFocus(); E.ui.clear:Click(); equal(E.ui.search:HasFocus(), true)
+    E.ui.search:ClearFocus()
+end)
+
+test("combat alone does not disable insertion or completion; chat lockdown does", function()
+    E:AttachCompletion(B.editor); B.active = B.editor; B.editor:SetText(""); B.combat = true; B.chatLockdown = false
+    assert(E:InsertEmote("Emote04"), "insert works in combat without chat lockdown")
+    B.type(B.editor, "fight :Em"); assert(suggesting(), "completion works in combat")
+    B.chatLockdown = true; local calls = E.completeCalls
+    equal(E:InsertEmote("Emote04"), false); B.type(B.editor, "fight :Em"); equal(suggesting(), false); equal(E.completeCalls, calls)
+    B.combat = false; B.chatLockdown = false; B.editor:SetText("")
 end)
 
 test("completion attaches once and uses one bounded addon-owned suggestion list", function()
@@ -211,7 +347,8 @@ end)
 
 test("chat lockdown and secret text disable completion before Core is called", function()
     local before = E.completeCalls
-    B.combat = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); equal(suggesting(), false); B.combat = false
+    B.combat = true; B.type(B.editor, ":Em"); assert(E.completeCalls > before, "combat alone keeps completion"); assert(suggesting()); B.combat = false
+    before = E.completeCalls
     B.chatLockdown = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); equal(suggesting(), false); B.chatLockdown = false
     B.editor.text = { secret = true }; B.editor:Run("OnTextChanged", true); equal(E.completeCalls, before)
     B.editor:SetText("")
@@ -246,11 +383,13 @@ test("a click on a row applies it, also after retail moved focus off the box", f
     B.editor:SetText("")
 end)
 
-test("completion refuses to overflow the chat line", function()
+test("completion and insertion refuse to overflow the chat line", function()
     local draft = string.rep("a", 248) .. " :Em"
     B.type(B.editor, draft); assert(suggesting()); B.editor:Run("OnTabPressed")
     equal(B.editor:GetText(), draft, "a completion past 255 bytes is not applied")
     B.type(B.editor, "short :Em"); B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "short Emote01")
+    B.active = B.editor; B.editor:SetText(string.rep("b", 250))
+    equal(E:InsertEmote("Emote01"), false); equal(B.editor:GetText(), string.rep("b", 250)); equal(E.ui.hint:GetText(), "The chat line is full.")
     B.editor:SetText("")
 end)
 
@@ -268,6 +407,19 @@ test("typing, choosing, accepting, escaping, losing focus and sending never touc
     for _, entry in ipairs(B.tainted) do assert(residual[entry], "tainted Blizzard state: " .. entry) end
     equal(AutoCompleteBox.maxHeight, 70); equal(AutoCompleteBox.parent, nil)
     equal(B.editor.autoCompleteSource, nil); equal(B.editor.customAutoCompleteFunction, nil)
+end)
+
+test("every insertion path leaves chat activation and focus to the player", function()
+    B.active = B.editor; B.editor:SetText("x "); B.editor:SetCursorPosition(2); B.resetTrace()
+    E:OpenPanel("browse"); E.ui.mode = "all"; E:RefreshUI()
+    local name = E.ui.rows[1].entry.name
+    E.ui.rows[1]:Click(); assert(B.editor:GetText():find(name, 1, true))
+    E.ui.search:Run("OnEnterPressed")
+    E:OpenEmoteMenu("Emote05"); B.find("Insert name in chat", E.ui.emoteMenu):Click(); assert(B.editor:GetText():find("Emote05", 1, true))
+    clean()
+    B.active = nil; local before = B.editor:GetText()
+    E:OpenEmoteMenu("Emote06"); B.find("Insert name in chat", E.ui.emoteMenu):Click()
+    equal(B.editor:GetText(), before); clean(); B.editor:SetText("")
 end)
 
 test("whisper display toggles cover outgoing echoes and preserve other channels", function()

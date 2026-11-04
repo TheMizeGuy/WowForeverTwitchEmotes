@@ -1,10 +1,12 @@
 -- Copyright (c) 2026 TheMizeGuy. All rights reserved.
--- Usage: luajit tests/integration_spec.lua [repository root] [optional Packs directory]
+-- Usage: luajit tests/integration_spec.lua [retail|classic] [repository root] [optional Packs directory]
 local testDirectory = arg[0]:match("^(.*[/\\])") or ""
 local B = dofile(testDirectory .. "ui_boundary.lua")
-local root = arg[1] or "."
+local args = {}
+for i = B.profileArgument(arg[1]) and 2 or 1, #arg do args[#args + 1] = arg[i] end
+local root = args[1] or "."
 local addonDirectory = root .. "/TwitchEmotes"
-local packsDirectory = arg[2] or addonDirectory .. "/Packs"
+local packsDirectory = args[2] or addonDirectory .. "/Packs"
 local mediaDirectory = packsDirectory:gsub("/Packs/?$", "")
 local E, passed, failed = {}, 0, 0
 local function equal(actual, expected, message)
@@ -50,12 +52,14 @@ local function readManifest(name)
     toc:close()
     return list, interface
 end
-local files, packFiles = readManifest("TwitchEmotes_Mainline.toc"), {}
+local reference = readManifest("TwitchEmotes_Mainline.toc")
+-- Classic clients (Era here) read their own manifest; retail and Forever read Mainline.
+local files, packFiles = readManifest(B.mainline and "TwitchEmotes_Mainline.toc" or "TwitchEmotes_Vanilla.toc"), {}
 for _, line in ipairs(files) do if line:sub(1, 6) == "Packs/" then packFiles[#packFiles + 1] = line end end
 for name, expectedInterface in pairs(manifests) do
     local list, interface = readManifest(name)
     assert(interface == expectedInterface, name .. " must declare Interface " .. expectedInterface .. ", found " .. tostring(interface))
-    assert(table.concat(list, "\n") == table.concat(files, "\n"), name .. " must list the same modules as the Mainline manifest")
+    assert(table.concat(list, "\n") == table.concat(reference, "\n"), name .. " must list the same modules as the Mainline manifest")
 end
 local loaded = {}
 for _, path in ipairs(files) do
@@ -371,6 +375,9 @@ test("minimap launcher uses an actual icon rather than a rectangular settings co
     equal(E.ui.minimap:GetHighlightTexture().mask,E.ui.minimap.icon.mask)
     equal(E.ui.minimap:GetPushedTexture().mask,E.ui.minimap.icon.mask)
     equal(E.ui.minimap.selection,nil,"the settings selection rectangle must not be reused")
+    local background=E.ui.minimap.background
+    assert((background.atlas and C_Texture.GetAtlasInfo(background.atlas)) or background.texture=="Interface\\Minimap\\UI-Minimap-Background","minimap rim needs a client atlas or the file fallback")
+    if not B.mainline then equal(background.atlas,nil); equal(E.ui.minimap.border.texture,"Interface\\Minimap\\MiniMap-TrackingBorder") end
     E.ui.minimap:Click(); equal(E.ui.panel:IsShown(),true)
 end)
 
@@ -384,8 +391,9 @@ test("emote scale slider updates live preview and rendered chat without recursio
     local _,text=B.filters.CHAT_MSG_SAY[1](chat,"CHAT_MSG_SAY",sample.name)
     assert(text:find(sample.path..":34:",1,true))
     B.type(B.editor,"keep this draft"); size.slider:Run("OnMouseDown","LeftButton")
-    equal(B.editor:GetText(),"keep this draft"); equal(B.editor:HasFocus(),false)
+    equal(B.editor:GetText(),"keep this draft"); equal(B.editor:HasFocus(),true,"the slider never takes chat focus")
     equal(E.ui.keyboardControl,size.slider); assert(size.slider.focusBorder[1]:IsShown())
+    B.editor:ClearFocus()
     E.ui.panel:Run("OnKeyDown","RIGHT"); equal(E.db.size,35)
     E.ui.panel:Run("OnKeyDown","ENTER"); equal(E.db.size,35)
     E.ui.panel:Run("OnKeyDown","SPACE"); equal(E.db.size,35)
@@ -412,5 +420,5 @@ test("hovered chat links remain stable while other emote lines animate", functio
     line.SetText=nativeSetText; chat.visibleLines={}; chat:RefreshDisplay()
 end)
 
-print(string.format("integration: %d passed, %d failed; %d active emotes in %d packs", passed, failed, #E.names, #E.packOrder))
+print(string.format("integration (%s profile): %d passed, %d failed; %d active emotes in %d packs", B.profileName, passed, failed, #E.names, #E.packOrder))
 os.exit(failed == 0 and 0 or 1)
