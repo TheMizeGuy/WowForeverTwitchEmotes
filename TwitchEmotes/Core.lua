@@ -18,6 +18,12 @@ E.channelLabels = {
 
 local floor, min, max, byte = math.floor, math.min, math.max, string.byte
 local defaultGroups = {general=true, graycen=true, forsen=true, erobb221=true, xqc=true, asmongold=true}
+-- Twitch's global text faces (every global name with punctuation) and everyday chat or WoW words start hidden.
+local defaultHidden = {
+    {2, {":)",":(",":O",":D","D:"}},
+    {3, {"<3","1G","Retail","Classic","classic","CLASSIC"}},
+    {4, {"8-)",":-(",":-)",":-/",":-\\",":-D",":-O",":-o",":-P",":-p",":-Z",":-z",":/",":\\",":o",":P",":p",":Z",":z",";)",";-)",";-P",";-p",";P",";p",">(","B)","B-)","O.O","O.o","o.O","o.o","O_O","O_o","o_O","o_o","R)","R-)","BOP"}},
+}
 local function number(value, fallback, low, high)
     if type(value) ~= "number" or value ~= value or value == math.huge or value == -math.huge then return fallback end
     return min(high, max(low, value))
@@ -69,12 +75,10 @@ function E:InitializeDB(saved)
     for name, hidden in pairs(tableOrEmpty(s.hidden)) do
         if validName(name) and hidden == true and count < 8192 then d.hidden[name]=true; count=count+1 end
     end
-    -- Twitch's global text faces (every global name with punctuation), D:, and everyday chat or WoW words (BOP) start hidden;
-    -- schema 4 covers the whole face set. An explicit restore wins.
-    if type(s.schema)~="number" or s.schema<4 then
-        for _,name in ipairs({":)",":(",":O",":D","D:","8-)",":-(",":-)",":-/",":-\\",":-D",":-O",":-o",":-P",":-p",":-Z",":-z",":/",":\\",":o",":P",":p",":Z",":z",";)",";-)",";-P",";-p",";P",";p","<3",">(","B)","B-)","O.O","O.o","o.O","o.o","O_O","O_o","o_O","o_o","R)","R-)","1G","BOP","Retail","Classic","classic","CLASSIC"}) do
-            if tableOrEmpty(s.hidden)[name]~=false then d.hidden[name]=true end
-        end
+    -- A restore is stored as absence, so each name is hidden only by the schema that added it.
+    local schema=type(s.schema)=="number" and s.schema or 0
+    for _,step in ipairs(defaultHidden) do
+        if schema<step[1] then for _,name in ipairs(step[2]) do d.hidden[name]=true end end
     end
     local recentSeen={}
     for _, name in ipairs(tableOrEmpty(s.recent)) do

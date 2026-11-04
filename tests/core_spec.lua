@@ -362,9 +362,22 @@ test("common text faces and chat words start hidden and explicit restoration sur
     E:SetEmoteHidden(":)",false); E:InitializeDB(E.db); E:RebuildCatalog()
     assert(E:GetEmote(":)")); equal(E:IsEmoteHidden(":)"),false); equal(E:IsEmoteHidden(":("),true)
     E:InitializeDB({schema=1,size=22}); E:RebuildCatalog(); equal(E:IsEmoteHidden(":)"),true)
-    -- a 3.0.0 install saved under schema 2 gains the new names but keeps a deliberate restore
-    E:InitializeDB({schema=2,hidden={Retail=false}}); E:RebuildCatalog()
-    equal(E:IsEmoteHidden("Retail"),false); equal(E:IsEmoteHidden("1G"),true); equal(E:IsEmoteHidden(":-P"),true); equal(E.db.schema,4)
+end)
+test("each default-hidden name applies once at its schema so earlier restores survive later bumps", function()
+    local E=loadEngine(); local entries={}
+    for _,name in ipairs({":)",":(","<3","1G","Retail",":-P","BOP"}) do entries[#entries+1]=entry(name) end
+    E:RegisterPack({id="twitch_global",emotes=entries})
+    local saved={schema=3,hidden={}}
+    for _,name in ipairs({":)",":(",":O",":D","D:","<3","1G","Retail","Classic","classic","CLASSIC"}) do saved.hidden[name]=true end
+    E:InitializeDB(saved); E:RebuildCatalog()
+    assert(E:SetEmoteHidden(":)",false)); assert(E:SetEmoteHidden("Retail",false)); equal(E.db.hidden[":)"],nil)
+    E.db.schema=3; E:InitializeDB(E.db); E:RebuildCatalog()
+    equal(E:IsEmoteHidden(":)"),false); equal(E:IsEmoteHidden("Retail"),false); assert(E:GetEmote(":)"))
+    for _,name in ipairs({":(","<3","1G",":-P","BOP"}) do assert(E:IsEmoteHidden(name),name.." must stay or become hidden") end
+    equal(E.db.schema,4)
+    E:InitializeDB({schema=2,hidden={[":("]=true,[":O"]=true,[":D"]=true,["D:"]=true}}); E:RebuildCatalog()
+    equal(E:IsEmoteHidden(":)"),false)
+    for _,name in ipairs({"<3","Retail",":-P","BOP"}) do assert(E:IsEmoteHidden(name),name.." must become hidden") end
 end)
 
 print(string.format("core: %d passed, %d failed",passed,failed))
