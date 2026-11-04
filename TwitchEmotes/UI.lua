@@ -3,7 +3,7 @@ local addonName, E = ...
 
 local ROWS, COLUMNS = 6, 2
 local PAGE_SIZE = ROWS * COLUMNS
-local GROUP_ROWS, SETUP_ROWS = 12, 16
+local GROUP_ROWS, SETUP_ROWS, CHANNEL_ROWS = 12, 16, 9
 local PANEL_WIDTH, PANEL_HEIGHT = 892, 590
 local ui = { mode = "all", page = 1, groupID = "general", groupOffset = 0, setupOffset = 0, tab = "browse" }
 E.ui = ui
@@ -71,10 +71,56 @@ local function restricted(value)
     return E.IsRestricted and E:IsRestricted(value) or false
 end
 
+local function inCombat() return _G.InCombatLockdown and _G.InCombatLockdown() end
+
+local function ownInput(frame)
+    return frame ~= nil and (frame == ui.search or frame == ui.groupSearch or frame == ui.setupSearch)
+end
+
+local function activeChat()
+    local chat = _G.ChatFrameUtil
+    local editor
+    if chat and chat.GetActiveWindow then editor = chat.GetActiveWindow()
+    elseif _G.ChatEdit_GetActiveWindow then editor = _G.ChatEdit_GetActiveWindow() end
+    if restricted(editor) then return nil end
+    return editor
+end
+
+local function keyboardFocus()
+    if _G.GetCurrentKeyBoardFocus then
+        local focus = _G.GetCurrentKeyBoardFocus()
+        if restricted(focus) then return true end
+        return focus
+    end
+    for _, input in pairs({ ui.search, ui.groupSearch, ui.setupSearch }) do if input:HasFocus() then return input end end
+    local editor = activeChat()
+    if editor and editor.HasFocus and editor:HasFocus() then return editor end
+end
+
+-- Moving focus off a Blizzard edit box from addon code runs its focus-loss handlers tainted.
+local function foreignFocus()
+    local focus = keyboardFocus()
+    return focus ~= nil and not ownInput(focus)
+end
+
+local function tooltipOwnedBy(frame)
+    local tip = _G.GameTooltip
+    if not tip or not tip.GetOwner or not tip:IsShown() then return false end
+    local owner = tip:GetOwner()
+    while owner and not restricted(owner) do
+        if owner == frame then return true end
+        owner = owner.GetParent and owner:GetParent()
+    end
+    return false
+end
+
+function E:VisibleTextBytes(text)
+    return #(text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h", ""):gsub("|h", ""):gsub("|T.-|t", ""))
+end
+
 -- Check native editbox access before reading text, comparing values, or mutating input.
 function E:GetSafeEditorText(editor)
     if restricted(editor) or not editor then return nil end
-    if _G.InCombatLockdown and _G.InCombatLockdown() then return nil end
     if _G.C_ChatInfo and _G.C_ChatInfo.InChatMessagingLockdown then
         local locked = _G.C_ChatInfo.InChatMessagingLockdown()
         if restricted(locked) or locked then return nil end
@@ -171,19 +217,22 @@ local function feedback(text)
     if ui.hint then ui.hint:SetText(text) end
 end
 
+-- Insert only into a chat box the player already opened: activating or focusing one from addon code taints it.
 function E:InsertEmote(name)
     if restricted(name) or type(name) ~= "string" or not self:GetEmote(name, true) then return false end
-    local chat = _G.ChatFrameUtil
-    local editor = chat and chat.GetActiveWindow and chat.GetActiveWindow()
-    if not editor and chat and chat.ChooseBoxForSend then editor = chat.ChooseBoxForSend() end
+    local editor = activeChat()
+    if not editor or not editor.IsShown or not editor:IsShown() then feedback("Press Enter to open chat, then Shift-click the emote."); return false end
     local text, cursor = self:GetSafeEditorText(editor)
     if not text then feedback("Chat input is unavailable."); return false end
-    if chat and chat.ActivateChat then chat.ActivateChat(editor) else editor:SetFocus() end
-    text, cursor = self:GetSafeEditorText(editor)
-    if not text then return false end
+    if text:sub(1, 1) == "/" then feedback("Finish the chat command first, then click the emote."); return false end
     local before = cursor > 0 and not text:sub(cursor, cursor):match("%s") and " " or ""
     local after = text:sub(cursor + 1, cursor + 1):match("%s") and "" or " "
-    editor:Insert(before .. name .. after)
+    local insertion = before .. name .. after
+    local limit = editor.GetVisibleTextByteLimit and editor:GetVisibleTextByteLimit()
+    if not restricted(limit) and type(limit) == "number" and limit > 0 and self:VisibleTextBytes(text) + #insertion > limit then
+        feedback("The chat line is full."); return false
+    end
+    editor:Insert(insertion)
     feedback("Inserted " .. display(name))
     return true
 end
@@ -246,7 +295,8 @@ local function focusControl(index)
     index = ((index - 1) % #controls) + 1
     local control = controls[index]
     ui.keyboardIndex, ui.keyboardControl = index, control
-    if control == ui.search or control == ui.groupSearch or control == ui.setupSearch then control:SetFocus()
+    if ownInput(control) then
+        if not foreignFocus() then control:SetFocus() end
     elseif control.LockHighlight then control:LockHighlight() end
     if control.focusBorder then for _, edge in ipairs(control.focusBorder) do edge:Show() end end
 end
@@ -258,21 +308,40 @@ local function inputTab(self)
     end
 end
 
+-- SetPropagateKeyboardInput is restricted in combat on every client: leave keys flowing there.
 local function keyboard(_, key)
-    local focus = _G.GetCurrentKeyBoardFocus and _G.GetCurrentKeyBoardFocus()
+    if inCombat() then return end
     ui.panel:SetPropagateKeyboardInput(true)
-    if focus then return end
-    if ui.keyboardControl and ui.keyboardControl.emoteSizeSlider and (key == "LEFT" or key == "RIGHT") then
+    if keyboardFocus() then return end
+    if key == "ESCAPE" then ui.panel:Hide()
+    elseif not ui.keyboardControl then
+        -- Until Tab starts navigation over the panel, Enter, Space and the arrows belong to the game.
+        if key ~= "TAB" or not ui.panel:IsMouseOver() then return end
+        focusControl(_G.IsShiftKeyDown() and 0 or 1)
+    elseif ui.keyboardControl.emoteSizeSlider and (key == "LEFT" or key == "RIGHT") then
         local slider = ui.keyboardControl
         slider:SetValue(slider:GetValue() + (key == "RIGHT" and 1 or -1))
     elseif key == "TAB" or key == "DOWN" or key == "RIGHT" or key == "UP" or key == "LEFT" then
         local reverse = key == "UP" or key == "LEFT" or (key == "TAB" and _G.IsShiftKeyDown())
         focusControl((ui.keyboardIndex or 0) + (reverse and -1 or 1))
     elseif key == "ENTER" or key == "SPACE" then
-        if ui.keyboardControl and ui.keyboardControl.Click then ui.keyboardControl:Click() end
-    elseif key == "ESCAPE" then ui.panel:Hide()
+        if ui.keyboardControl.Click then ui.keyboardControl:Click() end
     else return end
     ui.panel:SetPropagateKeyboardInput(false)
+end
+
+local function releaseKeyboard()
+    if inCombat() then return end
+    if ui.panel then ui.panel:SetPropagateKeyboardInput(true) end
+    if ui.emoteMenu then ui.emoteMenu:SetPropagateKeyboardInput(true) end
+end
+
+local function watchCombat()
+    if ui.combatWatch then return end
+    ui.combatWatch = _G.CreateFrame("Frame")
+    -- PLAYER_REGEN_DISABLED fires before lockdown, while propagation can still change.
+    ui.combatWatch:SetScript("OnEvent", releaseKeyboard)
+    ui.combatWatch:RegisterEvent("PLAYER_REGEN_DISABLED")
 end
 
 local function scrollBar(parent, x, y, height, callback)
@@ -366,7 +435,7 @@ local function createBrowse(parent)
         end
     end)
     ui.search:SetScript("OnTabPressed", inputTab)
-    ui.clear = button(browse, "Clear", 582, -20, 90, function() ui.search:SetText(""); ui.search:SetFocus() end)
+    ui.clear = button(browse, "Clear", 582, -20, 90, function() ui.search:SetText(""); if not foreignFocus() then ui.search:SetFocus() end end)
     ui.modes = {}
     for i, mode in ipairs({ { "all", "All" }, { "favorites", "Favorites" }, { "recent", "Recent" }, { "hidden", "Hidden" } }) do
         local key = mode[1]
@@ -389,7 +458,10 @@ local function createBrowse(parent)
         row.preview:SetHeight(40); row.preview:SetJustifyH("CENTER"); row.preview:SetJustifyV("MIDDLE")
         row.name = label(row, "", 90, -5, 196)
         row.usage = label(row, "", 90, -25, 196, "GameFontHighlightSmall")
-        row.favorite = check(row, "", 294, -9, function() if row.entry then E:ToggleFavorite(row.entry.name) end end, true)
+        row.favorite = check(row, "", 294, -9, function(self)
+            if row.entry then E:ToggleFavorite(row.entry.name) end
+            if self:IsVisible() and _G.GameTooltip and _G.GameTooltip:IsOwned(self) then self:GetScript("OnEnter")(self) end
+        end, true)
         row.favorite:SetScript("OnEnter", function(self)
             if _G.GameTooltip then
                 _G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -455,8 +527,7 @@ local function createSettings(parent)
         if value ~= E.db.size then E:SetOption("size", value) end
     end)
     sizeSlider:SetScript("OnMouseDown", function(self)
-        local focus = _G.GetCurrentKeyBoardFocus and _G.GetCurrentKeyBoardFocus()
-        if focus and E:GetSafeEditorText(focus) then focus:ClearFocus() end
+        ui.search:ClearFocus(); ui.groupSearch:ClearFocus(); ui.setupSearch:ClearFocus()
         for i, control in ipairs(ui.controls or {}) do if control == self then focusControl(i); break end end
     end)
     sizeSlider:SetScript("OnEnter", function(self)
@@ -516,17 +587,22 @@ local function createSettings(parent)
     local defaults = {
         { "CHAT_MSG_SAY", "Say" }, { "CHAT_MSG_YELL", "Yell" },
         { "CHAT_MSG_WHISPER", "Whispers" }, { "CHAT_MSG_BN_WHISPER", "Battle.net whispers" },
-        { "CHAT_MSG_GUILD", "Guild" }, { "CHAT_MSG_OFFICER", "Officer" },
+        { "CHAT_MSG_GUILD", "Guild" }, { "CHAT_MSG_OFFICER", "Officer" }, { "CHAT_MSG_GUILD_DISCORD", "Guild Discord" },
         { "CHAT_MSG_CHANNEL", "Public channels" }, { "CHAT_MSG_EMOTE", "Emotes" },
         { "CHAT_MSG_PARTY", "Party" }, { "CHAT_MSG_PARTY_LEADER", "Party leader" },
         { "CHAT_MSG_RAID", "Raid" }, { "CHAT_MSG_RAID_LEADER", "Raid leader" },
         { "CHAT_MSG_RAID_WARNING", "Raid warnings" }, { "CHAT_MSG_INSTANCE_CHAT", "Instance" },
         { "CHAT_MSG_INSTANCE_CHAT_LEADER", "Instance leader" }, { "CHAT_MSG_COMMUNITIES_CHANNEL", "Communities" },
     }
-    for i, channel in ipairs(defaults) do
+    -- Guild Discord exists only on Mainline-engine clients.
+    local eventUtils, available = _G.C_EventUtils, {}
+    for _, channel in ipairs(defaults) do
+        if not (eventUtils and eventUtils.IsEventValid) or eventUtils.IsEventValid(channel[1]) then available[#available + 1] = channel end
+    end
+    for i, channel in ipairs(available) do
         local key = channel[1]
         local title = E.channelLabels and E.channelLabels[key] or channel[2]
-        local control = check(settings, title, i > 8 and 350 or 0, -232 - ((i - 1) % 8) * 28, function(self)
+        local control = check(settings, title, i > CHANNEL_ROWS and 350 or 0, -228 - ((i - 1) % CHANNEL_ROWS) * 26, function(self)
             local channels = {}; for id, enabled in pairs(E.db.channels) do channels[id] = enabled end
             channels[key] = self:GetChecked()
             if key == "CHAT_MSG_WHISPER" or key == "CHAT_MSG_BN_WHISPER" then channels[key .. "_INFORM"] = channels[key] end
@@ -550,7 +626,7 @@ local function createSetup(parent)
     ui.setupSearch:SetScript("OnTextChanged", function() ui.setupOffset = 0; E:RefreshUI() end)
     ui.setupSearch:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
     ui.setupSearch:SetScript("OnTabPressed", inputTab)
-    ui.setupClear = button(setup, "Clear search", 700, -49, 132, function() ui.setupSearch:SetText(""); ui.setupSearch:SetFocus() end)
+    ui.setupClear = button(setup, "Clear search", 700, -49, 132, function() ui.setupSearch:SetText(""); if not foreignFocus() then ui.setupSearch:SetFocus() end end)
     ui.setupRows = {}
     for i = 1, SETUP_ROWS do
         local control = check(setup, "", ((i - 1) % 2) * 420, -88 - math.floor((i - 1) / 2) * 40, function(self)
@@ -576,8 +652,9 @@ local function createSetup(parent)
 end
 
 local function createPanel()
-    local panel = _G.CreateFrame("Frame", "ForeverEmotesPanel", _G.UIParent)
+    local panel = _G.CreateFrame("Frame", "ForeverEmotesPanel", _G.UIParent, "InsecureKeyboardInputPropagatorTemplate")
     ui.panel = panel
+    watchCombat()
     panel:SetSize(PANEL_WIDTH, PANEL_HEIGHT)
     panel:SetPoint("CENTER", _G.UIParent, "CENTER", 0, 0)
     panel:SetFrameStrata("DIALOG")
@@ -585,7 +662,7 @@ local function createPanel()
     panel:SetMovable(true); panel:EnableMouse(true); panel:RegisterForDrag("LeftButton")
     panel:SetScript("OnDragStart", panel.StartMoving)
     panel:SetScript("OnDragStop", panel.StopMovingOrSizing)
-    panel:EnableKeyboard(true); panel:SetPropagateKeyboardInput(true)
+    panel:EnableKeyboard(true)
     panel:SetScript("OnKeyDown", keyboard)
     for i = 3, 1, -1 do
         local shadow = fill(panel, { 0, 0, 0, 0.16 }, "BACKGROUND")
@@ -610,9 +687,10 @@ local function createPanel()
     panel:SetScript("OnHide", function()
         ui.search:ClearFocus(); ui.groupSearch:ClearFocus(); ui.setupSearch:ClearFocus()
         for _, row in ipairs(ui.rows) do stopPreview(row) end
-        if _G.GameTooltip then _G.GameTooltip:Hide() end
+        if tooltipOwnedBy(panel) then _G.GameTooltip:Hide() end
         releaseKeyboardControl()
         ui.keyboardControl, ui.keyboardIndex = nil, nil
+        if not inCombat() then panel:SetPropagateKeyboardInput(true) end
     end)
     panel:Hide()
 end
@@ -621,8 +699,16 @@ local function updateMinimap()
     if not ui.minimap or not E.db then return end
     local angle = math.rad(E.db.minimapAngle or 220)
     local radius = _G.Minimap:GetWidth() / 2 + 2
+    local x, y = math.cos(angle) * radius, math.sin(angle) * radius
+    -- Square-minimap addons define GetMinimapShape(); follow LibDBIcon and ride the square's edge.
+    local shape = _G.GetMinimapShape and _G.GetMinimapShape()
+    if shape == "SQUARE" then
+        local diagonal = math.sqrt(2) * radius
+        x = math.max(-radius, math.min(radius, math.cos(angle) * diagonal))
+        y = math.max(-radius, math.min(radius, math.sin(angle) * diagonal))
+    end
     ui.minimap:ClearAllPoints()
-    ui.minimap:SetPoint("CENTER", _G.Minimap, "CENTER", math.cos(angle) * radius, math.sin(angle) * radius)
+    ui.minimap:SetPoint("CENTER", _G.Minimap, "CENTER", x, y)
     ui.minimap:SetShown(E.db.minimap)
 end
 
@@ -684,7 +770,11 @@ function E:RefreshUI()
         for i, row in ipairs(ui.rows) do
             stopPreview(row)
             local entry = ui.results[(ui.page - 1) * PAGE_SIZE + i]
+            local changed = row.entry ~= entry
             row.entry = entry; row:SetShown(entry ~= nil)
+            if changed and _G.GameTooltip and _G.GameTooltip:IsOwned(row) then
+                if entry then tooltip(entry, row) else _G.GameTooltip:Hide() end
+            end
             if entry then
                 row.preview:SetText(self:Render(entry, previewSize(entry)))
                 row.name:SetText(display(entry.name))
@@ -774,10 +864,11 @@ function E:OpenEmoteMenu(name)
     local entry = self:GetEmote(name, true)
     if not entry then return false end
     if not ui.emoteMenu then
-        local menu = _G.CreateFrame("Frame", "ForeverEmotesMenu", _G.UIParent)
+        local menu = _G.CreateFrame("Frame", "ForeverEmotesMenu", _G.UIParent, "InsecureKeyboardInputPropagatorTemplate")
         ui.emoteMenu = menu
+        watchCombat()
         menu:SetSize(280, 246); menu:SetFrameStrata("FULLSCREEN_DIALOG"); menu:SetClampedToScreen(true)
-        menu:EnableMouse(true); menu:EnableKeyboard(true); menu:SetPropagateKeyboardInput(true)
+        menu:EnableMouse(true); menu:EnableKeyboard(true)
         fill(menu, theme.background); outline(menu, theme.bright)
         menu.preview = label(menu, "", 12, -12, 70); menu.preview:SetHeight(36); menu.preview:SetJustifyH("CENTER")
         menu.title = label(menu, "", 92, -14, 146, "GameFontNormal")
@@ -799,16 +890,19 @@ function E:OpenEmoteMenu(name)
         menu.settings = button(menu, "Emote settings", 12, -184, 256, function() menu:Hide(); E:OpenPanel("settings") end)
         label(menu, "Restore hidden emotes in Browse > Hidden.", 12, -222, 256, "GameFontHighlightSmall")
         menu.controls = { menu.hideEmote, menu.favorite, menu.insert, menu.settings, close }
+        -- Nothing is preselected: Enter and Space reach the game until Tab or an arrow moves focus here.
         menu:SetScript("OnKeyDown", function(self, key)
+            if inCombat() then return end
             self:SetPropagateKeyboardInput(true)
             if key == "ESCAPE" then self:Hide()
-            elseif _G.GetCurrentKeyBoardFocus and _G.GetCurrentKeyBoardFocus() then return
+            elseif keyboardFocus() then return
             elseif key == "TAB" or key == "DOWN" or key == "UP" then
-                self.controls[self.focusIndex]:UnlockHighlight()
+                if not self.focusIndex and not self:IsMouseOver() then return end
                 local reverse = key == "UP" or (key == "TAB" and _G.IsShiftKeyDown())
-                self.focusIndex = (self.focusIndex - 1 + (reverse and -1 or 1)) % #self.controls + 1
+                if self.focusIndex then self.controls[self.focusIndex]:UnlockHighlight() end
+                self.focusIndex = ((self.focusIndex or (reverse and 1 or 0)) - 1 + (reverse and -1 or 1)) % #self.controls + 1
                 self.controls[self.focusIndex]:LockHighlight()
-            elseif key == "ENTER" or key == "SPACE" then self.controls[self.focusIndex]:Click()
+            elseif (key == "ENTER" or key == "SPACE") and self.focusIndex then self.controls[self.focusIndex]:Click()
             else return end
             self:SetPropagateKeyboardInput(false)
         end)
@@ -817,13 +911,15 @@ function E:OpenEmoteMenu(name)
         menu:SetScript("OnHide", function(self)
             self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
             for _, control in ipairs(self.controls) do control:UnlockHighlight() end
-            if _G.GameTooltip then _G.GameTooltip:Hide() end
+            self.focusIndex = nil
+            if tooltipOwnedBy(self) then _G.GameTooltip:Hide() end
+            if not inCombat() then self:SetPropagateKeyboardInput(true) end
         end)
         if _G.UISpecialFrames then _G.UISpecialFrames[#_G.UISpecialFrames + 1] = "ForeverEmotesMenu" end
         menu:Hide()
     end
     local menu = ui.emoteMenu
-    menu:Hide(); menu.emoteName = name; menu.focusIndex = 1
+    menu:Hide(); menu.emoteName = name; menu.focusIndex = nil
     menu.preview:SetText(self:Render(entry, previewSize(entry)))
     menu.title:SetText(display(name)); menu.source:SetText(display(entry.provider))
     menu.hideEmote:SetText(self:IsEmoteHidden(name) and "Restore this emote" or "Hide this emote")
@@ -831,7 +927,7 @@ function E:OpenEmoteMenu(name)
     local x, y = _G.GetCursorPosition(); local scale = menu:GetEffectiveScale()
     menu:ClearAllPoints(); menu:SetPoint("TOPLEFT", _G.UIParent, "BOTTOMLEFT", x / scale, y / scale)
     if _G.GameTooltip then _G.GameTooltip:Hide() end
-    menu:Show(); menu:Raise(); menu.controls[1]:LockHighlight()
+    menu:Show(); menu:Raise()
     return true
 end
 
@@ -839,20 +935,33 @@ function E:InitializeUI()
     if not self.db then return end
     if not ui.minimap and _G.Minimap then
         local control = _G.CreateFrame("Button", nil, _G.Minimap)
-        ui.minimap = control; control:SetSize(24, 24)
+        ui.minimap = control
+        -- The Mainline rim atlas is absent on classic clients, which draw minimap buttons from files.
+        local mainline = _G.C_Texture and _G.C_Texture.GetAtlasInfo and _G.C_Texture.GetAtlasInfo("ui-hud-minimap-button")
         -- The native rim's OVERLAY textures cover buttons at its own frame level.
         control:SetFrameLevel((_G.MinimapBackdrop or _G.Minimap):GetFrameLevel() + 1)
-        control:SetHitRectInsets(-2, -2, -2, -2)
-        control.background = control:CreateTexture(nil, "BACKGROUND")
-        control.background:SetAtlas("ui-hud-minimap-button"); control.background:SetAllPoints(control)
         local mask = control:CreateMaskTexture(nil, "ARTWORK")
         mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-        mask:SetSize(20, 20); mask:SetPoint("CENTER", control, "CENTER")
+        mask:SetSize(20, 20)
+        control.background = control:CreateTexture(nil, "BACKGROUND")
+        if mainline then
+            control:SetSize(24, 24); control:SetHitRectInsets(-2, -2, -2, -2)
+            mask:SetPoint("CENTER", control, "CENTER")
+            control.background:SetAtlas("ui-hud-minimap-button"); control.background:SetAllPoints(control)
+        else
+            -- Classic button geometry (Blizzard_Minimap/Classic/Minimap.xml): 33 px button, 52 px tracking border at TOPLEFT.
+            control:SetSize(33, 33)
+            mask:SetPoint("TOPLEFT", control, "TOPLEFT", 7, -6)
+            control.background:SetTexture("Interface\\Minimap\\UI-Minimap-Background"); control.background:SetAllPoints(mask)
+            control.border = control:CreateTexture(nil, "OVERLAY")
+            control.border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder"); control.border:SetSize(52, 52)
+            control.border:SetPoint("TOPLEFT", control, "TOPLEFT")
+        end
         control.face = control:CreateTexture(nil, "BORDER")
         control.face:SetColorTexture(unpack(theme.accent)); control.face:SetAllPoints(mask); control.face:AddMaskTexture(mask)
         control.icon = control:CreateTexture(nil, "ARTWORK")
         control.icon:SetTexture("Interface\\AddOns\\TwitchEmotes\\Media\\UI\\TwitchGlitch.tga")
-        control.icon:SetSize(15, 15); control.icon:SetPoint("CENTER", control, "CENTER"); control.icon:AddMaskTexture(mask)
+        control.icon:SetSize(15, 15); control.icon:SetPoint("CENTER", mask, "CENTER"); control.icon:AddMaskTexture(mask)
         control:SetHighlightTexture(WHITE, "BLEND")
         control:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.14); control:GetHighlightTexture():AddMaskTexture(mask)
         control:SetPushedTexture(WHITE)

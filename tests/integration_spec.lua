@@ -1,10 +1,12 @@
 -- Copyright (c) 2026 TheMizeGuy. All rights reserved.
--- Usage: luajit tests/integration_spec.lua [repository root] [optional Packs directory]
+-- Usage: luajit tests/integration_spec.lua [retail|classic] [repository root] [optional Packs directory]
 local testDirectory = arg[0]:match("^(.*[/\\])") or ""
 local B = dofile(testDirectory .. "ui_boundary.lua")
-local root = arg[1] or "."
+local args = {}
+for i = B.profileArgument(arg[1]) and 2 or 1, #arg do args[#args + 1] = arg[i] end
+local root = args[1] or "."
 local addonDirectory = root .. "/TwitchEmotes"
-local packsDirectory = arg[2] or addonDirectory .. "/Packs"
+local packsDirectory = args[2] or addonDirectory .. "/Packs"
 local mediaDirectory = packsDirectory:gsub("/Packs/?$", "")
 local E, passed, failed = {}, 0, 0
 local function equal(actual, expected, message)
@@ -50,12 +52,14 @@ local function readManifest(name)
     toc:close()
     return list, interface
 end
-local files, packFiles = readManifest("TwitchEmotes_Mainline.toc"), {}
+local reference = readManifest("TwitchEmotes_Mainline.toc")
+-- Classic clients (Era here) read their own manifest; retail and Forever read Mainline.
+local files, packFiles = readManifest(B.mainline and "TwitchEmotes_Mainline.toc" or "TwitchEmotes_Vanilla.toc"), {}
 for _, line in ipairs(files) do if line:sub(1, 6) == "Packs/" then packFiles[#packFiles + 1] = line end end
 for name, expectedInterface in pairs(manifests) do
     local list, interface = readManifest(name)
     assert(interface == expectedInterface, name .. " must declare Interface " .. expectedInterface .. ", found " .. tostring(interface))
-    assert(table.concat(list, "\n") == table.concat(files, "\n"), name .. " must list the same modules as the Mainline manifest")
+    assert(table.concat(list, "\n") == table.concat(reference, "\n"), name .. " must list the same modules as the Mainline manifest")
 end
 local loaded = {}
 for _, path in ipairs(files) do
@@ -136,17 +140,44 @@ test("real picker search, favorites and insertion share the active catalog", fun
     B.find("All"):Click(); E.ui.search:SetText("")
 end)
 
-test("native completion uses real byte spans without destroying a draft", function()
+local function suggest() return _G.ForeverEmotesSuggest end
+local function suggesting() return suggest() ~= nil and suggest():IsShown() end
+
+test("real completion uses byte spans, Tab applies and the shared Blizzard box stays closed", function()
     local query = sample.name:sub(1, 3)
     B.type(B.editor, "é :" .. query .. "unfinished tail", 4 + #query)
-    assert(AutoCompleteBox:IsShown()); assert(#AutoCompleteBox.results <= 5)
-    local name = AutoCompleteBox.results[1].name
-    assert(AutoCompleteButton1:GetText():find(E:GetEmote(name).path, 1, true), "real suggestion must render the selected emote texture")
-    assert(AutoCompleteButton1:GetText():find(":24:", 1, true), "autocomplete image should be readable at 24 pixels")
-    assert(not name:find("|", 1, true), "autocomplete selection must remain plain text")
-    B.editor:Run("OnEnterPressed")
+    assert(suggesting()); equal(AutoCompleteBox:IsShown(), false)
+    local row = suggest().rows[1]; local name = row.entry.name
+    assert(row.label:GetText():find(E:GetEmote(name).path, 1, true), "real suggestion must render the selected emote texture")
+    assert(row.label:GetText():find(":24:", 1, true), "suggestion image should be readable at 24 pixels")
+    assert(not name:find("|", 1, true), "suggestion selection must remain plain text")
+    B.editor:Run("OnTabPressed")
     equal(B.editor:GetText(), "é " .. name .. " tail"); equal(B.editor:GetCursorPosition(), 3 + #name)
-    equal(AutoCompleteBox:IsShown(), false)
+    equal(suggesting(), false)
+end)
+
+test("Enter sends emoticons and exact names unchanged; the list opens only when Complete offers entries", function()
+    for _, text in ipairs({ "lol :P", "gg :D", "lol :o", "lol :3", "lol :L", "hi :tf:" }) do
+        B.sent = nil; B.type(B.editor, text)
+        local completion = E:Complete(text, #text, 8)
+        equal(suggesting(), completion ~= nil and #completion.entries > 0, text .. " list mirrors E:Complete")
+        B.editor:Run("OnEnterPressed"); equal(B.sent, text, "Enter sends " .. text); equal(suggesting(), false)
+    end
+end)
+
+test("real completion never writes Blizzard chat state", function()
+    B.active = B.editor; B.resetTrace()
+    B.type(B.editor, "hi :Kap"); assert(suggesting())
+    local name = suggest().rows[1].entry.name
+    B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnArrowPressed", "UP")
+    B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "hi " .. name)
+    B.type(B.editor, "x :Kap"); B.editor:Run("OnEscapePressed")
+    B.type(B.editor, "y :Kap"); B.editor:ClearFocus()
+    B.type(B.editor, "send :Kap"); B.editor:Run("OnEnterPressed"); equal(B.sent, "send :Kap")
+    assert(#B.violations == 0, "addon touched Blizzard chat state: " .. table.concat(B.violations, ", "))
+    local residual = { ["editor.lastTabComplete"] = true, ["editor.tabCompleteText"] = true, ["editor.tabCompleteTableIndex"] = true, ["editor.ignoreTextChange"] = true, ["AutoComplete_HideIfAttachedTo()"] = true }
+    for _, entry in ipairs(B.tainted) do assert(residual[entry], "tainted Blizzard state: " .. entry) end
+    equal(AutoCompleteBox.maxHeight, 70); equal(B.editor.autoCompleteSource, nil)
 end)
 
 test("real settings repaint while disabled channels remain browsable", function()
@@ -344,6 +375,9 @@ test("minimap launcher uses an actual icon rather than a rectangular settings co
     equal(E.ui.minimap:GetHighlightTexture().mask,E.ui.minimap.icon.mask)
     equal(E.ui.minimap:GetPushedTexture().mask,E.ui.minimap.icon.mask)
     equal(E.ui.minimap.selection,nil,"the settings selection rectangle must not be reused")
+    local background=E.ui.minimap.background
+    assert((background.atlas and C_Texture.GetAtlasInfo(background.atlas)) or background.texture=="Interface\\Minimap\\UI-Minimap-Background","minimap rim needs a client atlas or the file fallback")
+    if not B.mainline then equal(background.atlas,nil); equal(E.ui.minimap.border.texture,"Interface\\Minimap\\MiniMap-TrackingBorder") end
     E.ui.minimap:Click(); equal(E.ui.panel:IsShown(),true)
 end)
 
@@ -357,8 +391,9 @@ test("emote scale slider updates live preview and rendered chat without recursio
     local _,text=B.filters.CHAT_MSG_SAY[1](chat,"CHAT_MSG_SAY",sample.name)
     assert(text:find(sample.path..":34:",1,true))
     B.type(B.editor,"keep this draft"); size.slider:Run("OnMouseDown","LeftButton")
-    equal(B.editor:GetText(),"keep this draft"); equal(B.editor:HasFocus(),false)
+    equal(B.editor:GetText(),"keep this draft"); equal(B.editor:HasFocus(),true,"the slider never takes chat focus")
     equal(E.ui.keyboardControl,size.slider); assert(size.slider.focusBorder[1]:IsShown())
+    B.editor:ClearFocus()
     E.ui.panel:Run("OnKeyDown","RIGHT"); equal(E.db.size,35)
     E.ui.panel:Run("OnKeyDown","ENTER"); equal(E.db.size,35)
     E.ui.panel:Run("OnKeyDown","SPACE"); equal(E.db.size,35)
@@ -385,5 +420,5 @@ test("hovered chat links remain stable while other emote lines animate", functio
     line.SetText=nativeSetText; chat.visibleLines={}; chat:RefreshDisplay()
 end)
 
-print(string.format("integration: %d passed, %d failed; %d active emotes in %d packs", passed, failed, #E.names, #E.packOrder))
+print(string.format("integration (%s profile): %d passed, %d failed; %d active emotes in %d packs", B.profileName, passed, failed, #E.names, #E.packOrder))
 os.exit(failed == 0 and 0 or 1)
