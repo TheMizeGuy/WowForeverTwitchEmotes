@@ -60,17 +60,21 @@ local function markupEnd(text,pos)
         return last and last+1 or #text
     elseif tag=="c" and sub(text,pos+2,pos+9):match("^%x%x%x%x%x%x%x%x$") then return pos+9
     elseif tag=="r" then return pos+1
-    elseif tag=="|" then
-        local last=find(text,"%s",pos+2); return last and last-1 or #text
     end
     return pos+1
 end
 
+-- A URL or email token ends at whitespace or markup; escaped pipes stay inside it. Every check here is linear.
 local function opaqueWordEnd(text,pos)
     if pos>1 and not sub(text,pos-1,pos-1):match("%s") then return nil end
-    local last=find(text,"%s",pos) or #text+1
-    local token=sub(text,pos,last-1):gsub("^[%p]+","")
-    if token:find("^%a[%w+.-]*://") or token:find("^www%.") or token:find("^[^@]+@[^@]+%.[^@]+$") then return last-1 end
+    local last=find(text,"[%s|]",pos)
+    while last and sub(text,last,last+1)=="||" do last=find(text,"[%s|]",last+2) end
+    last=last or #text+1
+    local token=sub(text,pos,last-1)
+    if find(token,"%w://") or find(token,"[%w-]%.%a%a+/") then return last-1 end
+    token=token:gsub("^%p+","")
+    local domain=token:match("^[^@]+@([^@]+)$")
+    if find(token,"^www%.") or domain and find(sub(domain,2,-2),".",1,true) then return last-1 end
 end
 
 local function rightBoundary(text,pos)
@@ -90,8 +94,7 @@ function E:Transform(text,time)
     local root=self.trie or {}
     while pos<=#text do
         local current=byte(text,pos)
-        local opaque
-        if current==124 then opaque=markupEnd(text,pos) else opaque=opaqueWordEnd(text,pos) end
+        local opaque=opaqueWordEnd(text,pos) or current==124 and markupEnd(text,pos)
         if opaque then
             local tag=sub(text,pos+1,pos+1)
             if current~=124 or (tag~="c" and tag~="r") then boundary=false end
