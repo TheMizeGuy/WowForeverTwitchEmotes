@@ -6,6 +6,8 @@ local ticker, tickerFPS
 local hoverFrame, hoverLine
 local ACCESS = {"IsForbidden","HasAnyForbiddenAspects","CanBeAccessedInContext"}
 local LINK = "|Haddon:ForeverEmotes:"
+-- Every tick re-renders all links of a line, so a line packed with emotes keeps its first frames.
+local MAX_ANIMATED_LINKS = 16
 
 function E:CanAccessObject(object)
     if self:IsRestricted(object) or object==nil then return false end
@@ -29,11 +31,13 @@ local function visible(object)
 end
 
 local function animatedEntries(text)
-    local entries,pos={},1
+    local entries,count,pos={},0,1
     while true do
         local start=find(text,LINK,pos,true)
         local close=start and find(text,"|h",start+#LINK,true)
         if not close then return entries end
+        count=count+1
+        if count>MAX_ANIMATED_LINKS then return nil end
         local name=E:NameFromLink(sub(text,start+2,close-1))
         local entry=name and E.catalog[name]
         if entry and entry.frames>1 then entries[#entries+1]=entry end

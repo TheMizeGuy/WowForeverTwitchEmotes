@@ -228,6 +228,24 @@ test("each tick checks a chat frame once, not once per line",function()
     for slot=1,6 do equal(f.visibleLines[slot].writes,1,"slot "..slot) end
 end)
 
+test("a line with more than 16 emotes shows still frames and never ticks",function()
+    local E,w=setup(); local f=w:Attached(4)
+    w.time=0.3
+    local crowded=E:AnimateText(E:Transform(("W "):rep(128)),0.3)
+    f:AddMessage(crowded); f:Update()
+    local line=f.visibleLines[1]
+    equal(w:Live(),0); equal(line.text,(E:AnimateText(crowded,nil)),"crowded line returns to frame 0")
+    local _,links=line.text:gsub("|Haddon:ForeverEmotes:",""); equal(links,128)
+    local writes=line.writes; w:Tick(0.6); equal(line.writes,writes)
+    f:AddMessage(E:Transform(("W "):rep(17))); f:Update(); equal(w:Live(),0)
+    f:AddMessage(E:Transform(("W "):rep(16))); f:Update(); equal(w:Live(),1)
+    f:AddMessage(E:Transform("W catJAM W")); f:Update(); equal(w:Live(),1)
+    local slots={}; for slot=1,4 do slots[slot]=f.visibleLines[slot].writes end
+    w:Tick(0.92)
+    equal(f.visibleLines[1].writes,slots[1]+1,"three emotes animate"); equal(f.visibleLines[2].writes,slots[2]+1,"sixteen emotes animate")
+    equal(f.visibleLines[3].writes,slots[3],"seventeen emotes stay still"); equal(f.visibleLines[4].writes,slots[4],"128 emotes stay still")
+end)
+
 test("hovering one line freezes only that line",function()
     local E,w=setup(); local f=w:Attached(4)
     f:AddMessage(E:Transform("catJAM")); f:AddMessage(E:Transform("catJAM")); f:Update()
