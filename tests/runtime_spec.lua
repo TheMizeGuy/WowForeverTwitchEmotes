@@ -248,13 +248,15 @@ end)
 test("revealing a censored line renders its emotes and records it once",function()
     local E,w,secret=setup(); assert(w.hooks.SetItemRef,"SetItemRef post-hook")
     _G.CENSORED_MESSAGE_REPORT="%s |Hreportcensoredmessage:%d|h[Report]|h"
-    local lines={[77]="KEKW",[79]="KEKW",[80]=secret}
+    local lines={[77]="KEKW",[79]="KEKW",[80]=secret,[81]="KEKW"}
     _G.C_ChatInfo={GetChatLineText=function(id) return lines[id] end}
     local function formatter(text) return "[Bob] whispers: "..text end
     local f=w:ChatFrame({}); w.chats={f}
     local revealed=CENSORED_MESSAGE_REPORT:format(formatter("KEKW"),77)
     f.history={w:Entry(revealed,"CHAT_MSG_WHISPER",77,formatter),w:Entry("other line","CHAT_MSG_WHISPER",78,formatter),
-        w:Entry("say line","CHAT_MSG_SAY",79,formatter),w:Entry("secret line","CHAT_MSG_WHISPER",80,formatter)}
+        w:Entry("say line","CHAT_MSG_SAY",79,formatter),w:Entry("secret line","CHAT_MSG_WHISPER",80,formatter),
+        w:Entry("lockdown line","CHAT_MSG_WHISPER",81,formatter)}
+    f.history[5].extraData[5][2]=secret
     local untouched,args=f.history[2],f.history[1].extraData[5]
     w.hooks.SetItemRef("item:1","[Item]","LeftButton",f); equal(f.dirty,nil)
     w.hooks.SetItemRef("censoredmessage:77","[Show]","LeftButton",f)
@@ -268,6 +270,7 @@ test("revealing a censored line renders its emotes and records it once",function
     E:SetOption("channels",{CHAT_MSG_SAY=false}); w.hooks.SetItemRef("censoredmessage:79","[Show]","LeftButton",f)
     equal(f.history[3].message,"say line"); equal(E:Stats("KEKW").seen,1)
     w.hooks.SetItemRef("censoredmessage:80","[Show]","LeftButton",f); equal(f.history[4].message,"secret line")
+    w.hooks.SetItemRef("censoredmessage:81","[Show]","LeftButton",f); equal(f.history[5].message,"lockdown line"); equal(E:Stats("KEKW").seen,1)
     w.hooks.SetItemRef(secret,"[Show]","LeftButton",f)
 end)
 

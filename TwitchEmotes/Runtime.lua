@@ -111,7 +111,8 @@ local function revealCensored(link)
     if #names==0 then return end
     local shown
     local function matches(_,_,_,_,_,_,_,event,eventArgs)
-        if type(eventArgs)~="table" or E:IsRestricted(event) or E:IsRestricted(eventArgs[11]) then return false end
+        -- lineID is never secret; a secret sender marks a line received during chat messaging lockdown.
+        if type(eventArgs)~="table" or E:IsRestricted(event) or E:IsRestricted(eventArgs[11]) or E:IsRestricted(eventArgs[2]) then return false end
         return eventArgs[11]==lineID and E.db.channels[event]~=false
     end
     local function rebuild(message,r,g,b,infoID,accessID,typeID,event,eventArgs,formatter,...)
