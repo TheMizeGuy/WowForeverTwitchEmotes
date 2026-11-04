@@ -36,15 +36,19 @@ function E:NameFromLink(link)
 end
 
 function E:BuildMatcher()
-    local root={}
+    local root,links={},{}
     for _,entry in ipairs(self.names) do
         local node=root
         for i=1,#entry.name do local b=byte(entry.name,i); node[b]=node[b] or {}; node=node[b] end
         node.entry=entry
-        entry.encodedName=hex(entry.name)
-        entry.linkStart="|H"..LINK..entry.encodedName.."|h"
+        -- Entries outlive rebuilds and their names never change, so each name is encoded once.
+        if not entry.encodedName then
+            entry.encodedName=hex(entry.name)
+            entry.linkStart="|H"..LINK..entry.encodedName.."|h"
+        end
+        links[entry.linkStart]=entry
     end
-    self.trie=root
+    self.trie,self.linkEntries=root,links
 end
 
 function E:Render(entry,pixels,time,hyperlink)
@@ -146,6 +150,7 @@ end
 
 function E:AnimateText(text,time)
     if self:IsRestricted(text) or type(text)~="string" then return text end
+    local links=self.linkEntries or EMPTY
     local parts,pos,plain,animated={},1,1,false
     while pos<=#text do
         local start=find(text,"|",pos,true)
@@ -153,9 +158,10 @@ function E:AnimateText(text,time)
         local last=markupEnd(text,start)
         if sub(text,start+1,start+1)=="H" then
             local first=find(text,"|h",start+2,true)
-            local name=first and self:NameFromLink(sub(text,start+2,first-1))
+            local entry=first and links[sub(text,start,first+1)]
+            local name=entry and entry.name or first and self:NameFromLink(sub(text,start+2,first-1))
             if name and find(text,"|h",first+2,true) then
-                local entry=self.catalog[name]
+                entry=entry or self.catalog[name]
                 animated=animated or (entry and self.db.enabled and entry.frames>1) or false
                 parts[#parts+1]=sub(text,plain,start-1)
                 parts[#parts+1]=entry and self.db.enabled and self:Render(entry,nil,time,true) or name

@@ -119,5 +119,27 @@ test("completion refuses a replacement longer than the byte limit", function()
     for _, ignored in ipairs({0, -1, "255"}) do equal(select(2, E:ApplyCompletion(text, completion, LONG, ignored)), 201) end
 end)
 
+test("rebuilding the catalog keeps cached link encodings", function()
+    local E = setup()
+    local kekw = E:GetEmote("KEKW"); kekw.encodedName = "sentinel"
+    E:RebuildCatalog(); equal(kekw.encodedName, "sentinel")
+    E:RegisterPack({id = "late", emotes = {entry("lateJAM")}}); E:RebuildCatalog()
+    equal(E:GetEmote("lateJAM").encodedName, "6c6174654a414d")
+end)
+test("animation finds addon links without decoding them", function()
+    local E = setup()
+    local text = E:Transform("catJAM KEKW")
+    local decode, calls = E.NameFromLink, 0
+    E.NameFromLink = function(self, link) calls = calls + 1; return decode(self, link) end
+    local animated, moving = E:AnimateText(text, 0.25)
+    equal(calls, 0); assert(moving); assert(animated:find(":64:96|t", 1, true))
+    equal(E:AnimateText("|Hitem:1|h[catJAM]|h", 0.25), "|Hitem:1|h[catJAM]|h")
+    E:SetEmoteHidden("KEKW", true)
+    local plain = E:AnimateText(text, 0.25)
+    assert(plain:find(" KEKW$")); assert(plain:find(":64:96|t", 1, true))
+    E:SetOption("enabled", false); equal(E:AnimateText(text, 0.25), "catJAM KEKW")
+    E.NameFromLink = decode; equal(E:NameFromLink(E.linkPrefix .. "4b454b57"), "KEKW")
+end)
+
 print(string.format("text: %d passed, %d failed", passed, failed))
 os.exit(failed == 0 and 0 or 1)
