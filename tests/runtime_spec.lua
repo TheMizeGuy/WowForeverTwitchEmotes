@@ -6,9 +6,18 @@ local function test(name,body)
     if ok then passed=passed+1 else failed=failed+1; print("FAIL "..name..": "..err) end
 end
 local function pack(...) return {n=select("#",...),...} end
-local function setup(saved)
+local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true}
+-- options.unknown: events the simulated client does not know.
+local function setup(saved,options)
+    options=options or {}
     local world={frames={},filters={},callbacks={},tickers={},hooks={},time=0,after={},messages={}}
     local secret={}
+    local E={}
+    local function known(event)
+        if LIFECYCLE[event] then return true end
+        return E.channelLabels~=nil and E.channelLabels[event]~=nil and not (options.unknown and options.unknown[event])
+    end
+    _G.C_EventUtils={IsEventValid=function(event) return known(event) end}
     _G.issecretvalue=function(value) return value==secret end
     _G.canaccessvalue=function(value) return value~=secret end
     _G.GetTime=function() return world.time end
@@ -20,7 +29,10 @@ local function setup(saved)
     _G.CreateFrame=function()
         local f={events={},scripts={}}
         function f:SetScript(event,fn) self.scripts[event]=fn end
-        function f:RegisterEvent(event) self.events[event]=true end
+        function f:RegisterEvent(event)
+            if not known(event) then error('Attempt to register unknown event "'..tostring(event)..'"') end
+            self.events[event]=true
+        end
         function f:UnregisterEvent(event) self.events[event]=nil end
         function f:Fire(event,...) if self.events[event] then self.scripts.OnEvent(self,event,...) end end
         world.frames[#world.frames+1]=f; return f
@@ -38,10 +50,10 @@ local function setup(saved)
     _G.FCF_OpenTemporaryWindow=function() end
     _G.EventRegistry={RegisterCallback=function(_,name,fn,owner) world.callbacks[name]={fn=fn,owner=owner} end}
     _G.GameTooltip={SetOwner=function() end,AddLine=function() end,Show=function() world.tooltip=true end,Hide=function() world.tooltip=false end}
-    local E={}
     for _,name in ipairs({"Core","Text","Animation","Runtime"}) do
         local chunk=assert(loadfile("TwitchEmotes/"..name..".lua")); chunk("TwitchEmotes",E)
     end
+    E.channelLabels.CHAT_MSG_GUILD_DISCORD=E.channelLabels.CHAT_MSG_GUILD_DISCORD or "Guild Discord"
     E:RegisterPack({id="test",group="general",emotes={
         {name="KEKW",path="Interface\\AddOns\\TwitchEmotes\\Media\\kekw.tga",width=32,height=32,sheetWidth=32,sheetHeight=32,frames=1,fps=0},
         {name="catJAM",path="Interface\\AddOns\\TwitchEmotes\\Media\\cat.tga",width=32,height=32,sheetWidth=32,sheetHeight=128,frames=4,fps=10},
@@ -182,6 +194,19 @@ test("escaped animation markup never creates an idle ticker",function()
     local E,w=setup(); local text="|"..E:Transform("catJAM")
     local line=w:Line(text); local f=w:ChatFrame({line}); E:AttachAnimation(f); f.refresh(f)
     equal(line.text,text); equal(#w.tickers,0)
+end)
+
+test("Guild Discord renders and counts on clients that know the event",function()
+    local E,w=setup(); equal(w.eventFrame.events.CHAT_MSG_GUILD_DISCORD,true)
+    local _,text=w.filters.CHAT_MSG_GUILD_DISCORD({},"CHAT_MSG_GUILD_DISCORD","KEKW"); assert(text:find("|T",1,true))
+    w:Chat("KEKW","Player-self",48,"CHAT_MSG_GUILD_DISCORD"); equal(E:Stats("KEKW").sent,1)
+end)
+test("events the client does not know are skipped and login still completes",function()
+    local E,w=setup(nil,{unknown={CHAT_MSG_GUILD_DISCORD=true}})
+    equal(w.filters.CHAT_MSG_GUILD_DISCORD,nil); equal(w.eventFrame.events.CHAT_MSG_GUILD_DISCORD,nil)
+    assert(w.filters.CHAT_MSG_SAY); equal(w.eventFrame.events.CHAT_MSG_SAY,true)
+    assert(w.callbacks.SetItemRef); assert(w.hooks.FCF_OpenTemporaryWindow)
+    SlashCmdList.FOREVEREMOTES(""); equal(w.open,true)
 end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))

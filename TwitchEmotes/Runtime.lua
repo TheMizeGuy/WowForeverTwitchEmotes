@@ -63,6 +63,11 @@ local function record(event,text,...)
     if own then E:Record(names,"sent",lineID) end
 end
 
+function E:IsEventSupported(event)
+    local events=_G.C_EventUtils
+    return not (events and events.IsEventValid) or events.IsEventValid(event)
+end
+
 function E:AttachChatWindows()
     local function attach(chat)
         if not self:CanAccessObject(chat) then return end
@@ -125,8 +130,11 @@ local function login()
     installed=true
     local addFilter=ChatFrameUtil and ChatFrameUtil.AddMessageEventFilter or _G.ChatFrame_AddMessageEventFilter
     for event in pairs(E.channelLabels) do
-        if addFilter then addFilter(event,filter) end
-        frame:RegisterEvent(event)
+        -- RegisterEvent raises on an event the running client does not define.
+        if E:IsEventSupported(event) then
+            if addFilter then addFilter(event,filter) end
+            frame:RegisterEvent(event)
+        end
     end
     E:InitializeUI()
     E:AttachChatWindows()
