@@ -117,6 +117,12 @@ timestamps, so one install packs to the same bytes every time. The finished arch
 is reopened to confirm every member's CRC and size.
 `python3 tests/test_package.py` covers that verification, each encoder, and the
 archive writer.
+Before a release, `python3 scripts/check-interface.py` reads the live `us` build of
+`wow`, `wow_classic`, `wow_anniversary`, `wow_classic_era` and `wowf` from the
+Battle.net versions endpoints, computes each interface number
+(major × 10000 + minor × 100 + patch) and fails unless the client's manifest and the
+fallback `TwitchEmotes.toc` in `FLAVOR_TOCS` declare it; it prints one line per client.
+`python3 tests/test_check_interface.py` tests it offline.
 `.venv/bin/python tests/test_texture_optimizer.py` checks format validation, transparency,
 temporal cleanup, sequences, layout, allocation, shared references, quality fallback,
 and repeatable conversion. Run
