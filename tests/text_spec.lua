@@ -44,6 +44,13 @@ test("dotted words and single-letter hosts still match", function()
     local found = names(E, "KEKW/forsen"); equal(found[1], "KEKW"); equal(found[2], "forsen")
 end)
 
+test("a punctuation edge never matches inside a longer run of the same byte", function()
+    local E = setup()
+    for _, t in ipairs({"????", "?????", "??????", "Me::", "!!spin"}) do equal(E:Transform(t), t) end
+    equal(names(E, "??? ok")[1], "???"); equal(names(E, "ok ???")[1], "???")
+    equal(names(E, "Me: hi")[1], "Me:"); equal(names(E, "(!spin)")[1], "!spin")
+end)
+
 test("escaped pipes and URL or email tokens stop before a glued hyperlink", function()
     local E = setup()
     for _, t in ipairs({"|||cff71d5ff|Hspell:1|h[Big Kappa]|h|r", "|||cff71d5ff|Hspell:6343|h[Thunder Clap]|h|r",
@@ -55,6 +62,22 @@ end)
 test("a URL keeps escaped pipes inside its token", function()
     local E = setup()
     for _, t in ipairs({"https://x.y/a||/KEKW", "||https://x.y/KEKW", "twitch.tv/a||/KEKW"}) do equal(E:Transform(t), t) end
+end)
+
+test("UTF-8 punctuation and spaces are word boundaries", function()
+    local E = setup()
+    for _, t in ipairs({"KEKW\226\128\166", "\226\128\156KEKW\226\128\157", "\194\171KEKW\194\187", "KEKW\227\128\130",
+        "KEKW\239\188\140", "KEKW\194\160!", "\194\161KEKW!", "\227\128\140KEKW\227\128\141"}) do
+        local out, found = E:Transform(t)
+        equal(found[1], "KEKW"); assert(out ~= t)
+    end
+    local out = E:Transform("\194\171KEKW\194\187"); equal(out:sub(1, 2), "\194\171"); equal(out:sub(-2), "\194\187")
+end)
+test("CJK ideographs, letters and malformed bytes stay word characters", function()
+    local E = setup()
+    for _, t in ipairs({"\228\189\160\229\165\189KEKW", "KEKW\228\189\160", "\195\169KEKW", "\226KEKW", "\226\128KEKW"}) do
+        equal(E:Transform(t), t)
+    end
 end)
 
 test("hostile tokens cost linear time", function()

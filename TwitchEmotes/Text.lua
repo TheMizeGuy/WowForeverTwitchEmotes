@@ -5,9 +5,26 @@ local floor, max = math.floor, math.max
 local EMPTY = {}
 local LINK = "addon:ForeverEmotes:"
 E.linkPrefix=LINK
+-- Code point ranges of non-ASCII spaces and punctuation; every other non-ASCII character, CJK included, continues a word.
+local SEPARATORS = {0xA0,0xBF, 0x2000,0x206F, 0x3000,0x303F, 0xFF01,0xFF0F, 0xFF1A,0xFF20, 0xFF3B,0xFF40, 0xFF5B,0xFF65}
 
 local function word(b)
     return b and (b>=128 or b>=48 and b<=57 or b>=65 and b<=90 or b>=97 and b<=122 or b==95)
+end
+-- Byte length of the character at pos and whether it continues a word; a malformed byte counts as a one-byte word character.
+local function character(text,pos)
+    local b=byte(text,pos)
+    if not b then return 0,false elseif b<128 then return 1,word(b) end
+    local length=b>=0xF5 and 1 or b>=0xF0 and 4 or b>=0xE0 and 3 or b>=0xC2 and 2 or 1
+    if length==1 then return 1,true end
+    local code=b%(length==2 and 32 or length==3 and 16 or 8)
+    for i=1,length-1 do
+        local c=byte(text,pos+i)
+        if not c or c<128 or c>191 then return 1,true end
+        code=code*64+c-128
+    end
+    for i=1,#SEPARATORS,2 do if code>=SEPARATORS[i] and code<=SEPARATORS[i+1] then return length,false end end
+    return length,true
 end
 local function hex(text) return (text:gsub(".",function(c) return format("%02x",byte(c)) end)) end
 function E:NameFromLink(link)
@@ -77,14 +94,18 @@ local function opaqueWordEnd(text,pos)
     if find(token,"^www%.") or domain and find(sub(domain,2,-2),".",1,true) then return last-1 end
 end
 
+-- A name whose edge is punctuation never matches inside a longer run of that byte: ??? stays plain in ????.
 local function rightBoundary(text,pos)
+    local edge=byte(text,pos-1)
     while sub(text,pos,pos)=="|" do
         local tag=sub(text,pos+1,pos+1)
         if tag=="r" then pos=pos+2
         elseif tag=="c" and sub(text,pos+2,pos+9):match("^%x%x%x%x%x%x%x%x$") then pos=pos+10
         else break end
     end
-    return not word(byte(text,pos))
+    if byte(text,pos)==edge and not word(edge) then return false end
+    local _,continues=character(text,pos)
+    return not continues
 end
 
 function E:Transform(text,time)
@@ -99,18 +120,24 @@ function E:Transform(text,time)
             local tag=sub(text,pos+1,pos+1)
             if current~=124 or (tag~="c" and tag~="r") then boundary=false end
             pos=opaque+1
-        elseif boundary and root[current] then
-            local node,scan,match,last=root,pos,nil,nil
-            while scan<=#text and node[byte(text,scan)] do
-                node=node[byte(text,scan)]; scan=scan+1
-                if node.entry and rightBoundary(text,scan) then match,last=node.entry,scan-1 end
+        else
+            local match,last
+            if boundary and root[current] and not (pos>1 and not word(current) and byte(text,pos-1)==current) then
+                local node,scan=root,pos
+                while scan<=#text and node[byte(text,scan)] do
+                    node=node[byte(text,scan)]; scan=scan+1
+                    if node.entry and rightBoundary(text,scan) then match,last=node.entry,scan-1 end
+                end
             end
             if match then
                 parts[#parts+1]=sub(text,plain,pos-1); parts[#parts+1]=self:Render(match,nil,time,true)
                 names[#names+1]=match.name; animated=animated or match.frames>1
                 boundary=not word(byte(text,last)); pos=last+1; plain=pos
-            else boundary=not word(current); pos=pos+1 end
-        else boundary=not word(current); pos=pos+1 end
+            else
+                local length,continues=character(text,pos)
+                boundary=not continues; pos=pos+length
+            end
+        end
     end
     if #names==0 then return text,names,false end
     parts[#parts+1]=sub(text,plain)
