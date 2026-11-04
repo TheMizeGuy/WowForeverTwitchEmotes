@@ -23,6 +23,17 @@ local function entry(name, path, frames)
         width = 64, height = 32, sheetWidth = 64, sheetHeight = frames and 128 or 32,
         frames = frames or 1, fps = frames and 10 or 0, creator = "Artist", source = "https://7tv.app/emotes/test"}
 end
+local function realPacks()
+    local E = loadEngine()
+    for line in io.lines("TwitchEmotes/TwitchEmotes.toc") do
+        local file = line:gsub("\r", ""):match("^Packs\\([%w_%-]+%.lua)$")
+        if file then assert(loadfile("TwitchEmotes/Packs/" .. file))("TwitchEmotes", E) end
+    end
+    assert(#E.packOrder > 50, "expected the shipped packs")
+    E:PrepareSetup(); E:RebuildCatalog()
+    return E
+end
+local function count(values) local n = 0; for _ in pairs(values) do n = n + 1 end; return n end
 local function setup()
     local E = loadEngine()
     E:RegisterPack({id="base", title="Base", priority=0, emotes={entry("KEKW"), entry("Kappa"), entry("catJAM", nil, 4), entry("!spin"), entry("plink-182"), entry(":smile:")}})
@@ -121,6 +132,11 @@ end)
 test("channel options retain known channels and reject arbitrary settings", function()
     local E=setup(); E:SetOption("channels",{CHAT_MSG_GUILD=false,CHAT_MSG_SAY=true,UNKNOWN=true})
     equal(E.db.channels.CHAT_MSG_GUILD,false); equal(E.db.channels.CHAT_MSG_RAID,true); equal(E.db.channels.UNKNOWN,nil)
+end)
+test("Guild Discord chat is a known channel enabled by default", function()
+    local E=setup(); equal(E.channelLabels.CHAT_MSG_GUILD_DISCORD,"Guild Discord"); equal(E.db.channels.CHAT_MSG_GUILD_DISCORD,true)
+    E:SetOption("channels",{CHAT_MSG_GUILD_DISCORD=false}); equal(E.db.channels.CHAT_MSG_GUILD_DISCORD,false)
+    E:InitializeDB(E.db); equal(E.db.channels.CHAT_MSG_GUILD_DISCORD,false)
 end)
 test("favorite and pack filters don't leak other entries", function()
     local E=setup(); E:ToggleFavorite("KEKW"); equal(#E:Search("",100,"favorites"),1)
@@ -309,12 +325,83 @@ test("hidden preferences reject invalid input and unchanged choices do no work",
     E:InitializeDB({hidden={KEKW=true,Kappa=false,["bad|name"]=true,[7]=true,unknown=true}})
     E:RebuildCatalog()
     assert(type(E.db.hidden)=="table", "saved hidden preferences are missing")
-    equal(E.db.hidden.KEKW,true); equal(E.db.hidden.Kappa,nil); equal(E.db.hidden.unknown,nil)
+    equal(E.db.hidden.KEKW,true); equal(E.db.hidden.Kappa,nil); equal(E.db.hidden.unknown,true)
     equal(E.db.hidden["bad|name"],nil); equal(E.db.hidden[7],nil)
     local revision=E.revision
     equal(E:SetEmoteHidden("unknown",true),false); equal(E:SetEmoteHidden("KEKW","false"),false)
     equal(E:SetEmoteHidden("KEKW",true),false); equal(E.revision,revision)
     assert(E:SetEmoteHidden("KEKW",false)); assert(E.revision>revision)
+end)
+
+test("choices for a name that leaves every pack survive until it returns", function()
+    local function session(saved,names)
+        local E=loadEngine(); local entries={}
+        for _,name in ipairs(names) do entries[#entries+1]=entry(name) end
+        E:RegisterPack({id="graycen",emotes=entries}); E:InitializeDB(saved); E:PrepareSetup(); E:RebuildCatalog()
+        return E
+    end
+    local E=session(nil,{"Retail","KEKW","Kappa"}); assert(E:IsEmoteHidden("Retail"))
+    E:ToggleFavorite("KEKW"); E:Record({"KEKW"},"seen"); E:Record({"KEKW"},"sent"); assert(E:SetEmoteHidden("Kappa",true))
+    E=session(E.db,{"other"})
+    equal(E:GetEmote("KEKW",true),nil); equal(#E.db.recent,0)
+    E=session(E.db,{"Retail","KEKW","Kappa"})
+    assert(E:IsEmoteHidden("Retail")); equal(E:Transform("Retail"),"Retail")
+    assert(E:IsEmoteHidden("Kappa")); equal(E:Transform("Kappa"),"Kappa")
+    equal(E.db.favorites.KEKW,true); equal(E:Stats("KEKW").seen,1); equal(E:Stats("KEKW").sent,1)
+end)
+
+test("saved row limits keep a whole profile and stay above every shipped name", function()
+    local limit=loadEngine().savedRowLimit
+    assert(type(limit)=="number" and limit>=16384, "saved row limit must be at least 16384")
+    local saved={schema=4,favorites={},hidden={},stats={}}
+    for i=1,limit+1 do local name="emote"..i; saved.favorites[name]=true; saved.hidden[name]=true; saved.stats[name]={sent=1,seen=2} end
+    local E=loadEngine(); E:InitializeDB(saved)
+    equal(count(E.db.favorites),limit); equal(count(E.db.hidden),limit); equal(count(E.db.stats),limit)
+    local known=count(realPacks().known)
+    assert(known<limit, known.." distinct shipped names reach the saved row limit "..limit)
+end)
+
+test("toggles reuse the pack index instead of resorting it until a pack registers", function()
+    local E=loadEngine(); local entries={}
+    for i=1,40 do entries[i]=entry("emote"..i) end
+    E:RegisterPack({id="base",emotes=entries})
+    E:RegisterPack({id="channel",group="channel",priority=20,emotes={entry("emote1"),entry("emote2"),entry(":emote2")}})
+    E:RebuildCatalog()
+    local browse,known,realSort,sorted=E.browseNames,E.known,table.sort,0
+    table.sort=function(t,f) if #t>5 then sorted=sorted+1 end; return realSort(t,f) end
+    local ok,err=pcall(function()
+        assert(E:SetEmoteHidden("emote3",true)); E:SetGroupEnabled("channel",false); E:SetPackEnabled("base",true)
+        E:SetGroupEnabled("channel",true); E:SetOption("preferredGroup","base")
+    end)
+    table.sort=realSort; assert(ok,err)
+    equal(sorted,0); assert(E.browseNames==browse,"browse list was rebuilt"); assert(E.known==known,"known names were rebuilt")
+    equal(E:GetEmote("emote1").packID,"base"); equal(E:GetEmote("emote3"),nil)
+    E:RegisterPack({id="late",emotes={entry("lateEmote")}}); E:RebuildCatalog()
+    assert(E.browseNames~=browse); assert(E.known.lateEmote); assert(E:GetEmote("lateEmote"))
+    assert(E:Transform("lateEmote")~="lateEmote"); equal(E:Complete(":late",5).entries[1].name,"lateEmote")
+end)
+
+test("filtered catalog lists equal a fresh sort in every settings state", function()
+    local E=realPacks()
+    local function byName(a,b)
+        if a.searchName==b.searchName then if a.name==b.name then return a.packID<b.packID end; return a.name<b.name end
+        return a.searchName<b.searchName
+    end
+    local function byCompletion(a,b) if a.completionName==b.completionName then return a.name<b.name end; return a.completionName<b.completionName end
+    local function check(label)
+        local names,completion={},{}
+        for _,e in pairs(E.catalog) do names[#names+1]=e; completion[#completion+1]=e end
+        table.sort(names,byName); table.sort(completion,byCompletion)
+        assert(#E.names==#names and #E.completionNames==#names,label.." list length")
+        for i=1,#names do
+            assert(E.names[i]==names[i],label.." names differ at "..i); assert(E.completionNames[i]==completion[i],label.." completion differs at "..i)
+        end
+    end
+    check("default groups")
+    for _,id in ipairs(E.packOrder) do E.db.packs[id]=true end; E:RebuildCatalog(); check("all packs")
+    E:SetOption("preferredGroup","xqc"); check("preferred group")
+    local n=0; for name in pairs(E.known) do if n<200 then E.db.hidden[name]=true; n=n+1 end end
+    E:RebuildCatalog(); check("hidden names")
 end)
 
 test("browsing disabled groups shows their own deduplicated catalog", function()
@@ -345,9 +432,22 @@ test("common text faces and chat words start hidden and explicit restoration sur
     E:SetEmoteHidden(":)",false); E:InitializeDB(E.db); E:RebuildCatalog()
     assert(E:GetEmote(":)")); equal(E:IsEmoteHidden(":)"),false); equal(E:IsEmoteHidden(":("),true)
     E:InitializeDB({schema=1,size=22}); E:RebuildCatalog(); equal(E:IsEmoteHidden(":)"),true)
-    -- a 3.0.0 install saved under schema 2 gains the new names but keeps a deliberate restore
-    E:InitializeDB({schema=2,hidden={Retail=false}}); E:RebuildCatalog()
-    equal(E:IsEmoteHidden("Retail"),false); equal(E:IsEmoteHidden("1G"),true); equal(E:IsEmoteHidden(":-P"),true); equal(E.db.schema,4)
+end)
+test("each default-hidden name applies once at its schema so earlier restores survive later bumps", function()
+    local E=loadEngine(); local entries={}
+    for _,name in ipairs({":)",":(","<3","1G","Retail",":-P","BOP"}) do entries[#entries+1]=entry(name) end
+    E:RegisterPack({id="twitch_global",emotes=entries})
+    local saved={schema=3,hidden={}}
+    for _,name in ipairs({":)",":(",":O",":D","D:","<3","1G","Retail","Classic","classic","CLASSIC"}) do saved.hidden[name]=true end
+    E:InitializeDB(saved); E:RebuildCatalog()
+    assert(E:SetEmoteHidden(":)",false)); assert(E:SetEmoteHidden("Retail",false)); equal(E.db.hidden[":)"],nil)
+    E.db.schema=3; E:InitializeDB(E.db); E:RebuildCatalog()
+    equal(E:IsEmoteHidden(":)"),false); equal(E:IsEmoteHidden("Retail"),false); assert(E:GetEmote(":)"))
+    for _,name in ipairs({":(","<3","1G",":-P","BOP"}) do assert(E:IsEmoteHidden(name),name.." must stay or become hidden") end
+    equal(E.db.schema,4)
+    E:InitializeDB({schema=2,hidden={[":("]=true,[":O"]=true,[":D"]=true,["D:"]=true}}); E:RebuildCatalog()
+    equal(E:IsEmoteHidden(":)"),false)
+    for _,name in ipairs({"<3","Retail",":-P","BOP"}) do assert(E:IsEmoteHidden(name),name.." must become hidden") end
 end)
 
 print(string.format("core: %d passed, %d failed",passed,failed))
