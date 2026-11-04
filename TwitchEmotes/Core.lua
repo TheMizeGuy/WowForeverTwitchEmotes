@@ -181,7 +181,6 @@ function E:RebuildCatalog()
     table.sort(completionNames,function(a,b) if a.completionName==b.completionName then return a.name<b.name end; return a.completionName<b.completionName end)
     self.catalog,self.names,self.known,self.completionNames=catalog,names,known,completionNames
     self.available,self.browseNames,self.hiddenNames=available,browseNames,hiddenNames
-    for _, key in ipairs({"stats","favorites","hidden"}) do for name in pairs(self.db[key]) do if not known[name] then self.db[key][name]=nil end end end
     for i=#self.db.recent,1,-1 do if not known[self.db.recent[i]] then table.remove(self.db.recent,i) end end
     self.revision=self.revision+1
     if self.BuildMatcher then self:BuildMatcher() end

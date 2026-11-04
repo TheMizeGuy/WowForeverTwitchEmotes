@@ -309,12 +309,29 @@ test("hidden preferences reject invalid input and unchanged choices do no work",
     E:InitializeDB({hidden={KEKW=true,Kappa=false,["bad|name"]=true,[7]=true,unknown=true}})
     E:RebuildCatalog()
     assert(type(E.db.hidden)=="table", "saved hidden preferences are missing")
-    equal(E.db.hidden.KEKW,true); equal(E.db.hidden.Kappa,nil); equal(E.db.hidden.unknown,nil)
+    equal(E.db.hidden.KEKW,true); equal(E.db.hidden.Kappa,nil); equal(E.db.hidden.unknown,true)
     equal(E.db.hidden["bad|name"],nil); equal(E.db.hidden[7],nil)
     local revision=E.revision
     equal(E:SetEmoteHidden("unknown",true),false); equal(E:SetEmoteHidden("KEKW","false"),false)
     equal(E:SetEmoteHidden("KEKW",true),false); equal(E.revision,revision)
     assert(E:SetEmoteHidden("KEKW",false)); assert(E.revision>revision)
+end)
+
+test("choices for a name that leaves every pack survive until it returns", function()
+    local function session(saved,names)
+        local E=loadEngine(); local entries={}
+        for _,name in ipairs(names) do entries[#entries+1]=entry(name) end
+        E:RegisterPack({id="graycen",emotes=entries}); E:InitializeDB(saved); E:PrepareSetup(); E:RebuildCatalog()
+        return E
+    end
+    local E=session(nil,{"Retail","KEKW","Kappa"}); assert(E:IsEmoteHidden("Retail"))
+    E:ToggleFavorite("KEKW"); E:Record({"KEKW"},"seen"); E:Record({"KEKW"},"sent"); assert(E:SetEmoteHidden("Kappa",true))
+    E=session(E.db,{"other"})
+    equal(E:GetEmote("KEKW",true),nil); equal(#E.db.recent,0)
+    E=session(E.db,{"Retail","KEKW","Kappa"})
+    assert(E:IsEmoteHidden("Retail")); equal(E:Transform("Retail"),"Retail")
+    assert(E:IsEmoteHidden("Kappa")); equal(E:Transform("Kappa"),"Kappa")
+    equal(E.db.favorites.KEKW,true); equal(E:Stats("KEKW").seen,1); equal(E:Stats("KEKW").sent,1)
 end)
 
 test("browsing disabled groups shows their own deduplicated catalog", function()
