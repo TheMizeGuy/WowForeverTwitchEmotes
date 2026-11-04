@@ -223,6 +223,12 @@ test("a UI fault at login still leaves chat rendering, links and the slash comma
     assert(w.callbacks.SetItemRef); assert(w.callbacks["ChatFrame.OnHyperlinkEnter"]); assert(w.hooks.FCF_OpenTemporaryWindow)
     equal(w.eventFrame.events.UPDATE_CHAT_WINDOWS,true); equal(type(SlashCmdList.FOREVEREMOTES),"function")
 end)
+test("temporary whisper windows opened after login attach display and completion once",function()
+    local E,w=setup(); assert(w.hooks.FCF_OpenTemporaryWindow)
+    local f=w:ChatFrame({}); w.chats={f}
+    w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); assert(f.refresh); equal(f.editBox.attached,true)
+    local callback=f.refresh; w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); equal(f.refresh,callback)
+end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
 os.exit(failed==0 and 0 or 1)
