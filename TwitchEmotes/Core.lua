@@ -8,7 +8,7 @@ E.packs, E.packOrder, E.catalog, E.names = {}, {}, {}, {}
 E.revision = 0
 E.savedRowLimit = 16384
 E.channelLabels = {
-    CHAT_MSG_SAY = "Say", CHAT_MSG_YELL = "Yell", CHAT_MSG_GUILD = "Guild",
+    CHAT_MSG_SAY = "Say", CHAT_MSG_YELL = "Yell", CHAT_MSG_GUILD = "Guild", CHAT_MSG_GUILD_DISCORD = "Guild Discord",
     CHAT_MSG_OFFICER = "Officer", CHAT_MSG_PARTY = "Party", CHAT_MSG_PARTY_LEADER = "Party leader",
     CHAT_MSG_RAID = "Raid", CHAT_MSG_RAID_LEADER = "Raid leader", CHAT_MSG_RAID_WARNING = "Raid warning",
     CHAT_MSG_INSTANCE_CHAT = "Instance", CHAT_MSG_INSTANCE_CHAT_LEADER = "Instance leader",
