@@ -186,9 +186,11 @@ function E:Complete(text,cursor,limit)
     local token=sub(text,first,cursor)
     if sub(token,1,1)~=":" or token:find("|",1,true) then return nil end
     local query=sub(token,2):lower()
-    if #query<1 or #query>128 then return nil end
+    -- The native list takes the Enter meant to send, so a face such as :P and a token that is already a name never open it.
+    if #query<2 or #query>128 then return nil end
     local last=cursor
     while last<#text and not sub(text,last+1,last+1):match("[%s|]") do last=last+1 end
+    if self.known and self.known[sub(text,first,last)] then return nil end
     local entries={}
     -- Binary lower bound over the pre-sorted catalog avoids scanning every emote on each keypress.
     local source=self.completionNames or self.names
@@ -203,9 +205,10 @@ function E:Complete(text,cursor,limit)
     return {first=first,last=last,query=query,entries=entries}
 end
 
-function E:ApplyCompletion(text,completion,name)
+function E:ApplyCompletion(text,completion,name,limit)
     if not completion or not self.catalog[name] then return text,nil end
     local prefix,suffix=sub(text,1,completion.first-1),sub(text,completion.last+1)
     local result=prefix..name..suffix
+    if not self:IsRestricted(limit) and type(limit)=="number" and limit>0 and #result>limit then return text,nil end
     return result,#prefix+#name
 end
