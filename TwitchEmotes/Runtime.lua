@@ -138,7 +138,6 @@ local function login()
             frame:RegisterEvent(event)
         end
     end
-    E:InitializeUI()
     E:AttachChatWindows()
     installLinks()
     frame:RegisterEvent("UPDATE_CHAT_WINDOWS")
@@ -150,6 +149,8 @@ local function login()
         if type(message)=="string" and message:lower():match("^%s*status%s*$") then settingsStatus()
         else E:OpenPanel() end
     end
+    -- Last, so a UI fault cannot disable chat rendering, links or the slash command; its error still propagates.
+    E:InitializeUI()
 end
 
 frame:SetScript("OnEvent",function(_,event,...)

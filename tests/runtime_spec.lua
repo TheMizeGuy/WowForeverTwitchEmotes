@@ -7,7 +7,8 @@ local function test(name,body)
 end
 local function pack(...) return {n=select("#",...),...} end
 local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true}
--- options.unknown: events the simulated client does not know.
+-- options.unknown: events the simulated client does not know; options.uiError: InitializeUI raises;
+-- options.deferLogin: the test fires PLAYER_LOGIN itself.
 local function setup(saved,options)
     options=options or {}
     local world={frames={},filters={},callbacks={},tickers={},hooks={},time=0,after={},messages={}}
@@ -58,14 +59,14 @@ local function setup(saved,options)
         {name="KEKW",path="Interface\\AddOns\\TwitchEmotes\\Media\\kekw.tga",width=32,height=32,sheetWidth=32,sheetHeight=32,frames=1,fps=0},
         {name="catJAM",path="Interface\\AddOns\\TwitchEmotes\\Media\\cat.tga",width=32,height=32,sheetWidth=32,sheetHeight=128,frames=4,fps=10},
     }})
-    function E:InitializeUI() world.ui=(world.ui or 0)+1 end
+    function E:InitializeUI() world.ui=(world.ui or 0)+1; if options.uiError then error("UI construction failed") end end
     function E:AttachCompletion(box) box.attached=true end
     function E:OpenPanel() world.open=true end
     function E:InsertEmote(name) world.inserted=name; return true end
     function E:RefreshUI() world.refreshed=true end
     world.eventFrame=world.frames[1]
     world.eventFrame:Fire("ADDON_LOADED","TwitchEmotes")
-    world.eventFrame:Fire("PLAYER_LOGIN")
+    if not options.deferLogin then world.eventFrame:Fire("PLAYER_LOGIN") end
     world.loadedMinimap=E.db.minimap; world.loadedSent=E:Stats("KEKW").sent; world.loadedSeen=E:Stats("KEKW").seen
     E.db.stats={}
     function world:Chat(text,guid,id,event)
@@ -213,6 +214,14 @@ test("a whisper to yourself counts as sent once",function()
     w:Chat("KEKW","Player-self",9001,"CHAT_MSG_WHISPER_INFORM"); w:Chat("KEKW","Player-self",9002,"CHAT_MSG_WHISPER")
     equal(E:Stats("KEKW").sent,1); equal(E.db.recent[1],"KEKW"); equal(#E.db.recent,1)
     w:Chat("catJAM","Player-self",9003,"CHAT_MSG_BN_WHISPER"); equal(E:Stats("catJAM").sent,0)
+end)
+test("a UI fault at login still leaves chat rendering, links and the slash command installed",function()
+    local E,w=setup(nil,{uiError=true,deferLogin=true}); local f=w:ChatFrame({}); w.chats={f}
+    local ok,err=pcall(w.eventFrame.Fire,w.eventFrame,"PLAYER_LOGIN")
+    equal(ok,false); assert(tostring(err):find("UI construction failed",1,true),"the UI error must reach the error handler")
+    assert(w.filters.CHAT_MSG_SAY); assert(f.refresh); equal(f.editBox.attached,true)
+    assert(w.callbacks.SetItemRef); assert(w.callbacks["ChatFrame.OnHyperlinkEnter"]); assert(w.hooks.FCF_OpenTemporaryWindow)
+    equal(w.eventFrame.events.UPDATE_CHAT_WINDOWS,true); equal(type(SlashCmdList.FOREVEREMOTES),"function")
 end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
