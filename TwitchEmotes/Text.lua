@@ -80,8 +80,8 @@ local function markupEnd(text,pos)
         local last=find(text,tag=="T" and "|t" or "|a",pos+2,true)
         return last and last+1 or #text
     elseif tag=="c" and sub(text,pos+2,pos+9):match("^%x%x%x%x%x%x%x%x$") then return pos+9
-    elseif tag=="r" then return pos+1
     end
+    -- |r, an escaped pipe (||) and any other two-byte escape.
     return pos+1
 end
 
