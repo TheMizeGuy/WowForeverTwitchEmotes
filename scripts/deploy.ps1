@@ -1,7 +1,8 @@
 # Copyright (c) 2026 TheMizeGuy. All rights reserved.
 param(
     [Parameter(Mandatory=$true)][string]$AddOnsPath,
-    [Parameter(Mandatory=$true)][string]$StageName
+    [Parameter(Mandatory=$true)][string]$StageName,
+    [switch]$ReplaceForeign
 )
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
@@ -10,7 +11,7 @@ $root = (Get-Item -LiteralPath $AddOnsPath).FullName
 $stage = Join-Path $root $StageName
 $incoming = Join-Path $stage 'TwitchEmotes'
 $target = Join-Path $root 'TwitchEmotes'
-$previous = Join-Path $stage 'previous'
+$previous = Join-Path $root ('TwitchEmotes.previous-' + (Get-Date -Format 'yyyyMMddHHmmss'))
 foreach ($path in @($stage, $incoming, $target)) {
     if ((Test-Path -LiteralPath $path) -and ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint)) {
         throw "Refusing linked addon folder: $path"
@@ -31,7 +32,16 @@ foreach ($item in $manifest) {
 $count = @(Get-ChildItem -LiteralPath $incoming -Recurse -File -Force).Count
 if ($count -ne $manifest.Count) { throw "Unexpected files in staged addon: $count" }
 if (!(Test-Path -LiteralPath (Join-Path $incoming 'TwitchEmotes_Camelot.toc'))) { throw 'Missing client manifest' }
-if (Test-Path -LiteralPath $target) { Move-Item -LiteralPath $target -Destination $previous }
+if (Test-Path -LiteralPath $target) {
+    $authors = @(Get-ChildItem -LiteralPath $target -Filter '*.toc' -File -Force | Select-String -Pattern '^## Author:' | ForEach-Object { $_.Line.Trim() } | Select-Object -Unique)
+    if (($authors -notcontains '## Author: TheMizeGuy') -and -not $ReplaceForeign) {
+        Remove-Item -LiteralPath $stage -Recurse -Force
+        throw "Existing TwitchEmotes folder was not built by TheMizeGuy ($($authors -join '; ')); pass -ReplaceForeign to move it aside"
+    }
+    if (Test-Path -LiteralPath $previous) { throw "Backup folder already exists: $previous" }
+    Move-Item -LiteralPath $target -Destination $previous
+    Write-Output "Moved the previous TwitchEmotes folder to $previous"
+}
 try {
     Move-Item -LiteralPath $incoming -Destination $target
 } catch {

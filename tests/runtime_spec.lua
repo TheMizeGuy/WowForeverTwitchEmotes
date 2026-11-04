@@ -6,9 +6,19 @@ local function test(name,body)
     if ok then passed=passed+1 else failed=failed+1; print("FAIL "..name..": "..err) end
 end
 local function pack(...) return {n=select("#",...),...} end
-local function setup(saved)
+local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true}
+-- options.unknown: events the simulated client does not know; options.uiError: InitializeUI raises;
+-- options.deferLogin: the test fires PLAYER_LOGIN itself.
+local function setup(saved,options)
+    options=options or {}
     local world={frames={},filters={},callbacks={},tickers={},hooks={},time=0,after={},messages={}}
     local secret={}
+    local E={}
+    local function known(event)
+        if LIFECYCLE[event] then return true end
+        return E.channelLabels~=nil and E.channelLabels[event]~=nil and not (options.unknown and options.unknown[event])
+    end
+    _G.C_EventUtils={IsEventValid=function(event) return known(event) end}
     _G.issecretvalue=function(value) return value==secret end
     _G.canaccessvalue=function(value) return value~=secret end
     _G.GetTime=function() return world.time end
@@ -20,7 +30,10 @@ local function setup(saved)
     _G.CreateFrame=function()
         local f={events={},scripts={}}
         function f:SetScript(event,fn) self.scripts[event]=fn end
-        function f:RegisterEvent(event) self.events[event]=true end
+        function f:RegisterEvent(event)
+            if not known(event) then error('Attempt to register unknown event "'..tostring(event)..'"') end
+            self.events[event]=true
+        end
         function f:UnregisterEvent(event) self.events[event]=nil end
         function f:Fire(event,...) if self.events[event] then self.scripts.OnEvent(self,event,...) end end
         world.frames[#world.frames+1]=f; return f
@@ -36,24 +49,25 @@ local function setup(saved)
     }
     _G.hooksecurefunc=function(name,fn) world.hooks[name]=fn end
     _G.FCF_OpenTemporaryWindow=function() end
+    _G.SetItemRef=function() end
     _G.EventRegistry={RegisterCallback=function(_,name,fn,owner) world.callbacks[name]={fn=fn,owner=owner} end}
     _G.GameTooltip={SetOwner=function() end,AddLine=function() end,Show=function() world.tooltip=true end,Hide=function() world.tooltip=false end}
-    local E={}
     for _,name in ipairs({"Core","Text","Animation","Runtime"}) do
         local chunk=assert(loadfile("TwitchEmotes/"..name..".lua")); chunk("TwitchEmotes",E)
     end
+    E.channelLabels.CHAT_MSG_GUILD_DISCORD=E.channelLabels.CHAT_MSG_GUILD_DISCORD or "Guild Discord"
     E:RegisterPack({id="test",group="general",emotes={
         {name="KEKW",path="Interface\\AddOns\\TwitchEmotes\\Media\\kekw.tga",width=32,height=32,sheetWidth=32,sheetHeight=32,frames=1,fps=0},
         {name="catJAM",path="Interface\\AddOns\\TwitchEmotes\\Media\\cat.tga",width=32,height=32,sheetWidth=32,sheetHeight=128,frames=4,fps=10},
     }})
-    function E:InitializeUI() world.ui=(world.ui or 0)+1 end
+    function E:InitializeUI() world.ui=(world.ui or 0)+1; if options.uiError then error("UI construction failed") end end
     function E:AttachCompletion(box) box.attached=true end
     function E:OpenPanel() world.open=true end
     function E:InsertEmote(name) world.inserted=name; return true end
     function E:RefreshUI() world.refreshed=true end
     world.eventFrame=world.frames[1]
     world.eventFrame:Fire("ADDON_LOADED","TwitchEmotes")
-    world.eventFrame:Fire("PLAYER_LOGIN")
+    if not options.deferLogin then world.eventFrame:Fire("PLAYER_LOGIN") end
     world.loadedMinimap=E.db.minimap; world.loadedSent=E:Stats("KEKW").sent; world.loadedSeen=E:Stats("KEKW").seen
     E.db.stats={}
     function world:Chat(text,guid,id,event)
@@ -73,12 +87,27 @@ local function setup(saved)
         return l
     end
     function world:ChatFrame(lines)
-        local f={visibleLines=lines,scripts={},shown=true,editBox={}}
+        local f={visibleLines=lines,scripts={},shown=true,editBox={},history={}}
         function f:AddOnDisplayRefreshedCallback(fn) self.refresh=fn end
         function f:HookScript(event,fn) self.scripts[event]=fn end
         function f:IsShown() return self.shown end
         function f:IsForbidden() return false end
+        -- Mirrors ScrollingMessageFrameMixin:TransformMessages with PackageEntry/UnpackageEntry.
+        function f:TransformMessages(predicate,transform)
+            for i,entry in ipairs(self.history) do
+                local x=entry.extraData
+                if predicate(entry.message,entry.r,entry.g,entry.b,unpack(x,1,x.n)) then
+                    local out=pack(transform(entry.message,entry.r,entry.g,entry.b,unpack(x,1,x.n)))
+                    self.history[i]={message=out[1],r=out[2],g=out[3],b=out[4],extraData={n=out.n-4,unpack(out,5,out.n)}}
+                    self.dirty=true
+                end
+            end
+        end
         return f
+    end
+    function world:Entry(message,event,lineID,formatter)
+        local args={"censored placeholder","Bob","Common","",nil,nil,0,0,"",0,lineID,"Player-bob",n=12}
+        return {message=message,r=1,g=0.5,b=1,extraData={n=6,1,"accessID","typeID",event,args,formatter}}
     end
     return E,world,secret
 end
@@ -182,6 +211,67 @@ test("escaped animation markup never creates an idle ticker",function()
     local E,w=setup(); local text="|"..E:Transform("catJAM")
     local line=w:Line(text); local f=w:ChatFrame({line}); E:AttachAnimation(f); f.refresh(f)
     equal(line.text,text); equal(#w.tickers,0)
+end)
+
+test("Guild Discord renders and counts on clients that know the event",function()
+    local E,w=setup(); equal(w.eventFrame.events.CHAT_MSG_GUILD_DISCORD,true)
+    local _,text=w.filters.CHAT_MSG_GUILD_DISCORD({},"CHAT_MSG_GUILD_DISCORD","KEKW"); assert(text:find("|T",1,true))
+    w:Chat("KEKW","Player-self",48,"CHAT_MSG_GUILD_DISCORD"); equal(E:Stats("KEKW").sent,1)
+end)
+test("events the client does not know are skipped and login still completes",function()
+    local E,w=setup(nil,{unknown={CHAT_MSG_GUILD_DISCORD=true}})
+    equal(w.filters.CHAT_MSG_GUILD_DISCORD,nil); equal(w.eventFrame.events.CHAT_MSG_GUILD_DISCORD,nil)
+    assert(w.filters.CHAT_MSG_SAY); equal(w.eventFrame.events.CHAT_MSG_SAY,true)
+    assert(w.callbacks.SetItemRef); assert(w.hooks.FCF_OpenTemporaryWindow)
+    SlashCmdList.FOREVEREMOTES(""); equal(w.open,true)
+end)
+test("a whisper to yourself counts as sent once",function()
+    local E,w=setup()
+    w:Chat("KEKW","Player-self",9001,"CHAT_MSG_WHISPER_INFORM"); w:Chat("KEKW","Player-self",9002,"CHAT_MSG_WHISPER")
+    equal(E:Stats("KEKW").sent,1); equal(E.db.recent[1],"KEKW"); equal(#E.db.recent,1)
+    w:Chat("catJAM","Player-self",9003,"CHAT_MSG_BN_WHISPER"); equal(E:Stats("catJAM").sent,0)
+end)
+test("a UI fault at login still leaves chat rendering, links and the slash command installed",function()
+    local E,w=setup(nil,{uiError=true,deferLogin=true}); local f=w:ChatFrame({}); w.chats={f}
+    local ok,err=pcall(w.eventFrame.Fire,w.eventFrame,"PLAYER_LOGIN")
+    equal(ok,false); assert(tostring(err):find("UI construction failed",1,true),"the UI error must reach the error handler")
+    assert(w.filters.CHAT_MSG_SAY); assert(f.refresh); equal(f.editBox.attached,true)
+    assert(w.callbacks.SetItemRef); assert(w.callbacks["ChatFrame.OnHyperlinkEnter"]); assert(w.hooks.FCF_OpenTemporaryWindow)
+    equal(w.eventFrame.events.UPDATE_CHAT_WINDOWS,true); equal(type(SlashCmdList.FOREVEREMOTES),"function")
+end)
+test("temporary whisper windows opened after login attach display and completion once",function()
+    local E,w=setup(); assert(w.hooks.FCF_OpenTemporaryWindow)
+    local f=w:ChatFrame({}); w.chats={f}
+    w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); assert(f.refresh); equal(f.editBox.attached,true)
+    local callback=f.refresh; w.hooks.FCF_OpenTemporaryWindow("WHISPER","Bob"); equal(f.refresh,callback)
+end)
+test("revealing a censored line renders its emotes and records it once",function()
+    local E,w,secret=setup(); assert(w.hooks.SetItemRef,"SetItemRef post-hook")
+    _G.CENSORED_MESSAGE_REPORT="%s |Hreportcensoredmessage:%d|h[Report]|h"
+    local lines={[77]="KEKW",[79]="KEKW",[80]=secret,[81]="KEKW"}
+    _G.C_ChatInfo={GetChatLineText=function(id) return lines[id] end}
+    local function formatter(text) return "[Bob] whispers: "..text end
+    local f=w:ChatFrame({}); w.chats={f}
+    local revealed=CENSORED_MESSAGE_REPORT:format(formatter("KEKW"),77)
+    f.history={w:Entry(revealed,"CHAT_MSG_WHISPER",77,formatter),w:Entry("other line","CHAT_MSG_WHISPER",78,formatter),
+        w:Entry("say line","CHAT_MSG_SAY",79,formatter),w:Entry("secret line","CHAT_MSG_WHISPER",80,formatter),
+        w:Entry("lockdown line","CHAT_MSG_WHISPER",81,formatter)}
+    f.history[5].extraData[5][2]=secret
+    local untouched,args=f.history[2],f.history[1].extraData[5]
+    w.hooks.SetItemRef("item:1","[Item]","LeftButton",f); equal(f.dirty,nil)
+    w.hooks.SetItemRef("censoredmessage:77","[Show]","LeftButton",f)
+    local entry=f.history[1]
+    equal(entry.message,CENSORED_MESSAGE_REPORT:format(formatter((E:Transform("KEKW"))),77))
+    assert(entry.message:find("|H"..E.linkPrefix.."4b454b57|h",1,true))
+    equal(entry.r,1); equal(entry.g,0.5); equal(entry.b,1); equal(entry.extraData.n,6)
+    equal(entry.extraData[4],"CHAT_MSG_WHISPER"); equal(entry.extraData[5],args); equal(entry.extraData[6],formatter)
+    equal(f.history[2],untouched); equal(E:Stats("KEKW").seen,1)
+    w.hooks.SetItemRef("censoredmessage:77","[Show]","LeftButton",f); equal(E:Stats("KEKW").seen,1)
+    E:SetOption("channels",{CHAT_MSG_SAY=false}); w.hooks.SetItemRef("censoredmessage:79","[Show]","LeftButton",f)
+    equal(f.history[3].message,"say line"); equal(E:Stats("KEKW").seen,1)
+    w.hooks.SetItemRef("censoredmessage:80","[Show]","LeftButton",f); equal(f.history[4].message,"secret line")
+    w.hooks.SetItemRef("censoredmessage:81","[Show]","LeftButton",f); equal(f.history[5].message,"lockdown line"); equal(E:Stats("KEKW").seen,1)
+    w.hooks.SetItemRef(secret,"[Show]","LeftButton",f)
 end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
