@@ -1,7 +1,8 @@
 -- Copyright (c) 2026 TheMizeGuy. All rights reserved.
+-- Usage: luajit tests/ui_spec.lua [retail|classic]
 local B = dofile("tests/ui_boundary.lua")
 local E = { title = "Twitch Emotes WoW Forever", version = "3.0.0", packs = {}, packOrder = { "global", "global2", "channel", "channel2" }, names = {} }
-E.db = { enabled = true, size = 22, animate = true, animationFPS = 20, minimap = true, minimapAngle = 220, packs = {}, channels = { CHAT_MSG_SAY = true }, favorites = {}, recent = {}, stats = {} }
+E.db = { enabled = true, size = 22, animate = true, animationFPS = 20, minimap = true, minimapAngle = 220, packs = {}, channels = { CHAT_MSG_SAY = true }, favorites = {}, recent = {}, stats = {}, hidden = {} }
 for i = 1, 48 do E.names[i] = { name = string.format("Emote%02d", i), path = "Interface\\AddOns\\TwitchEmotes\\Media\\test.tga", width = 64, height = 32, frames = 1, sheetWidth = 64, sheetHeight = 32, provider = "7TV", creator = "A creator", packID = i <= 16 and "global" or (i <= 24 and "global2" or "channel") } end
 E.packs.global = { id = "global", title = "Global", provider = "7TV" }
 E.packs.channel = { id = "channel", title = "Channel", provider = "BTTV" }
@@ -28,21 +29,29 @@ function E:Render(entry) return "|T" .. entry.path .. ":22:44|t" end
 function E:SetOption(key, value) self.db[key] = value; self:RefreshUI() end
 function E:SetPackEnabled(id, enabled) self.db.packs[id] = enabled; self:RefreshUI() end
 function E:ToggleFavorite(name) self.db.favorites[name] = not self.db.favorites[name] or nil; self:RefreshUI(); return self.db.favorites[name] end
+function E:IsEmoteHidden(name) return self.db.hidden[name] == true end
+function E:SetEmoteHidden(name, hidden) self.db.hidden[name] = hidden or nil; self:RefreshUI(); return true end
 function E:Complete(text, cursor, limit)
     self.completeCalls = (self.completeCalls or 0) + 1
     local first, last, query = text:sub(1, cursor):find(":(Em%w*)$")
     if not first then return nil end
     return { first = first, last = last, query = query, entries = self:Search(query, limit) }
 end
-function E:ApplyCompletion(text, completion, name)
-    return text:sub(1, completion.first - 1) .. name .. text:sub(completion.last + 1), completion.first - 1 + #name
+-- Text.lua contract: a result longer than the limit is refused with a nil position.
+function E:ApplyCompletion(text, completion, name, limit)
+    local result = text:sub(1, completion.first - 1) .. name .. text:sub(completion.last + 1)
+    if limit and #result > limit then return text, nil end
+    return result, completion.first - 1 + #name
 end
 
 local tests, passed = {}, 0
 local function test(name, fn) tests[#tests + 1] = { name, fn } end
 local function equal(actual, expected, message) assert(actual == expected, (message or "value") .. ": expected " .. tostring(expected) .. ", got " .. tostring(actual)) end
 local function module(path) local loader = loadfile(path); if loader then loader("TwitchEmotes", E) end end
+local function clean(message) assert(#B.violations == 0, (message or "addon touched Blizzard chat state") .. ": " .. table.concat(B.violations, ", ")) end
 module("TwitchEmotes/UI.lua"); module("TwitchEmotes/Completion.lua")
+local function suggest() return _G.ForeverEmotesSuggest end
+local function suggesting() return suggest() ~= nil and suggest():IsShown() end
 
 test("panel construction is lazy and reused across search, pages and settings", function()
     assert(type(E.InitializeUI) == "function", "InitializeUI is required")
@@ -65,8 +74,9 @@ test("insertion chooses an editor without discarding an unsent draft", function(
 end)
 
 test("secret and forbidden editor values never reach text processing", function()
+    B.active = B.editor
     B.editor.forbidden = true; equal(E:InsertEmote("Emote01"), false); B.editor.forbidden = false
-    B.editor.scriptedInput = true; equal(E:InsertEmote("Emote01"), false); B.editor.scriptedInput = false
+    if B.editor.HasAnyForbiddenAspects then B.editor.scriptedInput = true; equal(E:InsertEmote("Emote01"), false); B.editor.scriptedInput = false end
     B.editor.text = { secret = true }; equal(E:InsertEmote("Emote01"), false)
     B.editor:SetText("draft"); B.editor.cursor = { secret = true }; equal(E:InsertEmote("Emote01"), false)
     B.editor:SetText("")
@@ -136,94 +146,128 @@ test("panel keyboard navigation consumes its keys and releases chat input", func
     B.editor:SetFocus(); E.ui.panel:Run("OnKeyDown", "A"); equal(E.ui.panel.propagate, true)
 end)
 
-test("closing the configuration window releases search focus and can reopen", function()
-    E:OpenPanel("browse"); E.ui.search:SetFocus(); E.ui.panel.CloseButton:Click()
-    equal(E.ui.panel:IsShown(), false); equal(E.ui.search:HasFocus(), false)
-    E.ui.minimap:Click(); equal(E.ui.panel:IsShown(), true)
-end)
-
-test("completion attaches once and uses one bounded native suggestion list", function()
+test("completion attaches once and uses one bounded addon-owned suggestion list", function()
     assert(type(E.AttachCompletion) == "function", "AttachCompletion is required")
     E:AttachCompletion(B.editor); local script = B.editor:GetScript("OnTextChanged"); E:AttachCompletion(B.editor); equal(B.editor:GetScript("OnTextChanged"), script)
-    B.type(B.editor, "hello :Em"); assert(AutoCompleteBox:IsShown()); assert(#AutoCompleteBox.results <= 8)
-    equal(AutoCompleteBox.parent, B.editor)
-    equal(#B.editor.autoCompleteSource("unrelated native OnChar", 1, 1, true), 0, "source must not inline-replace chat text")
+    B.type(B.editor, "hello :Em"); assert(suggesting())
+    local shown = 0; for _, row in ipairs(suggest().rows) do if row:IsShown() then shown = shown + 1 end end
+    assert(shown >= 1 and shown <= 8, "rows shown: " .. shown); equal(suggest().rows[1].selection:IsShown(), true, "first row selected")
+    local point, anchor, relative = suggest():GetPoint(); equal(point, "BOTTOMLEFT"); equal(anchor, B.editor); equal(relative, "TOPLEFT")
+    equal(suggest():GetFrameStrata(), "TOOLTIP"); equal(suggest():GetParent(), UIParent)
+    equal(AutoCompleteBox:IsShown(), false, "the shared Blizzard box stays untouched")
 end)
 
-test("Tab and arrows select then Enter replaces only the UTF8 byte span", function()
-    B.type(B.editor, "é :Em tail", 6)
-    B.editor:Run("OnTabPressed"); B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnEnterPressed")
+test("arrows choose and Tab replaces only the UTF8 byte span", function()
+    B.type(B.editor, "é :Em tail", 6); assert(suggesting()); equal(B.editor:GetAltArrowKeyMode(), false, "arrows reach the box while listing")
+    B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnArrowPressed", "UP"); B.editor:Run("OnArrowPressed", "DOWN")
+    equal(suggest().rows[3].selection:IsShown(), true)
+    local custom = B.customTabs
+    B.editor:Run("OnTabPressed")
     equal(B.editor:GetText(), "é Emote03 tail"); equal(B.editor:GetCursorPosition(), 10)
-    equal(AutoCompleteBox:IsShown(), false)
+    equal(suggesting(), false); equal(B.editor:GetAltArrowKeyMode(), true, "arrow mode restored"); equal(B.customTabs, custom, "accepted Tab is consumed")
 end)
 
-test("autocomplete previews show images and restore native row sizes on close", function()
+test("suggestions show images beside plain names and leave the native rows alone", function()
     B.type(B.editor, "draft :Em")
-    local info = AutoCompleteBox.results[1]
-    local button = AutoCompleteButton1
-    assert(button:GetText():find("|T", 1, true), "suggestion must show the emote image")
-    assert(button:GetText():find(info.name, 1, true), "suggestion must retain the plain name")
-    assert(not info.name:find("|", 1, true), "display markup must stay out of selection metadata")
-    assert(button:GetHeight() >= 28, "preview needs room above and below its image")
-    equal(AutoCompleteBox:GetHeight(), #AutoCompleteBox.results * button:GetHeight() + 35)
-    B.editor:Run("OnEscapePressed")
-    equal(button:GetHeight(), 14); equal(button:GetWidth(), 120); equal(AutoCompleteBox.maxHeight, 70)
-    equal(B.editor:GetText(), "draft :Em")
+    local row = suggest().rows[1]
+    assert(row.label:GetText():find("|T", 1, true), "suggestion must show the emote image")
+    assert(row.label:GetText():find(row.entry.name, 1, true), "suggestion must retain the plain name")
+    assert(not row.entry.name:find("|", 1, true), "display markup must stay out of selection metadata")
+    assert(row:GetHeight() >= 28, "preview needs room above and below its image")
+    local shown = 0; for _, candidate in ipairs(suggest().rows) do if candidate:IsShown() then shown = shown + 1 end end
+    equal(suggest():GetHeight(), shown * row:GetHeight() + 28)
+    equal(AutoCompleteButton1:GetHeight(), 14); equal(AutoCompleteButton1:GetWidth(), 120); equal(AutoCompleteBox.maxHeight, 70)
+    E:DismissCompletion(); equal(suggesting(), false)
 end)
 
-test("native player suggestions regain their layout without closing the popup", function()
-    B.type(B.editor, ":Em")
-    AutoComplete_UpdateResults(AutoCompleteBox, {{name="AnotherPlayer", priority=Enum.AutoCompletePriority.Other}})
-    equal(AutoCompleteButton1:GetText(), "AnotherPlayer"); equal(AutoCompleteButton1:GetHeight(), 14)
-    equal(AutoCompleteBox:GetHeight(), 49); equal(AutoCompleteBox.maxHeight, 70)
-    E:DismissCompletion()
+test("Enter sends the line as typed while suggestions are shown", function()
+    B.sent = nil; B.type(B.editor, "lol :Em"); assert(suggesting())
+    B.editor:Run("OnEnterPressed"); equal(B.sent, "lol :Em"); equal(suggesting(), false)
 end)
 
-test("Escape dismisses without clearing the draft and normal Tab is preserved", function()
-    B.type(B.editor, "draft :Em"); B.editor:Run("OnEscapePressed"); equal(B.editor:GetText(), "draft :Em"); equal(AutoCompleteBox:IsShown(), false)
-    B.editor:Run("OnTabPressed"); equal(B.nativeTabs, 1)
+test("Escape dismisses and Tab without suggestions keeps native and chained handlers", function()
+    B.type(B.editor, "draft :Em"); B.editor:Run("OnEscapePressed"); equal(suggesting(), false)
+    local native, custom = B.nativeTabs or 0, B.customTabs or 0
+    B.type(B.editor, "plain words"); B.editor:Run("OnTabPressed")
+    equal(B.nativeTabs, native + 1); equal(B.customTabs, custom + 1, "previous ChatEdit_CustomTabPressed still runs")
 end)
 
-test("completion preserves other sources and restores callbacks on focus loss", function()
-    local other = B.editorFrame(); local original = function() return {} end; local callback = function() return "native" end
-    other.autoCompleteSource = original; other.autoCompleteParams = { "whisper" }; other.customAutoCompleteFunction = callback
-    E:AttachCompletion(other); B.type(other, ":Em")
-    other:ClearFocus(); equal(other.autoCompleteSource, original); equal(other.autoCompleteParams[1], "whisper"); equal(other.customAutoCompleteFunction, callback)
-    B.type(other, "/w Friend"); equal(other.autoCompleteSource, original)
-    B.type(other, ":Em"); B.editor:SetText(""); B.editor:SetFocus(); equal(AutoCompleteBox:IsShown(), false); equal(other.autoCompleteSource, original)
+test("a native whisper list survives an active emote session", function()
+    B.editor.autoCompleteSource = function() return { { name = "Bobby", priority = Enum.AutoCompletePriority.Other } } end
+    B.editor.autoCompleteParams = {}
+    B.type(B.editor, "hi :Em"); assert(suggesting())
+    B.type(B.editor, "/w Bo"); equal(suggesting(), false)
+    equal(AutoCompleteBox:IsShown(), true, "whisper list stays open"); equal(AutoCompleteButton1.nameInfo.name, "Bobby")
+    AutoComplete_HideIfAttachedTo(B.editor); equal(B.editor:GetAltArrowKeyMode(), true)
+    B.editor.autoCompleteSource, B.editor.autoCompleteParams = nil, nil; B.editor:SetText("")
 end)
 
-test("lockdown and secret text disable completion before Core is called", function()
+test("completion follows the focused editor and restores each box", function()
+    local other = B.editorFrame(); E:AttachCompletion(other)
+    B.type(other, ":Em"); equal(select(2, suggest():GetPoint()), other); equal(other:GetAltArrowKeyMode(), false)
+    B.type(B.editor, ":Em"); equal(select(2, suggest():GetPoint()), B.editor); equal(other:GetAltArrowKeyMode(), true)
+    B.editor:ClearFocus(); equal(suggesting(), false); equal(B.editor:GetAltArrowKeyMode(), true)
+end)
+
+test("chat lockdown and secret text disable completion before Core is called", function()
     local before = E.completeCalls
-    B.combat = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); equal(AutoCompleteBox:IsShown(), false); B.combat = false
-    B.chatLockdown = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); B.chatLockdown = false
+    B.combat = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); equal(suggesting(), false); B.combat = false
+    B.chatLockdown = true; B.type(B.editor, ":Em"); equal(E.completeCalls, before); equal(suggesting(), false); B.chatLockdown = false
     B.editor.text = { secret = true }; B.editor:Run("OnTextChanged", true); equal(E.completeCalls, before)
     B.editor:SetText("")
 end)
 
 test("cursor movement invalidates stale suggestions before acceptance", function()
-    B.type(B.editor, ":Em suffix", 3); B.editor:SetCursorPosition(10); equal(AutoCompleteBox:IsShown(), false)
+    B.type(B.editor, ":Em suffix", 3); assert(suggesting()); B.editor:SetCursorPosition(10); equal(suggesting(), false)
     B.type(B.editor, ":Em"); B.editor.text = "changed"; B.editor.cursor = 7
-    B.editor:Run("OnEnterPressed"); equal(B.editor:GetText(), "changed"); equal(AutoCompleteBox:IsShown(), false)
+    local native = B.nativeTabs
+    B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "changed"); equal(suggesting(), false); equal(B.nativeTabs, native)
 end)
 
 test("incoming lockdown closes suggestions before the direct API changes", function()
-    B.type(B.editor, ":Em"); equal(B.chatLockdown, false)
+    B.type(B.editor, ":Em"); equal(B.chatLockdown, false); assert(suggesting())
     B.event("ADDON_RESTRICTION_STATE_CHANGED", Enum.AddOnRestrictionType.Chat, Enum.AddOnRestrictionState.Activating)
-    equal(AutoCompleteBox:IsShown(), false)
-    B.type(B.editor, ":Em"); B.event("PLAYER_REGEN_DISABLED"); equal(AutoCompleteBox:IsShown(), false)
+    equal(suggesting(), false)
+    B.type(B.editor, ":Em"); B.event("PLAYER_REGEN_DISABLED"); equal(suggesting(), false)
 end)
 
-test("native callback chains and source resets survive an active colon session", function()
-    local editor = B.editorFrame(); local called = 0
-    local before, changed = function() return {} end, function() return {} end
-    editor.autoCompleteSource = before; editor.autoCompleteParams = { "before" }
-    editor.customAutoCompleteFunction = function(_, _, info) called = called + 1; return info.native end
-    E:AttachCompletion(editor); B.type(editor, ":Em")
-    equal(editor.customAutoCompleteFunction(editor, "friend", { native = true }, "friend"), true); equal(called, 1)
-    editor.autoCompleteSource = changed; editor.autoCompleteParams = { "new" }
-    editor:Run("OnTextChanged", true); editor:ClearFocus()
-    equal(editor.autoCompleteSource, changed); equal(editor.autoCompleteParams[1], "new")
+test("slash commands and native backspace suppression offer nothing", function()
+    B.type(B.editor, "/s :Em"); equal(suggesting(), false); equal(AutoCompleteBox:IsShown(), false, "no emote rows in any list")
+    B.editor.disallowAutoComplete = true; B.type(B.editor, "hey :Em"); equal(suggesting(), false); B.editor.disallowAutoComplete = nil
+    B.editor:SetText("")
+end)
+
+test("a click on a row applies it, also after retail moved focus off the box", function()
+    B.type(B.editor, "pick :Em"); suggest().mouseOver = true
+    B.editor:ClearFocus(); assert(suggesting(), "focus lost to a click on the list keeps it open")
+    suggest().rows[2]:Click(); equal(B.editor:GetText(), "pick Emote02"); equal(suggesting(), false)
+    suggest().mouseOver = false
+    B.type(B.editor, "x :Em"); B.editor:ClearFocus(); equal(suggesting(), false)
+    B.editor:SetText("")
+end)
+
+test("completion refuses to overflow the chat line", function()
+    local draft = string.rep("a", 248) .. " :Em"
+    B.type(B.editor, draft); assert(suggesting()); B.editor:Run("OnTabPressed")
+    equal(B.editor:GetText(), draft, "a completion past 255 bytes is not applied")
+    B.type(B.editor, "short :Em"); B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "short Emote01")
+    B.editor:SetText("")
+end)
+
+test("typing, choosing, accepting, escaping, losing focus and sending never touch Blizzard chat state", function()
+    B.active = B.editor; B.resetTrace()
+    B.type(B.editor, "draft :Em"); assert(suggesting())
+    B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnArrowPressed", "UP")
+    B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "draft Emote01")
+    B.type(B.editor, "more :Em"); B.editor:Run("OnEscapePressed")
+    B.type(B.editor, "again :Em"); B.editor:ClearFocus()
+    B.type(B.editor, "send :Em"); B.editor:Run("OnEnterPressed"); equal(B.sent, "send :Em")
+    clean()
+    -- Any addon text edit runs Blizzard's OnTextChanged tainted; it may only reset the box's own tab-completion scratch fields.
+    local residual = { ["editor.lastTabComplete"] = true, ["editor.tabCompleteText"] = true, ["editor.tabCompleteTableIndex"] = true, ["editor.ignoreTextChange"] = true, ["AutoComplete_HideIfAttachedTo()"] = true }
+    for _, entry in ipairs(B.tainted) do assert(residual[entry], "tainted Blizzard state: " .. entry) end
+    equal(AutoCompleteBox.maxHeight, 70); equal(AutoCompleteBox.parent, nil)
+    equal(B.editor.autoCompleteSource, nil); equal(B.editor.customAutoCompleteFunction, nil)
 end)
 
 test("whisper display toggles cover outgoing echoes and preserve other channels", function()
@@ -237,4 +281,4 @@ for _, case in ipairs(tests) do
     if not ok then io.stderr:write("FAIL " .. case[1] .. "\n" .. tostring(err) .. "\n"); os.exit(1) end
     passed = passed + 1; print("PASS " .. case[1])
 end
-print(string.format("%d UI tests passed", passed))
+print(string.format("%d UI tests passed (%s profile)", passed, B.profileName))

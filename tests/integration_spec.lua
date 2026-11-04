@@ -136,17 +136,44 @@ test("real picker search, favorites and insertion share the active catalog", fun
     B.find("All"):Click(); E.ui.search:SetText("")
 end)
 
-test("native completion uses real byte spans without destroying a draft", function()
+local function suggest() return _G.ForeverEmotesSuggest end
+local function suggesting() return suggest() ~= nil and suggest():IsShown() end
+
+test("real completion uses byte spans, Tab applies and the shared Blizzard box stays closed", function()
     local query = sample.name:sub(1, 3)
     B.type(B.editor, "é :" .. query .. "unfinished tail", 4 + #query)
-    assert(AutoCompleteBox:IsShown()); assert(#AutoCompleteBox.results <= 5)
-    local name = AutoCompleteBox.results[1].name
-    assert(AutoCompleteButton1:GetText():find(E:GetEmote(name).path, 1, true), "real suggestion must render the selected emote texture")
-    assert(AutoCompleteButton1:GetText():find(":24:", 1, true), "autocomplete image should be readable at 24 pixels")
-    assert(not name:find("|", 1, true), "autocomplete selection must remain plain text")
-    B.editor:Run("OnEnterPressed")
+    assert(suggesting()); equal(AutoCompleteBox:IsShown(), false)
+    local row = suggest().rows[1]; local name = row.entry.name
+    assert(row.label:GetText():find(E:GetEmote(name).path, 1, true), "real suggestion must render the selected emote texture")
+    assert(row.label:GetText():find(":24:", 1, true), "suggestion image should be readable at 24 pixels")
+    assert(not name:find("|", 1, true), "suggestion selection must remain plain text")
+    B.editor:Run("OnTabPressed")
     equal(B.editor:GetText(), "é " .. name .. " tail"); equal(B.editor:GetCursorPosition(), 3 + #name)
-    equal(AutoCompleteBox:IsShown(), false)
+    equal(suggesting(), false)
+end)
+
+test("Enter sends emoticons and exact names unchanged; the list opens only when Complete offers entries", function()
+    for _, text in ipairs({ "lol :P", "gg :D", "lol :o", "lol :3", "lol :L", "hi :tf:" }) do
+        B.sent = nil; B.type(B.editor, text)
+        local completion = E:Complete(text, #text, 8)
+        equal(suggesting(), completion ~= nil and #completion.entries > 0, text .. " list mirrors E:Complete")
+        B.editor:Run("OnEnterPressed"); equal(B.sent, text, "Enter sends " .. text); equal(suggesting(), false)
+    end
+end)
+
+test("real completion never writes Blizzard chat state", function()
+    B.active = B.editor; B.resetTrace()
+    B.type(B.editor, "hi :Kap"); assert(suggesting())
+    local name = suggest().rows[1].entry.name
+    B.editor:Run("OnArrowPressed", "DOWN"); B.editor:Run("OnArrowPressed", "UP")
+    B.editor:Run("OnTabPressed"); equal(B.editor:GetText(), "hi " .. name)
+    B.type(B.editor, "x :Kap"); B.editor:Run("OnEscapePressed")
+    B.type(B.editor, "y :Kap"); B.editor:ClearFocus()
+    B.type(B.editor, "send :Kap"); B.editor:Run("OnEnterPressed"); equal(B.sent, "send :Kap")
+    assert(#B.violations == 0, "addon touched Blizzard chat state: " .. table.concat(B.violations, ", "))
+    local residual = { ["editor.lastTabComplete"] = true, ["editor.tabCompleteText"] = true, ["editor.tabCompleteTableIndex"] = true, ["editor.ignoreTextChange"] = true, ["AutoComplete_HideIfAttachedTo()"] = true }
+    for _, entry in ipairs(B.tainted) do assert(residual[entry], "tainted Blizzard state: " .. entry) end
+    equal(AutoCompleteBox.maxHeight, 70); equal(B.editor.autoCompleteSource, nil)
 end)
 
 test("real settings repaint while disabled channels remain browsable", function()
