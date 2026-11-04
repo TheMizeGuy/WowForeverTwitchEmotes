@@ -11,6 +11,9 @@ local SEPARATORS = {0xA0,0xBF, 0x2000,0x206F, 0x3000,0x303F, 0xFF01,0xFF0F, 0xFF
 local function word(b)
     return b and (b>=128 or b>=48 and b<=57 or b>=65 and b<=90 or b>=97 and b<=122 or b==95)
 end
+-- Brackets pair up rather than run on, so ((7TV)) still holds (7TV).
+local BRACKET = {[40]=true,[41]=true,[91]=true,[93]=true,[123]=true,[125]=true}
+local function runsOn(b) return not word(b) and not BRACKET[b] end
 -- Byte length of the character at pos and whether it continues a word; a malformed byte counts as a one-byte word character.
 local function character(text,pos)
     local b=byte(text,pos)
@@ -107,7 +110,7 @@ local function rightBoundary(text,pos)
         elseif tag=="c" and sub(text,pos+2,pos+9):match("^%x%x%x%x%x%x%x%x$") then pos=pos+10
         else break end
     end
-    if byte(text,pos)==edge and not word(edge) then return false end
+    if byte(text,pos)==edge and runsOn(edge) then return false end
     local _,continues=character(text,pos)
     return not continues
 end
@@ -126,7 +129,7 @@ function E:Transform(text,time)
             pos=opaque+1
         else
             local match,last
-            if boundary and root[current] and not (pos>1 and not word(current) and byte(text,pos-1)==current) then
+            if boundary and root[current] and not (pos>1 and runsOn(current) and byte(text,pos-1)==current) then
                 local node,scan=root,pos
                 while scan<=#text and node[byte(text,scan)] do
                     node=node[byte(text,scan)]; scan=scan+1

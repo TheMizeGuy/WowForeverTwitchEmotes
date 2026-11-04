@@ -49,8 +49,8 @@ test("a punctuation edge never matches inside a longer run of the same byte", fu
     for _, t in ipairs({"????", "?????", "??????", "Me::", "!!spin"}) do equal(E:Transform(t), t) end
     equal(names(E, "??? ok")[1], "???"); equal(names(E, "ok ???")[1], "???")
     equal(names(E, "Me: hi")[1], "Me:"); equal(names(E, "(!spin)")[1], "!spin")
-    -- The same rule applies to bracket edges: (7TV) matches on its own but not wrapped in another pair of parentheses.
-    equal(names(E, "see (7TV) ok")[1], "(7TV)"); equal(E:Transform("((7TV))"), "((7TV))")
+    -- Brackets pair rather than run on, so a bracket-edged name still matches inside another pair.
+    equal(names(E, "see (7TV) ok")[1], "(7TV)"); equal(names(E, "((7TV))")[1], "(7TV)"); equal(names(E, "[(7TV)]")[1], "(7TV)")
 end)
 
 test("escaped pipes and URL or email tokens stop before a glued hyperlink", function()
