@@ -56,7 +56,9 @@ local function record(event,text,...)
     -- One event frame counts reception once, independently of display filters.
     E:Record(names,"seen",lineID)
     local own=event=="CHAT_MSG_WHISPER_INFORM" or event=="CHAT_MSG_BN_WHISPER_INFORM"
-    if not own and not E:IsRestricted(guid) and type(guid)=="string" then
+    -- A whisper to yourself also arrives as an incoming whisper; its INFORM echo already counted it.
+    local incoming=event=="CHAT_MSG_WHISPER" or event=="CHAT_MSG_BN_WHISPER"
+    if not own and not incoming and not E:IsRestricted(guid) and type(guid)=="string" then
         local player=UnitGUID("player")
         if not E:IsRestricted(player) and player~=nil then own=guid==player end
     end

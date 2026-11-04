@@ -208,6 +208,12 @@ test("events the client does not know are skipped and login still completes",fun
     assert(w.callbacks.SetItemRef); assert(w.hooks.FCF_OpenTemporaryWindow)
     SlashCmdList.FOREVEREMOTES(""); equal(w.open,true)
 end)
+test("a whisper to yourself counts as sent once",function()
+    local E,w=setup()
+    w:Chat("KEKW","Player-self",9001,"CHAT_MSG_WHISPER_INFORM"); w:Chat("KEKW","Player-self",9002,"CHAT_MSG_WHISPER")
+    equal(E:Stats("KEKW").sent,1); equal(E.db.recent[1],"KEKW"); equal(#E.db.recent,1)
+    w:Chat("catJAM","Player-self",9003,"CHAT_MSG_BN_WHISPER"); equal(E:Stats("catJAM").sent,0)
+end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
 os.exit(failed==0 and 0 or 1)
