@@ -1,17 +1,25 @@
 {
-  "project_id": 1700569,
+  "project_id": 1782760,
   "name": "Twitch Emotes WoW Forever",
-  "slug": "twitch-emotes",
+  "slug": "twitch-emotes-wow-forever",
   "summary": "Adds animated Twitch, 7TV, BetterTTV, and FrankerFaceZ emotes to WoW Forever chat, with search, autocomplete, favorites, and per-channel controls.",
   "main_category": "Chat & Communication",
   "additional_categories": [
     "Twitch Integration"
   ],
   "game_flavors": [
-    "Forever"
+    "Forever",
+    "Retail",
+    "Mists Classic",
+    "TBC Anniversary",
+    "Classic Era"
   ],
   "game_versions": [
-    "1.60.1"
+    "1.60.1",
+    "12.1.5",
+    "5.5.4",
+    "2.5.6",
+    "1.15.9"
   ],
   "license": "All Rights Reserved",
   "comments_enabled": true,
