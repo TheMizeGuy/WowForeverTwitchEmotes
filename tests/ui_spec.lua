@@ -443,6 +443,120 @@ test("whisper display toggles cover outgoing echoes and preserve other channels"
     equal(E.db.channels.CHAT_MSG_WHISPER, false); equal(E.db.channels.CHAT_MSG_WHISPER_INFORM, false); equal(E.db.channels.CHAT_MSG_CHANNEL, true)
 end)
 
+test("minimap organizers find the native launcher by name and keep it once adopted", function()
+    local control = E.ui.minimap
+    equal(control:GetName(), "TwitchEmotesMinimapButton"); equal(_G.TwitchEmotesMinimapButton, control)
+    local calls = { points = 0, shows = 0, hides = 0 }
+    local setPoint, show, hide = control.SetPoint, control.Show, control.Hide
+    control.SetPoint = function(self, ...) calls.points = calls.points + 1; return setPoint(self, ...) end
+    control.Show = function(self) calls.shows = calls.shows + 1; return show(self) end
+    control.Hide = function(self) calls.hides = calls.hides + 1; return hide(self) end
+    local organizer = CreateFrame("Frame", nil, UIParent)
+    control:SetParent(organizer); control:ClearAllPoints(); control:SetPoint("TOPLEFT", organizer, "TOPLEFT", 4, -4); calls.points = 0
+    for _ = 1, 3 do E:RefreshUI() end
+    equal(calls.points, 0, "refreshes must not pull an adopted launcher back to the minimap"); equal(calls.shows + calls.hides, 0)
+    equal(control.point[2], organizer)
+    -- Organizers re-lay out from Show/Hide hooks, so the setting toggles through those and only on a change.
+    E:SetOption("minimap", false); equal(calls.hides, 1); equal(control:IsShown(), false)
+    E:RefreshUI(); equal(calls.hides, 1)
+    E:SetOption("minimap", true); equal(calls.shows, 1); equal(control:IsShown(), true); equal(calls.points, 0)
+    -- Some organizers keep the button on the minimap but in a row of their own; refreshes leave that place alone.
+    control:SetParent(Minimap); control:ClearAllPoints(); control:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -4, 0); calls.points = 0
+    for _ = 1, 3 do E:RefreshUI() end
+    equal(calls.points, 0, "refreshes must not re-place a button an organizer placed on the minimap"); equal(control.point[1], "BOTTOMRIGHT")
+    -- Dragging or a new angle still moves it around the ring.
+    E.db.minimapAngle = (E.db.minimapAngle + 90) % 360; E:RefreshUI()
+    equal(calls.points, 1); equal(control.point[1], "CENTER"); equal(control.point[2], Minimap)
+    control.SetPoint, control.Show, control.Hide = nil, nil, nil
+    E.db.minimapAngle = 220; E:RefreshUI()
+end)
+
+-- LibStub, LibDataBroker and LibDBIcon arrive with other addons; these stand-ins keep only the calls the addon makes.
+-- `deferHidden` mimics LibDBIcon before minor 50, which builds a button registered hidden only on its first Show.
+local function withLibraries(deferHidden, fn)
+    local calls = { show = 0, hide = 0 }
+    local broker = { objects = {} }
+    function broker:GetDataObjectByName(name) return self.objects[name] end
+    function broker:NewDataObject(name, object) if self.objects[name] then return nil end; self.objects[name] = object; return object end
+    local icons = { buttons = {}, pending = {} }
+    function icons:GetMinimapButton(name) return self.buttons[name] end
+    function icons:IsRegistered(name) return (self.buttons[name] or self.pending[name]) and true or false end
+    local function create(name, object, db)
+        local button = CreateFrame("Button", "LibDBIcon10_" .. name, Minimap)
+        button.dataObject, button.db = object, db
+        button:SetScript("OnClick", function(self, mouse) object.OnClick(self, mouse) end)
+        icons.buttons[name] = button
+    end
+    function icons:Register(name, object, db)
+        assert(not self:IsRegistered(name) and object.icon, "LibDBIcon refuses a duplicate or iconless object")
+        if deferHidden and db.hide then self.pending[name] = { object, db } else create(name, object, db) end
+    end
+    function icons:Show(name)
+        calls.show = calls.show + 1
+        if self.pending[name] then create(name, unpack(self.pending[name])); self.pending[name] = nil end
+        self.buttons[name]:Show(); self.buttons[name]:SetPoint("CENTER", Minimap, "CENTER", 0, 0)
+    end
+    function icons:Hide(name) calls.hide = calls.hide + 1; self.buttons[name]:Hide() end
+    local libraries = { ["LibDataBroker-1.1"] = broker, ["LibDBIcon-1.0"] = icons }
+    _G.LibStub = setmetatable({ GetLibrary = function(_, major) return libraries[major] end }, { __call = function(_, major) return libraries[major] end })
+    local ok, err = pcall(fn, broker, icons, calls)
+    _G.LibStub = nil
+    if not ok then error(err, 0) end
+end
+
+local function freshAddon(minimap)
+    local addon = {}
+    for key, value in pairs(E) do if key ~= "ui" then addon[key] = value end end
+    addon.db = { enabled = true, size = 22, animate = true, animationFPS = 20, minimap = minimap ~= false, minimapAngle = 220, packs = {}, channels = { CHAT_MSG_SAY = true }, favorites = {}, recent = {}, stats = {}, hidden = {} }
+    assert(loadfile("TwitchEmotes/UI.lua"))("TwitchEmotes", addon)
+    return addon
+end
+
+test("with LibDBIcon loaded the launcher registers there and leaves placement to it and to organizers", function()
+    withLibraries(false, function(broker, icons, calls)
+        local addon = freshAddon(); addon:InitializeUI()
+        local control = icons.buttons.TwitchEmotes
+        assert(control, "the launcher must register with LibDBIcon"); equal(addon.ui.minimap, control)
+        local object = broker.objects.TwitchEmotes
+        equal(object.type, "launcher"); equal(object.label, addon.title); equal(object.icon, "Interface\\AddOns\\TwitchEmotes\\Media\\UI\\TwitchGlitch.tga")
+        local tooltip = { lines = {} }
+        function tooltip:AddLine(text) self.lines[#self.lines + 1] = text end
+        object.OnTooltipShow(tooltip); equal(tooltip.lines[1], addon.title); equal(#tooltip.lines, 2)
+        -- LibDBIcon and organizers read and write these fields; they map onto the saved settings.
+        local db = control.db
+        equal(db.minimapPos, 220); equal(db.hide, false)
+        db.minimapPos = 400; equal(addon.db.minimapAngle, 40)
+        db.minimapPos = 0 / 0; db.minimapPos = math.huge; db.minimapPos = "90"; equal(addon.db.minimapAngle, 40)
+        db.minimapPos = -30; equal(addon.db.minimapAngle, 330)
+        db.lock = true; equal(db.lock, true); equal(addon.db.lock, nil)
+        db.hide = true; equal(addon.db.minimap, false); db.hide = nil; equal(addon.db.minimap, true); equal(db.hide, false)
+        for _ = 1, 3 do addon:RefreshUI() end
+        equal(control.point, nil, "LibDBIcon places its own button"); equal(calls.show + calls.hide, 0)
+        -- The setting toggles the button itself: LibDBIcon's Show would anchor it to the minimap on top of an
+        -- organizer's anchor.
+        addon:SetOption("minimap", false); equal(db.hide, true); equal(control:IsShown(), false)
+        addon:RefreshUI(); equal(control:IsShown(), false)
+        addon:SetOption("minimap", true); equal(control:IsShown(), true)
+        local organizer = CreateFrame("Frame", nil, UIParent); control:SetParent(organizer)
+        addon:SetOption("minimap", false); addon:SetOption("minimap", true)
+        equal(control:IsShown(), true); equal(control.point, nil); equal(calls.show + calls.hide, 0)
+        control:Click(); equal(addon.ui.panel:IsShown(), true); addon.ui.panel:Hide()
+        -- With the name already taken, a second copy keeps a named native button instead of failing.
+        local second = freshAddon(); second:InitializeUI()
+        equal(second.ui.minimap:GetName(), "TwitchEmotesMinimapButton"); equal(second.ui.minimapIcons, nil)
+    end)
+end)
+
+test("an older LibDBIcon that defers a hidden button still yields one launcher, hidden until the setting is on", function()
+    withLibraries(true, function(_, icons)
+        local addon = freshAddon(false); addon:InitializeUI()
+        local control = icons.buttons.TwitchEmotes
+        assert(control, "the deferred button must be built"); equal(addon.ui.minimap, control); equal(addon.ui.minimapIcons, icons)
+        equal(control:IsShown(), false)
+        addon:SetOption("minimap", true); equal(control:IsShown(), true)
+    end)
+end)
+
 for _, case in ipairs(tests) do
     local ok, err = pcall(case[2])
     if ok and #B.violations > 0 then ok, err = false, "addon touched Blizzard chat state: " .. table.concat(B.violations, ", ") end

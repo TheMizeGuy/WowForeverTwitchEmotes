@@ -694,21 +694,83 @@ local function createPanel()
     panel:Hide()
 end
 
+local GLITCH = "Interface\\AddOns\\TwitchEmotes\\Media\\UI\\TwitchGlitch.tga"
+-- The pattern scanners in minimap button collectors only adopt named buttons whose name contains "MinimapButton".
+local MINIMAP_BUTTON = "TwitchEmotesMinimapButton"
+
+-- Organizers adopt or re-place the button and re-lay out from Show/Hide hooks, so a refresh moves the native button
+-- only on a new angle or shape while it is on the minimap, and shows or hides it only when the setting changes.
 local function updateMinimap()
-    if not ui.minimap or not E.db then return end
-    local angle = math.rad(E.db.minimapAngle or 220)
-    local radius = _G.Minimap:GetWidth() / 2 + 2
-    local x, y = math.cos(angle) * radius, math.sin(angle) * radius
+    local control = ui.minimap
+    if not control or not E.db then return end
+    local angle = E.db.minimapAngle or 220
     -- Square-minimap addons define GetMinimapShape(); follow LibDBIcon and ride the square's edge.
     local shape = _G.GetMinimapShape and _G.GetMinimapShape()
-    if shape == "SQUARE" then
-        local diagonal = math.sqrt(2) * radius
-        x = math.max(-radius, math.min(radius, math.cos(angle) * diagonal))
-        y = math.max(-radius, math.min(radius, math.sin(angle) * diagonal))
+    if not ui.minimapIcons and control:GetParent() == _G.Minimap and (ui.placedAngle ~= angle or ui.placedShape ~= shape) then
+        ui.placedAngle, ui.placedShape = angle, shape
+        local radians = math.rad(angle)
+        local radius = _G.Minimap:GetWidth() / 2 + 2
+        local x, y = math.cos(radians) * radius, math.sin(radians) * radius
+        if shape == "SQUARE" then
+            local diagonal = math.sqrt(2) * radius
+            x = math.max(-radius, math.min(radius, math.cos(radians) * diagonal))
+            y = math.max(-radius, math.min(radius, math.sin(radians) * diagonal))
+        end
+        control:ClearAllPoints()
+        control:SetPoint("CENTER", _G.Minimap, "CENTER", x, y)
     end
-    ui.minimap:ClearAllPoints()
-    ui.minimap:SetPoint("CENTER", _G.Minimap, "CENTER", x, y)
-    ui.minimap:SetShown(E.db.minimap)
+    local shown = E.db.minimap and true or false
+    if ui.minimapShown ~= shown then
+        ui.minimapShown = shown
+        -- Not LibDBIcon's Show: it adds a minimap anchor without clearing the one an organizer set.
+        if shown then control:Show() else control:Hide() end
+    end
+end
+
+-- LibDBIcon reads and writes only plain fields on this table; position and visibility stay in the saved settings.
+local function iconSettings()
+    local session = {}
+    return setmetatable({}, {
+        __index = function(_, key)
+            if key == "minimapPos" then return E.db.minimapAngle end
+            if key == "hide" then return not E.db.minimap end
+            return session[key]
+        end,
+        __newindex = function(_, key, value)
+            if key == "minimapPos" then
+                if type(value) == "number" and value == value and math.abs(value) ~= math.huge then E.db.minimapAngle = value % 360 end
+            elseif key == "hide" then E.db.minimap = not value
+            else session[key] = value end
+        end,
+    })
+end
+
+-- Every minimap organizer collects LibDBIcon buttons, so register through it when another addon has loaded it.
+local function registerBrokerIcon()
+    local stub = _G.LibStub
+    if type(stub) ~= "table" or type(stub.GetLibrary) ~= "function" then return false end
+    local broker = stub:GetLibrary("LibDataBroker-1.1", true)
+    local icons = stub:GetLibrary("LibDBIcon-1.0", true)
+    local name = E.addonName or "TwitchEmotes"
+    if not broker or not icons or icons:GetMinimapButton(name) or (icons.IsRegistered and icons:IsRegistered(name))
+        or broker:GetDataObjectByName(name) then return false end
+    local object = broker:NewDataObject(name, {
+        type = "launcher", label = E.title, icon = GLITCH,
+        OnClick = function() E:OpenPanel() end,
+        OnTooltipShow = function(tooltip)
+            tooltip:AddLine(E.title, theme.text[1], theme.text[2], theme.text[3])
+            tooltip:AddLine("Click to browse emotes. Drag to move.", theme.muted[1], theme.muted[2], theme.muted[3])
+        end,
+    })
+    if not object then return false end
+    -- A Register that fails partway can still leave its button behind; adopt it rather than add a second one.
+    pcall(icons.Register, icons, name, object, iconSettings())
+    -- LibDBIcon before minor 50 builds a button registered hidden only on its first Show.
+    if not icons:GetMinimapButton(name) and icons.IsRegistered and icons:IsRegistered(name) then pcall(icons.Show, icons, name) end
+    local control = icons:GetMinimapButton(name)
+    if not control then return false end
+    ui.minimap, ui.minimapIcons = control, icons
+    return true
 end
 
 function E:RefreshUI()
@@ -935,8 +997,8 @@ end
 
 function E:InitializeUI()
     if not self.db then return end
-    if not ui.minimap and _G.Minimap then
-        local control = _G.CreateFrame("Button", nil, _G.Minimap)
+    if not ui.minimap and _G.Minimap and not registerBrokerIcon() then
+        local control = _G.CreateFrame("Button", MINIMAP_BUTTON, _G.Minimap)
         ui.minimap = control
         -- The Mainline rim atlas is absent on classic clients, which draw minimap buttons from files.
         local mainline = _G.C_Texture and _G.C_Texture.GetAtlasInfo and _G.C_Texture.GetAtlasInfo("ui-hud-minimap-button")
@@ -962,7 +1024,7 @@ function E:InitializeUI()
         control.face = control:CreateTexture(nil, "BORDER")
         control.face:SetColorTexture(unpack(theme.accent)); control.face:SetAllPoints(mask); control.face:AddMaskTexture(mask)
         control.icon = control:CreateTexture(nil, "ARTWORK")
-        control.icon:SetTexture("Interface\\AddOns\\TwitchEmotes\\Media\\UI\\TwitchGlitch.tga")
+        control.icon:SetTexture(GLITCH)
         control.icon:SetSize(15, 15); control.icon:SetPoint("CENTER", mask, "CENTER"); control.icon:AddMaskTexture(mask)
         control:SetHighlightTexture(WHITE, "BLEND")
         control:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.14); control:GetHighlightTexture():AddMaskTexture(mask)

@@ -37,6 +37,10 @@ artwork shares a single texture file across packs.
 Settings include an emote-size slider with a live preview (12–40 pixels, 28 by default),
 chat channels, enabled groups, animation, the playback
 limit (15, 30, or 60 FPS; 60 by default), and minimap visibility. Drag the minimap button to move it.
+Minimap button collectors such as MinimapButtonButton, Leatrix Plus and EllesmereUI can gather the
+button: when another addon has loaded LibDBIcon, the button registers there (as `TwitchEmotes`, also a
+LibDataBroker launcher); otherwise the addon draws its own button, named `TwitchEmotesMinimapButton`.
+Neither library is bundled.
 Animation follows each source's timing; the playback limit cannot add motion absent
 from the source. A hovered chat line pauses its animation to keep the tooltip stable;
 other visible lines keep animating. Editor completion and insertion pause when WoW restricts scripted
