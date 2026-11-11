@@ -195,7 +195,8 @@ function E:RebuildCatalog()
         local enabled=choices[id]~=false
         for _, entry in ipairs(pack.emotes) do
             local name=entry.name
-            if not allPriority[name] or rank>=allPriority[name] then available[name]=entry; allPriority[name]=rank end
+            local allRank=rank+(enabled and 20000 or 0)
+            if not allPriority[name] or allRank>=allPriority[name] then available[name]=entry; allPriority[name]=allRank end
             if enabled and not hidden[name] and (not priority[name] or rank>=priority[name]) then catalog[name]=entry; priority[name]=rank end
         end
     end

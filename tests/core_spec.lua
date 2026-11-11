@@ -286,6 +286,19 @@ test("preferred channel wins overlaps and disabled groups relinquish names", fun
     E:SetOption("preferredGroup","missing"); equal(E.db.preferredGroup,"base")
 end)
 
+test("the lookup that includes disabled packs shows the art chat shows", function()
+    local E=loadEngine()
+    local general,channel="Interface\\AddOns\\TwitchEmotes\\Media\\general.tga","Interface\\AddOns\\TwitchEmotes\\Media\\channel.tga"
+    E:RegisterPack({id="seventv_global",priority=12,emotes={entry("AYAYA",general)}})
+    E:RegisterPack({id="channel",priority=20,emotes={entry("AYAYA",channel),entry("exclusive")}})
+    E.db.packs.seventv_global=true; E.db.packs.channel=false; E:RebuildCatalog()
+    equal(E:GetEmote("AYAYA").path,general); equal(E:GetEmote("AYAYA",true).path,general)
+    equal(E:GetEmote("exclusive"),nil); equal(E:GetEmote("exclusive",true).name,"exclusive")
+    E:SetEmoteHidden("AYAYA",true); equal(E.hiddenNames[1].path,general)
+    E:SetEmoteHidden("AYAYA",false); E:SetGroupEnabled("channel",true); equal(E:GetEmote("AYAYA",true).path,channel)
+    E:SetGroupEnabled("general",false); E:SetGroupEnabled("channel",false); equal(E:GetEmote("AYAYA",true).path,channel)
+end)
+
 test("new packs inherit chosen channel state while new channels stay off", function()
     local E=loadEngine(); E.db.setupComplete=true
     E:RegisterPack({id="seventv_forsen",group="forsen",emotes={entry("KEKW")}})
