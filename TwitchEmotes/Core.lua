@@ -244,6 +244,51 @@ function E:GetGroups()
     return groups
 end
 
+-- A channel's oldest Twitch emotes are its best known; General's are not, so it names its samples.
+local featuredSamples={general={"Kappa","LUL","FeelsGoodMan"}}
+local summaries,summaryRevision={},nil
+local function twitchAge(entry)
+    return type(entry.id)=="string" and tonumber(entry.id:match("^twitch:(%d+)$")) or math.huge
+end
+local function byAge(a,b)
+    local x,y=twitchAge(a),twitchAge(b)
+    if x==y then return a.name<b.name end
+    return x<y
+end
+
+-- Counts the names a group can show in chat: shared names once, hidden names not at all.
+function E:GetGroupSummary(id)
+    if summaryRevision~=self.revision then summaries,summaryRevision={},self.revision end
+    if summaries[id] then return summaries[id] end
+    local best,rank,order={},{},{}
+    for _,packID in ipairs(self.packOrder) do
+        local pack=self.packs[packID]
+        if pack.group==id then
+            for _,entry in ipairs(pack.emotes) do
+                local name=entry.name
+                if not self.db.hidden[name] and (not best[name] or pack.priority>=rank[name]) then
+                    if not best[name] then order[#order+1]=name end
+                    best[name],rank[name]=entry,pack.priority
+                end
+            end
+        end
+    end
+    local samples,used,own={},{},{}
+    local function add(entry)
+        if entry and #samples<3 and not used[entry.name] then samples[#samples+1]=entry; used[entry.name]=true end
+    end
+    for _,name in ipairs(featuredSamples[id] or {}) do add(best[name]) end
+    for _,name in ipairs(order) do
+        local entry=best[name]
+        if entry.provider=="Twitch" and entry.frames==1 then own[#own+1]=entry end
+    end
+    table.sort(own,byAge)
+    for _,entry in ipairs(own) do add(entry) end
+    for _,name in ipairs(order) do if best[name].frames==1 and name:match("^%a") then add(best[name]) end end
+    summaries[id]={count=#order,samples=samples}
+    return summaries[id]
+end
+
 function E:Search(query, limit, mode, packID, includeDisabled)
     query=type(query)=="string" and query:lower() or ""
     limit=floor(number(limit,100,1,50000))
@@ -283,6 +328,7 @@ function E:SetOption(key,value)
         value=channels
     else return end
     self.db[key]=value
+    if key=="setupComplete" then return end
     if key=="preferredGroup" then self:RebuildCatalog() else self.revision=self.revision+1 end
     if self.Refresh then self:Refresh() elseif self.RefreshUI then self:RefreshUI() end
 end
