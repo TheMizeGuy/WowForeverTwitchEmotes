@@ -5,7 +5,7 @@ The full collection includes **8,000+ emote names across 67 groups**, with artwo
 ## Start using emotes
 
 1. Install it for **WoW Forever, Retail, Mists Classic, TBC Anniversary, or Classic Era**, then **fully exit and restart WoW**. `/reload` alone can leave new textures as green boxes after this update.
-2. The first time you log in, the window opens on a channel picker: tick the groups you want and press Done. General and five channel groups start ticked. Later, open it with **`/te`**, **`/twitch`**, or the minimap button.
+2. The first time you log in, the window opens on a channel picker: tick the groups you want and press Finish. General and five channel groups start ticked. Later, open it with **`/te`**, **`/twitch`**, or the minimap button.
 3. With the chat box open, click an emote in **Browse** to insert its name, or type `:` and part of a name for autocomplete with image previews. Up and Down move the highlight and Tab inserts the name; Enter always sends your message as typed.
 
 For manual installation, place the `TwitchEmotes` folder inside your client's `Interface/AddOns` folder and keep its name unchanged. The same folder works in every client. No companion addon or Twitch login is required.
@@ -22,7 +22,7 @@ For manual installation, place the `TwitchEmotes` folder inside your client's `I
 
 Set chat emote size from **12 to 40 pixels**, with a live preview and a 28-pixel default. Choose which chat types show emotes, toggle animation, and set a **15, 30, or 60 FPS playback limit**. Move the compact minimap button by dragging it, or hide it in Settings. Minimap button collectors such as MinimapButtonButton, Leatrix Plus, and EllesmereUI can gather it with your other addon buttons.
 
-Static emotes use 64-pixel frames; animations keep every frame and their source timing, at the largest frame height the download budget allows for each emote (most at 64 pixels, long clips at 32 to 48). Palettes and deflate-aware layouts keep the download small without dropping content. Animation updates only visible chat lines and stops its timer when no visible emotes need animation.
+Static emotes use 64-pixel frames; animations keep every frame and their source timing, at the largest frame height the download budget allows for each emote (short loops at 64 pixels, longer clips at 32 to 48). Palettes and deflate-aware layouts keep the download small without dropping content. Animation updates only visible chat lines and stops its timer when no visible emotes need animation.
 
 Every Twitch global text face (`:)`, `:-P`, `:/`, `<3`, `O_o`, `B)` and the rest), `D:`, and the chat words `1G`, `BOP`, `Retail`, and `Classic` are disabled by default and can be restored individually. Messages still contain plain emote names, so friends without the addon can read them; players with matching emotes enabled see the images.
 
