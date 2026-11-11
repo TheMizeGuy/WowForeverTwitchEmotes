@@ -7,7 +7,7 @@ local function test(name,body)
 end
 local function pack(...) return {n=select("#",...),...} end
 local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true,
-    LOADING_SCREEN_DISABLED=true,PLAYER_REGEN_ENABLED=true}
+    LOADING_SCREEN_ENABLED=true,LOADING_SCREEN_DISABLED=true,PLAYER_REGEN_ENABLED=true}
 -- options.unknown: events the simulated client does not know; options.uiError: InitializeUI raises;
 -- options.deferLogin: the test fires PLAYER_LOGIN itself; options.firstRunError: OpenFirstRun raises.
 local function setup(saved,options)
@@ -317,6 +317,21 @@ test("a loading screen that lifts before world entry still leads to the picker",
     local E,w=setup()
     w.eventFrame:Fire("LOADING_SCREEN_DISABLED"); w:Timers(); equal(w.firstRuns,nil)
     w.eventFrame:Fire("PLAYER_ENTERING_WORLD",true,false); w:Timers(); equal(w.firstRuns,1)
+end)
+test("a retry that lands under a later loading screen waits for it to lift",function()
+    local E,w=setup(); w.popup=true; w:Enter(); equal(w.firstRuns,nil); equal(#w.after,1,"one poll while a dialog is up")
+    w.popup=false; w.eventFrame:Fire("LOADING_SCREEN_ENABLED")
+    equal(#w:Timers(),0); equal(w.firstRuns,nil,"never under a loading screen"); equal(#w.after,0,"and no poll runs beneath it")
+    w.eventFrame:Fire("LOADING_SCREEN_DISABLED"); equal(w.firstRuns,nil); equal(#w.after,1)
+    equal(#w:Timers(),0); equal(w.firstRuns,1)
+    for _,event in ipairs({"LOADING_SCREEN_ENABLED","LOADING_SCREEN_DISABLED","PLAYER_REGEN_ENABLED"}) do equal(w.eventFrame.events[event],nil,event) end
+end)
+test("combat that ends into a loading screen opens the picker only after it lifts, and only once",function()
+    local E,w=setup(); w.combat=true; w:Enter()
+    w.eventFrame:Fire("LOADING_SCREEN_ENABLED"); w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED")
+    equal(#w.after,0); equal(w.firstRuns,nil)
+    w.eventFrame:Fire("LOADING_SCREEN_DISABLED"); w.eventFrame:Fire("LOADING_SCREEN_ENABLED"); w.eventFrame:Fire("LOADING_SCREEN_DISABLED")
+    equal(#w.after,1,"two loading screens in a row arm one timer"); equal(#w:Timers(),0); equal(w.firstRuns,1)
 end)
 test("finished setup opens nothing at world entry",function()
     local E,w=setup({schema=4,setupComplete=true})

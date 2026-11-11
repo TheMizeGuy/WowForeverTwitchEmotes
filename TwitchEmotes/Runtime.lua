@@ -4,7 +4,7 @@ local frame=CreateFrame("Frame")
 local installed, tooltipOwner
 local CACHE_LIMIT=128
 local startupSettings={}
-local worldEntered, loadingScreenGone, onboarded
+local worldEntered, loading, pending, onboarded
 
 local function describeSettings(saved)
     if type(saved)~="table" then return type(saved) end
@@ -190,17 +190,29 @@ local function busy()
     return not UIParent:IsVisible() or (not E:IsRestricted(dead) and dead) or (popup~=nil and popup())
 end
 
-local function onboard()
-    if onboarded or E.db.setupComplete then onboarded=true; return end
-    if InCombatLockdown() then frame:RegisterEvent("PLAYER_REGEN_ENABLED"); return end
-    if busy() then C_Timer.After(2,onboard); return end
+local function settle()
     onboarded=true
-    if E.OpenFirstRun then E:OpenFirstRun() end
+    for _,event in ipairs({"LOADING_SCREEN_ENABLED","LOADING_SCREEN_DISABLED","PLAYER_REGEN_ENABLED"}) do
+        if E:IsEventSupported(event) then frame:UnregisterEvent(event) end
+    end
 end
 
--- Every world entry closes special windows, so the first-run picker waits for the loading screen to lift, then a moment more.
+local onboard
+-- Every world entry closes special windows, so the first-run picker waits for each loading screen to lift, then a moment more.
 local function armOnboarding()
-    if worldEntered and loadingScreenGone and not E.db.setupComplete then C_Timer.After(2,onboard) end
+    if onboarded or pending or loading or not worldEntered then return end
+    if E.db.setupComplete then settle(); return end
+    pending=true; C_Timer.After(2,onboard)
+end
+
+function onboard()
+    pending=false
+    if onboarded or E.db.setupComplete then settle(); return end
+    if loading then return end
+    if InCombatLockdown() then frame:RegisterEvent("PLAYER_REGEN_ENABLED"); return end
+    if busy() then pending=true; C_Timer.After(2,onboard); return end
+    settle()
+    if E.OpenFirstRun then E:OpenFirstRun() end
 end
 
 frame:SetScript("OnEvent",function(_,event,...)
@@ -224,14 +236,16 @@ frame:SetScript("OnEvent",function(_,event,...)
             if type(_G.ForeverEmotesDB)=="table" then _G.ForeverEmotesDB._startup=startupSettings end
         end)
         worldEntered=true; armOnboarding()
-    elseif event=="LOADING_SCREEN_DISABLED" then
-        frame:UnregisterEvent("LOADING_SCREEN_DISABLED")
-        loadingScreenGone=true; armOnboarding()
-    elseif event=="PLAYER_REGEN_ENABLED" then frame:UnregisterEvent("PLAYER_REGEN_ENABLED"); C_Timer.After(2,onboard)
+    elseif event=="LOADING_SCREEN_ENABLED" then loading=true
+    elseif event=="LOADING_SCREEN_DISABLED" then loading=false; armOnboarding()
+    elseif event=="PLAYER_REGEN_ENABLED" then frame:UnregisterEvent("PLAYER_REGEN_ENABLED"); armOnboarding()
     elseif event=="UPDATE_CHAT_WINDOWS" or event=="UPDATE_FLOATING_CHAT_WINDOWS" then E:AttachChatWindows()
     else record(event,...) end
 end)
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-if E:IsEventSupported("LOADING_SCREEN_DISABLED") then frame:RegisterEvent("LOADING_SCREEN_DISABLED") else loadingScreenGone=true end
+if E:IsEventSupported("LOADING_SCREEN_DISABLED") then
+    loading=true; frame:RegisterEvent("LOADING_SCREEN_DISABLED")
+    if E:IsEventSupported("LOADING_SCREEN_ENABLED") then frame:RegisterEvent("LOADING_SCREEN_ENABLED") end
+end
