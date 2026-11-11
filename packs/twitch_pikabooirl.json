@@ -1993,7 +1993,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Pikabooirl",
       "creator_id": "27992608",
@@ -2002,7 +2002,7 @@
       "format": "gif",
       "fps": 33.445945945945944,
       "frames": 67,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_1f13423140de4574809cb9827e244806",
       "lossless": {
         "cellWidth": 64,
@@ -2119,7 +2119,7 @@
         66
       ],
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/27992608/emotes/emotesv2_1f13423140de4574809cb9827e244806",
       "source_duration_ms": 2960.0,
       "source_frames": 67,
@@ -2127,9 +2127,9 @@
       "source_sha256": "2a7bb8116e1941e23fa1aed87da7ac5203f1233d491d197367e095c96f90b039",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_1f13423140de4574809cb9827e244806.blp",
-      "texture_sha256": "3cc1008d131468952fef497dd84c55fd898045366b7add49eab430f59f008438",
+      "texture_sha256": "c596695fc8b38050f7220083b833bc9c85c5231f9c457f62cc4b21d19f070758",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

@@ -2865,7 +2865,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "AdmiralBulldog",
       "creator_id": "30816637",
@@ -2874,7 +2874,7 @@
       "format": "gif",
       "fps": 50.0,
       "frames": 60,
-      "height": 64,
+      "height": 32,
       "id": "twitch:emotesv2_887dbaa01d804ca6bff4b5e805f60caf",
       "lossless": {
         "cellWidth": 64,
@@ -2889,8 +2889,8 @@
       "name": "admiralVince",
       "provider": "twitch",
       "provider_id": "emotesv2_887dbaa01d804ca6bff4b5e805f60caf",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/30816637/emotes/emotesv2_887dbaa01d804ca6bff4b5e805f60caf",
       "source_duration_ms": 1200.0,
       "source_frames": 60,
@@ -2898,9 +2898,9 @@
       "source_sha256": "2e85113f97ebe3a057f973989fd47bffbc2f174a473d5617a4426d224fdc32f3",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_887dbaa01d804ca6bff4b5e805f60caf.blp",
-      "texture_sha256": "043d0e23fc2978817910adb77689aa7b4099f2a844688035c0d41c2b99244a6e",
+      "texture_sha256": "bc550320d6bea2734bfa919a33920cebdcc96624dff08b12376c013956aeb310",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",

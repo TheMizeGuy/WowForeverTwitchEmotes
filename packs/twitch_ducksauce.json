@@ -363,7 +363,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ducksauce",
       "creator_id": "31606651",
@@ -372,7 +372,7 @@
       "format": "gif",
       "fps": 12.5,
       "frames": 43,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_a984a8c85d6546d6aa3891c3043b6de7",
       "lossless": {
         "cellWidth": 64,
@@ -387,8 +387,8 @@
       "name": "duckBoom",
       "provider": "twitch",
       "provider_id": "emotesv2_a984a8c85d6546d6aa3891c3043b6de7",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/31606651/emotes/emotesv2_a984a8c85d6546d6aa3891c3043b6de7",
       "source_duration_ms": 3440.0,
       "source_frames": 43,
@@ -396,13 +396,13 @@
       "source_sha256": "3033265ea548fa2a6f90d4ae6d7786a41e12b1c6bfe63b64ccf6699e3735aef5",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_a984a8c85d6546d6aa3891c3043b6de7.blp",
-      "texture_sha256": "47bb540791adf30c206d48645f79bb4585eb76d97ae49a779649b2b829ad3510",
+      "texture_sha256": "b8b3652c03389c787a761414e42d5cf4a4aa92e6d65ebdc8b7c82dccdcce836a",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ducksauce",
       "creator_id": "31606651",
@@ -411,7 +411,7 @@
       "format": "gif",
       "fps": 12.5,
       "frames": 42,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_b0681db044584af3b5a35fb159d82d2f",
       "lossless": {
         "cellWidth": 64,
@@ -426,8 +426,8 @@
       "name": "duckBruh",
       "provider": "twitch",
       "provider_id": "emotesv2_b0681db044584af3b5a35fb159d82d2f",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/31606651/emotes/emotesv2_b0681db044584af3b5a35fb159d82d2f",
       "source_duration_ms": 3360.0,
       "source_frames": 42,
@@ -435,9 +435,9 @@
       "source_sha256": "a0ff2812526fef0aefcd166f53cf2f268b11084723e7db40778d19b0bff06113",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_b0681db044584af3b5a35fb159d82d2f.blp",
-      "texture_sha256": "9f8271e4b9acb6cb94215ad083b46e74f5d6a2995a1dbf32ec985b53c60e9530",
+      "texture_sha256": "8b179fc261268dc8f46eef1df2a4b3a70fe5f1bca84628c640751e9edafcb0ba",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -613,7 +613,7 @@
       "source_sha256": "355cfe30695f77a109433ead17231134a0f14486e456905d8e6eba3ec41db293",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_fd3937b893b64435a7c7e25454317c90.blp",
-      "texture_sha256": "61bf9fb870fdcdc7804b3362635802ce9be60dd69c082c3886b16d69cde1637a",
+      "texture_sha256": "ab2516de0ae2b6495d517503dcd4411b83e0a68d460e2009e28632f759688be4",
       "timing_normalized": false,
       "width": 64
     },
@@ -1221,7 +1221,7 @@
       "source_sha256": "10ed4fc27b0426f9a365586f9042b842adde8847814b4dff1dd7151953d921e9",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_845c6c94f1ee4ceca860aef59cc993b3.blp",
-      "texture_sha256": "a196eb93543e5d5af696c4cec8a0b9ebbdebd114ce9143acf97dcc6e8a9fb9ce",
+      "texture_sha256": "9a6d48295edcd3ba7837676e0b84118de8462d3ae78f04c0933b575ec4c95aca",
       "timing_normalized": false,
       "width": 64
     },
@@ -1525,7 +1525,7 @@
       "source_sha256": "c78e86f73600c4988e792fe82537f69d7adcf20c3a98cd1bf4c2ce0ce28b4659",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_376b0619beaf4550afdbdd81bcdbafc3.blp",
-      "texture_sha256": "3b3505a15a2d300688d53b343cfc74e0141c76a46e91c3db6e8c306e7cfe96f0",
+      "texture_sha256": "071f0bfc7e63995a427c01cc20936942940426cce7ad6830bb990ca085d7f09d",
       "timing_normalized": false,
       "width": 64
     },
@@ -2187,7 +2187,7 @@
       "source_sha256": "314957b468d9e00c78184c1b8195483441add7f3bb153a3e61cccee4cd5c7992",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_54925ccc0bec48289ca5ff3f13047e46.blp",
-      "texture_sha256": "b8560e049d44dbabfd3ae5e71054502c8bb4c70d54b9f6399f90254419b57b2a",
+      "texture_sha256": "7e2831445f6822c0ff891b4aaf484431503e737f4907b41a232986eb15cd7f3f",
       "timing_normalized": false,
       "width": 64
     },
@@ -2264,7 +2264,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ducksauce",
       "creator_id": "31606651",
@@ -2273,7 +2273,7 @@
       "format": "gif",
       "fps": 12.5,
       "frames": 43,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_ace998db7c1349bd98efaff83f6a1951",
       "lossless": {
         "cellWidth": 64,
@@ -2288,8 +2288,8 @@
       "name": "duckMetal",
       "provider": "twitch",
       "provider_id": "emotesv2_ace998db7c1349bd98efaff83f6a1951",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/31606651/emotes/emotesv2_ace998db7c1349bd98efaff83f6a1951",
       "source_duration_ms": 3440.0,
       "source_frames": 43,
@@ -2297,9 +2297,9 @@
       "source_sha256": "b65f91b58e3c28f89cda383402682aee0089deab37cf63dea59b7afe322f2a2f",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_ace998db7c1349bd98efaff83f6a1951.blp",
-      "texture_sha256": "38ec791e706808c37b60fca8d2cdb33c28b16a8e7cf2f32c272421f26f9bf425",
+      "texture_sha256": "92287d7de9fe85a32c9442f54a8cd95cff80d8695cfcf7f27ff9fc8d2e54c095",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -2540,7 +2540,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ducksauce",
       "creator_id": "31606651",
@@ -2549,7 +2549,7 @@
       "format": "gif",
       "fps": 12.5,
       "frames": 42,
-      "height": 64,
+      "height": 32,
       "id": "twitch:emotesv2_ea6d29a56a174155a70e43c4869bc73d",
       "lossless": {
         "cellWidth": 64,
@@ -2564,8 +2564,8 @@
       "name": "duckNope",
       "provider": "twitch",
       "provider_id": "emotesv2_ea6d29a56a174155a70e43c4869bc73d",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/31606651/emotes/emotesv2_ea6d29a56a174155a70e43c4869bc73d",
       "source_duration_ms": 3360.0,
       "source_frames": 42,
@@ -2573,9 +2573,9 @@
       "source_sha256": "b669778f9246d1b3f1aa812a602368585b8e395e3d2fc78fb13c6cebf7bbd422",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_ea6d29a56a174155a70e43c4869bc73d.blp",
-      "texture_sha256": "d76610cadabe9734a94a083848fa7083c0eb22eae510af767a8d4f795039dbdf",
+      "texture_sha256": "5127a94ccad3630ca1bd47f7521091db9a31148878a5de82c3873c13b1da2330",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -2876,7 +2876,7 @@
       "source_sha256": "531f841badb839084b186795310a992f73e7312400b0a243a309ef7ebe1e9043",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_49ef2ffaf01a4ecdada55388117c3625.blp",
-      "texture_sha256": "8afdf6604bbfe0fbfef812d8a314604f49df10c4719ece22c66ed5084f318d7f",
+      "texture_sha256": "1b656c31097b58e3a6f96e5b0515250d818cbd9d740dbba4b280e214fa11532f",
       "timing_normalized": false,
       "width": 64
     },
@@ -3305,7 +3305,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ducksauce",
       "creator_id": "31606651",
@@ -3314,7 +3314,7 @@
       "format": "gif",
       "fps": 12.5,
       "frames": 45,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_6ac3185bc4ab49a391c117c10a899c12",
       "lossless": {
         "cellWidth": 64,
@@ -3329,8 +3329,8 @@
       "name": "duckSkull",
       "provider": "twitch",
       "provider_id": "emotesv2_6ac3185bc4ab49a391c117c10a899c12",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/31606651/emotes/emotesv2_6ac3185bc4ab49a391c117c10a899c12",
       "source_duration_ms": 3600.0,
       "source_frames": 45,
@@ -3338,9 +3338,9 @@
       "source_sha256": "12f1a59592ce0b62ddffbcc3972515a5f3e6503b08d678ecd7fa1cecc4fa6127",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_6ac3185bc4ab49a391c117c10a899c12.blp",
-      "texture_sha256": "2b59f466b0fdcffc8fcea9ba2d83dbaca37035ec3fc117d088f82ee55b0ac064",
+      "texture_sha256": "46b69179f114b45b49bcf9cc84d725ddb4d164850498cba183143fd68ee286c0",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

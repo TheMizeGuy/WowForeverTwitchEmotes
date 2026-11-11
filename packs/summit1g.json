@@ -792,7 +792,7 @@
       "source_sha256": "638b7ae54f0bf805429b3894cf7ec086cec3acc3262d9d0e2c734d12eee0bd1d",
       "source_width": 128,
       "texture": "Media/7tv/01FEM1R99G000AEZ0QNPT4F7C1.blp",
-      "texture_sha256": "db1b0208b42bbc913289caf276a6a961d915ef418a4a984c216b2f69a2a5d004",
+      "texture_sha256": "984a9894136522fb6bcf0cf413a21e93ba3d968d7729437cdfcba9edc56f1723",
       "timing_normalized": false,
       "width": 32
     },
@@ -972,7 +972,7 @@
       "format": "webp",
       "fps": 34.78260869565217,
       "frames": 7,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01FC4W70J80005D6HG0ANTP023",
       "lossless": {
         "cellWidth": 64,
@@ -1007,9 +1007,9 @@
       "source_sha256": "42b625ad5e5123753d47ff9b8e30bc71d4c6c237e1b8c7d4b605cdbf36a6db9a",
       "source_width": 128,
       "texture": "Media/7tv/01FC4W70J80005D6HG0ANTP023.blp",
-      "texture_sha256": "32a5ee1b9b620e83dcfda4e3086fb5cbbed9a45eec995501f51d6936327cc364",
+      "texture_sha256": "69a139ddc351d5afd93521938bd0d944adf7764140ac2c86073ef21a04395c3a",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -1102,7 +1102,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 89,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01HF2X9NKG0007GA26DF0GQBHG",
       "lossless": {
         "cellWidth": 128,
@@ -1127,9 +1127,9 @@
       "source_sha256": "a25f19496b0933a0ff0c587e77b207a49ea591552f4ad9c19794b8df7c18d17b",
       "source_width": 200,
       "texture": "Media/7tv/01HF2X9NKG0007GA26DF0GQBHG.blp",
-      "texture_sha256": "101fe1e45d6698dd651a18b981a4e1a8f729b51d2904c931f4d7f6ef55fa480b",
+      "texture_sha256": "7630b7155701091aaa966abf5308c2d435036662493fd946a52c808c1b55171a",
       "timing_normalized": false,
-      "width": 62
+      "width": 50
     },
     {
       "attribution": "provider owner",
@@ -1481,7 +1481,7 @@
       "source_sha256": "5587702b1a86a7db27ddf7c8eb0205d2ff32f57d7d90c72bcdaae6ca50907b77",
       "source_width": 128,
       "texture": "Media/7tv/01GQ00C60R0007AVY5Q06WVMHN.blp",
-      "texture_sha256": "0c69de55c7b0173651bc1868199a90137660a4c2465df39f642f19ed355abf90",
+      "texture_sha256": "18de31c66041323daa2b4d7ee8352e0aa906f2908cd9a1c7921f01436c302110",
       "timing_normalized": false,
       "width": 32
     },
@@ -1973,7 +1973,7 @@
       "source_sha256": "c03a5a47e4aa265f5937d03041b61d1787cb68b32881a5788e0097c6d87bb9c7",
       "source_width": 156,
       "texture": "Media/7tv/01GDDQVMH000038Q48APH8VE3Q.blp",
-      "texture_sha256": "d4a816c7dd8315d3474155404e21cc7704b76d47cec75bb2d74d7b7fb530f159",
+      "texture_sha256": "19beeee26b401565e1a05d9b17df089af22dd026522be1c594deb1a1e430ccae",
       "timing_normalized": false,
       "width": 39
     },
@@ -2470,7 +2470,7 @@
       "format": "webp",
       "fps": 33.64485981308411,
       "frames": 70,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01G75R7JR8000CY3BJ8KREWQS8",
       "lossless": {
         "cellWidth": 64,
@@ -2569,9 +2569,9 @@
       "source_sha256": "6bd50e8a4184beba5fb026b055665f75a65fd8edc920fcde17bbc891bddb0943",
       "source_width": 128,
       "texture": "Media/7tv/01G75R7JR8000CY3BJ8KREWQS8.blp",
-      "texture_sha256": "0a5848bfd0ce9d3d1171d8db543319b54667c2604bb12c8c6e97840e3901cf1a",
+      "texture_sha256": "72da8040ef0b1f4ccfe5d6ad676fc83c32ea63a01aedf826dcb7503f2e954971",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -2722,7 +2722,7 @@
       "source_sha256": "62d9b7671d85c73024b173f634fa0ac28589fc27cd16ea14a315e88b946d5c19",
       "source_width": 128,
       "texture": "Media/7tv/01FA5VG3C80007FCCDBQ9Z7FPJ.blp",
-      "texture_sha256": "295985791d58e9498fc6d0c710924237fbe7883cd29c60e0d636ddce651aa28e",
+      "texture_sha256": "582560b18729280dd2b0e0c354a3f5e5f307d6ec2e85afc93b7a4988a0aec8c0",
       "timing_normalized": false,
       "width": 32
     },
@@ -2936,7 +2936,7 @@
       "source_sha256": "f1e783b82f0bf252aca3a61e76eb7bc1b7a95bdd17e783b5b1b92e2a8e519abc",
       "source_width": 128,
       "texture": "Media/7tv/01F6N58M5R0004P7N4A9PK7KD9.blp",
-      "texture_sha256": "890cb45f3f64ce2c5c1f46a0ce89da9551a68254fe51cc2512ce2c6c2a514053",
+      "texture_sha256": "4f69aea0ccb01f1eafc7ef44689d166bb1323305c2bf66be43cbe62c1aa5a1e5",
       "timing_normalized": false,
       "width": 32
     },
@@ -4322,7 +4322,7 @@
       "source_sha256": "1b8af8efc183384e7d7fb2f3699e02d72cbf1ba7af026851ecf158c37b6c8dfc",
       "source_width": 384,
       "texture": "Media/7tv/01JFKTQH7A9QZKFKKCGB7E82HJ.blp",
-      "texture_sha256": "d364326bdc729274d6a493efabe82e9faae7a14a817031aa55116aa719f8cf77",
+      "texture_sha256": "94c2da961cb18981673f8c6af47840a9b3c2d71ceb2de86cf390a2d5c6052eaa",
       "timing_normalized": false,
       "width": 96
     },
@@ -4710,7 +4710,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 21,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01FFEJ2VQ80009CAK0J1468C2W",
       "lossless": {
         "cellWidth": 64,
@@ -4735,9 +4735,9 @@
       "source_sha256": "1a0e692caa67041a8af9e3b31a068f5d2372f604d7f1148d7b2ae3b161338023",
       "source_width": 128,
       "texture": "Media/7tv/01FFEJ2VQ80009CAK0J1468C2W.blp",
-      "texture_sha256": "e2143010e92da9eaf8e921dad0fd6767bcfada0662e25f62477acb47b3fe33b0",
+      "texture_sha256": "61e21f197c0c4d4f3847b129b9389ea4608b1d974c881687464963e938e9ba3a",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -4855,7 +4855,7 @@
       "source_sha256": "3e878e4ae9200277518c1bf9a2eb784a4c35fd1b9a72675edefb734307d8b3e2",
       "source_width": 128,
       "texture": "Media/7tv/01FC8JVAZR0004KQ7BS2HS4KT2.blp",
-      "texture_sha256": "43f202dbb7c6c1376bc1175f98a321624fbc6a8addba57ecb1a9096ac7406bde",
+      "texture_sha256": "eac593e657fe5760e76da70d21552e732258852a8aed9631ec359391500373cf",
       "timing_normalized": false,
       "width": 32
     },
@@ -5430,7 +5430,7 @@
       "source_sha256": "7e06d8ccf45fba9e3cbea0c4b369ec597427ae12c221a86e52a88676e3f12a22",
       "source_width": 128,
       "texture": "Media/7tv/01HJQ2P608000DQX3MV0V8TVM2.blp",
-      "texture_sha256": "ade578ce62914f1bc306397168e2932a36702dadb86070fe117aaf38c69bbba3",
+      "texture_sha256": "a9f4de2a0b455582ebc34493259acf00ac885f7168ee059162bf6e3d22906b4c",
       "timing_normalized": false,
       "width": 32
     },
@@ -5557,7 +5557,7 @@
       "source_sha256": "984d471dd7e7356bdc2eaa4f9dd13ed112079465ad25cdb14e1ed5b7ab299b78",
       "source_width": 128,
       "texture": "Media/7tv/01FTY6CJ6R0002G2PYCQWFMDVG.blp",
-      "texture_sha256": "d9cc4ab5605befd948e8d921df0ac19c34189f7230f4f4ce58d2159138920f42",
+      "texture_sha256": "0c81631a1937ca960e6c11433858ed0019912a83d9f6a49d19fb50fc8f537563",
       "timing_normalized": false,
       "width": 32
     },
@@ -5724,7 +5724,7 @@
       "source_sha256": "f658f101c0170a1561f49bb8716a8ea90529a376705299222654ca3fe1aedfc0",
       "source_width": 212,
       "texture": "Media/7tv/01F6N2ABJG000FD8P3PCSEA2P4.blp",
-      "texture_sha256": "2aa22067407b8c32fc563e45dd29ebbbd921c957277563319dc836fd94ab1c79",
+      "texture_sha256": "d6cc496a9b46fecc099dc3a68d337c23757dee10ba8fcfb33cead46a36366715",
       "timing_normalized": false,
       "width": 53
     },
@@ -5939,7 +5939,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 37,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01FRQ5YAT0000885PX7SJJAGES",
       "lossless": {
         "cellWidth": 64,
@@ -6029,9 +6029,9 @@
       "source_sha256": "1bf7d99939363262be57f2966efb87b7485571984c6c233fdbd17c6f0b48ba53",
       "source_width": 128,
       "texture": "Media/7tv/01FRQ5YAT0000885PX7SJJAGES.blp",
-      "texture_sha256": "733cf6237773e3952e9ad3a61938e01441b6d0e4369c7a64f9c7fe27eb53da7e",
+      "texture_sha256": "e5098eff27451748b7699c24b87ce319bc36968cbdd8003a0c731fa1096cc322",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -6124,7 +6124,7 @@
       "format": "webp",
       "fps": 25.333333333333332,
       "frames": 34,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01H23P7AQ00005AYDEKRM0FKQA",
       "lossless": {
         "cellWidth": 64,
@@ -6189,9 +6189,9 @@
       "source_sha256": "f860802d14ef189d4b04d182710e02c5ced112f6d6e03a5673664f0ec25017b8",
       "source_width": 128,
       "texture": "Media/7tv/01H23P7AQ00005AYDEKRM0FKQA.blp",
-      "texture_sha256": "2b61fa74d171b31f14b953cb14ed22c78e69e1e599f14104e536596ce7471596",
+      "texture_sha256": "e0d36f9f55afe8b05aea139bd75a6fb22aeec45df4182b95dcc89ac6098c68a4",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -6593,7 +6593,7 @@
       "source_sha256": "a968a818d872957adec6fc564ac6f6707c5acc8490550c87a7a9a8f63f32a4a3",
       "source_width": 128,
       "texture": "Media/7tv/01GH1GM37R00062HFXJ46G0JNZ.blp",
-      "texture_sha256": "51abe628777c6c71034027eb79aa3e863cbe5fc4a96108dbdc60ca636cf0adfb",
+      "texture_sha256": "d63c407ab3ac422133404892c1b8c31b86e60762bb6921f85ae476d761bb675a",
       "timing_normalized": false,
       "width": 32
     },
@@ -6774,7 +6774,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 51,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01F6N31ETR0004P7N4A9PKS5X9",
       "lossless": {
         "cellWidth": 64,
@@ -6887,9 +6887,9 @@
       "source_sha256": "ff498917adddc3e6ef5d4f80c6e6f8c1335f23b9054cd404756054d2c604abc8",
       "source_width": 128,
       "texture": "Media/7tv/01F6N31ETR0004P7N4A9PKS5X9.blp",
-      "texture_sha256": "8116f3cc1ffd66ed69184ea6cb88d9c07452e30bfefc4dc7c59f327f07905be6",
+      "texture_sha256": "a5ad21f14009e05706548edb21eb4f7874a6b4ffaa7e52229db48f5ed7eea89c",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -6938,8 +6938,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 256,
-      "columns": 8,
+      "cellWidth": 128,
+      "columns": 16,
       "creator": "Caz1_",
       "creator_id": "01F6NPTSE000015NVG2J8R7YB8",
       "download": "https://cdn.7tv.app/emote/01FB7WRDQ80004RQA2VEYCSQ97/4x.webp",
@@ -6947,7 +6947,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 21,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01FB7WRDQ80004RQA2VEYCSQ97",
       "lossless": {
         "cellWidth": 256,
@@ -6963,7 +6963,7 @@
       "provider": "7tv",
       "provider_id": "01FB7WRDQ80004RQA2VEYCSQ97",
       "set_entry_id": "01FB7WRDQ80004RQA2VEYCSQ97",
-      "sheetHeight": 256,
+      "sheetHeight": 128,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01FB7WRDQ80004RQA2VEYCSQ97",
       "source_duration_ms": 840.0,
@@ -6972,9 +6972,9 @@
       "source_sha256": "b94156f539b20aaaad2738eb0b413c9d7dea098d80d206403f9892f620493b03",
       "source_width": 308,
       "texture": "Media/7tv/01FB7WRDQ80004RQA2VEYCSQ97.blp",
-      "texture_sha256": "2a9aa53f1a39b3b58933e0eac58a1b6a7dd60002a9f67af9bb9b8ff20aa8b509",
+      "texture_sha256": "f64d495b01e9e200d118cfa6e021348eaa2cd8a54e3ce3da50944258ae0f6fd1",
       "timing_normalized": false,
-      "width": 154
+      "width": 116
     },
     {
       "attribution": "provider owner",
@@ -7448,7 +7448,7 @@
       "source_sha256": "4d9795dbf998e1c02942d48fffee5419e7429b45dea731b23fc45f5da5083067",
       "source_width": 128,
       "texture": "Media/7tv/01F71DN0VR0001G6FGBXSMY13C.blp",
-      "texture_sha256": "0ea3e9ee63f315d29762f91e8926d4bbd6b608bb1bea8282ddbd7fa0117e4a18",
+      "texture_sha256": "eed6b350ce04ad646bf610b821891732bd432184d508dff1508208668aaef6fe",
       "timing_normalized": false,
       "width": 32
     },
@@ -8061,7 +8061,7 @@
       "source_sha256": "0dd18238fd9c7c2001a51280dda375655735e1fc80ce323d20359e039d37c45f",
       "source_width": 384,
       "texture": "Media/7tv/01J5G57FXR0001EVC269JT8Z4W.blp",
-      "texture_sha256": "be5817855a922e0b3ca90aed6c8c09f88b79ecac69ca9a13aef11c7eabf1e29e",
+      "texture_sha256": "a1d1cf44e013dc3530c4af389a4a48aa7cace59810b50a621d05fd462f6dbf46",
       "timing_normalized": false,
       "width": 96
     },
@@ -8141,7 +8141,7 @@
       "source_sha256": "c9b188c5a26bffc50df047cc332a8be08781f1eb8094bd6fe0f630abc5c52f47",
       "source_width": 128,
       "texture": "Media/7tv/01F1365NRG0009V7MP006J8KWM.blp",
-      "texture_sha256": "cef1990dd71bdf10059575d7284813141ad05dc38cbd76e13c41977378f792de",
+      "texture_sha256": "d523d4b13f3f6ea9299c5fdcd0b9f795932f7dce93b9f87bd5f0ceb60508c35e",
       "timing_normalized": false,
       "width": 64
     },
@@ -8751,7 +8751,7 @@
       "source_sha256": "a8849021b090d8fccfceef2eac90c62a6a05e99d40a3a723591603e36ff9242b",
       "source_width": 140,
       "texture": "Media/7tv/01GXPP5JZ00007QNM96NNPCJH5.blp",
-      "texture_sha256": "2647ee59ba103f68073ae028acd618db0da6c24dd6479dfa8c3f37836d66cdf9",
+      "texture_sha256": "8eea4c8c0f3410a1d7add707a70a82467875075dfabbee6a5d038fa4532be4c5",
       "timing_normalized": false,
       "width": 35
     },
@@ -9535,7 +9535,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "TemperzPK",
       "creator_id": "01F04JXTP80009D0SFZ9W3FSBT",
@@ -9544,7 +9544,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 47,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FKKW7C1G0008TM5NY9QEFEDW",
       "lossless": {
         "cellWidth": 64,
@@ -9560,8 +9560,8 @@
       "provider": "7tv",
       "provider_id": "01FKKW7C1G0008TM5NY9QEFEDW",
       "set_entry_id": "01FKKW7C1G0008TM5NY9QEFEDW",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FKKW7C1G0008TM5NY9QEFEDW",
       "source_duration_ms": 1880.0,
       "source_frames": 47,
@@ -9569,9 +9569,9 @@
       "source_sha256": "4c1f6153f93c0fb179c96529aba912b0caab9edda2081165f921f228b68fed80",
       "source_width": 128,
       "texture": "Media/7tv/01FKKW7C1G0008TM5NY9QEFEDW.blp",
-      "texture_sha256": "5f9f421639614a8a354fd9eddafd6dc63ebf43c4abe4d730b62445186b88c5ba",
+      "texture_sha256": "837c3da5a46e939bd1d122b8ff3a2a1b2bbcb4f4f5ae14a1fd7d10812dd8882a",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -9769,7 +9769,7 @@
       "source_sha256": "1e999f96cc838aae14db563b5ee4f7f285d3a38b291034f38bf3304bb085f73b",
       "source_width": 128,
       "texture": "Media/7tv/01F6MQ33FG000FFJ97ZB8MWV52.blp",
-      "texture_sha256": "2a0b3b2468f7b58aaf9b102fa24945b1316b356c41981fbc370b719415c2a1c6",
+      "texture_sha256": "d24cfa2d582f4e9e2b317859a305659fee11d89e7a07cb907b101fabd203cb23",
       "timing_normalized": false,
       "width": 32
     },
@@ -10167,7 +10167,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "streamstackTV",
       "creator_id": "01FGH0SQD800047CPSV86K535Y",
@@ -10176,7 +10176,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 35,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FQ9P4WE000025PEJN91R3WYB",
       "lossless": {
         "cellWidth": 64,
@@ -10192,8 +10192,8 @@
       "provider": "7tv",
       "provider_id": "01FQ9P4WE000025PEJN91R3WYB",
       "set_entry_id": "01FQ9P4WE000025PEJN91R3WYB",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FQ9P4WE000025PEJN91R3WYB",
       "source_duration_ms": 1750.0,
       "source_frames": 35,
@@ -10201,9 +10201,9 @@
       "source_sha256": "a908a6b97ea0639cec177133fce40c650f0c43a3041bee9e980ce8a1d84ef7c8",
       "source_width": 128,
       "texture": "Media/7tv/01FQ9P4WE000025PEJN91R3WYB.blp",
-      "texture_sha256": "e1fd30760041932131f967ef874cbd24755a4205818ac876211298bd1a118a10",
+      "texture_sha256": "84f89b7dceb446bd623fb468bd536ce81a06f49758c3c63d890b997efce0479c",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -10717,7 +10717,7 @@
       "source_sha256": "6cede1f6b09bfad819b8f3620345a205977a094b7bbec187f8803b1324401eae",
       "source_width": 124,
       "texture": "Media/7tv/01JF5KA90YH2K9A3DXKT8J6493.blp",
-      "texture_sha256": "1e539251fb710e84eb977359e28ae2aef5e6cb30921029f5fe57b45eaca24b96",
+      "texture_sha256": "331b11f84755ca0472ab9399cc4b51042294b9f44523b4f668ebc287b131caa6",
       "timing_normalized": false,
       "width": 39
     },
@@ -10757,7 +10757,7 @@
       "source_sha256": "7a1bd23409e63445b7c7e52f9673052137425db64e2472c8383268a8e488535e",
       "source_width": 128,
       "texture": "Media/7tv/01GTD091B8000EBPCJBPM151DA.blp",
-      "texture_sha256": "58b1c8da2d60007c635609149a40553af45f7a9811bceeb788690e4e6c017cad",
+      "texture_sha256": "095ad040152df47284f12d31d15fbb6514e7e12ae3cb0aa7e1186120ca3b0e7e",
       "timing_normalized": false,
       "width": 32
     },
@@ -10812,7 +10812,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 33,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01F7EQGC20000284NZWHEGDT00",
       "lossless": {
         "cellWidth": 64,
@@ -10837,9 +10837,9 @@
       "source_sha256": "e32c9a53970b8cfddac4a3ddfcc209135663146480670cca061a1ebaa17873af",
       "source_width": 128,
       "texture": "Media/7tv/01F7EQGC20000284NZWHEGDT00.blp",
-      "texture_sha256": "4080884e4f67cac378efcd8f4b36ae3614aa82aa7978c600adc22eff9169acb9",
+      "texture_sha256": "d07ebb12bf08a2c32b3861c2621aac44fe5ab7dfe8969cbc5d9adfae7cbc1d33",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -10957,7 +10957,7 @@
       "source_sha256": "9c27e502e894eaa5c3ff75470f918a5d266f083c2216b2fa66a66138dd2b8313",
       "source_width": 128,
       "texture": "Media/7tv/01FBZESCNR000A6AWCB1X558GZ.blp",
-      "texture_sha256": "c1c73381bc3f1975464de550a7b6a60d75c41b0edbc00ace838e031db7a9bcb5",
+      "texture_sha256": "0b37c2196261e2d028f5aef36bbf6e89aa8ea946fc080d8f6cb63a0b256373df",
       "timing_normalized": false,
       "width": 64
     },
@@ -11012,7 +11012,7 @@
       "format": "webp",
       "fps": 7.6923076923076925,
       "frames": 12,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F7459QV00001Y04P4H3NYJ2M",
       "lossless": {
         "cellWidth": 64,
@@ -11037,9 +11037,9 @@
       "source_sha256": "c565ec0ebfb38a16a3e0f0420000dfb9176b04125abc53d491a18c89616301f3",
       "source_width": 128,
       "texture": "Media/7tv/01F7459QV00001Y04P4H3NYJ2M.blp",
-      "texture_sha256": "0d2c06ef61f4d4f8509c9600ca58eb7ee58ff583770d56dee989427d7434fc22",
+      "texture_sha256": "17291bef8e9736a0c0dcefc036ea8a4eea3dc728a70775de478c4e3d39ecb9e9",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -11586,7 +11586,7 @@
       "source_sha256": "07b0c541f65a9108501d9854672eb6511328f6388dce08f3e88cb7dbe2c5d7ca",
       "source_width": 128,
       "texture": "Media/7tv/01FKJP0C9R000F3BGNNF3YQ8KG.blp",
-      "texture_sha256": "e96954464039c9b8385957c7e98f2c5073557d250042437f52ca5c086b3eec27",
+      "texture_sha256": "c3ca531a61da5f789b2492dec0bc40b65a00dc78267b22436d38d23e6e7d7297",
       "timing_normalized": false,
       "width": 64
     },
@@ -12102,13 +12102,13 @@
       "source_sha256": "e559e0f1748b45d1694a4aedc149c49414590c53ea156400c49475acdf12d430",
       "source_width": 128,
       "texture": "Media/7tv/01F6PDB65G0009HVYB9XMW76QK.blp",
-      "texture_sha256": "1437f55802e759fe81adc9add74a3e7be98c9295d55b6c98b3b5042bc54d165a",
+      "texture_sha256": "9d73913331c58c753796dbefc7d61b28a02e56674988a8e13ce381a46b150c25",
       "timing_normalized": false,
       "width": 64
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "daminho33",
       "creator_id": "01F6ZA383G0000CFH1SGWGCCAG",
@@ -12117,7 +12117,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 51,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F6ZD7TVG0007YV3P40HGW2K9",
       "lossless": {
         "cellWidth": 64,
@@ -12225,8 +12225,8 @@
         0
       ],
       "set_entry_id": "01F6ZD7TVG0007YV3P40HGW2K9",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F6ZD7TVG0007YV3P40HGW2K9",
       "source_duration_ms": 2700.0,
       "source_frames": 90,
@@ -12234,9 +12234,9 @@
       "source_sha256": "5054d75aa120521347944a8beb23b905b8139cb395be744e64038f33396b9fea",
       "source_width": 128,
       "texture": "Media/7tv/01F6ZD7TVG0007YV3P40HGW2K9.blp",
-      "texture_sha256": "002787e2e931bed9140bff905b534656c0ab8c40050b0a7d104b9219d0c3d9a5",
+      "texture_sha256": "93f66acd3bb8b7a1275a23f3bb38b711b2432a6cc2ac77a8c2ada00b576fb9a3",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -12772,14 +12772,14 @@
       "source_sha256": "31f3a2101976cdd60a2cd1b01797a4377567c5c289a593cf0845a5f281927d07",
       "source_width": 128,
       "texture": "Media/7tv/01F78EYC2R000D25DGAC8HRZ15.blp",
-      "texture_sha256": "66a038084ab6aca9d301522bb575d5089bf69bdede5a8b6e91aba2c2fa2c76a8",
+      "texture_sha256": "1cb78c53f19a572b088d03049ce5d396105da4214c36b54b2cede00b24b24fb3",
       "timing_normalized": false,
       "width": 32
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 64,
+      "columns": 32,
       "creator": "mistrzu__",
       "creator_id": "01F6Q5PMHR000A6S4F82D30N45",
       "download": "https://cdn.7tv.app/emote/01F6Q9S2C80009K4HVQSZHKFNX/4x.webp",
@@ -12787,7 +12787,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 34,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01F6Q9S2C80009K4HVQSZHKFNX",
       "lossless": {
         "cellWidth": 128,
@@ -12803,7 +12803,7 @@
       "provider": "7tv",
       "provider_id": "01F6Q9S2C80009K4HVQSZHKFNX",
       "set_entry_id": "01F6Q9S2C80009K4HVQSZHKFNX",
-      "sheetHeight": 256,
+      "sheetHeight": 128,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01F6Q9S2C80009K4HVQSZHKFNX",
       "source_duration_ms": 3400.0,
@@ -12812,9 +12812,9 @@
       "source_sha256": "8ff6dfdfc18a7182cabd5677e846495ca6da79ab52525313e562442973061cbe",
       "source_width": 140,
       "texture": "Media/7tv/01F6Q9S2C80009K4HVQSZHKFNX.blp",
-      "texture_sha256": "7ff2ebe1546ef8245362cf516c5be089de36bc6f9fd1aceb3ff07c9efcfe60b8",
+      "texture_sha256": "4194c224842251fc47d399f40b40af47efda7da197bf445022833929da1909d6",
       "timing_normalized": false,
-      "width": 70
+      "width": 44
     },
     {
       "attribution": "provider owner",
@@ -12892,7 +12892,7 @@
       "source_sha256": "7ad7d3d33e47ba0de52ca20d4cd48bad5a94fbd6128eeace2132c6bc14bd10b6",
       "source_width": 128,
       "texture": "Media/7tv/01F2ZW54JR000DSBG200DM9SG4.blp",
-      "texture_sha256": "f7d988849f8ea81fa27ce94e54f8d80a764fc04c5a599781c2ee4f59cc660a70",
+      "texture_sha256": "874c282af00384a8faedcf806d7204d9b2bef30df246b7444911f61cede164cd",
       "timing_normalized": false,
       "width": 64
     },
@@ -12972,7 +12972,7 @@
       "source_sha256": "3ff6d16d4e8a524cb80746d2e9d48e23845213a13fbff23a439cab815fbc7d0a",
       "source_width": 280,
       "texture": "Media/7tv/01H7X95ACR0004BM3PCAD1425G.blp",
-      "texture_sha256": "2094f534c17413d7d86b08ec127b9ce37f4ad1da427a827447a2295454a4a6dc",
+      "texture_sha256": "0a401331a3831c9800be2a754b75f9f0e7b34b681eee6418e9c5ddbdd570368a",
       "timing_normalized": false,
       "width": 70
     },
@@ -13445,7 +13445,7 @@
       "source_sha256": "32cfab0b34e87146b0bcb47c08dc22ca39090b5a940886ac9dce58d086b3919d",
       "source_width": 144,
       "texture": "Media/7tv/01GJYXYW400006JRHFZPYSHSQV.blp",
-      "texture_sha256": "f0c4886732bd4bdefbc6f0856148fbf2bc7021727cea7dea74ce48b5b0ac720a",
+      "texture_sha256": "9dadad99927cd9851a3396c567b76559a04f660d0a6253818849edcead729ea0",
       "timing_normalized": false,
       "width": 72
     },
@@ -13994,7 +13994,7 @@
       "source_sha256": "98e4257eb6036d318eed862402b1ec7c14fe2b6cf623b1b15747e02c740d91bd",
       "source_width": 260,
       "texture": "Media/7tv/01GGWVZ8FR000D0SNZ600MYJM5.blp",
-      "texture_sha256": "bda23bed2e206ff5e6b33c5d68e25507e65023909635f753ac7c17f9f7d699fd",
+      "texture_sha256": "bcea7469bffa4218213bdcddc0724c8c41f2be5f0a56d0b695b650503697bb25",
       "timing_normalized": false,
       "width": 65
     },
@@ -14074,7 +14074,7 @@
       "source_sha256": "98d8097a94447261cc462578fdf679d4e7981b9750748be9ec4fb0bef30b77ae",
       "source_width": 128,
       "texture": "Media/7tv/01H22ZJ9HG00080K50KTZJ8JNW.blp",
-      "texture_sha256": "5be06303e305ce59e0a892dfa29ff56c06ea4891ce82a6982e72fb49e23d7a19",
+      "texture_sha256": "bce2dc9499ef6e9c912a8670fbecf2c4b9b57036bae2256027cf442bd9588513",
       "timing_normalized": false,
       "width": 64
     },
@@ -14154,7 +14154,7 @@
       "source_sha256": "19819e4384a9fda4941291147bc39ff7c28985b11d677d5ed265dafc51c844de",
       "source_width": 128,
       "texture": "Media/7tv/01G93ZC9AG000BGGXE22Z4B3JE.blp",
-      "texture_sha256": "e3f2e96ce4d9d1c21a691c6c60660629a5a2fea8b536497a72030b483ab8b8ff",
+      "texture_sha256": "ce1e2596f3a2d6e2ede67547c1e60c15ed673b2502d86a8a5d2d98f460f280f1",
       "timing_normalized": false,
       "width": 32
     },
@@ -14503,7 +14503,7 @@
       "source_sha256": "0447bf69752eac281f93c90aac62da8df9983e67c1026ba9a69b6004e681cf5b",
       "source_width": 128,
       "texture": "Media/7tv/01J0S9H9AR0006QBT86J98348K.blp",
-      "texture_sha256": "69503897a1702bc0fe05b8238468f0c5482134c708e68a46aad44cc29d788f65",
+      "texture_sha256": "1ccce958e643772d620d3b38ed8634b3c9d4cfa321a28feee4636b007fc4ddb8",
       "timing_normalized": false,
       "width": 40
     },
@@ -14518,7 +14518,7 @@
       "format": "webp",
       "fps": 33.72093023255814,
       "frames": 26,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01GZRZB5Z800072G6WTBEZBS9P",
       "lossless": {
         "cellWidth": 64,
@@ -14574,9 +14574,9 @@
       "source_sha256": "b2c009e3b869d26eeffa3f7ec009e1484eccabb8ff0318777ae90b1450d1dc46",
       "source_width": 128,
       "texture": "Media/7tv/01GZRZB5Z800072G6WTBEZBS9P.blp",
-      "texture_sha256": "7a28f3218387e485faacc9c45619eb1e4601b0cafe71aa11db88102cb7c26d59",
+      "texture_sha256": "211f23d05909b49ead052dfb99d1d5adbfd6ba7bc5f81c055368920a58fb944f",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -14614,7 +14614,7 @@
       "source_sha256": "1d7c377bbbeb96c895c581ac324df59dfa197ce6efb5fe4f0ad8c0cee5375d91",
       "source_width": 128,
       "texture": "Media/7tv/01F78HE9PG000F17N8G1SC68Q6.blp",
-      "texture_sha256": "5fe9a64781303a0d08266bf76803fe6aa590de8c081a424b678e4e7154edf174",
+      "texture_sha256": "c4c1616855d48dd18eb7a9770a7976dd9d0906c2c49d746f2093e33dc8f95e19",
       "timing_normalized": false,
       "width": 64
     },
@@ -14669,7 +14669,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 10,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F6V6J1RR0002K1FKHYTCPHF4",
       "lossless": {
         "cellWidth": 64,
@@ -14694,9 +14694,9 @@
       "source_sha256": "ee8dd401c06f2294d00bcd6d6b24bac62abf5f9ad384fcfbdf2464e0a2fc2db4",
       "source_width": 128,
       "texture": "Media/7tv/01F6V6J1RR0002K1FKHYTCPHF4.blp",
-      "texture_sha256": "cf41c3329f5007ec3e0f96b6bc5bb62f3c7645554742dada2cefa2fe3d49fb51",
+      "texture_sha256": "d9e0ce9e0fdc00d0d26a6b857e1cb19a5957f34b1a0699280f02f6087d4c4a57",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -14774,7 +14774,7 @@
       "source_sha256": "82ed1a39f8415ad340e0bc6dce037b797476b5d062696e7a202e71b21aae9589",
       "source_width": 312,
       "texture": "Media/7tv/01GQJZDY1G000BPERRTM2DJA3J.blp",
-      "texture_sha256": "15b56dc4d1714e5a226339e935dffffa719b7707bb5b00213840028b8576e855",
+      "texture_sha256": "03438622f5c17660eb0cbf281debd598bc9cd8d8471e95d43314d140fe60871e",
       "timing_normalized": false,
       "width": 156
     },
@@ -14879,7 +14879,7 @@
       "source_sha256": "82e0857578b8b6bc6d5dde1d72222e42fa86944a3a65bc5cac7b8a160c8a0ce6",
       "source_width": 128,
       "texture": "Media/7tv/01F6SS8968000EWQN4SGAWSFYC.blp",
-      "texture_sha256": "99ec0f23864e85008cc6118c5a6f60c838ed993b17f2af67cf4ff7280fb11fc5",
+      "texture_sha256": "c2b65aa6ad89d6d68852f137a5ce24d45a43138ee2a0d8ac2d280f3bb5ddd9ee",
       "timing_normalized": false,
       "width": 64
     },
@@ -15272,7 +15272,7 @@
       "source_sha256": "dcd20d2c26fa705a33a5a642608b4b868e60cfecd1c18984c76ad417b5467732",
       "source_width": 128,
       "texture": "Media/7tv/01F5PFXKP80004R630K8ESP57S.blp",
-      "texture_sha256": "7f4e57db5cab411b1161edbce82bd993a91943795c361c0785862345de0a5829",
+      "texture_sha256": "8b0d8ab3a77ec536920e9f54aae659d6e96627da4468665ff39dcd9b22973dc2",
       "timing_normalized": false,
       "width": 32
     },
@@ -15498,7 +15498,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 134,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FBBPVZQ00004CMZNTV0TZ92H",
       "lossless": {
         "cellWidth": 64,
@@ -15663,9 +15663,9 @@
       "source_sha256": "6c06b2f43cfd97129b537efb11400d14a3ce402f38a960d890d31db8b8249d56",
       "source_width": 104,
       "texture": "Media/7tv/01FBBPVZQ00004CMZNTV0TZ92H.blp",
-      "texture_sha256": "434f1dc2b1b6833307c199cc291c9401c97ac8c7b0d96de302c52f29e56e2b7d",
+      "texture_sha256": "9ed0b74bd7536ab87635aaa1b53a2a8f3e6c5c4e010e16489c0eade6f724337c",
       "timing_normalized": false,
-      "width": 32
+      "width": 26
     },
     {
       "attribution": "provider owner",
@@ -15703,7 +15703,7 @@
       "source_sha256": "e35ebc5126701d87b876d4a6eafd6a69fd30b6c36ad8eecd2ab173e02cc882fe",
       "source_width": 128,
       "texture": "Media/7tv/01F6MEKG2G0009K1N00D4VA81J.blp",
-      "texture_sha256": "d700c18ab7140f0dc0090e53c6bba3242abe9ae58849c8f55039433554c3c2c1",
+      "texture_sha256": "f31d2294faed56729909cf6a8fc22e4fb0c6dfa5aa2f127df70799a0be42d66b",
       "timing_normalized": false,
       "width": 40
     },
@@ -15749,7 +15749,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "terreezus",
       "creator_id": "01F75JHE0G000F17N8G1SD9D81",
@@ -15758,7 +15758,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 54,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01K98VWK1A439PQ8NGZNG4F8A8",
       "lossless": {
         "cellWidth": 64,
@@ -15774,8 +15774,8 @@
       "provider": "7tv",
       "provider_id": "01K98VWK1A439PQ8NGZNG4F8A8",
       "set_entry_id": "01K98VWK1A439PQ8NGZNG4F8A8",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01K98VWK1A439PQ8NGZNG4F8A8",
       "source_duration_ms": 1620.0,
       "source_frames": 54,
@@ -15783,9 +15783,9 @@
       "source_sha256": "3ef7c5a2d4835c5f176376e5623ba09169c52a38ac75373d641901319df4200c",
       "source_width": 128,
       "texture": "Media/7tv/01K98VWK1A439PQ8NGZNG4F8A8.blp",
-      "texture_sha256": "51b9e1866be3b3e7182845d076a5773c33c838dfeba33a821c6391fe86eba5bd",
+      "texture_sha256": "9772510aa743e2f0c92c75df763d169ffc092a20dfd5578ee0ed28af41494f88",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -16238,7 +16238,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 119,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GHVJCZAG0003H7NMJ8DCS4E5",
       "lossless": {
         "cellWidth": 256,
@@ -16376,7 +16376,7 @@
         118
       ],
       "set_entry_id": "01GHVJCZAG0003H7NMJ8DCS4E5",
-      "sheetHeight": 512,
+      "sheetHeight": 256,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GHVJCZAG0003H7NMJ8DCS4E5",
       "source_duration_ms": 3600.0,
@@ -16385,9 +16385,9 @@
       "source_sha256": "b182ce89482783501972b7cfb6aa5f69b5b040ee5fea4336675136ee8823ee9a",
       "source_width": 384,
       "texture": "Media/7tv/01GHVJCZAG0003H7NMJ8DCS4E5.blp",
-      "texture_sha256": "0abacd365069ef34354bf87a762965bb8c6765ed1c58d730ad058fc5fe4190b0",
+      "texture_sha256": "0cf2a61f2701d1d6864308b4c2a771912001a16fc56a42f7012de309f1c6d8dd",
       "timing_normalized": false,
-      "width": 120
+      "width": 96
     },
     {
       "attribution": "provider owner",
@@ -16611,7 +16611,7 @@
       "source_sha256": "323db13ec2eef0ceadd449999c17df480e2323e99f0c6695e571d7acd0c4a46d",
       "source_width": 164,
       "texture": "Media/7tv/01GTNQRCV8000D50ZC809HKRA0.blp",
-      "texture_sha256": "e59a4665292481da4c58d43cbac113f59d5be2c8c120fb51c4eafcdd934f1eb4",
+      "texture_sha256": "78f90e2e1b8215651a0713125fc014304bac273ea557188d52ecf353540cab56",
       "timing_normalized": false,
       "width": 62
     },
@@ -16851,7 +16851,7 @@
       "source_sha256": "2ef01d9bba94e9c23d6fe5a57180e4b87077441ca8b0beb611bb6f30e9c4e14d",
       "source_width": 128,
       "texture": "Media/7tv/01G0KP8TNG000CNVP1H4AWHZ5Z.blp",
-      "texture_sha256": "5d5f1708d9b5c4ef1e13274ae4619d75ab36005f3627ea1bbf1a9cc089467b85",
+      "texture_sha256": "3f8e18271019d643a82081ec0e7dcca1c907f8814110f41b56b66ebf46eb45ff",
       "timing_normalized": false,
       "width": 64
     },
@@ -16891,7 +16891,7 @@
       "source_sha256": "ff72ccb8a5dd2d4715d8a15c23d70fb87c94acf4b8452ac1b66cee27e89aa278",
       "source_width": 136,
       "texture": "Media/7tv/01F6MYGA9R000F76KNAAV8Z5SG.blp",
-      "texture_sha256": "a561031a44ab57ad0142bbc7bb72847b816d527474178a805f69c797321a1bae",
+      "texture_sha256": "785da49a34e25f66f9549b45e5b1c1ce39702512ed11bbc09e5ae8f78490f6e5",
       "timing_normalized": false,
       "width": 68
     },
@@ -16986,7 +16986,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 25,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FAJGGYEG000136YH153JMHPA",
       "lossless": {
         "cellWidth": 64,
@@ -17011,9 +17011,9 @@
       "source_sha256": "4d9a891eaf6782cb8404b87161d499cdd9dc17fb8ddfea2050beb26eb63ef572",
       "source_width": 128,
       "texture": "Media/7tv/01FAJGGYEG000136YH153JMHPA.blp",
-      "texture_sha256": "2764a7541a1731496b571b1d0a883dc3b4c0e34efbf763fd60b90191d5c9739d",
+      "texture_sha256": "8a377653ccb55ed589e7d905c8bf043e512ba5d2fa8b8f2381ea51ac7a5b6f36",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -17106,7 +17106,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 37,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01G8G1T36R0005AG3AWEG5EGT4",
       "lossless": {
         "cellWidth": 64,
@@ -17180,9 +17180,9 @@
       "source_sha256": "89bf31dc581ceb8e628c622529b3d4ceca0d4771a3527dede5d0dd5fd0d07886",
       "source_width": 108,
       "texture": "Media/7tv/01G8G1T36R0005AG3AWEG5EGT4.blp",
-      "texture_sha256": "85194afcd404cc8a84c3466082306ecb5130a23b7b18d009b63ab0e5eceb33cc",
+      "texture_sha256": "936fa9dd1a96f4414da0ae589cc2154e825d7f08e8098debd83bc58c0caf92d0",
       "timing_normalized": false,
-      "width": 54
+      "width": 34
     },
     {
       "attribution": "provider owner",
@@ -17554,7 +17554,7 @@
       "source_sha256": "fa03934d3b3d5895c8ab9c743303456d65d31e7571037194c0a6c270895caf1d",
       "source_width": 296,
       "texture": "Media/7tv/01F7CTADRG000351ERP2WA0ME9.blp",
-      "texture_sha256": "cef776c3d4467d32ee64644cc5e9c7c39e20f65b45a6b628d69e360c86ed1da1",
+      "texture_sha256": "5af28c6670915f9282d18101080453ee840840e6caf07666d49c01c029015e94",
       "timing_normalized": false,
       "width": 92
     },
@@ -17803,7 +17803,7 @@
       "source_sha256": "27dd875bd98a2465e2af3c72e5936734be9d655b40096ed37f80b392469a92cb",
       "source_width": 168,
       "texture": "Media/7tv/01K20YWYVNMSQ66BB0DQFG4NN3.blp",
-      "texture_sha256": "2cadd3fc54d75f8592053d562081bb149e7ff22808225d3c47546c46e0564d05",
+      "texture_sha256": "f86a19499f3e9253cf6a2db1c9f35540d59e0bce7abe3b3c8644e93969344b88",
       "timing_normalized": false,
       "width": 52
     },
@@ -17818,7 +17818,7 @@
       "format": "webp",
       "fps": 16.71309192200557,
       "frames": 54,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FS4HS5880005FHRFCCZBVCH3",
       "lossless": {
         "cellWidth": 128,
@@ -17896,7 +17896,7 @@
         53
       ],
       "set_entry_id": "01FS4HS5880005FHRFCCZBVCH3",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01FS4HS5880005FHRFCCZBVCH3",
       "source_duration_ms": 3590.0,
@@ -17905,9 +17905,9 @@
       "source_sha256": "dd6b295aac33eaecac869a163c11508839471792dbbea7d3c001073b6629ddb6",
       "source_width": 172,
       "texture": "Media/7tv/01FS4HS5880005FHRFCCZBVCH3.blp",
-      "texture_sha256": "ea3494ad48ef24b8725776601095047d713054e742dd379921cdd1d4ed727d79",
+      "texture_sha256": "d221c13465bd6d5540132b0264a92c9b541abf9bc0badbfe3f738e6950820f3e",
       "timing_normalized": false,
-      "width": 54
+      "width": 43
     },
     {
       "attribution": "provider owner",
@@ -18019,7 +18019,7 @@
       "source_sha256": "d03a4609cc52143ae5b04575690094670aff3b4c38c1f2e6bcc77aa85fe71734",
       "source_width": 128,
       "texture": "Media/7tv/01FAPWYY280007NZXXVZKH6RFD.blp",
-      "texture_sha256": "6b3fad68a16fb2055bd536360fb388ed01b408c0540531e889a8eb5ffa437247",
+      "texture_sha256": "dbcb11bff8a1f651e32ccbd5e1f5d6b4ed63805c6e771b7dbac9e78e368bf1e0",
       "timing_normalized": false,
       "width": 32
     },
@@ -18185,8 +18185,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 64,
+      "columns": 22,
       "creator": "Automagician",
       "creator_id": "01JVZB5SMHBSNT7X88QT0GGDMY",
       "download": "https://cdn.7tv.app/emote/01JYPNQG5SGR7WH0HSHYD4KPGS/4x.webp",
@@ -18194,7 +18194,7 @@
       "format": "webp",
       "fps": 59.241706161137444,
       "frames": 22,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01JYPNQG5SGR7WH0HSHYD4KPGS",
       "lossless": {
         "cellWidth": 128,
@@ -18237,7 +18237,7 @@
         21
       ],
       "set_entry_id": "01JYPNQG5SGR7WH0HSHYD4KPGS",
-      "sheetHeight": 128,
+      "sheetHeight": 32,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01JYPNQG5SGR7WH0HSHYD4KPGS",
       "source_duration_ms": 422.0,
@@ -18246,9 +18246,9 @@
       "source_sha256": "ad1fc6cd32e492a698f3b1e5e6f16552b944d71f1f8fe87fefd3157bad130adf",
       "source_width": 240,
       "texture": "Media/7tv/01JYPNQG5SGR7WH0HSHYD4KPGS.blp",
-      "texture_sha256": "f776515f901ff039e044f25bfb13db30f8823bee91e51554b8ffda6e5b705f8a",
+      "texture_sha256": "d60b95187a4dbe91436e7ac87269b91c8f89d993ed1ffc5a1826e9d6c9144e1e",
       "timing_normalized": false,
-      "width": 120
+      "width": 60
     },
     {
       "attribution": "provider owner",
@@ -18629,7 +18629,7 @@
       "source_sha256": "b739b804551a0636004f9ca34f5261fd2747f9ed24347089dbd92a576699d0b8",
       "source_width": 128,
       "texture": "Media/7tv/01F00ZM4C80007E4VV006YKSKF.blp",
-      "texture_sha256": "74cfe087e851409be63d933fbb8d3bee6210364906d93e6bcc3507182ca01b45",
+      "texture_sha256": "6e900d2d1d66b26f10b86925a233b97bf695f6fa3ae424fab4ede84466f871e1",
       "timing_normalized": false,
       "width": 32
     },
@@ -18848,7 +18848,7 @@
       "source_sha256": "b87b75ebc6d7c3530f33e41112fa5b05ce7a12b826beef91a943be8246db53b5",
       "source_width": 132,
       "texture": "Media/7tv/01FJT4HEXG000FZHS49NWQT5DZ.blp",
-      "texture_sha256": "ed2d8c482761248ad9642d97ed2da9ae94d6d447aaae609748679971c8c63395",
+      "texture_sha256": "b42288aa59cb07d9cbe42b52ce8da2f845bb87e0cacd14f265c3162e107fc3af",
       "timing_normalized": false,
       "width": 66
     },
@@ -19140,7 +19140,7 @@
       "source_sha256": "d010a4d0deda4051f317e752b339c78d28c88d153317ce0d84b333defbcb7753",
       "source_width": 128,
       "texture": "Media/7tv/01GH5FNHZ0000DV4VPC0PR1W46.blp",
-      "texture_sha256": "843854403f29cc7426eb73a43d407249dd4b8eae7e4b862149d46269c6f92c2b",
+      "texture_sha256": "6782f148d0a11689c856babe2aeef5039d63bac4345f69b1a145773e2b11e4c1",
       "timing_normalized": false,
       "width": 32
     },
@@ -19300,7 +19300,7 @@
       "source_sha256": "345d6716bb6ebaa80a5b0284b61d41e5975eeb1bc3758673d8f3c9de6e8c50df",
       "source_width": 128,
       "texture": "Media/7tv/01F956E0WR0001CEGSBB96D0MA.blp",
-      "texture_sha256": "e215abee48d055ffde4fa5974431f2e37ebef67c0fa0bacc080b44baf81c4cb1",
+      "texture_sha256": "a681d10763453f2f761934ca5934543c074b874da537606d08d61a618705a8f0",
       "timing_normalized": false,
       "width": 32
     },
@@ -19613,7 +19613,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 30,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01G6BNA7NR000BC0DP3JDYXKH7",
       "lossless": {
         "cellWidth": 64,
@@ -19638,9 +19638,9 @@
       "source_sha256": "532016f094434e45c224911d75244ada43b8eebfd3b5a1b5764b77a60fea8c81",
       "source_width": 128,
       "texture": "Media/7tv/01G6BNA7NR000BC0DP3JDYXKH7.blp",
-      "texture_sha256": "bdea1ef899cbb670f3df0727fb8db9acd7b680094a9dfca1b5d153cdacf2df69",
+      "texture_sha256": "cd1bcfbb611197d587da3cd96812ec6b92f1a14c5b564607161a713c0e5dc906",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -19802,7 +19802,7 @@
       "source_sha256": "df92ff57404e46a3d136c8592a0f997ee532c012db63f05e9155580d6eb89db7",
       "source_width": 128,
       "texture": "Media/7tv/01H15FMQDG0000VMYJAHS8E5BD.blp",
-      "texture_sha256": "b49f07f2a15f805fbd329f160c3132ff3b367f8d5ca8c8de4b6e1cfac88aee5f",
+      "texture_sha256": "b9816c8fb66d52eca8799dc730048a5ea3ebe88adad2ed650180cbf6153e99fe",
       "timing_normalized": false,
       "width": 32
     },
@@ -19848,8 +19848,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 64,
+      "columns": 22,
       "creator": "zzzzzzzzzzzzzzzzzzzzzzz2z",
       "creator_id": "01F7NRZ25R000A75N288F57J9Q",
       "download": "https://cdn.7tv.app/emote/01GBZAC5RG000BVX64F65YTS6K/4x.webp",
@@ -19857,7 +19857,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 22,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01GBZAC5RG000BVX64F65YTS6K",
       "lossless": {
         "cellWidth": 128,
@@ -19921,7 +19921,7 @@
         21
       ],
       "set_entry_id": "01GBZAC5RG000BVX64F65YTS6K",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GBZAC5RG000BVX64F65YTS6K",
       "source_duration_ms": 4600.0,
@@ -19930,9 +19930,9 @@
       "source_sha256": "02127840f18a2334ed1e927f79343c448261012db84e6fb3b750195cd78909bb",
       "source_width": 184,
       "texture": "Media/7tv/01GBZAC5RG000BVX64F65YTS6K.blp",
-      "texture_sha256": "b7e0de98e4c826f70936b0f7d7c154980229fb924ee83c6d429910126ce68cc8",
+      "texture_sha256": "f0d070ca7c6469bf82a5f29c5dd79f7b110dc3b24c61aa0d15aa1f6d6f66c6e4",
       "timing_normalized": false,
-      "width": 69
+      "width": 58
     },
     {
       "attribution": "provider owner",
@@ -20744,7 +20744,7 @@
       "source_sha256": "d5bd01c81ed32adb3844d19b5ffc72229c2f9a0ec736c4d14f71da02a1854203",
       "source_width": 128,
       "texture": "Media/7tv/01HNEKZY4G0001XDKW9GFY7KKV.blp",
-      "texture_sha256": "4971ae919865c9211b7f2deda22d5fedaf54a580a2004fa89114558e29bbcceb",
+      "texture_sha256": "6a47b9d904ebda53f47e3792038d8a67183f78966edd20299a4b5759ee8aa84a",
       "timing_normalized": false,
       "width": 64
     },
@@ -21159,7 +21159,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 44,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FM5MA9M8000D6HG894PC597M",
       "lossless": {
         "cellWidth": 128,
@@ -21223,7 +21223,7 @@
         43
       ],
       "set_entry_id": "01FM5MA9M8000D6HG894PC597M",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01FM5MA9M8000D6HG894PC597M",
       "source_duration_ms": 3220.0,
@@ -21232,9 +21232,9 @@
       "source_sha256": "507419cd530e4eb20e0c3496bcea833aa4943be833b64e3074abad3e2c6b9078",
       "source_width": 152,
       "texture": "Media/7tv/01FM5MA9M8000D6HG894PC597M.blp",
-      "texture_sha256": "c5d4436c7290aa5154c5856b6f3a5e422a8bd8e86c6800cdef5ca1c7802aea43",
+      "texture_sha256": "7820e9b8145806aaba93869914beb5be82804db645c12ced9c83a5856648746e",
       "timing_normalized": false,
-      "width": 48
+      "width": 38
     },
     {
       "attribution": "provider owner",
@@ -21719,7 +21719,7 @@
       "source_sha256": "44337b569426d5ad2174a82f569de3d8dec2cd8cc9a049843bf1fd36b3ac2046",
       "source_width": 128,
       "texture": "Media/7tv/01F90NVXQR0002APF87XXDAJGK.blp",
-      "texture_sha256": "87c0cf182677d81fa7a0c308c7246022df50cc1564ea85f897207de968ae346e",
+      "texture_sha256": "dfb5e1d5dc39120a61e8b982be53ae177b7b0d1531cd1dadb3901846c6f74c66",
       "timing_normalized": false,
       "width": 64
     },
@@ -21965,7 +21965,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "damunnyhoney",
       "creator_id": "01FB5F06NR00033EKAWRH9ZCT6",
@@ -21974,7 +21974,7 @@
       "format": "webp",
       "fps": 16.666666666666668,
       "frames": 71,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GEJEYFHG0007GP4GFJM7DS2E",
       "lossless": {
         "cellWidth": 64,
@@ -22073,7 +22073,7 @@
       ],
       "set_entry_id": "01GEJEYFHG0007GP4GFJM7DS2E",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01GEJEYFHG0007GP4GFJM7DS2E",
       "source_duration_ms": 4800.0,
       "source_frames": 71,
@@ -22081,9 +22081,9 @@
       "source_sha256": "816444142ed14036772f7884b3a0e7055eac6f861356aa1e8774b18d89e1e6f1",
       "source_width": 128,
       "texture": "Media/7tv/01GEJEYFHG0007GP4GFJM7DS2E.blp",
-      "texture_sha256": "41536b33e0617ade907c287a2c9d340ab3393261f4cfa557ebf1c77a1f4cc423",
+      "texture_sha256": "c92d67a09f636b464acd79fb048ca91b085d1175371d6263484632c852f6a3de",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -22463,7 +22463,7 @@
       "format": "webp",
       "fps": 50.42016806722689,
       "frames": 29,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01G6ZAS2Z0000C5DHX3RQKV1W2",
       "lossless": {
         "cellWidth": 256,
@@ -22550,9 +22550,9 @@
       "source_sha256": "e7b422a80705505144b4dff099dc3de7f5babddf73556c5c6861be13b7e0bfca",
       "source_width": 316,
       "texture": "Media/7tv/01G6ZAS2Z0000C5DHX3RQKV1W2.blp",
-      "texture_sha256": "0d473a4a9de333824629e6c0bc2c889b96eaa59d8152c0add864026a9a626479",
+      "texture_sha256": "7471ddecfdfcb083742d64d5fed4f2fcf434205dd03a63e2ea4a696e2843d87b",
       "timing_normalized": false,
-      "width": 118
+      "width": 99
     },
     {
       "attribution": "provider owner",
@@ -22649,7 +22649,7 @@
       "source_sha256": "f8bbeb983115e3b20713ec3f96bd358081ee61d953edc07ed67dddbcc632115e",
       "source_width": 128,
       "texture": "Media/7tv/01JFE10KVJFR6SBF3GT80RW2JM.blp",
-      "texture_sha256": "2cb01676ca0c4f6b41b01caf38e4130375573568b77d7134ffa2d15bff27d787",
+      "texture_sha256": "2f22bdc6d3dc15511dd0f050c2c954a16ad2cad111c860e19608c46f4ceb74ed",
       "timing_normalized": false,
       "width": 32
     },
@@ -24044,7 +24044,7 @@
       "format": "webp",
       "fps": 14.666666666666666,
       "frames": 21,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01FG8P36XG00064MEQW00DMFNR",
       "lossless": {
         "cellWidth": 64,
@@ -24093,9 +24093,9 @@
       "source_sha256": "91a043acb70f01f6c943bddc7821337e6c9b909df31ffc6fbb3f40827ea7e8f3",
       "source_width": 128,
       "texture": "Media/7tv/01FG8P36XG00064MEQW00DMFNR.blp",
-      "texture_sha256": "d58ad059c84a86b111a340e73999e03da1d500e6ba89ec2d2d689b02a2c9eff4",
+      "texture_sha256": "25ce9b274d9abb4cdd4a78aba0cc7df3c0adf7f4c568a694715693054fddbff9",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -24108,7 +24108,7 @@
       "format": "webp",
       "fps": 7.6923076923076925,
       "frames": 43,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FT32111800001582V1DYA9BT",
       "lossless": {
         "cellWidth": 128,
@@ -24124,7 +24124,7 @@
       "provider": "7tv",
       "provider_id": "01FT32111800001582V1DYA9BT",
       "set_entry_id": "01FT32111800001582V1DYA9BT",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01FT32111800001582V1DYA9BT",
       "source_duration_ms": 5590.0,
@@ -24133,9 +24133,9 @@
       "source_sha256": "e2e1edc5031594d852365fde2bfd1d59fc479f21afae192bb578a0f4bf5db2f3",
       "source_width": 132,
       "texture": "Media/7tv/01FT32111800001582V1DYA9BT.blp",
-      "texture_sha256": "007931faddfcbaa249e9d95c4c2b67a358de7eebab8320a85178cda608de84fc",
+      "texture_sha256": "2113911fa0c3e19c0b18f05700905d9207e9ad34e8792e26dac7f3306c6b919c",
       "timing_normalized": false,
-      "width": 41
+      "width": 33
     },
     {
       "attribution": "provider owner",
@@ -24148,7 +24148,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 34,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01GPW2FB5G00081V29Z3EHDQTP",
       "lossless": {
         "cellWidth": 64,
@@ -24173,9 +24173,9 @@
       "source_sha256": "3658237fe7b23219c89d4f6577ddb75c5e1761b36eeef7bb0a72490afdfb25b5",
       "source_width": 128,
       "texture": "Media/7tv/01GPW2FB5G00081V29Z3EHDQTP.blp",
-      "texture_sha256": "33c56945b2f84b343a155443afe3c47addf601fd80781a25bc3826d619b808e2",
+      "texture_sha256": "799e282e0eb99ce3cdcd677a299b08d0304c33c467ea80dce00b9a4b88476e88",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -24514,7 +24514,7 @@
       "source_sha256": "9e063ebd8e12368620741a6e6d6105482f539704a437311a03585aac9400396c",
       "source_width": 108,
       "texture": "Media/7tv/01GQG88AF00002CP7JFJW7A1ZT.blp",
-      "texture_sha256": "d1f9a66a3542f373ccbe56a00191c0e38431c32bb31d593fa69cbdbc50c47e88",
+      "texture_sha256": "5b13ed26e7d88b1da13badc5c2357646f2b1f681515a2672c20ad2c73fcd83ad",
       "timing_normalized": false,
       "width": 27
     },
@@ -25030,7 +25030,7 @@
       "source_sha256": "33f886136e16314cbda7a12fc36c361d0830481e55bb56f247ba19ec4fcdd074",
       "source_width": 344,
       "texture": "Media/7tv/01GKHAD9BR000D3N5EEW0SNSDD.blp",
-      "texture_sha256": "3a4777c88a95985451d4496ceedbdc5066398097c4a571fa629d8796cf37a4c6",
+      "texture_sha256": "21f4433a5f7560a78c9eb1cc2870437b4bedbe2faa84d8f856e99c62b263845e",
       "timing_normalized": false,
       "width": 86
     },
@@ -25221,7 +25221,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 40,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01FF17F4880008YNRQGSE7RP5C",
       "lossless": {
         "cellWidth": 64,
@@ -25292,9 +25292,9 @@
       "source_sha256": "5ab8330a2c8ae7239413d4d2f511e0de9e7224a314402cd9e10a0fc1c3b9f30a",
       "source_width": 128,
       "texture": "Media/7tv/01FF17F4880008YNRQGSE7RP5C.blp",
-      "texture_sha256": "37b165f432d4188abe6b47fa1a2be2ea66773c762624b011f8f00e4cad6948fa",
+      "texture_sha256": "52c206b430ec3d585b8ef1b80a172137097e87c8a377c23d1248e9b5b82c5ba2",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -25332,7 +25332,7 @@
       "source_sha256": "ea592bed3e58fc5b788c5aad704b64a7dd19f139b9f38df3503b6b07f5242329",
       "source_width": 128,
       "texture": "Media/7tv/01H71GDB9G000D7KSF3J6CMMK4.blp",
-      "texture_sha256": "ed01e40287df423d5bc03aee109572d233f31bb26ca43b3341f079ea2d0c06b9",
+      "texture_sha256": "858948e66ff924aba2e4b46e12f93b7aeb2c6f62a412a30a6907e3a5a20a3f2a",
       "timing_normalized": false,
       "width": 32
     },
@@ -25557,7 +25557,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ja77Man",
       "creator_id": "01FB7QRZ60000C0Z8TR69SC272",
@@ -25566,7 +25566,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 43,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FVDET3Q00005Z516Z27Z6VPW",
       "lossless": {
         "cellWidth": 64,
@@ -25648,8 +25648,8 @@
         1
       ],
       "set_entry_id": "01FVDET3Q00005Z516Z27Z6VPW",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FVDET3Q00005Z516Z27Z6VPW",
       "source_duration_ms": 3200.0,
       "source_frames": 64,
@@ -25657,9 +25657,9 @@
       "source_sha256": "8cfcde49c22a5afc4815341b2791d116d05ed768d285cfb6d6e84a66d1bc9363",
       "source_width": 128,
       "texture": "Media/7tv/01FVDET3Q00005Z516Z27Z6VPW.blp",
-      "texture_sha256": "53bf4835484b2e90b6e7b0bdea768641863f46a0516c9a73f27fd08cfc49ab44",
+      "texture_sha256": "980300b7097349ab66da0050c251db483f46a7337865935808f8babac05ee4d9",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -25839,7 +25839,7 @@
       "source_sha256": "b51e2e5c14267f92680c027e7407d7e148748970c36057dd5340d050aac435eb",
       "source_width": 128,
       "texture": "Media/7tv/01H44YJ3R000075DM8MX06CDRN.blp",
-      "texture_sha256": "e8c2db7492040cd5611b8464888b3010a4d681d363decc81ce69cbe7905e8d82",
+      "texture_sha256": "f40d8f7188f12c72e7ea0aa2162a0c97ed5ff1147fd9942b02f7bcabb66674c8",
       "timing_normalized": false,
       "width": 32
     },
@@ -25999,7 +25999,7 @@
       "source_sha256": "2b2c5c5e7cee3ff691154b6dd6c9dfcb167bede313f24f521bf63ae43b64c5dd",
       "source_width": 128,
       "texture": "Media/7tv/01GJAHKDF8000DFBSH5J7K45B8.blp",
-      "texture_sha256": "f6c875e83349118e661514ac4fdd6ba2069a781547ad6fdeac8b1ad71abe3659",
+      "texture_sha256": "4925b3f77f251303d930c941c65759e2fd3ac0eded922013c8999d72e83f3269",
       "timing_normalized": false,
       "width": 32
     },
@@ -26045,7 +26045,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "KangGaru_",
       "creator_id": "01FAMTCJ680009222ZMH086H48",
@@ -26054,7 +26054,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 33,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FM6P58X00001FS6N1BY0SWAR",
       "lossless": {
         "cellWidth": 64,
@@ -26112,8 +26112,8 @@
         32
       ],
       "set_entry_id": "01FM6P58X00001FS6N1BY0SWAR",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FM6P58X00001FS6N1BY0SWAR",
       "source_duration_ms": 2000.0,
       "source_frames": 40,
@@ -26121,9 +26121,9 @@
       "source_sha256": "f1d00d25a9615fd19efa5949a3fef71fa1b300458f43126f1fa0124c232dcbcd",
       "source_width": 128,
       "texture": "Media/7tv/01FM6P58X00001FS6N1BY0SWAR.blp",
-      "texture_sha256": "b9475c5eaad14ea5d94b3e4b9db117bdeba982b86187e155bec67f5286c09eb5",
+      "texture_sha256": "dd9bef3058c7ba89f425428c87cfd9ac9be3c1f0f77615018a45f1a7191cd58d",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -26175,7 +26175,7 @@
       "source_sha256": "589201e8473b27b62768ecbe211cf99ea04d1944791c8f7b992191f9200972e9",
       "source_width": 128,
       "texture": "Media/7tv/01F7RKKY9R000FYG2760F8C3G9.blp",
-      "texture_sha256": "52d524d4873919df470f754ecff739afcf1654b79948da9ef4e791e8db221b9c",
+      "texture_sha256": "b2d2a5e7913f12b1776e1c47c214c5f8c9b4d5472294aa5a5334c3da4efd74ed",
       "timing_normalized": false,
       "width": 64
     },
@@ -26221,7 +26221,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 29,
       "creator": "soda_",
       "creator_id": "01F6M3EJ6G0002B6P5MWZAT141",
@@ -26230,7 +26230,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 29,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01FB97GD3R0004RQA2VEY6V7NH",
       "lossless": {
         "cellWidth": 64,
@@ -26246,8 +26246,8 @@
       "provider": "7tv",
       "provider_id": "01FB97GD3R0004RQA2VEY6V7NH",
       "set_entry_id": "01FB97GD3R0004RQA2VEY6V7NH",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FB97GD3R0004RQA2VEY6V7NH",
       "source_duration_ms": 2030.0,
       "source_frames": 29,
@@ -26255,13 +26255,13 @@
       "source_sha256": "2e73e7450eec0ce4add91c6efa7997511735dcd5b956f2d15c8fda1bd793f001",
       "source_width": 128,
       "texture": "Media/7tv/01FB97GD3R0004RQA2VEY6V7NH.blp",
-      "texture_sha256": "c916cb604a41b611ec49521022603b52c7e40a805bcb8deb7cc28061e1cb8d04",
+      "texture_sha256": "340d34e46bb85adf0a4027a7485266708cb5291fe0198e0d826ad3f3aa2aacc4",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Fabby",
       "creator_id": "01F6MEX2Q00000WDA7ERTC2MFH",
@@ -26270,7 +26270,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 32,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01J8QY5TA8000C93G7AYMMP1DA",
       "lossless": {
         "cellWidth": 64,
@@ -26286,8 +26286,8 @@
       "provider": "7tv",
       "provider_id": "01J8QY5TA8000C93G7AYMMP1DA",
       "set_entry_id": "01J8QY5TA8000C93G7AYMMP1DA",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01J8QY5TA8000C93G7AYMMP1DA",
       "source_duration_ms": 960.0,
       "source_frames": 32,
@@ -26295,9 +26295,9 @@
       "source_sha256": "2fb00fb15586fab2c56bb44843104f0a9d43b58ff0ab4a8eb6090fc9309a26e3",
       "source_width": 128,
       "texture": "Media/7tv/01J8QY5TA8000C93G7AYMMP1DA.blp",
-      "texture_sha256": "77cfc122c7a4bb0122a990933af7685d9bf324c1bb0ba959e27aadebef3005ef",
+      "texture_sha256": "add1e52fc0f6604c7f27ecc24b37b53bc8b2cf4e26ca8222d66bd8e2492104e4",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -27463,7 +27463,7 @@
       "format": "webp",
       "fps": 34.24657534246575,
       "frames": 21,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01JXRRCWWK074S15RFEEBX66HP",
       "lossless": {
         "cellWidth": 256,
@@ -27506,7 +27506,7 @@
         20
       ],
       "set_entry_id": "01JXRRCWWK074S15RFEEBX66HP",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01JXRRCWWK074S15RFEEBX66HP",
       "source_duration_ms": 730.0,
@@ -27515,9 +27515,9 @@
       "source_sha256": "4b863f5b5e6060a385f6bd1cb5bbcdbe0b10bde6df7589b41f8db3d5aae58b15",
       "source_width": 272,
       "texture": "Media/7tv/01JXRRCWWK074S15RFEEBX66HP.blp",
-      "texture_sha256": "e740466df9b19c16b68cbea4d62075b1df80c3279ac4879bedea174196ed80e5",
+      "texture_sha256": "763ada7d721ad40ffcc43223aae83ed7917ed46e880c7a086549a897fd10b030",
       "timing_normalized": false,
-      "width": 85
+      "width": 68
     },
     {
       "attribution": "provider owner",
@@ -27530,7 +27530,7 @@
       "format": "webp",
       "fps": 58.451816745655606,
       "frames": 22,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01JTA6SWH4MA14NYBB72DYJQHZ",
       "lossless": {
         "cellWidth": 256,
@@ -27585,7 +27585,7 @@
         21
       ],
       "set_entry_id": "01JTA6SWH4MA14NYBB72DYJQHZ",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01JTA6SWH4MA14NYBB72DYJQHZ",
       "source_duration_ms": 633.0,
@@ -27594,9 +27594,9 @@
       "source_sha256": "d4e23fbb120b5ffd9d88b612f0e03d680efed24ad477400ad7aec0e45e0698ec",
       "source_width": 272,
       "texture": "Media/7tv/01JTA6SWH4MA14NYBB72DYJQHZ.blp",
-      "texture_sha256": "23274e60e017c15255216dd1f4b9b16ba4bf36aeb3300da22a9e1a76448c1991",
+      "texture_sha256": "23bea9cb6ae4b8faa7a4f516007c931e26b1937fa3153b39714b7d35dee219ec",
       "timing_normalized": false,
-      "width": 85
+      "width": 68
     },
     {
       "attribution": "provider owner",
@@ -27754,7 +27754,7 @@
       "source_sha256": "c54810b8373aa55f441177115c8f8689ffc17e072ce94c6a20e6db039005996e",
       "source_width": 128,
       "texture": "Media/7tv/01F6RD7B88000B4N55W5NS55R7.blp",
-      "texture_sha256": "5f7adf253271966bbe947f23828518d9f1bfa7aaaf5d28dc87dfecc7a5040bf9",
+      "texture_sha256": "0f243768b525c0e4d9be51c9b10e13b7c9ddd4b3ab9843f53dab1ba53a36f520",
       "timing_normalized": false,
       "width": 64
     },
@@ -28919,7 +28919,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 29,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01GAHR2TR0000CE5HK1DBSTTCX",
       "lossless": {
         "cellWidth": 128,
@@ -28993,9 +28993,9 @@
       "source_sha256": "747a266327892a82752fc9a852738a7004b81b1767561d43ef78756ff13f6107",
       "source_width": 256,
       "texture": "Media/7tv/01GAHR2TR0000CE5HK1DBSTTCX.blp",
-      "texture_sha256": "3970fbc2e5d56928a7f08c18443a1db60b23a2c4d528318a70831036b9389d43",
+      "texture_sha256": "226f2806f38ce9b5e74325260596c483406b95af84bb78b2fa37eee78431e553",
       "timing_normalized": false,
-      "width": 96
+      "width": 80
     },
     {
       "attribution": "provider owner",
@@ -29868,7 +29868,7 @@
       "source_sha256": "89b55ef9af39672f79ef3ceaabcef6197e9ed5c36bd6e455fa637fa6e5586e32",
       "source_width": 128,
       "texture": "Media/7tv/01FYW3R7HG0004C78K6M0WRGFK.blp",
-      "texture_sha256": "e436a4ce81643fa33463702d42a824643b0a5fe6006c87765bdff86dbfb5ad80",
+      "texture_sha256": "a967ddaa55927e2c1a534c007db74b699dfc59d7ba3bf54acba5d57a30ad437d",
       "timing_normalized": false,
       "width": 64
     },
@@ -29963,7 +29963,7 @@
       "format": "webp",
       "fps": 11.11111111111111,
       "frames": 38,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F63S31Q0000C5JJ7RZAXMZR2",
       "lossless": {
         "cellWidth": 64,
@@ -29988,9 +29988,9 @@
       "source_sha256": "12ffafb2c52878a379cb4c33b62008d67d4635e6ecad6416d028000d607f7864",
       "source_width": 128,
       "texture": "Media/7tv/01F63S31Q0000C5JJ7RZAXMZR2.blp",
-      "texture_sha256": "e6beb0292c1de9975b091189b740e979cc843bca2112383efa6c7fde237504db",
+      "texture_sha256": "99cd1a4b2edc6419f5d8af49bf688d5ee63ca94f6d33f4e225405174e246d998",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -30028,7 +30028,7 @@
       "source_sha256": "b54da54d12e79425c6d82d9d9ce6944121ee52f9acc4b1cdad6665b8f53aa4dc",
       "source_width": 128,
       "texture": "Media/7tv/01H0D63D8R0002835WCBF5Y6FP.blp",
-      "texture_sha256": "3249e475d0be254d9fa3d6e8e8d11a0bf5756df167a7b81c2d51875a6afae2c5",
+      "texture_sha256": "0f7589e5386534eab95672b358ba36f8832834eebbf5766ae0de519eeb2376a5",
       "timing_normalized": false,
       "width": 32
     },
@@ -30353,7 +30353,7 @@
       "format": "webp",
       "fps": 11.11111111111111,
       "frames": 28,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F6FTE8B80008E39HFFQJ7MWS",
       "lossless": {
         "cellWidth": 64,
@@ -30378,9 +30378,9 @@
       "source_sha256": "fdf54d18466f17fe6341f5bdeaf86bf06f3e8f8d16be04b95ee312b53504cc7d",
       "source_width": 128,
       "texture": "Media/7tv/01F6FTE8B80008E39HFFQJ7MWS.blp",
-      "texture_sha256": "375f76864b8c0377648fde7366c2fb610fee3d75ec8756be24de072d8da7a11f",
+      "texture_sha256": "7283dded7939ad2908e3dfb9b09630bbd9af8aecae658a8026b465143b5e53cc",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -30554,7 +30554,7 @@
       "source_sha256": "11e5f2252a79e197fcbff1b1efa6dd506c4253e189e2c12f609abc03a11b051b",
       "source_width": 128,
       "texture": "Media/7tv/01F6W4J1G00008ZF14F6H2GNM2.blp",
-      "texture_sha256": "53d9d98a774ebe41a18ad8fd9b2d3f2eb634100eeb852258020b1d58ae4c78bf",
+      "texture_sha256": "5fc3e81eea63122f63143c43e667258e05dd980bb842a44545bbd18819038ef1",
       "timing_normalized": false,
       "width": 32
     },
@@ -30674,7 +30674,7 @@
       "source_sha256": "f29f6ef914856090c853c16389089ccbd4704be20263fb7feeb69e6ce19fefc6",
       "source_width": 128,
       "texture": "Media/7tv/01FT04Q56000001582V1DY9V82.blp",
-      "texture_sha256": "a99d4589f5510b1ccdd86676def98520b540b5988f6ecd74c8bd36ece6cabad7",
+      "texture_sha256": "70ea89e40d41355cc5ef7a9aed426332fca987e9a9d3c8dd621fc19b3c74b5a6",
       "timing_normalized": false,
       "width": 64
     },
@@ -30928,7 +30928,7 @@
       "format": "webp",
       "fps": 14.285714285714286,
       "frames": 28,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FGKVBA2800064MEQW00DNKF0",
       "lossless": {
         "cellWidth": 256,
@@ -30953,9 +30953,9 @@
       "source_sha256": "8f10910d439a2f59af8930966c90de4649dcc94fb4ab001da492c514cd139972",
       "source_width": 280,
       "texture": "Media/7tv/01FGKVBA2800064MEQW00DNKF0.blp",
-      "texture_sha256": "4c1d58ddc9103f6c082b5ed7eb9f55b53aed5a49219ac9cd2d9fb7a29208d7fa",
+      "texture_sha256": "e7c6cb0295d49905db779823e0a33552f8bbe3fa158b2f42ce26f5b0dcf37f3e",
       "timing_normalized": false,
-      "width": 105
+      "width": 88
     },
     {
       "attribution": "provider owner",
@@ -31039,7 +31039,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Bloody_xCrow",
       "creator_id": "01G3RQS4XR00086RK1WFRADKRG",
@@ -31048,7 +31048,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 83,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GGTRX6N800041YWPJ08KFTK3",
       "lossless": {
         "cellWidth": 64,
@@ -31169,7 +31169,7 @@
       ],
       "set_entry_id": "01GGTRX6N800041YWPJ08KFTK3",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01GGTRX6N800041YWPJ08KFTK3",
       "source_duration_ms": 5100.0,
       "source_frames": 84,
@@ -31177,9 +31177,9 @@
       "source_sha256": "cb5fcaf29ae6d491649da01b09011fb578e6cde2a7252de7e41442f47153da39",
       "source_width": 128,
       "texture": "Media/7tv/01GGTRX6N800041YWPJ08KFTK3.blp",
-      "texture_sha256": "6b042d5026e458683a555f3e3256cb4dc53228154a6b5d3275f7dfb134ac3897",
+      "texture_sha256": "0ac76774e6892cd3320039cc42286e4ad3ecd4611def547573d5d6422211b3bf",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -31427,7 +31427,7 @@
       "source_sha256": "fc424e5edd539fa71d12eb82b5557a0e8c8af500b9bff26d3b155fcb1a809bf0",
       "source_width": 128,
       "texture": "Media/7tv/01F9CJR378000EXHBVYXF1MKHE.blp",
-      "texture_sha256": "f0e52c49331778f6400b00a9450984d27d314de8ff53cd4a4f8e2a4fde13f36c",
+      "texture_sha256": "ae3d5d596c90f3b69f55a321e401c77ae8b27bc99f0e5a1fb0040b1610ce3cef",
       "timing_normalized": false,
       "width": 64
     },
@@ -32181,7 +32181,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 29,
       "creator": "JustRogan",
       "creator_id": "01F6MCVXR80000WDA7ERT4GSG2",
@@ -32190,7 +32190,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 29,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F6NT56PR0003C6R1CKK4ZJFA",
       "lossless": {
         "cellWidth": 64,
@@ -32206,8 +32206,8 @@
       "provider": "7tv",
       "provider_id": "01F6NT56PR0003C6R1CKK4ZJFA",
       "set_entry_id": "01F6NT56PR0003C6R1CKK4ZJFA",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F6NT56PR0003C6R1CKK4ZJFA",
       "source_duration_ms": 1160.0,
       "source_frames": 29,
@@ -32215,9 +32215,9 @@
       "source_sha256": "21400cf184b73fe0cb3b0a580f2baee12d5e3ec618d2970c0e4fd06c4d36ed9d",
       "source_width": 128,
       "texture": "Media/7tv/01F6NT56PR0003C6R1CKK4ZJFA.blp",
-      "texture_sha256": "3ff6119554673646b8e008b27547a4369d5d92da706317b3518c2ee80ca231ab",
+      "texture_sha256": "91cc84c40be9a0eb6fc4604806b1521ff40d5efb171fc7f109d511c2bf7dd7a1",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -32261,7 +32261,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 31,
       "creator": "cumify",
       "creator_id": "01F6MRVTX80003RHS7V43AGGFP",
@@ -32270,7 +32270,7 @@
       "format": "webp",
       "fps": 12.5,
       "frames": 31,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GTD0JA780000ZMA1SVXGJP0V",
       "lossless": {
         "cellWidth": 64,
@@ -32327,8 +32327,8 @@
         30
       ],
       "set_entry_id": "01GTD0JA780000ZMA1SVXGJP0V",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01GTD0JA780000ZMA1SVXGJP0V",
       "source_duration_ms": 3120.0,
       "source_frames": 31,
@@ -32336,9 +32336,9 @@
       "source_sha256": "76796be938062d2edbcb1c3d411d7d22d9d3ab37c53947c4a8d4d93db3f0fd03",
       "source_width": 128,
       "texture": "Media/7tv/01GTD0JA780000ZMA1SVXGJP0V.blp",
-      "texture_sha256": "18b88b04f99b127711f200b37688586dc31a83382e2b1a1eff37bfd496853403",
+      "texture_sha256": "e012d8adad470161c74141f2b8ddad9fad196278dfb3adf545307dcefc397eb4",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -32609,7 +32609,7 @@
       "source_sha256": "76f8cf23e6cb2ccabd6adc07d06d1077be6fe4b5597f5a6db2b800e51266920e",
       "source_width": 108,
       "texture": "Media/7tv/01GESA72SG000B6WHR50T3PZD4.blp",
-      "texture_sha256": "d95011a5d5a73b6f1bc84c8ee80e2ad766e9395cc5f74d29bc8c3f34fe00ed24",
+      "texture_sha256": "f0583739447a6a07169d6492476fb1521a8ea6f3008c269fec649ac41532ea8a",
       "timing_normalized": false,
       "width": 27
     },
@@ -33358,7 +33358,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 11,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FHXC0AZR000CW9QFC1HRGB8F",
       "lossless": {
         "cellWidth": 64,
@@ -33383,9 +33383,9 @@
       "source_sha256": "3a8abc0193c1f210a32fbc30778dc414c57c2c65de3ed4468e20eee097895c1a",
       "source_width": 128,
       "texture": "Media/7tv/01FHXC0AZR000CW9QFC1HRGB8F.blp",
-      "texture_sha256": "5e6ac3ccddbacdfb5c91a29454d9175d5987d94ae9cdcfb26df3e419e11cbbf4",
+      "texture_sha256": "103461844608d4d60899610edea9819e709d8847abf646784c73b4c1ab35d243",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -33398,7 +33398,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 32,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F6MDFYC80005TFYTWP1XJFSM",
       "lossless": {
         "cellWidth": 64,
@@ -33423,9 +33423,9 @@
       "source_sha256": "70fc7d2389fcb6416a0a96190035280b9ef80a5c2b6723c5fb7c7ec6c68c2c1c",
       "source_width": 128,
       "texture": "Media/7tv/01F6MDFYC80005TFYTWP1XJFSM.blp",
-      "texture_sha256": "dd4d9eb66dd891383e2ffddfdcc752de07465db77bf6a59d5a806d9c4a5540b5",
+      "texture_sha256": "41479cd3fcf485b24057153403913fa389ccece20e5340012ee03ca73210623c",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -35363,7 +35363,7 @@
       "format": "webp",
       "fps": 33.506493506493506,
       "frames": 48,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01H6HR1QGR000FMZQ9NVXJ2FSQ",
       "lossless": {
         "cellWidth": 128,
@@ -35510,7 +35510,7 @@
         47
       ],
       "set_entry_id": "01H6HR1QGR000FMZQ9NVXJ2FSQ",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01H6HR1QGR000FMZQ9NVXJ2FSQ",
       "source_duration_ms": 3850.0,
@@ -35519,9 +35519,9 @@
       "source_sha256": "bc4e2f5fb88d822d6d77f5386b1a7c5b1215220311aa85621d7085fee2f07265",
       "source_width": 188,
       "texture": "Media/7tv/01H6HR1QGR000FMZQ9NVXJ2FSQ.blp",
-      "texture_sha256": "846d259b5d1622f9a628fd8b271bf678a350c34acbeed9da76d37a2722a13d3c",
+      "texture_sha256": "17a66f2cff7539e73f05b7a276e6f88b2b5f5c0e5410d79f8395b8942e7ac21c",
       "timing_normalized": false,
-      "width": 59
+      "width": 47
     },
     {
       "attribution": "provider owner",
@@ -35878,7 +35878,7 @@
       "format": "webp",
       "fps": 16.666666666666668,
       "frames": 16,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FV9T5AG0000ABJA59B5KMKYA",
       "lossless": {
         "cellWidth": 128,
@@ -35903,9 +35903,9 @@
       "source_sha256": "3e421f736df702a9348909dfb9e6022ee78f398553afcb7ec93cd9ffbcf698ac",
       "source_width": 216,
       "texture": "Media/7tv/01FV9T5AG0000ABJA59B5KMKYA.blp",
-      "texture_sha256": "5207e69032d778ed7e79cdbad48f7ab6488dc882f46da899c7eca92629281be7",
+      "texture_sha256": "443f45e34f57ed4b227e98b6a1313e02692f683ec8f3099dd7ce1242e08f7f6a",
       "timing_normalized": false,
-      "width": 81
+      "width": 68
     },
     {
       "attribution": "provider owner",
@@ -36507,7 +36507,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 7,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01H46A61NG0004CM1PM5A0RA9C",
       "lossless": {
         "cellWidth": 64,
@@ -36532,9 +36532,9 @@
       "source_sha256": "e9f6ab9ce7ec78b35d592aa3a8bf541674129960a03b7805bd9a0899387a6c2f",
       "source_width": 128,
       "texture": "Media/7tv/01H46A61NG0004CM1PM5A0RA9C.blp",
-      "texture_sha256": "ed6f2d9262ca7ea1e18f4b4d26cb3ba26ceca42ff9c2397ebd2bc246c9f39d8e",
+      "texture_sha256": "947373fc24936db180ba606036a70d0eb9423c49895724e26d4470c1b44bcb85",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -36618,8 +36618,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 64,
+      "columns": 32,
       "creator": "Gambloide",
       "creator_id": "01FBETGDZR0004CMZNTV0Q9X9C",
       "download": "https://cdn.7tv.app/emote/01GCC6JCNR0005MW1W9ACDNN2B/4x.webp",
@@ -36627,7 +36627,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 48,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01GCC6JCNR0005MW1W9ACDNN2B",
       "lossless": {
         "cellWidth": 128,
@@ -36745,7 +36745,7 @@
         47
       ],
       "set_entry_id": "01GCC6JCNR0005MW1W9ACDNN2B",
-      "sheetHeight": 256,
+      "sheetHeight": 128,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GCC6JCNR0005MW1W9ACDNN2B",
       "source_duration_ms": 2000.0,
@@ -36754,9 +36754,9 @@
       "source_sha256": "e344fd197230bbc166e8e155e6c48710c4680bcd7f0e641e160bbbe13399dde1",
       "source_width": 152,
       "texture": "Media/7tv/01GCC6JCNR0005MW1W9ACDNN2B.blp",
-      "texture_sha256": "f0e7207be3d1b89d2da075328b0e27a0a464d712f08142b73e076cc6f778290d",
+      "texture_sha256": "2ac63f590f69c35288e88c608e82423585400efbc566b0d669ae30fbd26de87c",
       "timing_normalized": false,
-      "width": 76
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -37126,7 +37126,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "ayyybubu",
       "creator_id": "01F6MBDQ7R0005TFYTWP1R54KA",
@@ -37135,7 +37135,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 60,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GFKMBAHG0007SC7A230SCCYX",
       "lossless": {
         "cellWidth": 64,
@@ -37151,8 +37151,8 @@
       "provider": "7tv",
       "provider_id": "01GFKMBAHG0007SC7A230SCCYX",
       "set_entry_id": "01GFKMBAHG0007SC7A230SCCYX",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01GFKMBAHG0007SC7A230SCCYX",
       "source_duration_ms": 3000.0,
       "source_frames": 60,
@@ -37160,9 +37160,9 @@
       "source_sha256": "f3e86ac73fec0d70697446bd2095946284ce36f18337188941f66b72f85b660b",
       "source_width": 128,
       "texture": "Media/7tv/01GFKMBAHG0007SC7A230SCCYX.blp",
-      "texture_sha256": "de233b98d8c030e3fef1a6c0625d01a7b04b380b59ba174dc8ea3cef616759a1",
+      "texture_sha256": "980173354f3a89a691213b4039b892d29da3a7dc62db86a14a0d30ab5dbbdbf5",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -37200,7 +37200,7 @@
       "source_sha256": "478659f8fd0f4bd980e6cca4ea81c887115ad4033cc6b8e7c9cc09ebaee59fe3",
       "source_width": 128,
       "texture": "Media/7tv/01F742W8B80003HS92SZT09ZHR.blp",
-      "texture_sha256": "0ac5c7f03159cd58f4dd691fc98a98eb278558a014eec17582efdca9e06f98c1",
+      "texture_sha256": "7317e169750db57cf673b66896d6f4de89149ab865fdd9033a8abe83731096c7",
       "timing_normalized": false,
       "width": 32
     },
@@ -37558,7 +37558,7 @@
       "source_sha256": "d02817dadf89f40a01c0f3cc6d130bc9a915e3f890d0d17a0e4030a2d190f7b2",
       "source_width": 128,
       "texture": "Media/7tv/01F6N2R7X8000AR0YATR3ZA83Z.blp",
-      "texture_sha256": "286edeab0e5716bf86307defd1a453667125c3e8638881cfe22915f3213e9af7",
+      "texture_sha256": "c2e2c29138a2a414cf908909c0a633fa19c86bcd83cf40c85cbf343cd27becc8",
       "timing_normalized": false,
       "width": 64
     },
@@ -37758,7 +37758,7 @@
       "source_sha256": "f3752762ea0fc10855ee9627e5f5525d72d671e0087bdd3fa7aefe3c0176944e",
       "source_width": 128,
       "texture": "Media/7tv/01FKTJ9TWG0008TM5NY9QEG3RG.blp",
-      "texture_sha256": "6a738d6f9bb09acb46fe5c5f53a827561f3c7d026b4ecddbc41565c09220e114",
+      "texture_sha256": "afffe6c676c703c8e02ee80833b30f2a163cb2bd920eb9eb97a3fb006e2d04c8",
       "timing_normalized": false,
       "width": 64
     },
@@ -38557,7 +38557,7 @@
       "source_sha256": "91baccad5c8d157c9af9abba797055ac3b391f90b7986fedc10bcea7d52572e0",
       "source_width": 164,
       "texture": "Media/7tv/01GFRR92SR0000ENTQ6F7DKKBE.blp",
-      "texture_sha256": "cfcecaa75f840c2db2cc0831be480a1bdc9caf7bb52980533f44b83c6035b2a8",
+      "texture_sha256": "6814bf46eed6485243cc61c5f415bccb0df539b9f3586713dd8717ba08c18728",
       "timing_normalized": false,
       "width": 82
     },
@@ -38699,7 +38699,7 @@
       "source_sha256": "bb70b8dd6b2041ca4152b6e326c358a80e671d29b5ce339e88bccb219998af68",
       "source_width": 128,
       "texture": "Media/7tv/01FAJS69EG00093YGWG35T0VPJ.blp",
-      "texture_sha256": "7dc6b9cb0a031626794c3075e4824346bfc01e70bef0338bc38fa68c3bc33e80",
+      "texture_sha256": "ad6755cfa3201ce4fdf3f57e174d5c76534a604524c2d8af9b514d1c35404a05",
       "timing_normalized": false,
       "width": 64
     },
@@ -38779,7 +38779,7 @@
       "source_sha256": "818f9a5e34745cfa7eddd72da324959d35b60830391f05bd79605cc2ffd95c8f",
       "source_width": 128,
       "texture": "Media/7tv/01F6NTBCYG000B70V1XA8K6W4P.blp",
-      "texture_sha256": "82825e74c81bb1314402f05e39d05e9b1a51f1b8354b4f8067d8de4ffad2eceb",
+      "texture_sha256": "b302553c88b40b9d67137e1d92ddb91d0e4e71d111694a77fa316f9d2c5d3886",
       "timing_normalized": false,
       "width": 64
     },
@@ -39028,7 +39028,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 28,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01F640EPQG0003B9G1Z40HFHWQ",
       "lossless": {
         "cellWidth": 64,
@@ -39276,9 +39276,9 @@
       "source_sha256": "01c59ca89af1f2ef61344a918cadb816458c8bfb66da21937e732b1332bfd6f0",
       "source_width": 128,
       "texture": "Media/7tv/01F640EPQG0003B9G1Z40HFHWQ.blp",
-      "texture_sha256": "88ce29931e8d947380ced610d11dce7e04575868bbe18bea91607ee2a9fb1963",
+      "texture_sha256": "aac2724c245df938538bef9770666f0ab21b671b54540ae4a58a83c8b30bd6c8",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -39356,7 +39356,7 @@
       "source_sha256": "86792d63b183d11203e2ab01801d497d62ce3208152d64c348269702bf869a9c",
       "source_width": 128,
       "texture": "Media/7tv/01FMNPRYA800045PDTB992PYD6.blp",
-      "texture_sha256": "e5b6fe30538d363b5c388cbb0f2949d7f5606b71cbabba9fa6631d38907b5c6d",
+      "texture_sha256": "aa758ddaf4d5f322e1b8935f26b759bd9efae4ef110b0258d776abb135219334",
       "timing_normalized": false,
       "width": 64
     },
@@ -39436,7 +39436,7 @@
       "source_sha256": "5d11b5bf63f290732e6c47984d56747035eb0aa2c381f6c391fadbaad9440622",
       "source_width": 128,
       "texture": "Media/7tv/01GWTYQ120000FBRG7QHAEAM5N.blp",
-      "texture_sha256": "be846d3e90d8e7eb5c638f2583b98bb3d5da8d1eefd2c3c5298af3bb3aa5acfb",
+      "texture_sha256": "647d1df87c5e61f433efe01a8e2b09faba419e208af6634a8ca448afafa94a03",
       "timing_normalized": false,
       "width": 64
     },
@@ -39908,7 +39908,7 @@
       "source_sha256": "b8ba9bf7ef1a9bb1446a4b5fbdf57df9d63eec5990deeeaa41b9aa3a40f3dcb5",
       "source_width": 128,
       "texture": "Media/7tv/01FBPYS3J800009CEJWPSC9YNE.blp",
-      "texture_sha256": "e4cf66bf37da7cf472ed2ef883c62ddbf108b94ae223cd4bcb77d280f453e6d3",
+      "texture_sha256": "d9fdc0c2e3e6668d215c775c8557aa8779716f15a96ca477877a3f0ba52757dd",
       "timing_normalized": false,
       "width": 64
     },
@@ -40043,7 +40043,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 181,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01GB9XMSPG00098BZVD7GKTW1Z",
       "lossless": {
         "cellWidth": 64,
@@ -40311,9 +40311,9 @@
       "source_sha256": "a38dac83904b590470c8e4b2eade9c4aa31fb99c08e1bf66ff7d23190c9cda63",
       "source_width": 128,
       "texture": "Media/7tv/01GB9XMSPG00098BZVD7GKTW1Z.blp",
-      "texture_sha256": "3d1d356139d11e34de5818a4d0854c70b78bb9f0db7c2ba0f6279ec1327808ce",
+      "texture_sha256": "177fabcc5976ae7ee0509fcf380d1a203bfbbe2dc90834312899168c28bdb1f1",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -40476,7 +40476,7 @@
       "source_sha256": "673c2a9b61b8e49d7d181e1a1990bd74dfa519ed7abf6ad740163038388a8fe2",
       "source_width": 128,
       "texture": "Media/7tv/01FDARDR90000E2YDMYB3TTDMB.blp",
-      "texture_sha256": "231a9e7dec74ed15a8b44bfb3bf3bb0eace66a5a7df2f5f356c4d21387150836",
+      "texture_sha256": "d636847af09794963110cc8dc5a0f03c06d01e19372d3b9790980ce1804e8d12",
       "timing_normalized": false,
       "width": 64
     },
@@ -40596,7 +40596,7 @@
       "source_sha256": "4d5971d996460e54be39b2d712676e011b6650697a936489661e8c38c972d20d",
       "source_width": 128,
       "texture": "Media/7tv/01G1RGACY00002E26RF8YHG5WY.blp",
-      "texture_sha256": "957effeeb89b7521b11d3e9887e8732ed00a12af864cde7af20ceb594d0e9ebc",
+      "texture_sha256": "ac26249fb6305f05d782b63187a3a6b562baf92a57244576bc3b492e0752885a",
       "timing_normalized": false,
       "width": 64
     },
@@ -40716,7 +40716,7 @@
       "source_sha256": "885990f7851c4abe8d160e64a407da1181e6845f49c7a7a3c389714ec24c1540",
       "source_width": 128,
       "texture": "Media/7tv/01F9KR4NN80006XXD6DX0QQGDF.blp",
-      "texture_sha256": "974268c0d11e554502d533a68ea5f95ac61494e28071dcab40b5f779f0e944a5",
+      "texture_sha256": "dcbde863a289f1fe6b7446114dad839a4c7fbb2c57938fa1835183b3d6b34f6a",
       "timing_normalized": false,
       "width": 64
     },
@@ -40976,7 +40976,7 @@
       "source_sha256": "a0125c0107695eed4e36ac019775b28842d2ae97176769639dc3895c8551dbfb",
       "source_width": 320,
       "texture": "Media/7tv/01HA7QP7C8000BNMZK2KZG7XCQ.blp",
-      "texture_sha256": "2309018d721b1d56d41a14c677bf13c3020b9dc3dbe6bc4fce721394797b7284",
+      "texture_sha256": "1a4fde1025c9ff8d9c9e324811590aaed3d5523472c2af63291fe362e6fb4c00",
       "timing_normalized": false,
       "width": 80
     },
@@ -41355,7 +41355,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 18,
       "creator": "MonricOW",
       "creator_id": "01F6QM0748000F81D52Z06A2Y8",
@@ -41364,7 +41364,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 18,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FAYTJ0P000033EKAWRH5TZS0",
       "lossless": {
         "cellWidth": 64,
@@ -41380,8 +41380,8 @@
       "provider": "7tv",
       "provider_id": "01FAYTJ0P000033EKAWRH5TZS0",
       "set_entry_id": "01FAYTJ0P000033EKAWRH5TZS0",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FAYTJ0P000033EKAWRH5TZS0",
       "source_duration_ms": 540.0,
       "source_frames": 18,
@@ -41389,9 +41389,9 @@
       "source_sha256": "ec8d55d64c0589f70924baca3f3e7bf7957575142846f0b14b0eada48ab4bc46",
       "source_width": 128,
       "texture": "Media/7tv/01FAYTJ0P000033EKAWRH5TZS0.blp",
-      "texture_sha256": "fa2f9a9bcb5eff1b39ecf2bc36414792c80c064cddd85f5249c32351e3b001e4",
+      "texture_sha256": "8b729eb431bb7fad4f783b487153779e5a478751b6f9c8d55b9b369adfff9ff6",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -41665,7 +41665,7 @@
       "source_sha256": "bd92a0fc5654b07a0f14427e7d788eea1c6098b947318831470e2349f46dc45a",
       "source_width": 128,
       "texture": "Media/7tv/01GRJFFK580004NWC6YE8DQHX5.blp",
-      "texture_sha256": "6cefbac86362f9b3077c0a182266c32ce148c169c043366b5f79f8c68ecc551e",
+      "texture_sha256": "ac7162024161d072c68b44f8dcd53a3ec4c888cc91cecdcf52ea572a109f1696",
       "timing_normalized": false,
       "width": 40
     },
@@ -41705,7 +41705,7 @@
       "source_sha256": "2180ce6d534e226582a0e532c919fc13e9bd5156152f753ce6618c53b1b43189",
       "source_width": 128,
       "texture": "Media/7tv/01F6XDX3CG000APAHAKJAM8N3K.blp",
-      "texture_sha256": "61704cd9735cec37f6aa03c18c604956b25804395771ae25571317daff94ff99",
+      "texture_sha256": "199ce455dad3a1304be9e31504f7d6e4deacdf6895de061ee983cd6bf5d3c1f7",
       "timing_normalized": false,
       "width": 32
     },
@@ -41785,7 +41785,7 @@
       "source_sha256": "a777c50c1b58daf0869cc91e023c84c847d8cb3d23002e08617be6f774ddb4ef",
       "source_width": 128,
       "texture": "Media/7tv/01F6T920S80004B20PGM3Q1GQS.blp",
-      "texture_sha256": "d4b9866323cf1d6ac236dc4ae2dee33b2603286a7337c7bececaf81288f7ea44",
+      "texture_sha256": "390a76e2f5d1ec73e4dd86dbc2a4830790c59d5dcdbd7c01b0126bb16bc5cd14",
       "timing_normalized": false,
       "width": 40
     },
@@ -42317,7 +42317,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 38,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FS9FR50R0006WSV3K6GFYTVN",
       "lossless": {
         "cellWidth": 64,
@@ -42342,9 +42342,9 @@
       "source_sha256": "60bf43fd8992a594254e20fa85a58ce985f9189067b26aa67a9466d636b80911",
       "source_width": 128,
       "texture": "Media/7tv/01FS9FR50R0006WSV3K6GFYTVN.blp",
-      "texture_sha256": "8b8c7ba72e49516813e2ed8c395468be37c49e0beb83db4e9d6fb495e5b49dd2",
+      "texture_sha256": "f4e2973c446ac07584e58ff34288f190e2c6e733e403c5e9e55e90435d877a3b",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -42558,7 +42558,7 @@
       "source_sha256": "ed193d32903de74ff83ab95b372472039a5dd2dd4b0b2b1e320983d73f015a34",
       "source_width": 180,
       "texture": "Media/7tv/01GBFAYKGR000FWWN7MDZZ8XQN.blp",
-      "texture_sha256": "e093c10acc88577d3151acd45013baeed784258baceb21c91f09d1ab6ca90a0a",
+      "texture_sha256": "0526eca4aa5d3bac5cff10711be4354ca3bf105d72821a8f05a89d3f1d8b7ef8",
       "timing_normalized": false,
       "width": 45
     },
@@ -42686,7 +42686,7 @@
       "source_sha256": "85b9d864e2444346eabc4e8f28cca245c94aea24002949c3b5f6dce87d6e0be5",
       "source_width": 128,
       "texture": "Media/7tv/01F6N6MBK000052X5637DPQTKP.blp",
-      "texture_sha256": "f868abee2ec39e51a9def36ff6e5abeb87aa94cc74a9737f5f385066372ad25e",
+      "texture_sha256": "d7c471bd675c438da7e8d635f7bda18f83082912d14ddae5bbf3c2d0d358760c",
       "timing_normalized": false,
       "width": 64
     },
@@ -42732,7 +42732,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 28,
       "creator": "pepohead",
       "creator_id": "01FF2YHGQR000A4T47CYP4HK4N",
@@ -42741,7 +42741,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 28,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GHYXMQQG000EXZEN9BBAP047",
       "lossless": {
         "cellWidth": 64,
@@ -42794,8 +42794,8 @@
         27
       ],
       "set_entry_id": "01GHYXMQQG000EXZEN9BBAP047",
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01GHYXMQQG000EXZEN9BBAP047",
       "source_duration_ms": 1050.0,
       "source_frames": 28,
@@ -42803,9 +42803,9 @@
       "source_sha256": "cb72060b7c2c7b5edf94ac14754972f88592e6721b2383fa00a01b121ce55dd1",
       "source_width": 128,
       "texture": "Media/7tv/01GHYXMQQG000EXZEN9BBAP047.blp",
-      "texture_sha256": "0c841c2c1f53b0caf0c314fa7e04d84f5593b59681ff6a8cf47d6161443b1ab0",
+      "texture_sha256": "4dc683c0b05c97a9de25efddb42f110fbf7620b00ddb5cf6d342f100056a8d72",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -42979,7 +42979,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "aomow",
       "creator_id": "01F6Q2S0ER0005589X3BDWE8W0",
@@ -42988,7 +42988,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 53,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01F6QHXZZR0000TEKRM6BF7J21",
       "lossless": {
         "cellWidth": 64,
@@ -43004,8 +43004,8 @@
       "provider": "7tv",
       "provider_id": "01F6QHXZZR0000TEKRM6BF7J21",
       "set_entry_id": "01F6QHXZZR0000TEKRM6BF7J21",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F6QHXZZR0000TEKRM6BF7J21",
       "source_duration_ms": 2120.0,
       "source_frames": 53,
@@ -43013,9 +43013,9 @@
       "source_sha256": "934cfa495dac47672d3761d15a30a0b65301f682b68695c9199d586c679d2883",
       "source_width": 128,
       "texture": "Media/7tv/01F6QHXZZR0000TEKRM6BF7J21.blp",
-      "texture_sha256": "57bc8a53b05336516cea332a8e3cac7759f383bea73602d3918e1ca0e541940c",
+      "texture_sha256": "29d82c5af175e508fa9e3de33871d406b0a41ef7262d47067f1e98632ef4611d",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -43028,7 +43028,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 56,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GPKXS30R0003JXYZCZHJT32P",
       "lossless": {
         "cellWidth": 128,
@@ -43044,7 +43044,7 @@
       "provider": "7tv",
       "provider_id": "01GPKXS30R0003JXYZCZHJT32P",
       "set_entry_id": "01GPKXS30R0003JXYZCZHJT32P",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GPKXS30R0003JXYZCZHJT32P",
       "source_duration_ms": 2240.0,
@@ -43053,9 +43053,9 @@
       "source_sha256": "48066514cd62db6b518f9b7fb324a6c8f87318d46a8ae5a3ba8230fb0faf1e26",
       "source_width": 148,
       "texture": "Media/7tv/01GPKXS30R0003JXYZCZHJT32P.blp",
-      "texture_sha256": "9a8a17393377389d91b10f636ed4df0be783cc280ed3ef9a5dc077ed96b228c0",
+      "texture_sha256": "e616c702f6e0ffc0045042c714de08c7b71776262b8c8a02871293eb0d31df0f",
       "timing_normalized": false,
-      "width": 46
+      "width": 37
     },
     {
       "attribution": "provider owner",
@@ -44123,8 +44123,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 256,
-      "columns": 8,
+      "cellWidth": 128,
+      "columns": 14,
       "creator": "GageInk",
       "creator_id": "01FDK51SGR0008GEP8V01N35MN",
       "download": "https://cdn.7tv.app/emote/01GP2BY1XG0009TPRPGFYX0Q91/4x.webp",
@@ -44132,7 +44132,7 @@
       "format": "webp",
       "fps": 16.666666666666668,
       "frames": 14,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GP2BY1XG0009TPRPGFYX0Q91",
       "lossless": {
         "cellWidth": 256,
@@ -44148,7 +44148,7 @@
       "provider": "7tv",
       "provider_id": "01GP2BY1XG0009TPRPGFYX0Q91",
       "set_entry_id": "01GP2BY1XG0009TPRPGFYX0Q91",
-      "sheetHeight": 128,
+      "sheetHeight": 32,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GP2BY1XG0009TPRPGFYX0Q91",
       "source_duration_ms": 840.0,
@@ -44157,13 +44157,13 @@
       "source_sha256": "0d08df493b8aefef4054fad0f59f6222d9aa26a2d4be117a9e01854e91b02a19",
       "source_width": 384,
       "texture": "Media/7tv/01GP2BY1XG0009TPRPGFYX0Q91.blp",
-      "texture_sha256": "3d2a4f1228b4b1ac6a48a750c4ceb0861f4e5abf6a1e13af6cc59160810d2258",
+      "texture_sha256": "a55b81e4e55e5e115311faa30235893b85d23a0fa43d61cd7e752fc01a002eab",
       "timing_normalized": false,
-      "width": 160
+      "width": 128
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "hubbles",
       "creator_id": "01FK0NVRM0000B1FXDJGM9D01Y",
@@ -44172,7 +44172,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 40,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FPRAG32R0006J1JS3TKF402V",
       "lossless": {
         "cellWidth": 64,
@@ -44246,8 +44246,8 @@
         39
       ],
       "set_entry_id": "01FPRAG32R0006J1JS3TKF402V",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FPRAG32R0006J1JS3TKF402V",
       "source_duration_ms": 2240.0,
       "source_frames": 40,
@@ -44255,9 +44255,9 @@
       "source_sha256": "4cc9562a01b178d13c7e08425f40bc88b9db356ae4486e0508466be186047cb9",
       "source_width": 128,
       "texture": "Media/7tv/01FPRAG32R0006J1JS3TKF402V.blp",
-      "texture_sha256": "8274966803b96812a4870fd90c9e76ab33b857e463fceab65110fc64e9eacb8a",
+      "texture_sha256": "13111a437d115cc901617b5df528198c3927fb3e17f315eef29d717116dea09b",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -44341,7 +44341,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "nico844",
       "creator_id": "01F6RC2Y70000FV61SYRPQ8A8Q",
@@ -44350,7 +44350,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 65,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FSGX5V000007E5TN8YT2AW0D",
       "lossless": {
         "cellWidth": 64,
@@ -44367,7 +44367,7 @@
       "provider_id": "01FSGX5V000007E5TN8YT2AW0D",
       "set_entry_id": "01FSGX5V000007E5TN8YT2AW0D",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FSGX5V000007E5TN8YT2AW0D",
       "source_duration_ms": 1950.0,
       "source_frames": 65,
@@ -44375,9 +44375,9 @@
       "source_sha256": "b4ec5cda63645537c9b6541432f7e0313421eb862ce9a40e7ca19de4ea4ee2d4",
       "source_width": 128,
       "texture": "Media/7tv/01FSGX5V000007E5TN8YT2AW0D.blp",
-      "texture_sha256": "cd8d25b9417818c3bed6461ea150b37b43b1f1ce52156cc8934ecde88ced146d",
+      "texture_sha256": "844990cca4a98f43f6ec6d0eabdc9f7112562dcbf3d9df21e39692fe778ba518",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -44390,7 +44390,7 @@
       "format": "webp",
       "fps": 33.53658536585366,
       "frames": 54,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01GH951Z1G0003A8XN0JB1HE1B",
       "lossless": {
         "cellWidth": 128,
@@ -44463,7 +44463,7 @@
         53
       ],
       "set_entry_id": "01GH951Z1G0003A8XN0JB1HE1B",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01GH951Z1G0003A8XN0JB1HE1B",
       "source_duration_ms": 1640.0,
@@ -44472,9 +44472,9 @@
       "source_sha256": "4865fede6b4b63253265bc02fb9cb50b08df3d771a3bb2ee8a1fe59108116f8f",
       "source_width": 168,
       "texture": "Media/7tv/01GH951Z1G0003A8XN0JB1HE1B.blp",
-      "texture_sha256": "24d8b69840f0fe9be1732e57b9f0377cac51a3eaeb8f27adaccd1f6e44a863a7",
+      "texture_sha256": "a515ff57ad9a86823710acdefb612cefecc88581b549142782c060fa02f11841",
       "timing_normalized": false,
-      "width": 52
+      "width": 42
     },
     {
       "attribution": "provider owner",
@@ -44558,7 +44558,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "AndreiMonty",
       "creator_id": "01FGR8WJK000021TQRJX35NN4B",
@@ -44567,7 +44567,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 45,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01HCQ0F3H80002DEFPPVJX96RP",
       "lossless": {
         "cellWidth": 64,
@@ -44583,8 +44583,8 @@
       "provider": "7tv",
       "provider_id": "01HCQ0F3H80002DEFPPVJX96RP",
       "set_entry_id": "01HCQ0F3H80002DEFPPVJX96RP",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01HCQ0F3H80002DEFPPVJX96RP",
       "source_duration_ms": 2250.0,
       "source_frames": 45,
@@ -44592,9 +44592,9 @@
       "source_sha256": "2cc3a8904bd8fc4376f62e401732e64cc0d17163cf28f310bd52452eaa645033",
       "source_width": 128,
       "texture": "Media/7tv/01HCQ0F3H80002DEFPPVJX96RP.blp",
-      "texture_sha256": "a36560cf09810e5dda9ee0091bdb59a3f7b8ea6988c30081ae112f553d951307",
+      "texture_sha256": "0e6240c234aaed87aa7867ddfb71db3f4383cc38dfe4637c1310c3e9bc8d42fd",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -44653,7 +44653,7 @@
       "format": "webp",
       "fps": 8.333333333333334,
       "frames": 17,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01F7781H4000048MXDYPQ5D5VW",
       "lossless": {
         "cellWidth": 64,
@@ -44678,9 +44678,9 @@
       "source_sha256": "76f8bcda2823a5e9ce564cb306dfb3251c792c01ee23639545862522a81600f3",
       "source_width": 128,
       "texture": "Media/7tv/01F7781H4000048MXDYPQ5D5VW.blp",
-      "texture_sha256": "89bf8d8c259d7e86f891c45a8da8e4a4c00c02cfaa3e3dc2c5bb17987003aab8",
+      "texture_sha256": "f93fbbe7762041974fd55eff814fd4a5d45e541fd204c81f0d80920f24beea52",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -44733,7 +44733,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 43,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F6T8WQV00007M5BTFWSPFH6T",
       "lossless": {
         "cellWidth": 128,
@@ -44795,7 +44795,7 @@
         42
       ],
       "set_entry_id": "01F6T8WQV00007M5BTFWSPFH6T",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01F6T8WQV00007M5BTFWSPFH6T",
       "source_duration_ms": 4400.0,
@@ -44804,9 +44804,9 @@
       "source_sha256": "7c1c9692a0a0d9fdb161a299fa8f7e032e2459be4e2fbc37f031d6c9d07c384b",
       "source_width": 164,
       "texture": "Media/7tv/01F6T8WQV00007M5BTFWSPFH6T.blp",
-      "texture_sha256": "bab62dc1d63aad76cbc16e6de4d5aac7728c57903c18cfbe488408b08a9b6a49",
+      "texture_sha256": "4d017abb7dcc3aa5c49dcba58576a8e031c6db1a2c1c4b03ecac1b01783cec82",
       "timing_normalized": false,
-      "width": 51
+      "width": 41
     },
     {
       "attribution": "provider owner",
@@ -45409,7 +45409,7 @@
       "source_sha256": "47be425cebac220cbc76cae2c291f640e4cc0f3cde234bd3cd6dd1afc81beacb",
       "source_width": 128,
       "texture": "Media/7tv/01FJJASFR8000FZHS49NWQSEGM.blp",
-      "texture_sha256": "7a96bd981903cd3d8bc4a61d3e58b8f6d4eb1c5aeb4ee1f0bb45a13cbae3c438",
+      "texture_sha256": "fd5629217be9a411f4523a7bf2014109499739141e545a5270add4346461f6ba",
       "timing_normalized": false,
       "width": 40
     },
@@ -45449,7 +45449,7 @@
       "source_sha256": "1f8fc0f0b6a08b880971a0d12fea6ed36bb7ad6ee7237cb87dac29907bc73d07",
       "source_width": 128,
       "texture": "Media/7tv/01F6Q9P5KG0005CV1Y3Z4YJWX0.blp",
-      "texture_sha256": "0a6e2ecd9333d5efa573189013e848fafb992da5e184f0212a328b988756cc9b",
+      "texture_sha256": "f0d5d15b055525208898af9408be1e670f8029b963dacbc674f63fd32efa91a2",
       "timing_normalized": false,
       "width": 64
     },
@@ -45535,7 +45535,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
+      "cellWidth": 64,
       "columns": 9,
       "creator": "brian6932",
       "creator_id": "01F6RA600R000ATZXMPM5X7AC2",
@@ -45544,7 +45544,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 9,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01FQ98TKT0000FX658SRNP1BXC",
       "lossless": {
         "cellWidth": 128,
@@ -45561,7 +45561,7 @@
       "provider_id": "01FQ98TKT0000FX658SRNP1BXC",
       "set_entry_id": "01FQ98TKT0000FX658SRNP1BXC",
       "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FQ98TKT0000FX658SRNP1BXC",
       "source_duration_ms": 900.0,
       "source_frames": 9,
@@ -45569,9 +45569,9 @@
       "source_sha256": "22ece74ac7e981521990ad01e236fd02ef64089c2de311a4f3151f64532dd675",
       "source_width": 152,
       "texture": "Media/7tv/01FQ98TKT0000FX658SRNP1BXC.blp",
-      "texture_sha256": "0b8152911620000a1dc7f071e605b51270244c960461b8261d41b1b612d1a485",
+      "texture_sha256": "7df8bc98a323daf3123a5a9dd809393c49e8113cfc8c2911d0e1c05809af8ab0",
       "timing_normalized": false,
-      "width": 76
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -45921,7 +45921,7 @@
       "source_sha256": "72aa52313e7b2aadb98df304f1f03fd7f839a5346435d0be2ee366ccd6a5180a",
       "source_width": 128,
       "texture": "Media/7tv/01F7M225F8000AWSXNQ65M4PKG.blp",
-      "texture_sha256": "94507a341e53195792fb12f8db6649f4ee2c87197b01f4e29fcda1e19e54098a",
+      "texture_sha256": "4067d7b92bc82cfbafa435274598740ac1bae274a63605144a2a495976ee4c08",
       "timing_normalized": false,
       "width": 32
     },
@@ -46129,7 +46129,7 @@
       "source_sha256": "acc18ce191f07b2832cf7af4350ac6f362a1fe3558093a5f169c17a3941f0ad9",
       "source_width": 152,
       "texture": "Media/7tv/01GBZ948DG00012FGEGNTX5M9G.blp",
-      "texture_sha256": "518bc8d2f5f99cd2f8bd5c9507d66c77e194317219ce68740cc92c918bf66658",
+      "texture_sha256": "22c00d7102addda9db6431e28e220eed110f9de885d786004c3407557812cfe0",
       "timing_normalized": false,
       "width": 76
     },
@@ -46944,7 +46944,7 @@
       "source_sha256": "117f4c6a5dfd68fc60c92c924f53be3c4555639bfdba40f62685bf237fa6cc12",
       "source_width": 128,
       "texture": "Media/7tv/01GET1V45000076RF09ES6Q4JM.blp",
-      "texture_sha256": "6ce3f06dc9262f75b0fac2d9ad7d78c9b7d959f0aa7a4fd809612cd2f7d73196",
+      "texture_sha256": "7cb5c6e3069b439874f588e780f496682e55843d6df634bbbe131aaa0b04a1b8",
       "timing_normalized": false,
       "width": 32
     },
@@ -47101,7 +47101,7 @@
       "source_sha256": "ff606dbed8ddd55e48d988b5d5c4ea03c9d2d8e4c83bd25733fae597f9219231",
       "source_width": 148,
       "texture": "Media/7tv/01GCBPGS48000EXFG0ZT5HJD5R.blp",
-      "texture_sha256": "a076a5703483f1b264a9b431a81dc2c19eab84ad85c4188e11cb4c6e7ea7f91b",
+      "texture_sha256": "cae6c6b6bf4e4585a4382e80d8c4566f7761e7ddb6ca8bddfb4a5ee08a880901",
       "timing_normalized": false,
       "width": 56
     },
@@ -47217,7 +47217,7 @@
       "source_sha256": "7a3aea320fe3b0256f2ad0f0b09a3e83bc828e3615d6f6b6acbdeba5fd5c0b98",
       "source_width": 172,
       "texture": "Media/7tv/01GP36X05R00052P9ACB6HGNGV.blp",
-      "texture_sha256": "081bcd9eca0ff8b14048556363c592fef19819685ca1add3b17c9808fb82559b",
+      "texture_sha256": "5e3b2725bd7b71f051187fae4fdfe952cb5969ae1a8a8ce615c1510cc6398c05",
       "timing_normalized": false,
       "width": 64
     },
@@ -47562,7 +47562,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 24,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FSJEFQ600000JPZ36BHMF8RT",
       "lossless": {
         "cellWidth": 128,
@@ -47587,9 +47587,9 @@
       "source_sha256": "cf2c2563d19c0c378565d44dcf172aa94053bc05f61849c7e850951272896275",
       "source_width": 160,
       "texture": "Media/7tv/01FSJEFQ600000JPZ36BHMF8RT.blp",
-      "texture_sha256": "6ce3061fd07657f1a00417d2613fd0074f89113d054943dbbb4062de13084804",
+      "texture_sha256": "7a9a0bfa61f9f2309ceba9387ea3d6a176c320ec0684c8f6eddf6b54ca5a5542",
       "timing_normalized": false,
-      "width": 60
+      "width": 50
     },
     {
       "attribution": "provider owner",
@@ -47965,7 +47965,7 @@
       "source_sha256": "4a7b4295704da0b40a950bffc04b7a40e4048d0e07f5a1b843d50d0ba7047250",
       "source_width": 128,
       "texture": "Media/7tv/01FFX3FC8R0009CAK0J146A2VK.blp",
-      "texture_sha256": "3dc035507ac297d22fdd3253c60f050585121405dc26db2b4baec31889cdf6bb",
+      "texture_sha256": "65e09988be091f6eabf6526eb27f3a078e37fc0c093d8607dba171e1e8eb8321",
       "timing_normalized": false,
       "width": 32
     },
@@ -48011,7 +48011,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "5hoo",
       "creator_id": "01H1GQ1BXR0005BD0YVPMCE7B6",
@@ -48020,7 +48020,7 @@
       "format": "webp",
       "fps": 16.689847009735743,
       "frames": 94,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01H1R5D2V00000NF1FJ4YA6MF6",
       "lossless": {
         "cellWidth": 64,
@@ -48159,7 +48159,7 @@
       ],
       "set_entry_id": "01H1R5D2V00000NF1FJ4YA6MF6",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01H1R5D2V00000NF1FJ4YA6MF6",
       "source_duration_ms": 7190.0,
       "source_frames": 94,
@@ -48167,9 +48167,9 @@
       "source_sha256": "2fdc849f8265e9c9d2ac9ef4ffb324cd82b530419b24fb24a119879ea1d13900",
       "source_width": 128,
       "texture": "Media/7tv/01H1R5D2V00000NF1FJ4YA6MF6.blp",
-      "texture_sha256": "492818f875f08870ceb7cba6f11136661ca3f46df593277541b92a24d4378376",
+      "texture_sha256": "2a1bd4c17f96dd38f6e55e156878cfcfda679699580081f73c3a7b83899e89a2",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -48182,7 +48182,7 @@
       "format": "webp",
       "fps": 59.82053838484546,
       "frames": 34,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01K80FZYEKBT7CA67R0PRDTJTJ",
       "lossless": {
         "cellWidth": 128,
@@ -48260,7 +48260,7 @@
         33
       ],
       "set_entry_id": "01K80FZYEKBT7CA67R0PRDTJTJ",
-      "sheetHeight": 256,
+      "sheetHeight": 128,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01K80FZYEKBT7CA67R0PRDTJTJ",
       "source_duration_ms": 1003.0,
@@ -48269,9 +48269,9 @@
       "source_sha256": "e7ed003614a154d6fc56d6891bded20580eb280d215c414e44679a2cdc134d60",
       "source_width": 228,
       "texture": "Media/7tv/01K80FZYEKBT7CA67R0PRDTJTJ.blp",
-      "texture_sha256": "a6aed0e25c179263970ec3c02c5711552562c001d0fe6ecc92bfe9a13f4198f0",
+      "texture_sha256": "7d01a592981ea5bb853cfc3cc6136b5276d7ee3119838f136e5300e70fcab11b",
       "timing_normalized": false,
-      "width": 86
+      "width": 71
     },
     {
       "attribution": "provider owner",
@@ -48507,7 +48507,7 @@
       "source_sha256": "7fc00ab8c4770b2cf311959217e742b9d13438e0dfcb685d193fc1cf8496ba92",
       "source_width": 128,
       "texture": "Media/7tv/01GMVGNKC8000F2B4B6DFY9WZ1.blp",
-      "texture_sha256": "07dd1feb845d306cda29e022794adcc6ae1a4eeeb8c18e4a8d21d3879cf06aec",
+      "texture_sha256": "f09bd2bcebe41910f12bc420091b0bf307e918fcec5acf213044e283b9e757fb",
       "timing_normalized": false,
       "width": 64
     },
@@ -48931,7 +48931,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "pepohead",
       "creator_id": "01FF2YHGQR000A4T47CYP4HK4N",
@@ -48940,7 +48940,7 @@
       "format": "webp",
       "fps": 16.772151898734176,
       "frames": 45,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01FG29AHC00004BM088TM6XP0D",
       "lossless": {
         "cellWidth": 64,
@@ -49011,8 +49011,8 @@
         44
       ],
       "set_entry_id": "01FG29AHC00004BM088TM6XP0D",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FG29AHC00004BM088TM6XP0D",
       "source_duration_ms": 3160.0,
       "source_frames": 45,
@@ -49020,9 +49020,9 @@
       "source_sha256": "6cb6b4df796fcfbe8edc472b42e36e8c04ef034afd1be715f89bb16a5ca78b97",
       "source_width": 128,
       "texture": "Media/7tv/01FG29AHC00004BM088TM6XP0D.blp",
-      "texture_sha256": "da255a03b873ec2808ef04192e6dacca25a2fd6f8d15f08f8fc2d69333ee6769",
+      "texture_sha256": "f776732746c2cf2eedf29a4e52695f9eeb0ce1404319f9f5e795301222b41b5c",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -49100,7 +49100,7 @@
       "source_sha256": "f8302d8786af722722337183322612c287153377de880b3e30fb984d16d92fa0",
       "source_width": 188,
       "texture": "Media/7tv/01J8VYQ7780006NP3M7JY4HCEE.blp",
-      "texture_sha256": "8bbd08fb6fa81ec54d5bbfa452b6fd49410bf9857debb6d5df86dd9d29e3bec4",
+      "texture_sha256": "29f16d35240a15f405cb69b26acf5d62f293baf8e569c9007ca6a757172a614a",
       "timing_normalized": false,
       "width": 47
     },
@@ -49782,7 +49782,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "pepohead",
       "creator_id": "01FF2YHGQR000A4T47CYP4HK4N",
@@ -49791,7 +49791,7 @@
       "format": "webp",
       "fps": 16.764705882352942,
       "frames": 51,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01FFYFGG280004BM088TM6XA3H",
       "lossless": {
         "cellWidth": 64,
@@ -49866,8 +49866,8 @@
         50
       ],
       "set_entry_id": "01FFYFGG280004BM088TM6XA3H",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01FFYFGG280004BM088TM6XA3H",
       "source_duration_ms": 3400.0,
       "source_frames": 51,
@@ -49875,9 +49875,9 @@
       "source_sha256": "481fb6df8e88ec6bb9aa0d37b003adda8870fb193cd4d9c573d67993899d196f",
       "source_width": 128,
       "texture": "Media/7tv/01FFYFGG280004BM088TM6XA3H.blp",
-      "texture_sha256": "fe8c8326d2075de8ae892a48ec714600c75326d0a8da0abf7619b566973f2901",
+      "texture_sha256": "212683c576abc898435069190f2342967fce5c28888ce58d6b1749697b677051",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -50006,7 +50006,7 @@
       "source_sha256": "51a19b591befab84e06448994ffb5eea0bf54584f925eeb45f9fd4e82e315b6b",
       "source_width": 128,
       "texture": "Media/7tv/01FFX3GZ1R0009CAK0J146A2VR.blp",
-      "texture_sha256": "3d137cabe40796b42bdf3d8295ff1334eff0ad6e78c6c03c1f254d2c0f63e9f4",
+      "texture_sha256": "a66e61b557280db0894d12e2d65a33a7eaec45a977dadf34ef450fd60ee00f0a",
       "timing_normalized": false,
       "width": 32
     },
@@ -50708,8 +50708,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 64,
+      "columns": 32,
       "creator": "chillenmcmillen",
       "creator_id": "01K2ZACH68K3XDV5TZA95HMXB0",
       "download": "https://cdn.7tv.app/emote/01K80DEPMPNXMXX55FHHQ1981X/4x.webp",
@@ -50717,7 +50717,7 @@
       "format": "webp",
       "fps": 59.479553903345725,
       "frames": 63,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01K80DEPMPNXMXX55FHHQ1981X",
       "lossless": {
         "cellWidth": 128,
@@ -50847,7 +50847,7 @@
         62
       ],
       "set_entry_id": "01K80DEPMPNXMXX55FHHQ1981X",
-      "sheetHeight": 256,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01K80DEPMPNXMXX55FHHQ1981X",
       "source_duration_ms": 1883.0,
@@ -50856,9 +50856,9 @@
       "source_sha256": "7f8d597efe337addd36ae67b53ab4cbd4a825e1c7c00b59b7929ee3b0bcb0a84",
       "source_width": 228,
       "texture": "Media/7tv/01K80DEPMPNXMXX55FHHQ1981X.blp",
-      "texture_sha256": "1609e3d43da175d45b087b3940c25a4d7a292e5d97028e32821448e6d69ce52c",
+      "texture_sha256": "57437947b2bb532e5a443ab10cb0f3b229503e9f96a8682b946a0b4bcfa2ede6",
       "timing_normalized": false,
-      "width": 71
+      "width": 57
     },
     {
       "attribution": "provider owner",
@@ -51513,7 +51513,7 @@
       "source_sha256": "779d3f99763027ce2b2a9bd5014e5e4e95d3518083c5028f27cd69c284dff54f",
       "source_width": 128,
       "texture": "Media/7tv/01G1YTZHB80008VANM5HZ97JAC.blp",
-      "texture_sha256": "8ca9f731634622fb4fe6ea39ec382ba071f40753ca5cf509818d43f9316612f5",
+      "texture_sha256": "f993beaef976afdabec5eb1429bcf2d1721fac04794d61ced4d2423a550e9e81",
       "timing_normalized": false,
       "width": 64
     },
@@ -51592,7 +51592,7 @@
       "source_sha256": "4f452cf73b3f1981e74ad674556ccdfbe58f257da5673e6204054970b0267c01",
       "source_width": 112,
       "texture": "Media/7tv/01FV2XHV5R0006KB7T0WAY3M1T.blp",
-      "texture_sha256": "285bd831bbb35adad2a3ff9d880dcd5eab9b976cd266590c5f3beffd76c026d4",
+      "texture_sha256": "15192c7e9999b7be99e116d7afc487dfa209d2f985a2a1ccce2d8a3281338f8b",
       "timing_normalized": false,
       "width": 28
     },
@@ -52075,7 +52075,7 @@
       "source_sha256": "7aba786287b864963f2529dc530c46067ab2e5ead66827fe90d7eec4954e2984",
       "source_width": 128,
       "texture": "Media/7tv/01FYA1W6DR00057GR8729P7REK.blp",
-      "texture_sha256": "a0310fd5b86ae4f0cce1cc95bdad11df0ac93e33683425edd183737dbb5e996e",
+      "texture_sha256": "f1b7c570fbaa18dd0ffc20a8c5e0ce10af62b72f4317a638f92e8b32bc17318c",
       "timing_normalized": false,
       "width": 32
     },
@@ -52637,7 +52637,7 @@
       "source_sha256": "a96280c9cc3c9d2cb3bc0625ae736731b1c4c19b12f4a93bcd97c23f73480800",
       "source_width": 260,
       "texture": "Media/7tv/01GY48Q1JG000FDG1S1QSKCPRF.blp",
-      "texture_sha256": "27387f5de46fdff9df751b9d46b3b95f145a37dda5dfff80d8ef1fe870056591",
+      "texture_sha256": "b19821f2aec8139ebb43150cb0dd993990b37f75c22136449b01e8fd79a0e519",
       "timing_normalized": false,
       "width": 65
     },
@@ -53305,7 +53305,7 @@
       "source_sha256": "7c64066093e6c932630fb9a416402c4a1f9642b658140e3e996816c6bd79b554",
       "source_width": 172,
       "texture": "Media/7tv/01HY9ESXCG0003K02JFQ570HQG.blp",
-      "texture_sha256": "c8448f5fc0c35d0bf05edb7f15896f6e09f08711c9bed6a442c2073f50430d1d",
+      "texture_sha256": "192724154dc9454c8a0124904261d2f432a3747b977a45b8113cd6d34f916e79",
       "timing_normalized": false,
       "width": 43
     },
@@ -53441,7 +53441,7 @@
       "source_sha256": "5fcb76157ee4d67bad15c74f35c1cc38ca16118ef48066c7d892618e46ba7388",
       "source_width": 128,
       "texture": "Media/7tv/01F6VY8R300007YSFWZC11E2TB.blp",
-      "texture_sha256": "659b1d14596d9288da1c6bd1a1a6e60b468c4eac21d33592d8b3c7148450eb9b",
+      "texture_sha256": "9a2e3dbf29ff04bbb525b78bdd9aeb3987141c267a82970b8ead3030c0ec9720",
       "timing_normalized": false,
       "width": 32
     },
@@ -53561,7 +53561,7 @@
       "source_sha256": "07df5fb3728234595a7caf70f5a7ad2b3b0b57279bd2f0a517c4fa3c3aa73109",
       "source_width": 128,
       "texture": "Media/7tv/01J18MRWNR0004M37MDNJ307D7.blp",
-      "texture_sha256": "f0821331efdaf784475c218893bd802bd96e2a0f48c788b1edb2c59125d615e8",
+      "texture_sha256": "1798244293423414efbc289132b4fd5cef5a565eb7216a66d4bc58564b7a1fc9",
       "timing_normalized": false,
       "width": 64
     },
@@ -53677,7 +53677,7 @@
       "source_sha256": "bf27bea6302ca7c3ca567290f0a24dc0d55ef7edaf2127203e562f44e4bbc907",
       "source_width": 128,
       "texture": "Media/7tv/01H1YV6ARG00080K50KTZJ7R1J.blp",
-      "texture_sha256": "6f1f257725935ce48dd97d31a6375cebef9ed0000de5569fa4336d52022f3d1c",
+      "texture_sha256": "ad23be34a393eea6ba617d0f82cd4503e630a40c3ef8d1f9f2e321f14f12499b",
       "timing_normalized": false,
       "width": 32
     },
@@ -53763,7 +53763,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "BARRICADE0_",
       "creator_id": "01F6N4RY78000255K4X1K36HEX",
@@ -53772,7 +53772,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 74,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F9N52Z1R0006M6X0VWGS66RN",
       "lossless": {
         "cellWidth": 64,
@@ -53893,7 +53893,7 @@
       ],
       "set_entry_id": "01F9N52Z1R0006M6X0VWGS66RN",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F9N52Z1R0006M6X0VWGS66RN",
       "source_duration_ms": 4080.0,
       "source_frames": 74,
@@ -53901,9 +53901,9 @@
       "source_sha256": "2375e6c539220f55ad3301cc755babb5c2a3cb5b2e69d8a560de8fe8f0e48117",
       "source_width": 128,
       "texture": "Media/7tv/01F9N52Z1R0006M6X0VWGS66RN.blp",
-      "texture_sha256": "b3177387caf0c20c7a3f0b7f021899ee36931553f2339c17a8cfc4bb0dda2674",
+      "texture_sha256": "abba250009696003fcb69d4c4d81a36ea15c22436fa0759ca68640b0804f91f4",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -53987,7 +53987,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Troy",
       "creator_id": "01F14HQ7GG000B9MRY8PFV71XG",
@@ -53996,7 +53996,7 @@
       "format": "webp",
       "fps": 16.666666666666668,
       "frames": 46,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F8TP3DJG0007WGY825Q2ZVG4",
       "lossless": {
         "cellWidth": 64,
@@ -54094,8 +54094,8 @@
         1
       ],
       "set_entry_id": "01F8TP3DJG0007WGY825Q2ZVG4",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F8TP3DJG0007WGY825Q2ZVG4",
       "source_duration_ms": 4800.0,
       "source_frames": 80,
@@ -54103,9 +54103,9 @@
       "source_sha256": "7ddf0f5adc8be5e454344059bf9202bc93a3af0ae6733a4e98c91af81a1df95c",
       "source_width": 128,
       "texture": "Media/7tv/01F8TP3DJG0007WGY825Q2ZVG4.blp",
-      "texture_sha256": "b5c669f491eef7ac42bef13ce033b2c56959505bfe14fdf595bcb0f806b969ff",
+      "texture_sha256": "f6441d8561811939d4be41725e927368f6e53d8503afe1dd71d6aa8c4ded1a29",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -54118,7 +54118,7 @@
       "format": "webp",
       "fps": 50.0,
       "frames": 24,
-      "height": 64,
+      "height": 40,
       "id": "7tv:01GJECMQKR000FJVP0DX6EYSNN",
       "lossless": {
         "cellWidth": 64,
@@ -54143,9 +54143,9 @@
       "source_sha256": "d9d45bb334548c93f90a27cc6f7ffe230680dd034aea0f1e3986bb8a1518d160",
       "source_width": 112,
       "texture": "Media/7tv/01GJECMQKR000FJVP0DX6EYSNN.blp",
-      "texture_sha256": "97874189d384e7b83707eaaf6dcfa827fb2d020829dfd69f9f6c3c9b743d2b3f",
+      "texture_sha256": "4c909223428b8aaa782c887dc49084a4955935cafb9525f2445762e67510a319",
       "timing_normalized": false,
-      "width": 56
+      "width": 35
     },
     {
       "attribution": "provider owner",
@@ -54158,7 +54158,7 @@
       "format": "webp",
       "fps": 12.5,
       "frames": 35,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F6THXWRR0005G9TG05WA9Q15",
       "lossless": {
         "cellWidth": 128,
@@ -54174,7 +54174,7 @@
       "provider": "7tv",
       "provider_id": "01F6THXWRR0005G9TG05WA9Q15",
       "set_entry_id": "01F6THXWRR0005G9TG05WA9Q15",
-      "sheetHeight": 128,
+      "sheetHeight": 64,
       "sheetWidth": 2048,
       "source": "https://7tv.app/emotes/01F6THXWRR0005G9TG05WA9Q15",
       "source_duration_ms": 2800.0,
@@ -54183,9 +54183,9 @@
       "source_sha256": "9377a3dc19b386000cbbfccbee382fa3a7b40c3a91df6a9c396cf9190b244d8d",
       "source_width": 176,
       "texture": "Media/7tv/01F6THXWRR0005G9TG05WA9Q15.blp",
-      "texture_sha256": "bbaaf96b8c10677240066a737766c3b25b16919f49d2716dd8f9d839ea832b3f",
+      "texture_sha256": "f68856e64ac56ccc8fb66ae2160533347c5da5a019d1503d3b1ab9f06ea085a7",
       "timing_normalized": false,
-      "width": 55
+      "width": 44
     },
     {
       "attribution": "provider owner",
@@ -54232,7 +54232,7 @@
       "source_sha256": "3a0511c3d78a4d88e2eb2a67ba0794219154ee6fd47aaac763ff6a876d2e7183",
       "source_width": 128,
       "texture": "Media/7tv/01GK5ZC5A800038S12A0X2H2TY.blp",
-      "texture_sha256": "6ec2abfa2cdeba4050109e2506064486cf35f2a748be2d185f14653176145ef5",
+      "texture_sha256": "e41953a03333a13b53fd6c1ace7e843967e646b3d85f07f7242b87a0c2b96eeb",
       "timing_normalized": false,
       "width": 64
     },
@@ -54648,7 +54648,7 @@
       "source_sha256": "c1ccc3925f09bb4a4f5a272a20bcfcd6ca145d0a8d6db7f69a3883d3d00a20a3",
       "source_width": 128,
       "texture": "Media/7tv/01F6W6MNAR0007WR3JGSXTA1TR.blp",
-      "texture_sha256": "aa87d24cf3990dbc2340121c6c21d9dc21b6ddb2a3118414db4d422bda6d17ba",
+      "texture_sha256": "81ac329d247966ade03dc984b4eb516b05c3c4dca6e4a756d9b025e5c3c22592",
       "timing_normalized": false,
       "width": 32
     },
@@ -54856,13 +54856,13 @@
       "source_sha256": "6c565d318caba6921f3f8d0cfb4114c9c8792c85aa31c5201f8378e6bdc64d9f",
       "source_width": 128,
       "texture": "Media/7tv/01F6JBJ4PR000FY32H4AKWNBVB.blp",
-      "texture_sha256": "d6701c319930f2c73597e98f57f55f87fdf65bd97d6c9118ebe25add266c3d5b",
+      "texture_sha256": "dccd73b3d3f445ca3cb7a708313d53e6e31ceb1b6c64f45e3548208df3903b17",
       "timing_normalized": false,
       "width": 32
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Olajvr",
       "creator_id": "01F01FFKMG0009D0SFZ9WCMG75",
@@ -54871,7 +54871,7 @@
       "format": "webp",
       "fps": 25.0,
       "frames": 58,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F01FZEF80007E4VV006YKSN4",
       "lossless": {
         "cellWidth": 64,
@@ -54887,8 +54887,8 @@
       "provider": "7tv",
       "provider_id": "01F01FZEF80007E4VV006YKSN4",
       "set_entry_id": "01F01FZEF80007E4VV006YKSN4",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F01FZEF80007E4VV006YKSN4",
       "source_duration_ms": 2320.0,
       "source_frames": 58,
@@ -54896,9 +54896,9 @@
       "source_sha256": "e18ef24066300827ceb8c683c365d637f17a4c3aad4c22842d6fe99d20d630c0",
       "source_width": 128,
       "texture": "Media/7tv/01F01FZEF80007E4VV006YKSN4.blp",
-      "texture_sha256": "678241bc63f6581a974b279b9fb2ead7c3ffd9718910f43cdf5effa1c9401a1c",
+      "texture_sha256": "f8b04fbf8a45d90c8dc055de6a134aac5c5c35c2db4c10fa4aa2a792e312b386",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -54976,7 +54976,7 @@
       "source_sha256": "3007302d61b867e9cb21e53c74a3ba9ef0444b92bfdcf6b46e97aad22f3d751f",
       "source_width": 128,
       "texture": "Media/7tv/01F0TT9C98000AQ6BV006MVKZQ.blp",
-      "texture_sha256": "cd2918c20e35a6da97e06f46fe6ac162b26a923125b30e4dc8760f63a4dfcdf9",
+      "texture_sha256": "44b0c0fd439a29f3cd19a2799935079563e87800b9b933aedbeaa1e78d106a34",
       "timing_normalized": false,
       "width": 32
     },
@@ -55587,7 +55587,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 14,
-      "height": 64,
+      "height": 48,
       "id": "7tv:01JA78H1M8000E34SZ69AYAM77",
       "lossless": {
         "cellWidth": 128,
@@ -55612,9 +55612,9 @@
       "source_sha256": "6972e72d05678ba4e445697ad9b8a08b830cce1d67472c92fd184a57c5eb1a90",
       "source_width": 192,
       "texture": "Media/7tv/01JA78H1M8000E34SZ69AYAM77.blp",
-      "texture_sha256": "4cdcd156ad741bc62347ce9650515df61190b3087f7cde294dfcf4f54ddc2c0c",
+      "texture_sha256": "d7f2f1b481ad4ed973c35bff74d170339f68e1523d28b16154d3e98d07c1b1e0",
       "timing_normalized": false,
-      "width": 96
+      "width": 72
     },
     {
       "attribution": "provider owner",
@@ -55996,7 +55996,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "limecookii",
       "creator_id": "01FBSVZ2DG00049J5QXE909ZWV",
@@ -56005,7 +56005,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 37,
-      "height": 64,
+      "height": 32,
       "id": "7tv:01H3GAZ00G0007DM0R1G9PJ5AS",
       "lossless": {
         "cellWidth": 64,
@@ -56066,8 +56066,8 @@
         36
       ],
       "set_entry_id": "01H3GAZ00G0007DM0R1G9PJ5AS",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01H3GAZ00G0007DM0R1G9PJ5AS",
       "source_duration_ms": 1290.0,
       "source_frames": 43,
@@ -56075,9 +56075,9 @@
       "source_sha256": "e128ff363d7f3ba882b5053da4161f9c45c29f1cdf29a26dddb74570c56449d3",
       "source_width": 128,
       "texture": "Media/7tv/01H3GAZ00G0007DM0R1G9PJ5AS.blp",
-      "texture_sha256": "612ded7e91541726c45d7df78309d3fff2a0a00a26c516527b39af86d38cf6f9",
+      "texture_sha256": "11a08bf97f052ddc6a7cae8a153f226321e4dd4e4a7cee88070d749cfbbdcbdc",
       "timing_normalized": false,
-      "width": 64
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -56311,7 +56311,7 @@
       "source_sha256": "35ca91ceebe4a2abb99bafb4d2c20177eb65c8256d186e2371061f324d608816",
       "source_width": 128,
       "texture": "Media/7tv/01FPY37C7000012BSSSDMAZSGW.blp",
-      "texture_sha256": "6425baa7f20d09608b80fec1c6611ff27da40645f0aa41ce2d45f494a7ea881b",
+      "texture_sha256": "4eb82f47a804b2edb0d944a9f59614b849cc38ed3299a1e2463ff0e1e5e8223d",
       "timing_normalized": false,
       "width": 32
     },
@@ -56863,7 +56863,7 @@
       "source_sha256": "82a186aba0bcd58b1ef16c2ef492ca2a9e696b328eed6cfc7836f2ab001e48fb",
       "source_width": 128,
       "texture": "Media/7tv/01F5Y7JW30000ARAYB43QGQ4KV.blp",
-      "texture_sha256": "3d384c3a248764882f18f46d11a9a1601ba2d05860657f293e848f24a3b438ad",
+      "texture_sha256": "d7b30f594fd8f89326548d4697f1899379054d35815586d79b5d22b4ca8ee1bb",
       "timing_normalized": false,
       "width": 32
     },
@@ -58889,7 +58889,7 @@
       "source_sha256": "833a8a1bfcee887be5cee3717f6267fd1ecb502184574b1e1a0ac9d43d44e7d4",
       "source_width": 128,
       "texture": "Media/7tv/01FQB79KJR000A9GRJX3QSKFEY.blp",
-      "texture_sha256": "094e5076fa19a3bef1dc6e5f03c3b39c65c1b75ac5247a73a9a4f7b0f9d2e185",
+      "texture_sha256": "330801b91332c4df0d508bca3b70e4d66c086cec943cd41a5061da0ded278f1f",
       "timing_normalized": false,
       "width": 40
     },
@@ -58904,7 +58904,7 @@
       "format": "webp",
       "fps": 10.0,
       "frames": 12,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01FMXQS54000071FCSB63SAJSM",
       "lossless": {
         "cellWidth": 128,
@@ -58929,9 +58929,9 @@
       "source_sha256": "f183488c88e1ed56cc1139a4b4faf5303c5579fde65c5dbc308796f0cb85fa02",
       "source_width": 168,
       "texture": "Media/7tv/01FMXQS54000071FCSB63SAJSM.blp",
-      "texture_sha256": "91300d2126919fec85834fd9917647d038ea055d76a03030b5d0c92be9e5fbf5",
+      "texture_sha256": "e2f71d055573eba2b5b4f21ddb06c33311554ac8e27924e5b6e0862f1c044a56",
       "timing_normalized": false,
-      "width": 63
+      "width": 52
     },
     {
       "attribution": "provider owner",
@@ -59165,7 +59165,7 @@
       "source_sha256": "2399c2920d66270db7376eaeaa1cf47b13461ffa44f9eafb0068d3939a401885",
       "source_width": 176,
       "texture": "Media/7tv/01GV56F8QR0006FW5TVZVMFVWE.blp",
-      "texture_sha256": "874a27288125e9f5c20d6462caa75e28a294a9b4c0c9042cdd82c7c3ecdcd197",
+      "texture_sha256": "c889d92196a749f9be3362185c29a553051c5a74e1778bd7b9bc357a2d0fca12",
       "timing_normalized": false,
       "width": 44
     },
@@ -59348,7 +59348,7 @@
       "source_sha256": "c2afe675c0ec820a1b27b4dae25f7a72ba1f2199b26c49cf65bb9a304034567a",
       "source_width": 128,
       "texture": "Media/7tv/01F6QHK4AR00079MHMN5MJY82S.blp",
-      "texture_sha256": "8a897334ba1a33552393678588b5e65df81ece015922b03138baaf1869f46397",
+      "texture_sha256": "f868f895bb552fa2fc916e16c757dd4a689de6038c2a22494c4e642fbe3088bf",
       "timing_normalized": false,
       "width": 64
     },
@@ -59774,7 +59774,7 @@
       "source_sha256": "f48b133a2388a69c484b8e79223c59507ef6b0c14d11a55ace1ce2151442e01c",
       "source_width": 140,
       "texture": "Media/7tv/01F6QBGGSG000EQZ7QARQ2H6QT.blp",
-      "texture_sha256": "ebd14e6b855e25006ed404c6c5a09ee8dba2e5662878f8662a8c7d4c3bb84584",
+      "texture_sha256": "9aa79da8325d140977d395b42756673249de4cc4f46b35e4363ac9d56d7f9ef8",
       "timing_normalized": false,
       "width": 44
     },
@@ -60269,7 +60269,7 @@
       "source_sha256": "d73203f21ebf4e493775cd31dd93b53471e875e810c64dd31a5ec1effa437a9e",
       "source_width": 136,
       "texture": "Media/7tv/01FHZHCKT8000EFPWVER1MD8N9.blp",
-      "texture_sha256": "30de5bed7dfffc3876c88416df0d654c10c469afe15f79de62e8cdb8b33273d1",
+      "texture_sha256": "e5277107e453d8c37ced95d254a12d449e3e64f0bf67cb5c19baaecbb98030c2",
       "timing_normalized": false,
       "width": 34
     },
@@ -60432,7 +60432,7 @@
       "format": "webp",
       "fps": 20.0,
       "frames": 36,
-      "height": 48,
+      "height": 40,
       "id": "7tv:01GX64RKMG000DGNRF87W3HKWY",
       "lossless": {
         "cellWidth": 128,
@@ -60496,9 +60496,9 @@
       "source_sha256": "9a0a20a95d9d1ec4c705e30aebd7e2c9f646632fd1ac81c9f5e716dbc9e24f17",
       "source_width": 144,
       "texture": "Media/7tv/01GX64RKMG000DGNRF87W3HKWY.blp",
-      "texture_sha256": "200c80b69b93eb0879bcbe22860fdc939b323f314c94160d4f3bad6c56006e64",
+      "texture_sha256": "dbef2bb82c47d72eb9b2af92110d0e4b52215bb9f287c8e5ea8fa1d4c3a714ec",
       "timing_normalized": false,
-      "width": 54
+      "width": 45
     },
     {
       "attribution": "provider owner",
@@ -60536,7 +60536,7 @@
       "source_sha256": "8aaff57c21d7fdc5668e452564a34149b2d043e7ddfb7a63943e8221515fcc85",
       "source_width": 128,
       "texture": "Media/7tv/01FWD01XH8000EFCFJ99X9MWWS.blp",
-      "texture_sha256": "752a77bb80112c328a28051e445cd3772526d994563b2f667a86565301928312",
+      "texture_sha256": "c1c3ee5d00ac607e5b331906030d768d80cd83375beb1ee0f92d48ee6399ad8d",
       "timing_normalized": false,
       "width": 32
     },
@@ -60702,7 +60702,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "dewwicc",
       "creator_id": "01F8RTBEYR0007CD73TYGBRWQ3",
@@ -60711,7 +60711,7 @@
       "format": "webp",
       "fps": 33.333333333333336,
       "frames": 46,
-      "height": 40,
+      "height": 32,
       "id": "7tv:01F8Y979BR00020Q7P7HZ8GFR6",
       "lossless": {
         "cellWidth": 64,
@@ -60727,8 +60727,8 @@
       "provider": "7tv",
       "provider_id": "01F8Y979BR00020Q7P7HZ8GFR6",
       "set_entry_id": "01F8Y979BR00020Q7P7HZ8GFR6",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://7tv.app/emotes/01F8Y979BR00020Q7P7HZ8GFR6",
       "source_duration_ms": 1380.0,
       "source_frames": 46,
@@ -60736,9 +60736,9 @@
       "source_sha256": "efdf53458ceaaeeb38cf9230914190f677095df41a4527076e3e4a86534a8f9a",
       "source_width": 128,
       "texture": "Media/7tv/01F8Y979BR00020Q7P7HZ8GFR6.blp",
-      "texture_sha256": "a9626a030719441dce3283871b5eb0c5e84326f5d8d9b763856c0c04cd72cd53",
+      "texture_sha256": "52573256005595b6e6fb4c0e9f4a633f3f115f8e2bad694b141eca9149560702",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -60918,7 +60918,7 @@
       "source_sha256": "4bae406e910ac692cd2b2f5625127c31350c267f85073f4c352f47bf27ebae3c",
       "source_width": 256,
       "texture": "Media/7tv/01H0J59B480002NYEYSRYFTMQV.blp",
-      "texture_sha256": "261f75a94ff531588aae149db848b6fe51cc3d3cd17326d86856fc01bf494d6b",
+      "texture_sha256": "85cf358caf064877ca2f4d4d8c96910b4f40efd8d2d1d278947e7b9588374c10",
       "timing_normalized": false,
       "width": 64
     },

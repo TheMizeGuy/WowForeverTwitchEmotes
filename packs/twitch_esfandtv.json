@@ -659,7 +659,7 @@
       "source_sha256": "ae06f17928703a35440b73901c21f0a1be0eb920458cda91fd10e0b7acdbe8aa",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_af715ca82e9145719203afa76710b08c.blp",
-      "texture_sha256": "e67debbb9660a149a7f2fe4c727fd70a40c847016be7deba09cb4e00144a4a00",
+      "texture_sha256": "1ac3c8743c10322aefdba6d009f953c0e7aadd250bcdcb10ef89d582828c3d23",
       "timing_normalized": false,
       "width": 32
     },
@@ -950,7 +950,7 @@
       "source_sha256": "2d879c85ef5f85f1adf5068c41c091e77f1895d404e786f51b11064a5f2753af",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_fb1673c5061b4286a802b8b549c91196.blp",
-      "texture_sha256": "b67391c60db3834b87700b29a7ec6ee6750fd5b7e6d2a602bb3ea4cdd7033bd6",
+      "texture_sha256": "d2be699b604d813b3ef41f89128a15b453b24562ab14b7a38f9fa5dc06c6b2c1",
       "timing_normalized": false,
       "width": 32
     },
@@ -1944,13 +1944,13 @@
       "source_sha256": "2285f94d1f600a93821c81a5c8d3345509dc308a4e67a4d5ca32628ffb0afdc1",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_21f1b9cecdd44355961d343f6e88789d.blp",
-      "texture_sha256": "875af20ead6fba8d3b9574b005532cb1daa0689681ade5d695e450fe8066133d",
+      "texture_sha256": "e35f543529f436d757bf317d015bb84e9a7a5bb7a5b0cd3e01a7d82307777d78",
       "timing_normalized": false,
       "width": 32
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "EsfandTV",
       "creator_id": "38746172",
@@ -1959,7 +1959,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 53,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_a9d8c002b2d346e6abaef97b6e7dd451",
       "lossless": {
         "cellWidth": 64,
@@ -1974,8 +1974,8 @@
       "name": "esfandOOPS",
       "provider": "twitch",
       "provider_id": "emotesv2_a9d8c002b2d346e6abaef97b6e7dd451",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/38746172/emotes/emotesv2_a9d8c002b2d346e6abaef97b6e7dd451",
       "source_duration_ms": 1590.0,
       "source_frames": 53,
@@ -1983,9 +1983,9 @@
       "source_sha256": "348365c547232f19d71ea504951ec3959fad0bd2ccd2e03f8cf8671265a6db05",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_a9d8c002b2d346e6abaef97b6e7dd451.blp",
-      "texture_sha256": "24e6770400a43edc4bf7b9c4111911b75e7277be947a892d6430cdceec839e90",
+      "texture_sha256": "374488c0f38d3f81301b78954394265e1cf7bd64394bc2623f3309e19e90d659",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -2067,7 +2067,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "EsfandTV",
       "creator_id": "38746172",
@@ -2076,7 +2076,7 @@
       "format": "gif",
       "fps": 16.791979949874687,
       "frames": 60,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_33ed49acc9dd47eca43b4bee741d73b3",
       "lossless": {
         "cellWidth": 64,
@@ -2160,8 +2160,8 @@
         58,
         59
       ],
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/38746172/emotes/emotesv2_33ed49acc9dd47eca43b4bee741d73b3",
       "source_duration_ms": 3990.0,
       "source_frames": 60,
@@ -2169,9 +2169,9 @@
       "source_sha256": "4d0884500c6e81cc9e25cfb416b21e55a9ee7cda6063eb2e3df76513a5539094",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_33ed49acc9dd47eca43b4bee741d73b3.blp",
-      "texture_sha256": "8f186279904e2e29b66c570dacaf161a0e4fbb9538bd9dded5887649789b4379",
+      "texture_sha256": "c4f603cca3775a41ffc896db6bf126771dcafc4ac421ea2801cd6e88cc21e065",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -2993,7 +2993,7 @@
       "source_sha256": "b281993c38cd19e3d16df9d977de339341b7387f552cbd14ac11f369da50d290",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_0d883b05d0154dc6a3f258f8baf7a5b5.blp",
-      "texture_sha256": "c39936f718fecb83f130232aa9b1d71604575ea716d036bc0ce39bd6e35a28e4",
+      "texture_sha256": "1794f5d1905534d9af922608f7d0956ba6cc6960bbfb054242518f6f644b67ad",
       "timing_normalized": false,
       "width": 32
     },
@@ -3032,13 +3032,13 @@
       "source_sha256": "026d505459bc2c3f5ad0b3e2a7589cffbe8b8adb5bbb06b611ffccc19be489a2",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_53463131dd7c46dfb74ef209e25d2ab6.blp",
-      "texture_sha256": "df2dc622207d31f015c10dbb1b3b2f15ec89994ad046ef647fe8fa9681a68c06",
+      "texture_sha256": "dba0b7e8d08f27777816fa0f2251655838108afafc495beb8f1c404ddf64ad91",
       "timing_normalized": false,
       "width": 64
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "EsfandTV",
       "creator_id": "38746172",
@@ -3047,7 +3047,7 @@
       "format": "gif",
       "fps": 20.0,
       "frames": 60,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_e1771d069fe940c7aa983a91d56ce4e4",
       "lossless": {
         "cellWidth": 64,
@@ -3062,8 +3062,8 @@
       "name": "esfandW",
       "provider": "twitch",
       "provider_id": "emotesv2_e1771d069fe940c7aa983a91d56ce4e4",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/38746172/emotes/emotesv2_e1771d069fe940c7aa983a91d56ce4e4",
       "source_duration_ms": 3000.0,
       "source_frames": 60,
@@ -3071,9 +3071,9 @@
       "source_sha256": "51dec9e29bbc2d1d54084dd640799a087089481fac00565daa0f31cae68b4e16",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_e1771d069fe940c7aa983a91d56ce4e4.blp",
-      "texture_sha256": "55809cb3cf1dd6b3209f67ecac9b6a575e7d1abe88c4b3f95054b4855062538b",
+      "texture_sha256": "02a8556fac3a50b900e58889db75a834faf92cd4b276777937c3d42858ba2c9f",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

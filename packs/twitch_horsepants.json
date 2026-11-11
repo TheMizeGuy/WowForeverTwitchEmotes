@@ -443,7 +443,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "HORSEPANTS",
       "creator_id": "19092542",
@@ -452,7 +452,7 @@
       "format": "gif",
       "fps": 10.0,
       "frames": 41,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_612a4b6b27a94455beceab57ffcb96b0",
       "lossless": {
         "cellWidth": 64,
@@ -512,8 +512,8 @@
         40,
         40
       ],
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/19092542/emotes/emotesv2_612a4b6b27a94455beceab57ffcb96b0",
       "source_duration_ms": 4300.0,
       "source_frames": 41,
@@ -521,9 +521,9 @@
       "source_sha256": "bab56b48da3446513d9f7b5035c749806d519beafb8863ce7e20cad01e7c9845",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_612a4b6b27a94455beceab57ffcb96b0.blp",
-      "texture_sha256": "288e8b12eae49084925e3c13b5dc0eba32ea4c870bb3ba0b0897570f6d129c5c",
+      "texture_sha256": "8bd413781f61f537ba0cec12b0e5eca1225ba08f4b94fd5ba9f2c54ffbc24063",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -664,7 +664,7 @@
       "source_sha256": "a34224dfba0ea55c457154397572417775f04ce53f7396892d0c476afba4cf16",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_2cb40716bf0c41099af45ea271f45bbb.blp",
-      "texture_sha256": "ff8a2487a88b529831c4f140e7789389236b64b9f0e6a10c0f6af2db021dab15",
+      "texture_sha256": "1304007b001aa9968f298932e53465d1e428e08cc8432b440ea10305cbd9ca50",
       "timing_normalized": false,
       "width": 64
     },
@@ -1502,7 +1502,7 @@
       "source_sha256": "a64932a7c990f67dfdacc903d81940b161c79bdea5bd9513b592952148a9776f",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_3dd0a65796314b238e0e11213d1e1961.blp",
-      "texture_sha256": "fcde994cfebe5a41cdfe439403db2c7508179b073a65c6bc0e0cc1fb79ca3202",
+      "texture_sha256": "32f829ded49c34c9777b6d0e0755234b899df9014223bbfbdb4373b3e820880b",
       "timing_normalized": false,
       "width": 64
     }

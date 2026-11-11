@@ -199,7 +199,7 @@
       "source_sha256": "0ae6bb29b7b13d0f7bb4e24024daca7e31db36e88a77a620b33e1d49e42f2aab",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_7a1b748d170744f7a570568796d393fe.blp",
-      "texture_sha256": "73d1822ab5bc91292c5b93ee194d5c1f941a4558fa097578eb2463f069bf16eb",
+      "texture_sha256": "61f9c36d76b2af7fd47e9038703f49b32049918d6c20773385c5083dbbf4474b",
       "timing_normalized": false,
       "width": 64
     },
@@ -667,7 +667,7 @@
       "format": "gif",
       "fps": 12.727272727272727,
       "frames": 40,
-      "height": 48,
+      "height": 40,
       "id": "twitch:emotesv2_0b7e6f919d21463690be53ce383ee3be",
       "lossless": {
         "cellWidth": 64,
@@ -735,9 +735,9 @@
       "source_sha256": "287abf1ac59ae0cb1ea1b91dc9eb26f0c1300d6fd9374066fde77a2fcd70ba16",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_0b7e6f919d21463690be53ce383ee3be.blp",
-      "texture_sha256": "ffe619c086681ed2c97de35432a33e00096daf2e732b05ba94966e86c6272f32",
+      "texture_sha256": "64171eb3348c3836029fb8d5ac905bf99c9626d871bcb96c72086efdf67f995b",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -852,7 +852,7 @@
       "source_sha256": "006292b53dbc5194e306e923813dfcba1564d1ca19cc36c7eaf07d3e6f89c426",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_6e382be6d3b840b68a5a174357aa8008.blp",
-      "texture_sha256": "35bd7dc6952bb452278c6a972b990d52d312c3ef0399bd94ccf70d10447c7bb0",
+      "texture_sha256": "31bcab1e34e0d427f765fdc9eec6f80ccde48be09f13493c9ce6991b7b66e17f",
       "timing_normalized": false,
       "width": 64
     },
@@ -2543,7 +2543,7 @@
       "format": "gif",
       "fps": 50.0,
       "frames": 59,
-      "height": 64,
+      "height": 40,
       "id": "twitch:emotesv2_169d8099c143436c87fdc30def2d8c41",
       "lossless": {
         "cellWidth": 64,
@@ -2567,9 +2567,9 @@
       "source_sha256": "cf9ab7d9a954197d3ed72cc59b252a79047cd24bbe8c6fad148bda880e4416fd",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_169d8099c143436c87fdc30def2d8c41.blp",
-      "texture_sha256": "7ae3229fd9003e42dbb5318cc6a91f5e05dc7e79bc01bc54a88e058884973f0f",
+      "texture_sha256": "730458debc7842c04045eaa00b59f94a960bfccb5a5ae760d184679720d12dc0",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -3130,13 +3130,13 @@
       "source_sha256": "3e48e0edfbaa89f6fec243f6efb4530042180ecb4a4299fcf8bb39aca9be6d2b",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_b3db175783464d139140567917a17f95.blp",
-      "texture_sha256": "70318b6fc11830944c7292062d32aca893f977018be40ca2f66abb2cab0c55c8",
+      "texture_sha256": "ca348ff6013c83b883511c3e8fe1625323d363139d9b9329b9175f59107d5bd3",
       "timing_normalized": false,
       "width": 40
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "pajlada",
       "creator_id": "11148817",
@@ -3145,7 +3145,7 @@
       "format": "gif",
       "fps": 16.666666666666668,
       "frames": 39,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_1740ef0244fb49359ebe9e515301497a",
       "lossless": {
         "cellWidth": 64,
@@ -3160,8 +3160,8 @@
       "name": "pajaWalk3",
       "provider": "twitch",
       "provider_id": "emotesv2_1740ef0244fb49359ebe9e515301497a",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/11148817/emotes/emotesv2_1740ef0244fb49359ebe9e515301497a",
       "source_duration_ms": 2340.0,
       "source_frames": 39,
@@ -3169,9 +3169,9 @@
       "source_sha256": "848a75e5ba85b9d8f2afe40cac33dc90fc29a0774f35096a5ed0c2ce37d5a1d0",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_1740ef0244fb49359ebe9e515301497a.blp",
-      "texture_sha256": "93f5b6003b167568f67a6d205da9711197577987062834bbd8aa18e4a3f3e337",
+      "texture_sha256": "64e8af311c6edb9c8fcb9759f3f7492a5686863e49117ecf8ee1487eb205803b",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

@@ -74,7 +74,7 @@
       "source_sha256": "1db5b9a91bb04440b118771b6364d12deefa25fdd5f45debb7cfc87630b7ddb5",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_e323c700c75f4c829ce59572e22f43b9.blp",
-      "texture_sha256": "dafaec11e0b138e8286e88f49cef67c3a6d65ff6533fc6ecb43c06a2940e0b78",
+      "texture_sha256": "1426ea27adf702a4959670ce3235c6025a29d646bc282aa8b815a084cf08706d",
       "timing_normalized": false,
       "width": 40
     },
@@ -1094,7 +1094,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Ziqoftw",
       "creator_id": "20567961",
@@ -1103,7 +1103,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 59,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_aaab668468d245729b8061d312c9958e",
       "lossless": {
         "cellWidth": 64,
@@ -1118,8 +1118,8 @@
       "name": "ziqoPls",
       "provider": "twitch",
       "provider_id": "emotesv2_aaab668468d245729b8061d312c9958e",
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/20567961/emotes/emotesv2_aaab668468d245729b8061d312c9958e",
       "source_duration_ms": 2360.0,
       "source_frames": 59,
@@ -1127,9 +1127,9 @@
       "source_sha256": "55089fbf7a207c6fb64150227faeebca7cbf103afc0152e18672bec677fb9ab2",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_aaab668468d245729b8061d312c9958e.blp",
-      "texture_sha256": "379aed0eb453b5d06b288e2c1408e5887fbabecb9f7108b8cd281287a0d09df0",
+      "texture_sha256": "9992137dce692e39e06f25a41a52561864d2567402c94e416b70877df7bd4d19",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

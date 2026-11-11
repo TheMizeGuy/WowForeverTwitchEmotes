@@ -3,7 +3,7 @@
 ## IconTexture: Interface\Icons\INV_Misc_Dice_01
 ## Author: TheMizeGuy
 ## Notes: Animated chat emotes, a visual channel browser, favorites, and name completion.
-## Version: 3.1.0
+## Version: 3.2.0
 ## Category: Chat & Communication
 ## X-License: All Rights Reserved
 ## X-Website: https://github.com/TheMizeGuy/WowForeverTwitchEmotes
@@ -17,6 +17,7 @@ Packs\seventv_global.lua
 Packs\ahlaundoh.lua
 Packs\bttv_pikabooirl.lua
 Packs\bttv_swifty.lua
+Packs\bttv_payo.lua
 Packs\graycen.lua
 Packs\summit1g.lua
 Packs\twitch_admiralbahroo.lua
@@ -62,6 +63,7 @@ Packs\twitch_mrfruit.lua
 Packs\twitch_nl_kripp.lua
 Packs\twitch_nymn.lua
 Packs\twitch_pajlada.lua
+Packs\twitch_payo.lua
 Packs\twitch_pikabooirl.lua
 Packs\twitch_pokelawls.lua
 Packs\twitch_preachlfw.lua

@@ -641,7 +641,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "Sequisha",
       "creator_id": "25458544",
@@ -650,7 +650,7 @@
       "format": "gif",
       "fps": 33.51648351648352,
       "frames": 55,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_ba1dcb7603bf4bb7b8b3de57e17db4a2",
       "lossless": {
         "cellWidth": 64,
@@ -728,8 +728,8 @@
         53,
         54
       ],
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/25458544/emotes/emotesv2_ba1dcb7603bf4bb7b8b3de57e17db4a2",
       "source_duration_ms": 1820.0,
       "source_frames": 60,
@@ -737,9 +737,9 @@
       "source_sha256": "663b4289bd67e3981071711dbeb8e4103f931278b29f6bd38806ff8f6aa32160",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_ba1dcb7603bf4bb7b8b3de57e17db4a2.blp",
-      "texture_sha256": "c6d183dfa6b1a9bea2800a230ce2b7b2cb6aa38f8270057240f33fa8982f1080",
+      "texture_sha256": "77346768cb934580c936d32337ddd6eb43c929f7bdcea567d7677ec8506b9b22",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -1455,7 +1455,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 27,
-      "height": 48,
+      "height": 40,
       "id": "twitch:emotesv2_27534097d4f34f48aebc1ece26f825ec",
       "lossless": {
         "cellWidth": 64,
@@ -1531,9 +1531,9 @@
       "source_sha256": "c7fbd3ebcfc45d6019b00685d825b1ab2a432174d3ddcc400c81108be61e0d96",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_27534097d4f34f48aebc1ece26f825ec.blp",
-      "texture_sha256": "9a77719925516324f4d834fbb7f52053bda8a8d072ec87eefe20fd3c9c96e4d9",
+      "texture_sha256": "69ff405af5136a02ab2242cdb405aef40aa01bd3000f2421e866d93b3bf388cb",
       "timing_normalized": false,
-      "width": 48
+      "width": 40
     },
     {
       "attribution": "provider owner",

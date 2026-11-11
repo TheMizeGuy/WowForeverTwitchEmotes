@@ -4,7 +4,7 @@
   "emotes": [
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "mutu",
       "creator_id": "5c350eeeb2b08c560f6b0801",
@@ -13,7 +13,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 73,
-      "height": 40,
+      "height": 32,
       "id": "bttv:603409747c74605395f32662",
       "lossless": {
         "cellWidth": 64,
@@ -29,7 +29,7 @@
       "provider": "bttv",
       "provider_id": "603409747c74605395f32662",
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://betterttv.com/emotes/603409747c74605395f32662",
       "source_duration_ms": 2920.0,
       "source_frames": 73,
@@ -37,9 +37,9 @@
       "source_sha256": "96c184c90706cd37eb91c6ab5ffc751aee94a1b9d26a03362bfe1d1879acb5e1",
       "source_width": 112,
       "texture": "Media/bttv/603409747c74605395f32662.blp",
-      "texture_sha256": "8b8f3e57b6ebfaa533d526858e4eea9356db0956929c63d222a9d827ff81dace",
+      "texture_sha256": "c3df73e96c7ba07374d34a1f6441ff50b0b6adb9fe1dcb081dbe0fa22e55f581",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -275,7 +275,7 @@
       "source_sha256": "2c0e0a42c684155bbf00e37f49e2f5bdb20b3c2532bad951b9c5085f11b00628",
       "source_width": 112,
       "texture": "Media/bttv/5f1b0186cf6d2144653d2970.blp",
-      "texture_sha256": "a227103675066405e7dccc1f67626f7b431f1a37dfb8951c7bb280424c8f0d17",
+      "texture_sha256": "9ace5cab21dd95a106761d2ce6576ca273a025f68487ca9393f9bc387e0fd72c",
       "timing_normalized": false,
       "width": 32
     },
@@ -404,7 +404,7 @@
       "source_sha256": "94054b46963f5056c94a612eb24c21e6fdbb23558ee44686d4e6674d0f83bff8",
       "source_width": 112,
       "texture": "Media/bttv/57719a9a6bdecd592c3ad59b.blp",
-      "texture_sha256": "6d63cd66ad86f6c0f2dcd0abcd43c236cd26a59d2d645a1c823e3501840790cf",
+      "texture_sha256": "eec030b8c37c69e0e56c60b89ee96c07f99411eaaaa2202c353f464ea9a3b155",
       "timing_normalized": false,
       "width": 64
     },
@@ -556,7 +556,7 @@
       "source_sha256": "47a06586157f6e9fb34f7e072a690d0a73f88d5153e9f5cc5265722df65344b0",
       "source_width": 112,
       "texture": "Media/bttv/576befd71f520d6039622f7e.blp",
-      "texture_sha256": "1295c3d5d3fb7f3f7192fc94fa87a720b14a84e15802919d1cda00ac9756dda0",
+      "texture_sha256": "a25d933a83901499f9a34a5bd0b9be590de37cc5be24be480e4fb4a7aabede50",
       "timing_normalized": false,
       "width": 64
     },
@@ -722,7 +722,7 @@
       "source_sha256": "8f6ae30343e1319f19895968a10197fbcd4a7b941dfeccf4502c583aafc6d67b",
       "source_width": 112,
       "texture": "Media/bttv/5ec39a9db289582eef76f733.blp",
-      "texture_sha256": "f365b49062215159043c71619ae38de6e583af214013d26c72249ae84ab31e07",
+      "texture_sha256": "80d70f6e47fcb135d0b014a8c12be3fb7a4f9616aefa4f4da9822864fb5b77c0",
       "timing_normalized": false,
       "width": 64
     },
@@ -781,7 +781,7 @@
       "source_sha256": "25cf0d5bd40a3e0b3674904b5edcf49aae5714160df75e0aeb65d915930d984e",
       "source_width": 112,
       "texture": "Media/bttv/61abe6cb002cdeedc21e386d.blp",
-      "texture_sha256": "d9640520d9586bf1c21469bd70e16fe5fc9d822ae115fbd98c12c71d77604976",
+      "texture_sha256": "bb7d39bc5df770ea48e8573821d35b3f8fd9cf1f6349e6471a74594835fd6f91",
       "timing_normalized": false,
       "width": 64
     },
@@ -1145,7 +1145,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "pajlada",
       "creator_id": "550daf6562e6bd0027aedb5e",
@@ -1154,7 +1154,7 @@
       "format": "gif",
       "fps": 50.0,
       "frames": 75,
-      "height": 40,
+      "height": 32,
       "id": "bttv:5ad22a7096065b6c6bddf7f3",
       "lossless": {
         "cellWidth": 64,
@@ -1262,7 +1262,7 @@
         0
       ],
       "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetWidth": 1024,
       "source": "https://betterttv.com/emotes/5ad22a7096065b6c6bddf7f3",
       "source_duration_ms": 1800.0,
       "source_frames": 76,
@@ -1270,9 +1270,9 @@
       "source_sha256": "cace4f9f9709e7d04cc7b668fd2ea74884be45d9fb8a6080b97a6d6dd5cba5a2",
       "source_width": 112,
       "texture": "Media/bttv/5ad22a7096065b6c6bddf7f3.blp",
-      "texture_sha256": "d15dbabddb0be35b7cf4cfee3f58774d52613f1e0e9fb4d64ee3d6197618aa0a",
+      "texture_sha256": "b16f4fae020598bd215e5f123f3f12937129b91203d89d8f6d23f8a9020e8214",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     }
   ],
   "excluded": [],

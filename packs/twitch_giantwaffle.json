@@ -359,7 +359,7 @@
       "source_sha256": "5d54c98b44d71c64909bd76a5d565d17e5c841251ab0208ae6206a52e4d64399",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_086831bc9b0f46cfb0e81fa69488fb5c.blp",
-      "texture_sha256": "351af3de2bfb0b99097015cd23a03bab0129702ff1f32ffce7873f94c4293c66",
+      "texture_sha256": "3c772104e3753aea13a8e382b99d6c8e2d9b009cab0de1aa58a40c8481a0d814",
       "timing_normalized": false,
       "width": 64
     },
@@ -1184,7 +1184,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 29,
       "creator": "Giantwaffle",
       "creator_id": "22552479",
@@ -1193,7 +1193,7 @@
       "format": "gif",
       "fps": 14.285714285714286,
       "frames": 29,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_475c6aac45b14f16acff009149a7b0d4",
       "lossless": {
         "cellWidth": 64,
@@ -1268,8 +1268,8 @@
         27,
         28
       ],
-      "sheetHeight": 64,
-      "sheetWidth": 2048,
+      "sheetHeight": 32,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/22552479/emotes/emotesv2_475c6aac45b14f16acff009149a7b0d4",
       "source_duration_ms": 4060.0,
       "source_frames": 58,
@@ -1277,9 +1277,9 @@
       "source_sha256": "315578aac762f34f30c382f2f3f96f13d99d433d4b0a287570f393ee7a4dba48",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_475c6aac45b14f16acff009149a7b0d4.blp",
-      "texture_sha256": "f90b414813dd992518cd5aab3ab9b5c5b8c9c12d87e6aa6d6e42494831629622",
+      "texture_sha256": "0529bf4b80aeffcea2818a2d4ae81dd553bc239f2110f34217612f59e8f9f3fc",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

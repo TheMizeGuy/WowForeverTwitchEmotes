@@ -713,7 +713,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 4,
-      "height": 64,
+      "height": 48,
       "id": "twitch:emotesv2_57f2ee695b184784b0c9229173076578",
       "lossless": {
         "cellWidth": 64,
@@ -737,9 +737,9 @@
       "source_sha256": "b6828936c23041a87ce8de9ba974f52054d32d9e7c479292ed0806af2440d80c",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_57f2ee695b184784b0c9229173076578.blp",
-      "texture_sha256": "8849ead74272077de3e4f6ed9a59186bc520354fcb102532bd1f8c83dcbdf1db",
+      "texture_sha256": "33cefc21e3a10405ab0093fd48f839e7d7ae72a9a829b9ffed96647e412731d6",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -869,7 +869,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 22,
-      "height": 64,
+      "height": 48,
       "id": "twitch:emotesv2_e339897b1bbd4c02920936d887fe596a",
       "lossless": {
         "cellWidth": 64,
@@ -925,9 +925,9 @@
       "source_sha256": "7b974afdad2e3c536883ef7a8071d624c43b93c58005ad489ab85c9ffc8966b0",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_e339897b1bbd4c02920936d887fe596a.blp",
-      "texture_sha256": "013a8617aca02bb585b0f1dc03f41b12ed84bb9a437e8f098e134940b36da45f",
+      "texture_sha256": "08152240dcec259093324d2033c2b89193c65f5b12950bfb432cdb7265131c5e",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -940,7 +940,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 22,
-      "height": 64,
+      "height": 40,
       "id": "twitch:emotesv2_0aa6618d20904d90a6a844c90ae18804",
       "lossless": {
         "cellWidth": 64,
@@ -996,9 +996,9 @@
       "source_sha256": "8c9529a9ae7c385e58c2fe042ea11591f5c0de15ca4d0fa733dea78576642719",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_0aa6618d20904d90a6a844c90ae18804.blp",
-      "texture_sha256": "6d8762cc175a668c9e596072a0f9de84a25d70ff46237da99f4c542357704755",
+      "texture_sha256": "86077bbb44d4b13912e30860c105f7ab6fd78b9cd18c7dbe470a9e16b6499fa3",
       "timing_normalized": false,
-      "width": 64
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -1537,7 +1537,7 @@
       "source_sha256": "a721dd71c7cd30c5ab11b6200f45082bf740319e919bb5b21557ab06892c0b45",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_3685b029db1349dfaf61c2c5dc819afe.blp",
-      "texture_sha256": "a1c59e461f9dd10fcdd958d0546fb7a6aa04ee4115815ec154bf17f9babe91d1",
+      "texture_sha256": "6cde042878d3554b457a466f55e9f2435a8521b8e1763c8681162462f42f1273",
       "timing_normalized": false,
       "width": 64
     },
@@ -1552,7 +1552,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 12,
-      "height": 64,
+      "height": 48,
       "id": "twitch:emotesv2_8a317faf1ee2419e9c80541e6cc802fe",
       "lossless": {
         "cellWidth": 64,
@@ -1593,9 +1593,9 @@
       "source_sha256": "b8dc32720f5c6176a6bc2ce8d025da9301208bb762d416d8457c98a9dd6104c5",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_8a317faf1ee2419e9c80541e6cc802fe.blp",
-      "texture_sha256": "42d2d548dd48a8808e11af85f67fc2428024f507856081f62a029229fcd7c6d0",
+      "texture_sha256": "b99d9455b9d0671e1ae6642673f11043ef9fdc1ec628fad79ff4e220170333d4",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",

@@ -427,6 +427,16 @@
       ]
     },
     {
+      "login": "payo",
+      "twitch_id": "59624901",
+      "title": "Payo",
+      "metadata_api": "https://twitchemotes.com/channels/59624901",
+      "identity_sources": [
+        "https://decapi.me/twitch/id/payo",
+        "https://twitchemotes.com/channels/59624901"
+      ]
+    },
+    {
       "login": "pikabooirl",
       "twitch_id": "27992608",
       "title": "Pikabooirl",

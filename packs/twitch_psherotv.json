@@ -622,7 +622,7 @@
       "source_sha256": "6086510bfa3533a0d43fce7518d9890a04ffa9b2156bd234f856d1610c8cff50",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_617d92ff1c8e462ba8c42698297f5fce.blp",
-      "texture_sha256": "3a6ae0843a3aa42d9813c755bb389a761576ad3f2f8ce721d779dc1f2b6e8ea7",
+      "texture_sha256": "c4e6874ec3939b5f56f67b05c724135c36ccc78b8dba0a933c9c616a585a8ec6",
       "timing_normalized": false,
       "width": 64
     },
@@ -1318,7 +1318,7 @@
       "format": "gif",
       "fps": 14.379084967320262,
       "frames": 18,
-      "height": 64,
+      "height": 48,
       "id": "twitch:emotesv2_e76cfbf061654d68b375fdc39250ef82",
       "lossless": {
         "cellWidth": 64,
@@ -1366,9 +1366,9 @@
       "source_sha256": "fdac19f874247b3c70c3cbe0e7c991aad940761b632c06e9322d997fddbd8fa9",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_e76cfbf061654d68b375fdc39250ef82.blp",
-      "texture_sha256": "be02e9c2e0cd382ebace632c976f9653fe39fc4b76daabf27ab58928cff19a65",
+      "texture_sha256": "bc0ec96f24ad8874c24eec5ef3c96bc85a261130a4e35091793ba3861c173099",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -1691,7 +1691,7 @@
       "source_sha256": "966f9eccf84b5979edf6bfb7e0850334b79b8638a497a05566e879ece210ee17",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_5a89830674684dd686ab5a7ea151a7ab.blp",
-      "texture_sha256": "8bb16dd3a47d3311ae27228c4d82a117684497c892d83c4475b71073bedf4a09",
+      "texture_sha256": "232d6cdc497661ba7f629d53c8a1a7d5fb1be4e8e3a74b80211bbce36a5c137a",
       "timing_normalized": false,
       "width": 64
     },
@@ -1808,7 +1808,7 @@
       "source_sha256": "2666a7b834ef7edc74e35c5fb6376229813d2ee4374e7ebd8d008de7f40c93d6",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_e21c287d28ae4fc9a771670caa95c35d.blp",
-      "texture_sha256": "66264a01206d8634b03eaca983542c6f151e14d41b14d19babc090b82ab267a6",
+      "texture_sha256": "dd091a4287b870f02e334ab8f8daf96ac0106a7170580af3972f3e5083008bbb",
       "timing_normalized": false,
       "width": 64
     },

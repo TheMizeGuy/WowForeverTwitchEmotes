@@ -1457,7 +1457,7 @@
       "source_sha256": "cce3022c4b8731d5c034735b1bf4eacbf40dcc6bc7bc4d55875611a25d7d9e54",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_386787d9789f41af8c34846986c7f274.blp",
-      "texture_sha256": "c2f211988debe4c7dcdb07034bbb9dca00a1b6849645aacf64c845a44dc1d78b",
+      "texture_sha256": "7551c8b04ae9dfe788cbcff296efd8402a94fa8d9262530aa32890a6f7d153e1",
       "timing_normalized": false,
       "width": 32
     },
@@ -2578,7 +2578,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 12,
       "creator": "ZubatLEL",
       "creator_id": "131376461",
@@ -2587,7 +2587,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 12,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_a1643d1ddd734a1a804489067f4ec3b7",
       "lossless": {
         "cellWidth": 64,
@@ -2602,8 +2602,8 @@
       "name": "zubSPIN",
       "provider": "twitch",
       "provider_id": "emotesv2_a1643d1ddd734a1a804489067f4ec3b7",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 32,
+      "sheetWidth": 512,
       "source": "https://twitchemotes.com/channels/131376461/emotes/emotesv2_a1643d1ddd734a1a804489067f4ec3b7",
       "source_duration_ms": 480.0,
       "source_frames": 12,
@@ -2611,9 +2611,9 @@
       "source_sha256": "80905bf6c02f040128b20683a7be1f87a0cf89a53fcb4e17859cc0c8b8226670",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_a1643d1ddd734a1a804489067f4ec3b7.blp",
-      "texture_sha256": "59dc854767a99dc9013aeb0e8543f798e4ddb11967ec2d6e8e42547dab2227f1",
+      "texture_sha256": "6877bbfd2d8e21fa751a9d7fb2dd64307b092b1e92b4ca6e4420bb1e931e80ba",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",
@@ -3144,7 +3144,7 @@
       "source_sha256": "848786a05efee11b00e838f6c5614dfb2fcde3181f4e7d395697201688f072a7",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_afb854c01a414fb694cf14e5c3593eef.blp",
-      "texture_sha256": "ca7159b55b6b894a3596275c618ec8e77f1cd29e83a2aff596627022cad339e3",
+      "texture_sha256": "befe38991b8ec2f22cc90c7fde4c728c30dda2b894b3842d683d598d3d10bdc7",
       "timing_normalized": false,
       "width": 40
     },

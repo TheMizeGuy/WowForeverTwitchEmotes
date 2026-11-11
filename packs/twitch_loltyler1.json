@@ -713,7 +713,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 39,
-      "height": 64,
+      "height": 48,
       "id": "twitch:emotesv2_cbc8023e6635477bb61a50dd8f698567",
       "lossless": {
         "cellWidth": 64,
@@ -799,9 +799,9 @@
       "source_sha256": "6c87b831950477c467c95a81e0114c55b0d1232952b7691514c2af0fbac70dc9",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_cbc8023e6635477bb61a50dd8f698567.blp",
-      "texture_sha256": "e4dc7324f2e936f99b21bb369189f68219bda134bb96a220d5c138d5881b85f3",
+      "texture_sha256": "f6fa579cd8bb742200479b133ce995d97285ec2292c13c5e121db8c852ee73d9",
       "timing_normalized": false,
-      "width": 64
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -2521,7 +2521,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 64,
+      "cellWidth": 32,
       "columns": 32,
       "creator": "loltyler1",
       "creator_id": "51496027",
@@ -2530,7 +2530,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 59,
-      "height": 40,
+      "height": 32,
       "id": "twitch:emotesv2_06336afd73764b4980955d53dfc14b65",
       "lossless": {
         "cellWidth": 64,
@@ -2607,8 +2607,8 @@
         57,
         58
       ],
-      "sheetHeight": 128,
-      "sheetWidth": 2048,
+      "sheetHeight": 64,
+      "sheetWidth": 1024,
       "source": "https://twitchemotes.com/channels/51496027/emotes/emotesv2_06336afd73764b4980955d53dfc14b65",
       "source_duration_ms": 2400.0,
       "source_frames": 60,
@@ -2616,9 +2616,9 @@
       "source_sha256": "bdcc27310f11f6f98e549a6e7c27689ad16f29649df518e37bd1aee27d55f262",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_06336afd73764b4980955d53dfc14b65.blp",
-      "texture_sha256": "ac6fcffde3181ccaf79e4afd72c3692488160d5a185bcfb536e22cd7f0023118",
+      "texture_sha256": "46735003b4ec8dc83ad5a39fc29452572e48a22caf41754a0266bf58e7a8b61e",
       "timing_normalized": false,
-      "width": 40
+      "width": 32
     },
     {
       "attribution": "provider owner",

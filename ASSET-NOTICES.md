@@ -38,6 +38,7 @@ share one texture across aliases and packs.
 | Xaryu | [7TV channel API](https://7tv.io/v3/users/twitch/32085830) | [xaryu.json](packs/xaryu.json) |
 | Pikabooirl | [BTTV channel API](https://api.betterttv.net/3/cached/users/twitch/27992608), [FFZ room API](https://api.frankerfacez.com/v1/room/id/27992608) | [bttv_pikabooirl.json](packs/bttv_pikabooirl.json), [ffz_pikabooirl.json](packs/ffz_pikabooirl.json) |
 | Swifty | [BTTV channel API](https://api.betterttv.net/3/cached/users/twitch/23524577) | [bttv_swifty.json](packs/bttv_swifty.json) |
+| Payo | [BTTV channel API](https://api.betterttv.net/3/cached/users/twitch/59624901) | [bttv_payo.json](packs/bttv_payo.json) |
 | Twitch Global | [Public Twitch catalog](https://twitchemotes.com/) | [twitch_global.json](packs/twitch_global.json) |
 | Native Twitch channels | [Verified channel identities and catalog URLs](scripts/twitch-channels.json) | `packs/twitch_<login>.json` |
 
