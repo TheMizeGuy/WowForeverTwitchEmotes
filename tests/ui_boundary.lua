@@ -257,6 +257,12 @@ MinimapCluster.MinimapContainer = B.new("Frame", nil, MinimapCluster)
 _G.Minimap = B.new("Frame", "Minimap", MinimapCluster.MinimapContainer); Minimap:SetSize(198, 198)
 _G.MinimapBackdrop = B.new("Frame", "MinimapBackdrop", Minimap)
 _G.UISpecialFrames = {}
+B.messages = {}
+_G.DEFAULT_CHAT_FRAME = { AddMessage = function(_, text) B.messages[#B.messages + 1] = text end }
+-- Blizzard's CloseAllWindows on world entry, death or Escape: every shown special frame is hidden.
+function B.closeSpecialWindows()
+    for _, name in ipairs(UISpecialFrames) do if _G[name] and _G[name]:IsShown() then _G[name]:Hide() end end
+end
 _G.GetTime = function() return B.time end
 _G.UnitGUID = function(unit) assert(unit == "player"); return "Player-self" end
 _G.SlashCmdList = {}
