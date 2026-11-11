@@ -6,17 +6,19 @@ local function test(name,body)
     if ok then passed=passed+1 else failed=failed+1; print("FAIL "..name..": "..err) end
 end
 local function pack(...) return {n=select("#",...),...} end
-local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true}
+local LIFECYCLE={ADDON_LOADED=true,PLAYER_LOGIN=true,PLAYER_ENTERING_WORLD=true,UPDATE_CHAT_WINDOWS=true,UPDATE_FLOATING_CHAT_WINDOWS=true,
+    LOADING_SCREEN_DISABLED=true,PLAYER_REGEN_ENABLED=true}
 -- options.unknown: events the simulated client does not know; options.uiError: InitializeUI raises;
--- options.deferLogin: the test fires PLAYER_LOGIN itself.
+-- options.deferLogin: the test fires PLAYER_LOGIN itself; options.firstRunError: OpenFirstRun raises.
 local function setup(saved,options)
     options=options or {}
-    local world={frames={},filters={},callbacks={},tickers={},hooks={},time=0,after={},messages={}}
+    local world={frames={},filters={},callbacks={},tickers={},hooks={},time=0,after={},delays={},messages={}}
     local secret={}
     local E={}
     local function known(event)
+        if options.unknown and options.unknown[event] then return false end
         if LIFECYCLE[event] then return true end
-        return E.channelLabels~=nil and E.channelLabels[event]~=nil and not (options.unknown and options.unknown[event])
+        return E.channelLabels~=nil and E.channelLabels[event]~=nil
     end
     _G.C_EventUtils={IsEventValid=function(event) return known(event) end}
     _G.issecretvalue=function(value) return value==secret end
@@ -38,7 +40,8 @@ local function setup(saved,options)
         function f:Fire(event,...) if self.events[event] then self.scripts.OnEvent(self,event,...) end end
         world.frames[#world.frames+1]=f; return f
     end
-    _G.C_Timer={After=function(_,fn) world.after[#world.after+1]=fn end,NewTicker=function(interval,fn)
+    _G.InCombatLockdown=function() return world.combat or false end
+    _G.C_Timer={After=function(delay,fn) world.after[#world.after+1]=fn; world.delays[#world.delays+1]=delay end,NewTicker=function(interval,fn)
         local ticker={interval=interval,fn=fn}
         function ticker:Cancel() self.cancelled=true end
         world.tickers[#world.tickers+1]=ticker; return ticker
@@ -63,6 +66,11 @@ local function setup(saved,options)
     function E:InitializeUI() world.ui=(world.ui or 0)+1; if options.uiError then error("UI construction failed") end end
     function E:AttachCompletion(box) box.attached=true end
     function E:OpenPanel() world.open=true end
+    function E:OpenFirstRun()
+        world.firstRuns=(world.firstRuns or 0)+1
+        if options.firstRunError then error("onboarding failed") end
+        return true
+    end
     function E:InsertEmote(name) world.inserted=name; return true end
     function E:RefreshUI() world.refreshed=true end
     world.eventFrame=world.frames[1]
@@ -75,6 +83,17 @@ local function setup(saved,options)
     end
     function world:Callback(event,...)
         local cb=assert(self.callbacks[event]); cb.fn(cb.owner,...)
+    end
+    -- Runs the pending timers as the client does: each one alone, an error reaching only the error handler.
+    function world:Timers()
+        local pending,errors=self.after,{}
+        self.after={}
+        for _,fn in ipairs(pending) do local ok,err=pcall(fn); if not ok then errors[#errors+1]=tostring(err) end end
+        return errors
+    end
+    function world:Enter()
+        self.eventFrame:Fire("PLAYER_ENTERING_WORLD",true,false); self.eventFrame:Fire("LOADING_SCREEN_DISABLED")
+        return self:Timers()
     end
     function world:Line(text)
         local l={text=text,shown=true,writes=0}
@@ -272,6 +291,72 @@ test("revealing a censored line renders its emotes and records it once",function
     w.hooks.SetItemRef("censoredmessage:80","[Show]","LeftButton",f); equal(f.history[4].message,"secret line")
     w.hooks.SetItemRef("censoredmessage:81","[Show]","LeftButton",f); equal(f.history[5].message,"lockdown line"); equal(E:Stats("KEKW").seen,1)
     w.hooks.SetItemRef(secret,"[Show]","LeftButton",f)
+end)
+
+test("the first world entry opens the first-run picker a moment after the loading screen lifts",function()
+    local E,w=setup()
+    w.eventFrame:Fire("PLAYER_ENTERING_WORLD",true,false); equal(#w:Timers(),0)
+    equal(w.firstRuns,nil,"never under the loading screen, where world entry closes special windows")
+    w.eventFrame:Fire("LOADING_SCREEN_DISABLED"); equal(w.firstRuns,nil); equal(#w.after,1)
+    assert(w.delays[#w.delays]>0,"the picker waits a moment after the loading screen")
+    equal(#w:Timers(),0); equal(w.firstRuns,1)
+    equal(w.eventFrame.events.PLAYER_ENTERING_WORLD,nil); equal(w.eventFrame.events.LOADING_SCREEN_DISABLED,nil)
+    assert(ForeverEmotesDB._startup[#ForeverEmotesDB._startup]:find("After world entry",1,true),"the startup sample still runs")
+end)
+test("the first-run picker opens at most once per session",function()
+    local E,w=setup(); w:Enter(); equal(w.firstRuns,1)
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_ENTERING_WORLD",false,false)
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"LOADING_SCREEN_DISABLED")
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED")
+    equal(#w:Timers(),0); equal(w.firstRuns,1); equal(E.db.setupComplete,false)
+end)
+test("a loading screen that lifts before world entry still leads to the picker",function()
+    local E,w=setup()
+    w.eventFrame:Fire("LOADING_SCREEN_DISABLED"); w:Timers(); equal(w.firstRuns,nil)
+    w.eventFrame:Fire("PLAYER_ENTERING_WORLD",true,false); w:Timers(); equal(w.firstRuns,1)
+end)
+test("finished setup opens nothing at world entry",function()
+    local E,w=setup({schema=4,setupComplete=true})
+    equal(#w:Enter(),0); equal(w.firstRuns,nil); equal(#w.delays,1,"only the startup sample is scheduled")
+    equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+end)
+test("saved choices without a finished setup reach the picker unchanged",function()
+    local E,w=setup({schema=4,packs={test=false}})
+    w:Enter(); equal(w.firstRuns,1); equal(E.db.packs.test,false); equal(E.db.setupComplete,false)
+end)
+test("entering the world in combat waits for combat to end",function()
+    local E,w=setup(); w.combat=true
+    w:Enter(); equal(w.firstRuns,nil); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,true)
+    w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1)
+    equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1)
+end)
+test("setup finished during that combat opens nothing afterwards",function()
+    local E,w=setup(); w.combat=true; w:Enter()
+    E:SetOption("setupComplete",true); w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED")
+    equal(w.firstRuns,nil); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+end)
+test("a client without the loading screen event opens the picker after world entry",function()
+    local E,w=setup(nil,{unknown={LOADING_SCREEN_DISABLED=true}})
+    equal(w.eventFrame.events.LOADING_SCREEN_DISABLED,nil)
+    w.eventFrame:Fire("PLAYER_ENTERING_WORLD",true,false); w:Timers(); equal(w.firstRuns,1)
+end)
+test("a failing first-run picker leaves chat rendering, links and the slash command working",function()
+    local E,w=setup(nil,{firstRunError=true}); local f=w:ChatFrame({}); w.chats={f}
+    local errors=w:Enter()
+    equal(#errors,1); assert(errors[1]:find("onboarding failed",1,true),"the fault must reach the error handler")
+    equal(w.firstRuns,1)
+    local _,text=w.filters.CHAT_MSG_SAY({},"CHAT_MSG_SAY","KEKW"); assert(text:find("|T",1,true))
+    w:Chat("KEKW","Player-other",61); equal(E:Stats("KEKW").seen,1)
+    w.shift=true; w:Callback("SetItemRef",E.linkPrefix.."4b454b57","","LeftButton",{}); equal(w.inserted,"KEKW")
+    SlashCmdList.FOREVEREMOTES(""); equal(w.open,true)
+    w.eventFrame:Fire("UPDATE_CHAT_WINDOWS"); equal(f.editBox.attached,true)
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1,"a failure is not retried this session")
+    -- The combat path fails the same way and leaves nothing registered.
+    E,w=setup(nil,{firstRunError=true}); w.combat=true; w:Enter(); w.combat=false
+    local ok,err=pcall(w.eventFrame.Fire,w.eventFrame,"PLAYER_REGEN_ENABLED")
+    equal(ok,false); assert(tostring(err):find("onboarding failed",1,true)); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+    _,text=w.filters.CHAT_MSG_SAY({},"CHAT_MSG_SAY","KEKW"); assert(text:find("|T",1,true))
 end)
 
 print(string.format("runtime: %d passed, %d failed",passed,failed))
