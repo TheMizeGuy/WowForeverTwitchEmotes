@@ -450,5 +450,55 @@ test("each default-hidden name applies once at its schema so earlier restores su
     for _,name in ipairs({"<3","Retail",":-P","BOP"}) do assert(E:IsEmoteHidden(name),name.." must become hidden") end
 end)
 
+test("finishing setup is stored without rebuilding or repainting anything", function()
+    local E=setup(); local refreshes,revision,catalog=0,E.revision,E.catalog
+    function E:Refresh() refreshes=refreshes+1 end
+    E:SetOption("setupComplete","yes"); equal(E.db.setupComplete,false)
+    E:SetOption("setupComplete",true); equal(E.db.setupComplete,true)
+    equal(refreshes,0); equal(E.revision,revision); assert(E.catalog==catalog,"the catalog was rebuilt")
+    E:SetOption("size",30); equal(refreshes,1)
+end)
+
+test("group summaries count what chat can show and sample the channel's oldest Twitch emotes", function()
+    local E=loadEngine()
+    local function twitch(name,id,frames) local e=entry(name,nil,frames); e.id=id; return e end
+    E:RegisterPack({id="twitch_forsen",group="forsen",provider="Twitch",priority=20,emotes={
+        twitch("forsen1","twitch:900"),twitch("forsenNew","twitch:emotesv2_ab"),twitch("forsenOld","twitch:12"),
+        twitch("forsenPls","twitch:5",4),twitch("forsenW","twitch:40"),twitch("forsenE","twitch:300")}})
+    E:RegisterPack({id="seventv_forsen",group="forsen",provider="7TV",emotes={entry("!spin"),entry("KEKW"),entry("forsenW")}})
+    E:RegisterPack({id="twitch_global",provider="Twitch",emotes={twitch("JKanStyle","twitch:15"),twitch("Kappa","twitch:25"),twitch("LUL","twitch:425618"),twitch(":)","twitch:1")}})
+    E:RegisterPack({id="bttv_global",provider="BTTV",emotes={entry("FeelsGoodMan"),entry("monkaS")}})
+    E:RegisterPack({id="xaryu",group="xaryu",provider="7TV",emotes={entry("!guilds"),entry("+20"),entry("catJAM",nil,4),entry("Aware"),entry("Clap")}})
+    E:InitializeDB(); E:PrepareSetup(); E:RebuildCatalog()
+    local function names(summary) local list={}; for i,e in ipairs(summary.samples) do list[i]=e.name end; return table.concat(list," ") end
+    local forsen=E:GetGroupSummary("forsen")
+    equal(forsen.count,8); equal(names(forsen),"forsenOld forsenW forsenE")
+    equal(forsen.samples[2].packID,"twitch_forsen")
+    local general=E:GetGroupSummary("general")
+    equal(general.count,5,"hidden faces are not counted"); equal(names(general),"Kappa LUL FeelsGoodMan")
+    equal(names(E:GetGroupSummary("xaryu")),"Aware Clap")
+    assert(E:GetGroupSummary("forsen")==forsen,"summaries are cached until the catalog changes")
+    assert(E:SetEmoteHidden("forsenW",true))
+    local after=E:GetGroupSummary("forsen"); equal(after.count,7); equal(names(after),"forsenOld forsenE forsen1")
+    E:SetOption("size",30); equal(names(E:GetGroupSummary("forsen")),"forsenOld forsenE forsen1")
+    equal(E:GetGroupSummary("missing").count,0); equal(#E:GetGroupSummary("missing").samples,0)
+end)
+
+test("every shipped group has a count and static samples of its own", function()
+    local E=realPacks()
+    for _,group in ipairs(E:GetGroups()) do
+        local summary=E:GetGroupSummary(group.id); local own={}
+        for _,id in ipairs(group.packIDs) do own[id]=true end
+        assert(summary.count>0,group.id.." has no emotes")
+        assert(#summary.samples>=1 and #summary.samples<=3,group.id.." has "..#summary.samples.." samples")
+        for _,sample in ipairs(summary.samples) do
+            assert(own[sample.packID],group.id.." samples "..sample.name.." from another group")
+            equal(sample.frames,1); equal(E:IsEmoteHidden(sample.name),false)
+        end
+    end
+    local general={}; for i,e in ipairs(E:GetGroupSummary("general").samples) do general[i]=e.name end
+    equal(table.concat(general," "),"Kappa LUL FeelsGoodMan")
+end)
+
 print(string.format("core: %d passed, %d failed",passed,failed))
 os.exit(failed==0 and 0 or 1)

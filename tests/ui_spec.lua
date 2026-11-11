@@ -10,6 +10,17 @@ E.packs.global2 = { id = "global2", title = "Global 2", provider = "BTTV" }
 E.packs.channel2 = { id = "channel2", title = "Channel 2", provider = "Twitch" }
 E.groups = { { id = "general", title = "General", packIDs = { "global", "global2" } }, { id = "forsen", title = "Forsen", packIDs = { "channel", "channel2" } } }
 function E:GetGroups() return self.groups end
+function E:GetGroupSummary(id)
+    local summary, own = { count = 0, samples = {} }, {}
+    for _, group in ipairs(self.groups) do if group.id == id then for _, packID in ipairs(group.packIDs) do own[packID] = true end end end
+    for _, entry in ipairs(self.names) do
+        if own[entry.packID] then
+            summary.count = summary.count + 1
+            if #summary.samples < 3 then summary.samples[#summary.samples + 1] = entry end
+        end
+    end
+    return summary
+end
 function E:SetGroupEnabled(id, enabled)
     for _, group in ipairs(self.groups) do if group.id == id then for _, packID in ipairs(group.packIDs) do self.db.packs[packID] = enabled end end end
     self:RefreshUI()
@@ -133,6 +144,89 @@ test("manual channel picker offers checkboxes and returns to Browse", function()
     E.ui.setupRows[2]:Click(); equal(E.db.packs.channel, true); equal(E.db.packs.channel2, true)
     E.ui.setupDone:Click(); equal(E.db.setupComplete, true); equal(E.ui.tab, "browse")
     E:OpenPanel("settings"); E.ui.priorityButton:Click(); equal(E.db.preferredGroup, "general")
+end)
+
+local function startFirstRun()
+    E.ui.panel:Hide(); E.db.setupComplete = false; B.messages = {}; B.focus = nil
+    assert(E:OpenFirstRun(), "the first-run picker must open")
+end
+
+test("first run opens the picker as a welcome with saved choices checked, and Finish completes it", function()
+    E.db.packs.global = true; E.db.packs.global2 = true; E.db.packs.channel = false; E.db.packs.channel2 = false
+    startFirstRun()
+    equal(E.ui.panel:IsShown(), true); equal(E.ui.tab, "setup"); equal(E.ui.setupRows[1].group.id, "general")
+    equal(E.ui.setupTitle:GetText(), "Welcome to Twitch Emotes"); equal(E.ui.setupDone:GetText(), "Finish")
+    equal(E.ui.setupIntro:GetText(), "Emote names in chat show as images on your screen. Choose the channels whose emotes you want, then press Finish.")
+    equal(E.ui.setupRows[1]:GetChecked(), true); equal(E.ui.setupRows[2]:GetChecked(), false)
+    equal(E.ui.setupRows[1].detail:GetText(), "24 global emotes"); equal(E.ui.setupRows[2].detail:GetText(), "24 emotes")
+    equal(select(2, E.ui.setupRows[2].samples:GetText():gsub("|T", "")), 3, "three sample images")
+    equal(E.ui.setupCount:GetText(), "1 of 2 selected")
+    E.ui.setupRows[2]:Click(); equal(E.db.packs.channel, true); equal(E.db.packs.channel2, true)
+    equal(E.ui.setupCount:GetText(), "2 of 2 selected"); equal(E.db.setupComplete, false, "a choice alone does not finish")
+    B.type(E.ui.setupSearch, "for"); equal(E.ui.setupCount:GetText(), "1 found · 2 of 2 selected"); E.ui.setupSearch:SetText("")
+    E.ui.setupDone:Click()
+    equal(E.ui.panel:IsShown(), false); equal(E.db.setupComplete, true)
+    equal(#B.messages, 1); assert(B.messages[1]:find("Type /te and open Channels to change your channels later.", 1, true))
+    equal(E:OpenFirstRun(), false, "a finished setup never opens it again"); equal(E.ui.panel:IsShown(), false)
+end)
+
+test("closing the first-run picker any other way finishes it and says once where to find the channels", function()
+    local closers = {
+        { "close button", function() E.ui.panel.CloseButton:Click() end },
+        { "Escape", function() E.ui.panel:Run("OnKeyDown", "ESCAPE") end },
+        { "Blizzard closing special windows (world entry, death, cinematics, Alt-Z)", B.closeSpecialWindows },
+    }
+    for _, closer in ipairs(closers) do
+        startFirstRun(); closer[2]()
+        equal(E.ui.panel:IsShown(), false, closer[1]); equal(E.db.setupComplete, true, closer[1]); equal(#B.messages, 1, closer[1])
+        assert(B.messages[1]:find("/te", 1, true), closer[1])
+        E:OpenPanel(); E.ui.panel:Hide(); equal(#B.messages, 1, closer[1] .. " prints the hint once")
+    end
+    -- A movie hides UIParent without closing windows: the engine fires OnHide on the panel, which stays shown.
+    startFirstRun(); UIParent.shown = false; E.ui.panel:Run("OnHide")
+    equal(E.db.setupComplete, true, "a hidden interface ends it too"); equal(#B.messages, 1)
+    UIParent.shown = true; E:RefreshUI(); equal(E.ui.setupTitle:GetText(), "Choose your channels", "and it returns plain")
+    E.ui.panel:Hide(); equal(#B.messages, 1)
+    startFirstRun(); E.ui.browseTab:Click()
+    equal(E.db.setupComplete, true, "leaving for another tab finishes it"); equal(E.ui.panel:IsShown(), true); equal(#B.messages, 0)
+    E.ui.panel:Hide(); equal(#B.messages, 0)
+    startFirstRun(); E:OpenEmoteMenu("Emote01"); B.find("Emote settings", E.ui.emoteMenu):Click()
+    equal(E.ui.tab, "settings"); equal(E.db.setupComplete, true); equal(#B.messages, 0)
+end)
+
+test("the slash command and the minimap button keep the first-run picker open", function()
+    startFirstRun(); E:OpenPanel(); E.ui.minimap:Click()
+    equal(E.ui.tab, "setup"); equal(E.ui.setupDone:GetText(), "Finish"); equal(E.db.setupComplete, false)
+    equal(E.ui.panel:IsShown(), true); equal(#B.messages, 0)
+    E.ui.panel.CloseButton:Click(); equal(E.db.setupComplete, true); equal(#B.messages, 1)
+end)
+
+test("first run never takes over an open window, and the Channels tab keeps its plain wording", function()
+    E.ui.panel:Hide(); E.db.setupComplete = false; B.messages = {}
+    E:OpenPanel("browse"); equal(E:OpenFirstRun(), false); equal(E.ui.tab, "browse")
+    E.ui.channelsTab:Click(); equal(E.ui.tab, "setup")
+    equal(E.ui.setupTitle:GetText(), "Choose your channels"); equal(E.ui.setupDone:GetText(), "Done")
+    equal(E.ui.setupIntro:GetText(), "General contains provider-wide emotes. Add the channels you want to see in chat.")
+    E.ui.panel:Hide(); equal(E.db.setupComplete, false, "closing the plain picker finishes nothing"); equal(#B.messages, 0)
+    E:OpenPanel("settings"); E.ui.manageGroups:Click(); equal(E.ui.setupTitle:GetText(), "Choose your channels")
+    E.ui.setupDone:Click(); equal(E.db.setupComplete, true); equal(E.ui.tab, "browse"); equal(E.ui.panel:IsShown(), true)
+    equal(#B.messages, 0)
+end)
+
+test("an automatically opened picker leaves chat focus and the game's keys alone", function()
+    E.ui.panel:Hide(); E.db.setupComplete = false; B.messages = {}
+    B.active = B.editor; B.type(B.editor, "typing at login"); B.resetTrace()
+    assert(B.call(E.OpenFirstRun, E))
+    equal(B.editor:HasFocus(), true, "chat keeps focus"); equal(B.editor:GetText(), "typing at login")
+    equal(E.ui.setupSearch:HasFocus(), false); clean(); equal(#B.tainted, 0)
+    E.ui.panel:Run("OnKeyDown", "ESCAPE"); equal(E.ui.panel:IsShown(), true, "Escape belongs to the chat box while it has focus")
+    B.editor:ClearFocus(); E.ui.panel.mouseOver = false
+    for _, key in ipairs({ "W", "A", "S", "D", "SPACE", "ENTER", "UP", "DOWN", "LEFT", "RIGHT", "TAB" }) do
+        E.ui.panel:Run("OnKeyDown", key); equal(E.ui.panel.propagate, true, key .. " reaches the game")
+    end
+    equal(E.ui.keyboardControl, nil); equal(E.db.setupComplete, false)
+    E.ui.panel.CloseButton:Click(); equal(E.db.setupComplete, true)
+    B.editor:Show(); B.editor:SetText(""); B.messages = {}
 end)
 
 test("minimap launcher draws above the native rim in the minimap's strata", function()
@@ -555,6 +649,14 @@ test("an older LibDBIcon that defers a hidden button still yields one launcher, 
         equal(control:IsShown(), false)
         addon:SetOption("minimap", true); equal(control:IsShown(), true)
     end)
+end)
+
+test("the first-run picker can be the first window a session builds", function()
+    local addon = freshAddon(); B.messages = {}
+    assert(addon:OpenFirstRun()); equal(addon.ui.panel:IsShown(), true)
+    equal(addon.db.setupComplete, nil, "building the window does not count as closing it"); equal(#B.messages, 0)
+    equal(addon.ui.setupTitle:GetText(), "Welcome to Twitch Emotes")
+    addon.ui.panel:Hide(); equal(addon.db.setupComplete, true); equal(#B.messages, 1)
 end)
 
 for _, case in ipairs(tests) do

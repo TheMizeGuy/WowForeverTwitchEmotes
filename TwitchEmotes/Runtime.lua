@@ -4,6 +4,7 @@ local frame=CreateFrame("Frame")
 local installed, tooltipOwner
 local CACHE_LIMIT=128
 local startupSettings={}
+local worldEntered, loadingScreenGone, onboarded
 
 local function describeSettings(saved)
     if type(saved)~="table" then return type(saved) end
@@ -183,6 +184,25 @@ local function login()
     E:InitializeUI()
 end
 
+-- Cinematics, Alt-Z, the interface's return and death all close special windows, and dialogs sit beneath the panel.
+local function busy()
+    local dead,popup=UnitIsDeadOrGhost("player"),_G.StaticPopup_IsAnyDialogShown
+    return not UIParent:IsVisible() or (not E:IsRestricted(dead) and dead) or (popup~=nil and popup())
+end
+
+local function onboard()
+    if onboarded or E.db.setupComplete then onboarded=true; return end
+    if InCombatLockdown() then frame:RegisterEvent("PLAYER_REGEN_ENABLED"); return end
+    if busy() then C_Timer.After(2,onboard); return end
+    onboarded=true
+    if E.OpenFirstRun then E:OpenFirstRun() end
+end
+
+-- Every world entry closes special windows, so the first-run picker waits for the loading screen to lift, then a moment more.
+local function armOnboarding()
+    if worldEntered and loadingScreenGone and not E.db.setupComplete then C_Timer.After(2,onboard) end
+end
+
 frame:SetScript("OnEvent",function(_,event,...)
     if event=="ADDON_LOADED" then
         local loaded=...
@@ -203,9 +223,15 @@ frame:SetScript("OnEvent",function(_,event,...)
             startupSettings[#startupSettings+1]="After world entry: "..describeSettings(_G.ForeverEmotesDB).."; saved table matches="..tostring(E.db==_G.ForeverEmotesDB)
             if type(_G.ForeverEmotesDB)=="table" then _G.ForeverEmotesDB._startup=startupSettings end
         end)
+        worldEntered=true; armOnboarding()
+    elseif event=="LOADING_SCREEN_DISABLED" then
+        frame:UnregisterEvent("LOADING_SCREEN_DISABLED")
+        loadingScreenGone=true; armOnboarding()
+    elseif event=="PLAYER_REGEN_ENABLED" then frame:UnregisterEvent("PLAYER_REGEN_ENABLED"); C_Timer.After(2,onboard)
     elseif event=="UPDATE_CHAT_WINDOWS" or event=="UPDATE_FLOATING_CHAT_WINDOWS" then E:AttachChatWindows()
     else record(event,...) end
 end)
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+if E:IsEventSupported("LOADING_SCREEN_DISABLED") then frame:RegisterEvent("LOADING_SCREEN_DISABLED") else loadingScreenGone=true end

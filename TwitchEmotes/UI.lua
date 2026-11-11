@@ -144,6 +144,10 @@ local function display(value)
     return tostring(value or ""):gsub("|", "||")
 end
 
+local function thousands(value)
+    return (tostring(value):reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", ""))
+end
+
 local function label(parent, text, x, y, width, font)
     local region = parent:CreateFontString(nil, "OVERLAY", font or "GameFontHighlight")
     region:SetPoint("TOPLEFT", parent, "TOPLEFT", x, y)
@@ -277,8 +281,20 @@ local function releaseKeyboardControl()
     if control.focusBorder then for _, edge in ipairs(control.focusBorder) do edge:Hide() end end
 end
 
+-- Leaving the first-run picker in any way completes setup; only closing the window says where to find it again.
+local function endFirstRun(closed)
+    if not ui.firstRun then return end
+    ui.firstRun = nil
+    E:SetOption("setupComplete", true)
+    if not closed then return end
+    local line = "|cffa970ffTwitch Emotes|r: Type /te and open Channels to change your channels later."
+    local chat = _G.DEFAULT_CHAT_FRAME
+    if chat and chat.AddMessage then chat:AddMessage(line) else print(line) end
+end
+
 local function setTab(tab)
     ui.tab = tab
+    if tab ~= "setup" then endFirstRun(false) end
     if ui.search then ui.search:ClearFocus() end
     if ui.groupSearch then ui.groupSearch:ClearFocus() end
     if ui.setupSearch then ui.setupSearch:ClearFocus() end
@@ -616,8 +632,8 @@ local function createSetup(parent)
     setup:SetPoint("TOPLEFT", parent, "TOPLEFT", 18, -82)
     setup:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -18, 46)
     ui.setup = setup
-    label(setup, "Choose your channels", 4, 0, 820, "GameFontNormalLarge")
-    label(setup, "General contains provider-wide emotes. Add the channels you want to see in chat.", 4, -25, 820)
+    ui.setupTitle = label(setup, "", 4, 0, 820, "GameFontNormalLarge")
+    ui.setupIntro = label(setup, "", 4, -25, 820)
     label(setup, "Find channel", 4, -57, 100)
     ui.setupSearch = input(setup)
     ui.setupSearch:SetPoint("TOPLEFT", setup, "TOPLEFT", 112, -49)
@@ -631,7 +647,13 @@ local function createSetup(parent)
         local control = check(setup, "", ((i - 1) % 2) * 420, -88 - math.floor((i - 1) / 2) * 40, function(self)
             if self.group then E:SetGroupEnabled(self.group.id, self:GetChecked()) end
         end)
-        control.Text:SetWidth(366); control.Text:SetWordWrap(false)
+        control.Text:SetWidth(176); control.Text:SetWordWrap(false)
+        control.Text:ClearAllPoints(); control.Text:SetPoint("BOTTOMLEFT", control, "RIGHT", 8, 0)
+        control.detail = label(control, "", 0, 0, 176, "GameFontHighlightSmall")
+        control.detail:ClearAllPoints(); control.detail:SetPoint("TOPLEFT", control, "RIGHT", 8, -2)
+        control.samples = label(control, "", 0, 0, 180)
+        control.samples:ClearAllPoints(); control.samples:SetPoint("LEFT", control, "RIGHT", 194, 0)
+        control.samples:SetHeight(26); control.samples:SetJustifyV("MIDDLE")
         control:SetHitRectInsets(0, -374, 0, 0)
         ui.setupRows[i] = control
     end
@@ -645,6 +667,7 @@ local function createSetup(parent)
     ui.setupNext = button(setup, "Next channels", 156, -424, 140, function() ui.setupOffset = ui.setupOffset + SETUP_ROWS; E:RefreshUI() end)
     ui.setupCount = label(setup, "", 314, -429, 270, "GameFontHighlightSmall")
     ui.setupDone = button(setup, "Done", 610, -424, 236, function()
+        if ui.firstRun then ui.panel:Hide(); return end
         E:SetOption("setupComplete", true); setTab("browse")
     end)
     selected(ui.setupDone, true, true)
@@ -690,6 +713,7 @@ local function createPanel()
         releaseKeyboardControl()
         ui.keyboardControl, ui.keyboardIndex = nil, nil
         if not inCombat() then panel:SetPropagateKeyboardInput(true) end
+        endFirstRun(true)
     end)
     panel:Hide()
 end
@@ -879,17 +903,28 @@ function E:RefreshUI()
         ui.setupScroll:SetPanExtentPercentage(maximum > 0 and 2 / maximum or 0)
         ui.setupScroll:SetScrollPercentage(maximum > 0 and ui.setupOffset / maximum or 0, true)
         ui.setupScroll:SetShown(maximum > 0)
+        ui.setupTitle:SetText(ui.firstRun and "Welcome to Twitch Emotes" or "Choose your channels")
+        ui.setupIntro:SetText(ui.firstRun and "Emote names in chat show as images on your screen. Choose the channels whose emotes you want, then press Finish."
+            or "General contains provider-wide emotes. Add the channels you want to see in chat.")
+        ui.setupDone:SetText(ui.firstRun and "Finish" or "Done")
         ui.controls[#ui.controls + 1] = ui.setupSearch; ui.controls[#ui.controls + 1] = ui.setupClear
         for i, control in ipairs(ui.setupRows) do
             control.group = ui.setupGroups[ui.setupOffset + i]
             control:SetShown(control.group ~= nil)
             if control.group then
                 control.Text:SetText(display(control.group.title)); control:SetChecked(groupEnabled(control.group) > 0)
+                local summary = self:GetGroupSummary(control.group.id)
+                control.detail:SetText(thousands(summary.count) .. (control.group.id == "general" and " global" or "") .. (summary.count == 1 and " emote" or " emotes"))
+                local images = {}
+                for k, entry in ipairs(summary.samples) do images[k] = self:Render(entry, 24) end
+                control.samples:SetText(table.concat(images, "  "))
                 ui.controls[#ui.controls + 1] = control
             end
         end
         ui.setupPrevious:SetEnabled(ui.setupOffset > 0); ui.setupNext:SetEnabled(ui.setupOffset < maximum)
-        ui.setupCount:SetText(#ui.setupGroups .. " groups")
+        local chosen = 0
+        for _, group in ipairs(ui.groups) do if groupEnabled(group) > 0 then chosen = chosen + 1 end end
+        ui.setupCount:SetText((ui.setupSearch:GetText() ~= "" and (#ui.setupGroups .. " found · ") or "") .. chosen .. " of " .. #ui.groups .. " selected")
         ui.controls[#ui.controls + 1] = ui.setupPrevious; ui.controls[#ui.controls + 1] = ui.setupNext; ui.controls[#ui.controls + 1] = ui.setupDone
     end
     local available = {}
@@ -911,6 +946,7 @@ end
 function E:OpenPanel(tab)
     if not ui.panel then createPanel() end
     if tab == "settings" or tab == "browse" or tab == "setup" then ui.tab = tab end
+    if ui.tab ~= "setup" then endFirstRun(false) end
     ui.panel:SetScale(math.max(0.1, math.min(1, (_G.UIParent:GetWidth() - 32) / PANEL_WIDTH, (_G.UIParent:GetHeight() - 32) / PANEL_HEIGHT)))
     ui.panel:Show(); ui.panel:Raise(); self:RefreshUI()
 end
@@ -918,6 +954,15 @@ end
 function E:OpenSetup()
     self:OpenPanel("setup")
     ui.setupSearch:SetText(""); ui.setupSearch:ClearFocus()
+end
+
+-- The welcome presentation of the picker; never over a window the player already has open.
+function E:OpenFirstRun()
+    if not self.db or self.db.setupComplete or (ui.panel and ui.panel:IsShown()) then return false end
+    if not ui.panel then createPanel() end
+    ui.firstRun = true
+    self:OpenSetup()
+    return true
 end
 
 function E:OpenEmoteMenu(name)
