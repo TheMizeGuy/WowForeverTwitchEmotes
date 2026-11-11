@@ -293,7 +293,8 @@ def load_frames(path):
             duration = source.info.get('duration')
             known = isinstance(duration, (int, float)) and math.isfinite(duration) and duration >= 0
             raw_durations.append(float(duration) if known else None)
-            valid = known and duration > 0
+            # Browsers show a frame delay of 10 ms or less as 100 ms, so that is the timing viewers know.
+            valid = known and duration > 10
             durations.append(float(duration) if valid else 100.0)
             normalized = normalized or not valid
     source_duration = sum(raw_durations) if all(value is not None for value in raw_durations) else None

@@ -74,17 +74,20 @@ Images are scaled into 64-pixel-high frames, preserving their proportions within
 a maximum width of 256 pixels, with transparent padding where needed.
 
 Animations retain up to 256 frames and are sampled at a uniform rate of at most
-60 FPS, preserving positive source frame durations. Missing or nonpositive frame
-durations use a 100-millisecond fallback; the manifest records both source and
+60 FPS, preserving positive source frame durations. Missing frame durations and
+durations of 10 milliseconds or less play at 100 milliseconds, as browsers show them; the manifest records both source and
 playback duration and marks that normalization. Loops too short for two samples
 at 60 FPS use a static preview. Uniformly timed sources retain
 their native frame count unless a limit requires fewer samples; varying frame
 durations may require repeated images on the uniform timeline. Frames occupy a
 row-major grid with an explicit column count and padded cell width. Each texture
-uses a power-of-two canvas no larger than 2048 by 2048 pixels. Static artwork uses
-RGBA TGA. Suitable animations use indexed BLP2 with a shared 256-color palette
-and an exact 8-bit alpha plane; animations exceeding the visible-pixel RGB error
-limit retain TGA. This encoding changes neither frame count nor source timing.
+uses a power-of-two canvas no larger than 2048 by 2048 pixels. Static artwork ships
+as indexed BLP2 when that is smaller within the visible-pixel RGB error limit, and
+as RGBA TGA otherwise. Animations ship as indexed BLP2 with a shared 256-color
+palette and an exact 8-bit alpha plane, at a frame height of 64, 48, 40 or 32 pixels
+chosen per emote to fit the download budget; animations exceeding the error limit
+retain TGA. Exact and near-duplicate frames are stored once and replayed in order,
+so the number of playback steps and the source timing never change.
 Semi-transparent pixels retain straight alpha.
 
 Public availability and attribution do not establish a redistribution license.

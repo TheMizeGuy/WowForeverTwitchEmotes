@@ -112,18 +112,30 @@ class TextureTests(unittest.TestCase):
         self.assertEqual(duration, 10000)
         self.assertEqual(frames[-1], 498)
 
-    def test_one_millisecond_loop_uses_static_preview_to_honor_fps_limit(self):
+    def test_delays_of_ten_milliseconds_or_less_play_as_browsers_show_them(self):
+        for delay, extension in ((1, 'webp'), (10, 'gif')):
+            with tempfile.TemporaryDirectory() as directory:
+                source = Path(directory) / ('fast.' + extension)
+                target = Path(directory) / 'fast.tga'
+                Image.new('RGBA', (64, 64), 'red').save(
+                    source, save_all=True, append_images=[Image.new('RGBA', (64, 64), 'blue')],
+                    duration=[delay, delay], loop=0, **({'lossless': True} if extension == 'webp' else {}))
+                metadata = builder.convert(source, target, 256)
+                self.assertEqual(metadata['frames'], 2)
+                self.assertEqual(metadata['fps'], 10)
+                self.assertEqual(metadata['duration_ms'], 200)
+                self.assertEqual(metadata.get('source_duration_ms'), 2 * delay)
+                self.assertTrue(metadata.get('timing_normalized', False))
+
+    def test_a_delay_just_over_ten_milliseconds_is_kept(self):
         with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory) / 'fast.webp'
-            target = Path(directory) / 'fast.tga'
+            source = Path(directory) / 'quick.gif'
             Image.new('RGBA', (64, 64), 'red').save(
-                source, format='WEBP', save_all=True, lossless=True,
-                append_images=[Image.new('RGBA', (64, 64), 'blue')], duration=[1, 1], loop=0)
-            metadata = builder.convert(source, target, 256)
-            self.assertEqual(metadata['frames'], 1)
-            self.assertEqual(metadata['fps'], 0)
-            self.assertEqual(metadata['duration_ms'], 2)
-            self.assertEqual(metadata.get('source_duration_ms'), 2)
+                source, save_all=True, append_images=[Image.new('RGBA', (64, 64), 'blue')], duration=[20, 20], loop=0)
+            metadata = builder.convert(source, Path(directory) / 'quick.tga', 256)
+            self.assertEqual(metadata['frames'], 2)
+            self.assertEqual(metadata['fps'], 50)
+            self.assertEqual(metadata['duration_ms'], 40)
             self.assertFalse(metadata.get('timing_normalized', True))
 
     def test_zero_durations_record_source_timing_and_explicit_playback_fallback(self):
