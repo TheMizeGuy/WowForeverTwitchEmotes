@@ -1457,7 +1457,7 @@
       "source_sha256": "cce3022c4b8731d5c034735b1bf4eacbf40dcc6bc7bc4d55875611a25d7d9e54",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_386787d9789f41af8c34846986c7f274.blp",
-      "texture_sha256": "7551c8b04ae9dfe788cbcff296efd8402a94fa8d9262530aa32890a6f7d153e1",
+      "texture_sha256": "c2f211988debe4c7dcdb07034bbb9dca00a1b6849645aacf64c845a44dc1d78b",
       "timing_normalized": false,
       "width": 32
     },
@@ -3144,7 +3144,7 @@
       "source_sha256": "848786a05efee11b00e838f6c5614dfb2fcde3181f4e7d395697201688f072a7",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_afb854c01a414fb694cf14e5c3593eef.blp",
-      "texture_sha256": "befe38991b8ec2f22cc90c7fde4c728c30dda2b894b3842d683d598d3d10bdc7",
+      "texture_sha256": "ca7159b55b6b894a3596275c618ec8e77f1cd29e83a2aff596627022cad339e3",
       "timing_normalized": false,
       "width": 40
     },

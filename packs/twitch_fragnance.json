@@ -163,7 +163,7 @@
       "source_sha256": "dcebc389c3f18ae46419c3bccf39fca1948187816f872ff08c9984034f384411",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_a3b159874ec04c89a44d1d4122f865b5.blp",
-      "texture_sha256": "28b00b412d3efac8e72bae2e24d48016f3f5d1301f82234530b268bfe6a51467",
+      "texture_sha256": "14692733c1667a50b557aac97bd1c7bfcd4d6a0d77d4acb5eadcdc7cdaea207a",
       "timing_normalized": false,
       "width": 32
     },
@@ -1138,7 +1138,7 @@
       "source_sha256": "c437acac06f527eaea2c9c06018686e1da6db07cb46784f065efb2d9bd20b0c6",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_bffa2569f0bb4d008e014e8c2cee1993.blp",
-      "texture_sha256": "51620ec266aae5a5eb21c15676b3ddf16febbc33d6dcd7e71eddafc9fff05bb7",
+      "texture_sha256": "6dd6f76231f24bccdc8c1c93765749fc4350ae024e55f6c12d60fba16114a4c0",
       "timing_normalized": false,
       "width": 32
     },

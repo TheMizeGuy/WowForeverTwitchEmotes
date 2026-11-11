@@ -3,7 +3,7 @@ local addonName, E = ...
 
 local metadata = _G.C_AddOns and _G.C_AddOns.GetAddOnMetadata or _G.GetAddOnMetadata
 E.title = metadata and metadata(addonName, "Title") or "Twitch Emotes"
-E.version = "3.2.0"
+E.version = "3.2.1"
 E.addonName = addonName
 E.packs, E.packOrder, E.catalog, E.names = {}, {}, {}, {}
 E.revision = 0

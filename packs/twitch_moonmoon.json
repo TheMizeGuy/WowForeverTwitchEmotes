@@ -269,7 +269,7 @@
       "source_sha256": "ead47c2d0a335469c95eec72c993579297bdc9778f37b2cd867d90f10843c1ed",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_37947e88667746c2a0c249e7227f52ff.blp",
-      "texture_sha256": "f31a8545cfe2f873d9bb15ca1b8d76b8dc2d676b5e440ec25628e598d4075e6e",
+      "texture_sha256": "07d7bf63b3a6743305cd0e90e9150229e767a986d9d71fded854f6eb31010a61",
       "timing_normalized": false,
       "width": 64
     },
@@ -1143,7 +1143,7 @@
       "source_sha256": "ef5538a8ad77408579cd3d1833d790bbccac64b2501e6b88902d7f092e894271",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_36f2224ac6e14affaa633ea58f77d78f.blp",
-      "texture_sha256": "6260c9fbd7616f1d3592f22ea5c8abee51fd660e82041f9144247584fc5c5b61",
+      "texture_sha256": "10403beb0d1ea1e77cf9dab6533a52c12956ddab919e0ca12d9825359f54e4f2",
       "timing_normalized": false,
       "width": 32
     },
@@ -1585,7 +1585,7 @@
       "source_sha256": "5455f31852de9342bc24a24d87d72f3dafdf100556a506083aa74207fed90682",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_b7f609e3630d4b1281345fdcfda4e47e.blp",
-      "texture_sha256": "e57626366842c26dcbc33607bd051ba9b81a3644e5475f43563b816f551fa070",
+      "texture_sha256": "853ac2453ee8f23f293f4767eac7eecfb01627c6c0457cad818aee7d60c00758",
       "timing_normalized": false,
       "width": 64
     },
@@ -4365,7 +4365,7 @@
       "source_sha256": "f79f10079d4f3286ba48689ace044514747fe6baeb1b19df4e4df03f28c22a8a",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_62add1aa0003432a91e986331efa340d.blp",
-      "texture_sha256": "98f254907b04befa5f950c75cf6bff0de1e964e7d7bb352344536657eefc7806",
+      "texture_sha256": "bd435183e5e9735e3f62acf918f68b460ae2484ecb9f6e541019dc66b2a27bf9",
       "timing_normalized": false,
       "width": 32
     },
@@ -4404,7 +4404,7 @@
       "source_sha256": "0ed974abdaab8bcecce8fd6f4572e6439eb1cc4c1de742b1d0117e5a0a6500ac",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_eee91868137d4d7190e28e5c9f07f622.blp",
-      "texture_sha256": "37d4d8011c975078bb43ae748bf00c86cace21d441edbeba422b463b4c3be865",
+      "texture_sha256": "680c17398879a685591bf0c176dbc8e87d0d1fd8887e99edf95222aae935b657",
       "timing_normalized": false,
       "width": 32
     },

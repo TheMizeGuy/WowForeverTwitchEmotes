@@ -564,7 +564,7 @@
       "source_sha256": "85a8a66db8741a2b8552cca1b9c5a05429e01c691d14523d404ac0a81c3dacaa",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_1905d0de956f41d087e400cdf216d1a6.blp",
-      "texture_sha256": "406286aa9d8db1719656b0116221b97e142a43af5ab38514d8fb4f556ae874be",
+      "texture_sha256": "642d0962ee463ae36e665cad48270bf9a8bae080c17ade335eae0f6c4e36137e",
       "timing_normalized": false,
       "width": 32
     },
@@ -1957,7 +1957,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "erobb221",
       "creator_id": "96858382",
@@ -1966,7 +1966,7 @@
       "format": "gif",
       "fps": 20.0,
       "frames": 43,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_ea5c779a7af34d1c993fed4a8e4d6f78",
       "lossless": {
         "cellWidth": 64,
@@ -1981,8 +1981,8 @@
       "name": "emoneyTantrum",
       "provider": "twitch",
       "provider_id": "emotesv2_ea5c779a7af34d1c993fed4a8e4d6f78",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/96858382/emotes/emotesv2_ea5c779a7af34d1c993fed4a8e4d6f78",
       "source_duration_ms": 2150.0,
       "source_frames": 43,
@@ -1990,9 +1990,9 @@
       "source_sha256": "d4a1e3f3eee2be00c8a44f2f1bed4f566985ae545651ff503d2c4eccfd8993a7",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_ea5c779a7af34d1c993fed4a8e4d6f78.blp",
-      "texture_sha256": "0786d9a7a560af214b5fd3decc055a0fdc2f17d0403c3b941ea1cf9d8cd61b71",
+      "texture_sha256": "2837fa12e0a32fefb2dc68328287c75c8bf0df3fc7e0d54e1f6b731a6b2c360d",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",

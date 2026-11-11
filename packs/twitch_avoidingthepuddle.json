@@ -1454,7 +1454,7 @@
       "format": "gif",
       "fps": 6.25,
       "frames": 13,
-      "height": 40,
+      "height": 48,
       "id": "twitch:emotesv2_47ccfcdf5b724fd49acdb190769b5d75",
       "lossless": {
         "cellWidth": 64,
@@ -1478,9 +1478,9 @@
       "source_sha256": "feb141ed24b8b9a9eee308ebadd4f68a0fea80b32db1258cbc67f7223d43ca58",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_47ccfcdf5b724fd49acdb190769b5d75.blp",
-      "texture_sha256": "b1c0b64f8a1f0867181413bbc31e9c5b4bca9594f51acf6044620f8c3485524c",
+      "texture_sha256": "7255326e320911ff6e571200c0d6ed5f390989c053f92a1d9f096471b1707655",
       "timing_normalized": false,
-      "width": 40
+      "width": 48
     },
     {
       "attribution": "provider owner",

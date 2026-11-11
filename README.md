@@ -63,7 +63,7 @@ Place the `TwitchEmotes` folder in the client's `Interface/AddOns` directory (`_
 resort), all listing the same files and each titled for its game version in the AddOn List,
 such as "Twitch Emotes (Classic Era)". The Interface numbers are the live builds the release
 was audited against: 120105, 50504, 20506, 11509, and 16001.
-**Fully exit and restart WoW after installing 3.2.0**, including updates from an earlier
+**Fully exit and restart WoW after installing 3.2.1**, including updates from an earlier
 build: `/reload` alone can leave newly installed textures as green boxes until the client
 restarts. Later Lua-only updates take `/reload`; new textures or a changed TOC require a
 restart. Preferences and usage are saved in `ForeverEmotesDB`, one table per client. Since
@@ -133,7 +133,7 @@ runtime modules use against shallow clones of Blizzard's shipped UI source
 `classic_anniversary`, `classic_era`, `forever`) and flags anything a client lacks; every name it
 flags today is guarded in the code. `python3 scripts/package.py` verifies every texture
 hash, format, TOC reference, playback sequence, and generated Lua manifest; add
-`--output dist/TwitchEmotes-3.2.0.zip` to create a release archive. Members are
+`--output dist/TwitchEmotes-3.2.1.zip` to create a release archive. Members are
 deflated in parallel (`--workers`) with libdeflate level 12, zopfli, or zlib level 9,
 whichever `--compressor auto` finds installed, always as an ordinary ZIP with fixed
 timestamps, so one install packs to the same bytes every time. The finished archive

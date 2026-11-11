@@ -135,7 +135,7 @@
       "source_sha256": "551c3c3cc0a88cf5ce24d9caa47bec775be5f2e36d37ea02e50c37a4235020d0",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_4c2d956100b042b19d7deefc20842ae9.blp",
-      "texture_sha256": "de9d63e995160e06789e5250cf7fd590f14a9d51e137399ce073550f6c89fc67",
+      "texture_sha256": "e289607e49c216077733c9c90f5436a6191dc1d99ab3982026ff5fa8ed6b3b27",
       "timing_normalized": false,
       "width": 64
     },
@@ -1367,7 +1367,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "AdmiralBahroo",
       "creator_id": "40972890",
@@ -1376,7 +1376,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_48e5c19a36594e658b588bec6041b15b",
       "lossless": {
         "cellWidth": 64,
@@ -1391,8 +1391,8 @@
       "name": "rooClapp",
       "provider": "twitch",
       "provider_id": "emotesv2_48e5c19a36594e658b588bec6041b15b",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/40972890/emotes/emotesv2_48e5c19a36594e658b588bec6041b15b",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -1400,9 +1400,9 @@
       "source_sha256": "6966e148e3f52f4b75f4341440fc4fd1e4109ec76fd707890bd2e7f52114e682",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_48e5c19a36594e658b588bec6041b15b.blp",
-      "texture_sha256": "dd2e4928b980efb72666f31bb53f96f31094b5c720ec3301f0e7935b03af5af2",
+      "texture_sha256": "50cda289334284443c74bfd0c22f80a95a592e3ff025264f62e524d56db22de3",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -2698,7 +2698,7 @@
       "format": "gif",
       "fps": 16.666666666666668,
       "frames": 48,
-      "height": 48,
+      "height": 64,
       "id": "twitch:emotesv2_a32c6a310c274ce3bd016b04b070a42c",
       "lossless": {
         "cellWidth": 64,
@@ -2722,9 +2722,9 @@
       "source_sha256": "08ace19842e62e6c2792d6dd4036a02d704752768b65485f64369043ec7e8ddb",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_a32c6a310c274ce3bd016b04b070a42c.blp",
-      "texture_sha256": "56c99751f9e2182dc10d2e75b3445cc2cbc65c0a5add679499b0208834cfa6cb",
+      "texture_sha256": "c85e4fd4b8e94e5e231e72118d7392d58c8aa184826eb81929bc5785c8cb7eb2",
       "timing_normalized": false,
-      "width": 48
+      "width": 64
     },
     {
       "attribution": "provider owner",
@@ -3992,7 +3992,7 @@
       "source_sha256": "eb57ae1fde1a61befd7970b58ef522eed5f2f78c81320a2eaa5e54b007b41c43",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_f10bb09e2a384664b4ec2e5817f81ca1.blp",
-      "texture_sha256": "e564dfbbccbf8245cfb78452d1ae94557a84491fbd47b4c8fa69feb6681f04a2",
+      "texture_sha256": "8478d939784b3bf02b3a3675a93c5025723a3b09edca394094d1f4ad971294e5",
       "timing_normalized": false,
       "width": 64
     },
@@ -4602,7 +4602,7 @@
       "source_sha256": "67f5d5a6e50c97fd6262a8b2175e8129fc824d212403eb5e463b7677d409580d",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_6f040bf7980044359ff7728231186f8a.blp",
-      "texture_sha256": "3272f4f66c3b75ee3a2c3622cdf417f6c75e6fad0e4dfdd4535fe53e2ac33767",
+      "texture_sha256": "2213b2a942bb3df985e9131e2a10c05faeff3eea6242e7c6cb96c01ed0fc677a",
       "timing_normalized": false,
       "width": 48
     },
@@ -5719,7 +5719,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 40,
+      "height": 64,
       "id": "twitch:emotesv2_022abf0c77d149d0ad3b735168600f9c",
       "lossless": {
         "cellWidth": 64,
@@ -5743,9 +5743,9 @@
       "source_sha256": "82289bbbae2b83322af014a131bf832390fe83a1755ff24cf8aa786270d00ec1",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_022abf0c77d149d0ad3b735168600f9c.blp",
-      "texture_sha256": "b01269d20a3b0a6fc8478ad65f851b7bfe70e9d769b6d9c1476f98b5d2a27292",
+      "texture_sha256": "42879e5a2940b411ccc2c01e89b7c828378f580f0729367194ee445a3710d397",
       "timing_normalized": false,
-      "width": 40
+      "width": 64
     }
   ],
   "excluded": [],

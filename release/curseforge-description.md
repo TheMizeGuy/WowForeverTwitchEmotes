@@ -1,6 +1,6 @@
 **Twitch Emotes WoW Forever** turns familiar emote names into images and animations in your chat. Find the expression you want in a purple visual browser, choose your channel groups, and autocomplete emotes as you type.
 
-The full collection includes **8,000+ emote names across 67 groups**, with artwork from Twitch, 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ). Everything is bundled in one **200 MB download**, with approximately **1.3 GB of disk space** needed after extraction.
+The full collection includes **8,000+ emote names across 66 groups**, with artwork from Twitch, 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ). Everything is bundled in one **200 MB download**, with approximately **1.3 GB of disk space** needed after extraction.
 
 ## Start using emotes
 

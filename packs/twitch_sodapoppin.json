@@ -1406,7 +1406,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -1415,7 +1415,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 64,
       "id": "twitch:emotesv2_ac6d991f5c4647d6b34aca98d467ef5a",
       "lossless": {
         "cellWidth": 64,
@@ -1430,8 +1430,8 @@
       "name": "sodaClap",
       "provider": "twitch",
       "provider_id": "emotesv2_ac6d991f5c4647d6b34aca98d467ef5a",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_ac6d991f5c4647d6b34aca98d467ef5a",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -1439,9 +1439,9 @@
       "source_sha256": "915b91ea4e4a3ecbfd06a3e687ad90e940cdfc6d73933504f8b0ef6de1b2f0f8",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_ac6d991f5c4647d6b34aca98d467ef5a.blp",
-      "texture_sha256": "3ee161866f2560b0751b8eacea73e8954260e3695ee5cb50a4c058a4426ed907",
+      "texture_sha256": "e089c045fea44760cfb0a4a160cbb5d62d370981940edd274093175641df4415",
       "timing_normalized": false,
-      "width": 32
+      "width": 64
     },
     {
       "attribution": "provider owner",
@@ -1829,7 +1829,7 @@
       "source_sha256": "d1a7bcac054af09010ca05526215f5bcf08c4cc588e7e5ac36935da06407ca2e",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_779471f3805840c082ef2e3ad5f59064.blp",
-      "texture_sha256": "e01239c245fabb2090b0ace6617e5b29701974df6c5b7727a512a64678dc2c0c",
+      "texture_sha256": "6bcef94dd481b93724d5033684551c9a998d33945df24e921f9c4157ad07ee0f",
       "timing_normalized": false,
       "width": 32
     },
@@ -3427,7 +3427,7 @@
       "source_sha256": "d5ccaab2595490d73eeb6418668b1974f958ce39497d63d6324e53fb1b5c98e7",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_998a4b6c113b41ddb62f9aad83f6c132.blp",
-      "texture_sha256": "74580c5ad7fd5ebb794c221bfb9419a7f2cde292b14fda91010acc6b3e677a1a",
+      "texture_sha256": "ae75a683f35d627b674325d66eb9d6bb3648de3bc93718d5c911c63ca78e69f9",
       "timing_normalized": false,
       "width": 40
     },
@@ -3754,7 +3754,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 39,
-      "height": 48,
+      "height": 64,
       "id": "twitch:emotesv2_2b73bf5998674626b6afc43fd0b0581a",
       "lossless": {
         "cellWidth": 64,
@@ -3861,9 +3861,9 @@
       "source_sha256": "c0630a0afbe4af5c23893647fff49c130c13b3e14e2ec5ee5e2d094c90a7d029",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_2b73bf5998674626b6afc43fd0b0581a.blp",
-      "texture_sha256": "c833099cf1cb0db2a79b8a3bad822b98321f1a97fc016d6b896bcf96f952e69e",
+      "texture_sha256": "56763e5ad7d5daf1b2fa3c6451157be1d1f803cf20af2607ff87896f65ec3a44",
       "timing_normalized": false,
-      "width": 48
+      "width": 64
     },
     {
       "attribution": "provider owner",
@@ -4090,13 +4090,13 @@
       "source_sha256": "4dd08bdde34d9d73ea8c76bf307fb0af3d3a69195d9e14e41751a89c5cd693c7",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_aabd0db8c22c4146ab3b6ac439c209e2.blp",
-      "texture_sha256": "a56799f685cdf34e496ff8c058ccb9fdb487de945c2c97f3fc0f995d7a5f8c40",
+      "texture_sha256": "731ea456c17e3a1adebe12b68b86a782c89c18a680bcebd39ca215572c380dbc",
       "timing_normalized": false,
       "width": 64
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -4105,7 +4105,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_cfeb5a65ac7d4f29af476a842944f30f",
       "lossless": {
         "cellWidth": 64,
@@ -4120,8 +4120,8 @@
       "name": "sodaNow",
       "provider": "twitch",
       "provider_id": "emotesv2_cfeb5a65ac7d4f29af476a842944f30f",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_cfeb5a65ac7d4f29af476a842944f30f",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -4129,9 +4129,9 @@
       "source_sha256": "bbf4597aaf6d4c2557139165d2ae55f85cc4b6b96424f8f79f925dc22ca4a568",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_cfeb5a65ac7d4f29af476a842944f30f.blp",
-      "texture_sha256": "c2d3d3ac2225b79357a1bc9b922c5a76648a0c2e3a1e03a12dcefbf4258e0258",
+      "texture_sha256": "23e5d4d49277ca1752c7b6e9ac8f04e340db732c2cde6826175b58106ae5871d",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -4704,7 +4704,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -4713,7 +4713,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_c6ca1c09bd34401689258da1bcc7f1eb",
       "lossless": {
         "cellWidth": 64,
@@ -4728,8 +4728,8 @@
       "name": "sodaPuke",
       "provider": "twitch",
       "provider_id": "emotesv2_c6ca1c09bd34401689258da1bcc7f1eb",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_c6ca1c09bd34401689258da1bcc7f1eb",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -4737,9 +4737,9 @@
       "source_sha256": "09b9ac48670e68a1726a2a07d42626bf18f29db5f0a78d184a92c796bbaf9901",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_c6ca1c09bd34401689258da1bcc7f1eb.blp",
-      "texture_sha256": "a3beb0c571416a0c258661149e842e1b331f403c37067d80d8a5fc3042235c19",
+      "texture_sha256": "db857d4f4dfc73ebc3d59c038c1855bc8e139d5d551d632c19b0f503d2efea99",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -4824,7 +4824,7 @@
       "source_sha256": "a0d207b1a8e1b65600d48acd25990a0db466ceba4f1c57b9a74834deb44da49e",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_2f4647cccaa440b197de31d683178fc1.blp",
-      "texture_sha256": "0f74efcd9d626a2c70788288cdd489554bf76cc70134cb6f94a5c1188ebc8a59",
+      "texture_sha256": "980a5f5360b20739e6fce39282e1695a3a6ed096d0bab8a6f607325ec174541d",
       "timing_normalized": false,
       "width": 40
     },
@@ -5246,7 +5246,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -5255,7 +5255,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_1808e1b75b0a4520b4e114b684785134",
       "lossless": {
         "cellWidth": 64,
@@ -5270,8 +5270,8 @@
       "name": "sodaShy",
       "provider": "twitch",
       "provider_id": "emotesv2_1808e1b75b0a4520b4e114b684785134",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_1808e1b75b0a4520b4e114b684785134",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -5279,9 +5279,9 @@
       "source_sha256": "d442b5f87d3a8956692efcb95a6a11f635800c223fc2df18e03da05b8698a2ff",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_1808e1b75b0a4520b4e114b684785134.blp",
-      "texture_sha256": "f8c0fc6e21fa8318b3a015f5cde84a0b4eff6b0696db8a7bacc4771ac5652bde",
+      "texture_sha256": "01b0923184cd51c220aa0a1f39fc17708b9ea6a1890ee244d54080a64fce793a",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -5620,7 +5620,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -5629,7 +5629,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 60,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_64db870f0274445ca3d672cf295046a7",
       "lossless": {
         "cellWidth": 64,
@@ -5644,8 +5644,8 @@
       "name": "sodaSpy",
       "provider": "twitch",
       "provider_id": "emotesv2_64db870f0274445ca3d672cf295046a7",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_64db870f0274445ca3d672cf295046a7",
       "source_duration_ms": 1800.0,
       "source_frames": 60,
@@ -5653,9 +5653,9 @@
       "source_sha256": "b40dae4e86bbd0179db0c96961fe8f6a59091743a57e9ad4fddbc6b0841cb15c",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_64db870f0274445ca3d672cf295046a7.blp",
-      "texture_sha256": "d5eae94ad5c7539b8e63f326d53f9a5009dda6f62fed8d90b1188afb952aea04",
+      "texture_sha256": "68cb6ab2c8f37f61ce83f359e029b7e928a7b139b56ef1889213dcd43ef604ed",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -6189,7 +6189,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "sodapoppin",
       "creator_id": "26301881",
@@ -6198,7 +6198,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 37,
-      "height": 32,
+      "height": 40,
       "id": "twitch:emotesv2_aa2025d5d9bb4df9b6964d96cab110d5",
       "lossless": {
         "cellWidth": 64,
@@ -6213,8 +6213,8 @@
       "name": "sodaWave",
       "provider": "twitch",
       "provider_id": "emotesv2_aa2025d5d9bb4df9b6964d96cab110d5",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://twitchemotes.com/channels/26301881/emotes/emotesv2_aa2025d5d9bb4df9b6964d96cab110d5",
       "source_duration_ms": 1110.0,
       "source_frames": 37,
@@ -6222,9 +6222,9 @@
       "source_sha256": "3e9824d7a7f838cd54414b97f6df8b325a845c46b931c1b9187a462a127c086b",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_aa2025d5d9bb4df9b6964d96cab110d5.blp",
-      "texture_sha256": "5b3196b2a143ab3a36d573aafca13cf9dd0130e4fb73e8305598191a3fb56122",
+      "texture_sha256": "8a1a03d23e231183334d7284a17880d7835406e756a30ae3ae4afb40192db376",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -6339,7 +6339,7 @@
       "source_sha256": "c4da294bf83d61d33b0bbd381b82e3d27fb4085dd66101ef9cd8b34e093cd8b0",
       "source_width": 112,
       "texture": "Media/twitch/emotesv2_d6445d38ac20432caab8eb87c3719571.blp",
-      "texture_sha256": "7f4247216c3754f9d93d4b34ea95f74b6664c07f874d2eded654b238228f6126",
+      "texture_sha256": "b1f49d0147326dcda284cb684761cd86ff2407ff3ce4c070fb1cde97e881f4af",
       "timing_normalized": false,
       "width": 64
     },

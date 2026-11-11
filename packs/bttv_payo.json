@@ -255,8 +255,8 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 128,
-      "columns": 16,
+      "cellWidth": 256,
+      "columns": 8,
       "creator": "SecretAgentArham",
       "creator_id": "6309917241c685c616f0e105",
       "download": "https://cdn.betterttv.net/emote/635518eded98a03da0cd8856/3x",
@@ -264,7 +264,7 @@
       "format": "gif",
       "fps": 8.258064516129032,
       "frames": 31,
-      "height": 40,
+      "height": 64,
       "id": "bttv:635518eded98a03da0cd8856",
       "lossless": {
         "cellWidth": 256,
@@ -537,7 +537,7 @@
         30,
         30
       ],
-      "sheetHeight": 128,
+      "sheetHeight": 256,
       "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/635518eded98a03da0cd8856",
       "source_duration_ms": 31000.0,
@@ -546,9 +546,9 @@
       "source_sha256": "07007eccb321e43458a62ac4249069a6e6f5002d13a7dede43f2c099810de409",
       "source_width": 336,
       "texture": "Media/bttv/635518eded98a03da0cd8856.blp",
-      "texture_sha256": "314fe4893801b25c690b2dbf6a8fdd098fdaffefe1a61c19df1a183d57f94ba7",
+      "texture_sha256": "b8c94e92f9e58546a4a91123446d42618e976d28302ff72996655e87e2b4cb69",
       "timing_normalized": false,
-      "width": 120
+      "width": 192
     },
     {
       "attribution": "provider owner",
@@ -793,7 +793,7 @@
       "source_sha256": "23e3a6f502658f78f774befb78e13ba524ccf5622c7b13d2168e032240443856",
       "source_width": 112,
       "texture": "Media/bttv/636181cfed98a03da0ce7d06.blp",
-      "texture_sha256": "3203316384921e3be82d2e50ed237b48bd212b2e32d4e627b1615a05a5e139a1",
+      "texture_sha256": "e378b63b9e2ccc1978c9c565cb55d2c49cd5d6631b390dc2e82b0f6f26a3f2d9",
       "timing_normalized": false,
       "width": 64
     },
@@ -1479,7 +1479,7 @@
       "source_sha256": "499696aa174f150f2efa69ca98d3faa0587e7d1f4789907d7a78426f6ba912b3",
       "source_width": 112,
       "texture": "Media/bttv/5c447084f13c030e98f74f58.blp",
-      "texture_sha256": "b697d1e0cdac68ec020306e203139910c49ba1d21a050cfc472f1bc79d0f907c",
+      "texture_sha256": "7b6c5845514c0a872491c4855159a4c56855f5544d7cbd2159dc9eefae154eb7",
       "timing_normalized": false,
       "width": 64
     },
@@ -2353,7 +2353,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "gelly_bellly",
       "creator_id": "5fa94cab4dfba164402975be",
@@ -2362,7 +2362,7 @@
       "format": "gif",
       "fps": 25.08833922261484,
       "frames": 57,
-      "height": 32,
+      "height": 40,
       "id": "bttv:6091a8f539b5010444d0b9e1",
       "lossless": {
         "cellWidth": 64,
@@ -2450,8 +2450,8 @@
         55,
         56
       ],
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/6091a8f539b5010444d0b9e1",
       "source_duration_ms": 2830.0,
       "source_frames": 57,
@@ -2459,9 +2459,9 @@
       "source_sha256": "071d9dc06323841a69eedcff064a0387cfa1c4c314f2afe6faad7309a43b1930",
       "source_width": 112,
       "texture": "Media/bttv/6091a8f539b5010444d0b9e1.blp",
-      "texture_sha256": "695a31069cf3cb75bb0360eb9c96b82cf455db18f3fbe9d3a426b66d5130edaa",
+      "texture_sha256": "e8f02532fc5c54877c4709586dc8d8f4714766f06b09513a9332c662061a91b3",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -4141,7 +4141,7 @@
       "source_sha256": "48c7e531cf96385c90cfcf20f9867ccfd00709084bb632fa6713279ac709166a",
       "source_width": 111,
       "texture": "Media/bttv/5aa1d0e311237146531078b0.blp",
-      "texture_sha256": "cd8483b8fc439474d86ae95ac729cb06501e41a097d6876e01c26d81b951baf3",
+      "texture_sha256": "2a1715e8715b6e74bb03da2af3a951c59ab752a065e4c2d9b104efa307c284da",
       "timing_normalized": false,
       "width": 64
     },
@@ -4936,7 +4936,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "TheAverageKim",
       "creator_id": "5fa96c92f447d2645c1fac80",
@@ -4945,7 +4945,7 @@
       "format": "gif",
       "fps": 10.0,
       "frames": 42,
-      "height": 32,
+      "height": 40,
       "id": "bttv:629be1013c6f14b6884985f5",
       "lossless": {
         "cellWidth": 64,
@@ -4960,8 +4960,8 @@
       "name": "DrEvil",
       "provider": "bttv",
       "provider_id": "629be1013c6f14b6884985f5",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/629be1013c6f14b6884985f5",
       "source_duration_ms": 420.0,
       "source_frames": 42,
@@ -4969,9 +4969,9 @@
       "source_sha256": "d615391532f8ccaab48d34525aa97d3594a94fae64d2186e4f1ab858aae64593",
       "source_width": 112,
       "texture": "Media/bttv/629be1013c6f14b6884985f5.blp",
-      "texture_sha256": "1c24539bead41cfb1eafaa0114c2542ac381ccce045bab788528b7317ef50ba5",
+      "texture_sha256": "ac9a2bc30c728fb3b33ee550b1eb1743a1d1c1041ac7630b62149c47f4a2dcdc",
       "timing_normalized": true,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -5697,7 +5697,7 @@
       "format": "gif",
       "fps": 33.333333333333336,
       "frames": 90,
-      "height": 40,
+      "height": 48,
       "id": "bttv:588111b6afc2ff756c3f345d",
       "lossless": {
         "cellWidth": 64,
@@ -5712,7 +5712,7 @@
       "name": "FeelsLitMan",
       "provider": "bttv",
       "provider_id": "588111b6afc2ff756c3f345d",
-      "sheetHeight": 128,
+      "sheetHeight": 256,
       "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/588111b6afc2ff756c3f345d",
       "source_duration_ms": 2700.0,
@@ -5721,9 +5721,9 @@
       "source_sha256": "0d347297dc42a824a72d20b2453c2fdabd0d2415c875f676ba7441b5215f428d",
       "source_width": 112,
       "texture": "Media/bttv/588111b6afc2ff756c3f345d.blp",
-      "texture_sha256": "400e6bec2006537637fcb66017e825f02988a73f00e7d85d1320bef63e58be2c",
+      "texture_sha256": "b87bd53a3e469814539c1e8a6270bb78821ccc27e9c74a049fa9145fbcbada20",
       "timing_normalized": false,
-      "width": 40
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -10769,7 +10769,7 @@
       "source_sha256": "cc1d4604c942222ae07e434c66739d5975c72240776bc81911fa16fb9eff57bc",
       "source_width": 112,
       "texture": "Media/bttv/58e5abdaf3ef4c75c9c6f0f9.blp",
-      "texture_sha256": "c2bd0810110cb85451a36108caf4851dadf0a237a36e7c8c890f8412eac43c3c",
+      "texture_sha256": "6039152159f7db14b66c035a05a60797434b2901bbe1965f015d3a62914c9222",
       "timing_normalized": true,
       "width": 64
     },
@@ -10886,7 +10886,7 @@
       "source_sha256": "41fbac823bc2d7cbef4ba1b2a97d995377ba76c3ca98d9f321d9932b3c30e81c",
       "source_width": 112,
       "texture": "Media/bttv/5ff94c895362e1049403662a.blp",
-      "texture_sha256": "835a90bf3ad2811df596de19f69b85ee1598a859de28af28b2e832828681362c",
+      "texture_sha256": "715691b0bcdc27a785789481e25c4f9229e314f0783c5c75b93039b1997987eb",
       "timing_normalized": false,
       "width": 64
     },
@@ -11766,7 +11766,7 @@
       "source_sha256": "a20c95c58092526044d9d94a46d045ea16fbb28c710edb1912085d142e4dc5ed",
       "source_width": 112,
       "texture": "Media/bttv/5b58941cc0c5fe407247b5e5.blp",
-      "texture_sha256": "5f0ba0a30bf87b0c126d1e7db1c13c1edabac6018cb902a82bdeb73bb75dcf51",
+      "texture_sha256": "aaa3f2441181cfa03d26a9e85f7ad8bd83bdda06ed466f082a7af3f2cf871eb8",
       "timing_normalized": false,
       "width": 32
     },
@@ -14791,7 +14791,7 @@
       "source_sha256": "eea8e8ca1683ee6a1dd93bc762df1946a608210f541a57ee2be772e44a16f067",
       "source_width": 112,
       "texture": "Media/bttv/6625549c6f3776dafda9c175.blp",
-      "texture_sha256": "37e8b30afc9727008650a540949e0305087fd7aad59eb32dcbc9039fd261e37c",
+      "texture_sha256": "fc741de3b4309de4f47662e5ea1ada8c34f3eadd25747c4e3c1585486cc2c853",
       "timing_normalized": false,
       "width": 32
     },
@@ -14947,7 +14947,7 @@
       "source_sha256": "576a3f19c4344efd5aa2e0e7fb8a015be663fb79ab9171de28ad17f9a1ca3a9d",
       "source_width": 112,
       "texture": "Media/bttv/6617800726f4e35d7a20afc0.blp",
-      "texture_sha256": "817a109393975f9078358c8ffde16223fd763aa6b495d986c18fd58e3008241a",
+      "texture_sha256": "6f6c0407ba5f4f0537fca18a83814ed63e2bf4ffd5bea04495f1b83c71dca578",
       "timing_normalized": false,
       "width": 40
     },
@@ -19262,7 +19262,7 @@
       "source_sha256": "534144053ec0338f1af89aad76b8e31312ddaf9d16b10a5c7861a107bb3ecd90",
       "source_width": 112,
       "texture": "Media/bttv/6091883f39b5010444d0b85a.blp",
-      "texture_sha256": "8f9258069494f5fa179d5e55287c7ddf74128f72707444b4d21fff1d916b837d",
+      "texture_sha256": "5f2cd6bbb4290135bd0f51913c81a99bc46544389e66586013adf34c194cedff",
       "timing_normalized": false,
       "width": 64
     },
@@ -19753,7 +19753,7 @@
       "source_sha256": "e909adfe76e62791bf677aba3940b1ef027686502944075ccaf1327fbecfa9e4",
       "source_width": 112,
       "texture": "Media/bttv/5f6a96c26ba48a709c4f6441.blp",
-      "texture_sha256": "0994c199f4683be3328842e481e5460164c87f7ebba49f66b7ddb5466325355f",
+      "texture_sha256": "23ca7123563c0ba42a0149e5a87cac64926f439875f77a3f8167e061fc59f55e",
       "timing_normalized": false,
       "width": 64
     },
@@ -20045,7 +20045,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "flammel_xd",
       "creator_id": "5b0e74c5c3be2f6e98d2fd6c",
@@ -20054,7 +20054,7 @@
       "format": "gif",
       "fps": 20.0,
       "frames": 123,
-      "height": 32,
+      "height": 40,
       "id": "bttv:5e883cbc4653ef0967b41039",
       "lossless": {
         "cellWidth": 64,
@@ -20204,8 +20204,8 @@
         0,
         0
       ],
-      "sheetHeight": 128,
-      "sheetWidth": 1024,
+      "sheetHeight": 256,
+      "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/5e883cbc4653ef0967b41039",
       "source_duration_ms": 6650.0,
       "source_frames": 124,
@@ -20213,9 +20213,9 @@
       "source_sha256": "71123ffcc3a3be3b48f656b3d26148ad03874c117ee771af59071fae3056cff6",
       "source_width": 112,
       "texture": "Media/bttv/5e883cbc4653ef0967b41039.blp",
-      "texture_sha256": "56df738846faaaa21417677a0112d78a6ef3ca539d29e78f02a5a5c481317edd",
+      "texture_sha256": "c33818676180666fc260a5ee16d25688169ca6efb3a93e609a9dd674a4fb4ab7",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -22562,7 +22562,7 @@
       "source_sha256": "7ada05f604f349684473972b6f9bf837176a8e106cb21aa6f5d0387de2a27494",
       "source_width": 112,
       "texture": "Media/bttv/5e7c61566d485d372b29e1a2.blp",
-      "texture_sha256": "7e11f407ced64bbec43518914527c36ea91242bc77ceb81000844c11132339e2",
+      "texture_sha256": "9c94aaedc4eaa5e68c53618d5ee8b08eda715f9a7e2108f8ebc72987c2e8b276",
       "timing_normalized": false,
       "width": 64
     },
@@ -22751,7 +22751,7 @@
       "source_sha256": "b654a31109016bc1a07c5686dd278baa03bc86aecf010dbcd599413f7f599d0b",
       "source_width": 112,
       "texture": "Media/bttv/5e9643a2d023b362f6381be1.blp",
-      "texture_sha256": "f38fd60fcb53ba953aade52d22669954bd23c12535b5c9f48f7c5f555319a98e",
+      "texture_sha256": "b3d38adbae0f3f843114d952fed94af57d5ab564524d6b8b2dfce25c5ca75cbf",
       "timing_normalized": false,
       "width": 64
     },
@@ -25784,7 +25784,7 @@
       "source_sha256": "46cbd5a82bf5817fae944a0243104575cb380ba45160aac96c023136a956a4c4",
       "source_width": 112,
       "texture": "Media/bttv/5b35cae2f3a33e2b6f0058ef.blp",
-      "texture_sha256": "6cd5e57064375da6c5538ece8d20123297becb8b68d9653a9cbc0a087196a726",
+      "texture_sha256": "4b25fb0a995a7459d2021c7013c24bb8dfb43f2193fda084e754e38b87463bdd",
       "timing_normalized": false,
       "width": 64
     },
@@ -26282,7 +26282,7 @@
       "source_sha256": "50c0fc35db1611ba3ae8b0bf5f4d59c569834ce933fe912e4bc25ab8e3561111",
       "source_width": 112,
       "texture": "Media/bttv/6066beb6a407570b72f298fd.blp",
-      "texture_sha256": "09e75abc81ae6b9c4465eb159c08d16827e586751f7aab7181b0fdf745a2d369",
+      "texture_sha256": "72461b8272f697bfde2e86016276925566532f1862b5c79608e20543e5470d19",
       "timing_normalized": false,
       "width": 32
     },
@@ -26581,7 +26581,7 @@
       "format": "gif",
       "fps": 16.666666666666668,
       "frames": 17,
-      "height": 32,
+      "height": 40,
       "id": "bttv:6454364897d0bd6a79e98635",
       "lossless": {
         "cellWidth": 256,
@@ -26619,7 +26619,7 @@
         16,
         16
       ],
-      "sheetHeight": 64,
+      "sheetHeight": 128,
       "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/6454364897d0bd6a79e98635",
       "source_duration_ms": 1260.0,
@@ -26628,9 +26628,9 @@
       "source_sha256": "ea9f82561712b6536390a3cd0f1e985e115c208230d0047db1a8da0802544abb",
       "source_width": 336,
       "texture": "Media/bttv/6454364897d0bd6a79e98635.blp",
-      "texture_sha256": "1fd08da78d734469520fe9ac8e941d88ba4ad911dd2ec9e0215714cc3603f349",
+      "texture_sha256": "dd7daa0ae42bc187230c6241729a665074661a89d4357943326b7ab0474d565f",
       "timing_normalized": false,
-      "width": 96
+      "width": 120
     },
     {
       "attribution": "provider owner",
@@ -26793,7 +26793,7 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
+      "cellWidth": 64,
       "columns": 32,
       "creator": "NichtEvo",
       "creator_id": "5e6e1b9dd6581c3724c07a45",
@@ -26802,7 +26802,7 @@
       "format": "gif",
       "fps": 25.0,
       "frames": 41,
-      "height": 32,
+      "height": 40,
       "id": "bttv:638cd4ecb9076d0aaebde732",
       "lossless": {
         "cellWidth": 64,
@@ -26817,8 +26817,8 @@
       "name": "Sigma",
       "provider": "bttv",
       "provider_id": "638cd4ecb9076d0aaebde732",
-      "sheetHeight": 64,
-      "sheetWidth": 1024,
+      "sheetHeight": 128,
+      "sheetWidth": 2048,
       "source": "https://betterttv.com/emotes/638cd4ecb9076d0aaebde732",
       "source_duration_ms": 1640.0,
       "source_frames": 41,
@@ -26826,9 +26826,9 @@
       "source_sha256": "a0e489afe5ed4b672e8432861961d0111588829ab293121cc9bc4297ddb796be",
       "source_width": 112,
       "texture": "Media/bttv/638cd4ecb9076d0aaebde732.blp",
-      "texture_sha256": "ecaa7d04ad7ca90a15cd58ecf007e5110b35abd11a9de344849f43bc3acf007a",
+      "texture_sha256": "69c1414f6bff5ac17769d7fd2f31ee30c16e519930bf679e0703b05778e2196f",
       "timing_normalized": false,
-      "width": 32
+      "width": 40
     },
     {
       "attribution": "provider owner",
@@ -27391,7 +27391,7 @@
       "format": "gif",
       "fps": 50.0,
       "frames": 12,
-      "height": 40,
+      "height": 48,
       "id": "bttv:5af84b9e766af63db43bf6b9",
       "lossless": {
         "cellWidth": 128,
@@ -27441,9 +27441,9 @@
       "source_sha256": "bb59b07aaa9c359d222bd8e8f69758848bcc03c74ecf54b671719f8794ca33d2",
       "source_width": 112,
       "texture": "Media/bttv/5af84b9e766af63db43bf6b9.blp",
-      "texture_sha256": "fddbe904f579486c5fcbaf6b4a378312a12d1b83518bc22c2925ff293a1f9415",
+      "texture_sha256": "ebbf46e4977db17fdd3b2054d6ca62d5577de3603b148966d43dc8e9b5840551",
       "timing_normalized": false,
-      "width": 42
+      "width": 51
     },
     {
       "attribution": "provider owner",
@@ -28166,7 +28166,7 @@
       "format": "gif",
       "fps": 50.0,
       "frames": 24,
-      "height": 40,
+      "height": 48,
       "id": "bttv:5fa1f87e1b017902db15aedd",
       "lossless": {
         "cellWidth": 64,
@@ -28190,9 +28190,9 @@
       "source_sha256": "67eadc1cd89238e69039b009443d1c2cba1663d9aac1fafd637bc6b742812204",
       "source_width": 112,
       "texture": "Media/bttv/5fa1f87e1b017902db15aedd.blp",
-      "texture_sha256": "1b11e5c2e500bd7fa9539744f1d8b6d10345a18ec28f36d10bd5ec4729292d86",
+      "texture_sha256": "74a4534d0d1bf2d4bdb02491f63a6ba3381b6b0d7af3ea47b2a2b05bba306312",
       "timing_normalized": false,
-      "width": 40
+      "width": 48
     },
     {
       "attribution": "provider owner",
@@ -28561,7 +28561,7 @@
       "format": "gif",
       "fps": 10.0,
       "frames": 25,
-      "height": 48,
+      "height": 64,
       "id": "bttv:64d965327276ef62562b17e2",
       "lossless": {
         "cellWidth": 64,
@@ -28651,9 +28651,9 @@
       "source_sha256": "51ff6197a177500c5408308bf8a6984ca897c2e73a4459a7d204dd5183e7a8f8",
       "source_width": 112,
       "texture": "Media/bttv/64d965327276ef62562b17e2.blp",
-      "texture_sha256": "be5b2340318e8e11432c71ffabb2b245aeb5953f086fce56ec5fcb7beb3fdea7",
+      "texture_sha256": "bb94bd4acfca1aa8b2c4991dcd9fc1bad8e46de7fdc1e82e8bdc8b28581d0348",
       "timing_normalized": false,
-      "width": 48
+      "width": 64
     },
     {
       "attribution": "provider owner",
