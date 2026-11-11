@@ -610,7 +610,8 @@ class BuildTests(unittest.TestCase):
             self.assertIn('Media\\\\7tv\\\\ABC123.blp', (addon / 'Packs/second_pack.lua').read_text())
 
     def test_a_removed_name_is_left_out_of_the_pack_and_recorded(self):
-        pack = seven_tv_pack(seven_tv_emote('keep'), seven_tv_emote('OhGodItsLACARIChasingYou', 'DEF456'))
+        pack = seven_tv_pack(seven_tv_emote('keep'), seven_tv_emote('OhGodItsLACARIChasingYou', 'DEF456'),
+                             seven_tv_emote('lacKEK', 'GHI789'), seven_tv_emote('lackOfSleep', 'JKL012'))
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             fetched = []
@@ -620,14 +621,15 @@ class BuildTests(unittest.TestCase):
             builder.build_packs([pack], root / 'TwitchEmotes', root / 'packs', root / 'cache',
                                 download=download, workers=1)
             manifest = json.loads((root / 'packs' / 'channel.json').read_text())
-            self.assertEqual([entry['name'] for entry in manifest['emotes']], ['keep'])
+            self.assertEqual([entry['name'] for entry in manifest['emotes']], ['keep', 'lackOfSleep'])
             self.assertEqual([(entry['id'], entry['name'], entry['reason']) for entry in manifest['excluded']],
-                             [('DEF456', 'OhGodItsLACARIChasingYou', builder.REMOVED_REASON)])
-            self.assertFalse(any('DEF456' in url for url in fetched))
+                             [('DEF456', 'OhGodItsLACARIChasingYou', builder.REMOVED_REASON),
+                              ('GHI789', 'lacKEK', builder.REMOVED_REASON)])
+            self.assertFalse(any('DEF456' in url or 'GHI789' in url for url in fetched))
             self.assertEqual(sorted(path.name for path in (root / 'TwitchEmotes' / 'Media' / '7tv').iterdir()),
-                             ['ABC123.tga'])
+                             ['ABC123.tga', 'JKL012.tga'])
             self.assertNotIn('LACARI', (root / 'TwitchEmotes' / 'Packs' / 'channel.lua').read_text())
-        self.assertEqual(len(pack['emotes']), 2)
+        self.assertEqual(len(pack['emotes']), 4)
 
     def test_case_colliding_provider_ids_cannot_overwrite_windows_texture(self):
         pack = seven_tv_pack(seven_tv_emote('upper', 'ABC'), seven_tv_emote('lower', 'abc'))

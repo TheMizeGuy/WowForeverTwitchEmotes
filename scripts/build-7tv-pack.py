@@ -59,8 +59,9 @@ BUNDLED_FALLBACKS = (('bttv', 'pikabooirl', 'Pikabooirl'),
 ASSET_FIELDS = ('width', 'height', 'frames', 'fps', 'cellWidth', 'columns', 'sheetWidth', 'sheetHeight',
                 'source_width', 'source_height', 'source_frames', 'duration_ms', 'source_duration_ms',
                 'timing_normalized', 'sequence', 'lossless', 'texture', 'source_sha256', 'texture_sha256')
-# The owner removed every emote whose name contains one of these, in any letter case, from every pack.
-REMOVED_NAME_PARTS = ('lacari',)
+# The owner removed the Lacari emotes from every pack: names containing the channel's name in any
+# letter case, and names with the channel's emote prefix.
+REMOVED_NAMES = re.compile(r'(?i:lacari)|^lac[A-Z0-9]')
 REMOVED_REASON = 'removed from the bundled packs'
 
 
@@ -464,8 +465,7 @@ def publish_files(files, stage):
 
 
 def drop_removed(pack):
-    removed = [record for record in pack['emotes']
-               if any(part in record['name'].casefold() for part in REMOVED_NAME_PARTS)]
+    removed = [record for record in pack['emotes'] if REMOVED_NAMES.search(record['name'])]
     if not removed:
         return pack
     return {**pack, 'emotes': [record for record in pack['emotes'] if record not in removed],
