@@ -305,16 +305,6 @@
       ]
     },
     {
-      "login": "lacari",
-      "twitch_id": "29400754",
-      "title": "Lacari",
-      "metadata_api": "https://twitchemotes.com/channels/29400754",
-      "identity_sources": [
-        "https://decapi.me/twitch/id/Lacari",
-        "https://twitchemotes.com/channels/29400754"
-      ]
-    },
-    {
       "login": "legendarylea",
       "twitch_id": "37116492",
       "title": "LegendaryLea",

@@ -18898,46 +18898,6 @@
     },
     {
       "attribution": "provider owner",
-      "cellWidth": 32,
-      "columns": 32,
-      "creator": "Zestiquant",
-      "creator_id": "01FW0QDA500002J70JYJ7N9X3B",
-      "download": "https://cdn.7tv.app/emote/01FW0QVM580005X0GSGVKFJ6WD/4x.webp",
-      "duration_ms": 6320.0,
-      "format": "webp",
-      "fps": 40.50632911392405,
-      "frames": 256,
-      "height": 32,
-      "id": "7tv:01FW0QVM580005X0GSGVKFJ6WD",
-      "lossless": {
-        "cellWidth": 64,
-        "columns": 16,
-        "frames": 256,
-        "height": 64,
-        "sha256": "90eaf9290bb2c22f2fe28c60351075a75cd475ba251ca7834e811de6a31e6e62",
-        "sheetHeight": 1024,
-        "sheetWidth": 1024,
-        "width": 64
-      },
-      "name": "OhGodItsLacariChasingYouThroughTheBorealWinterPLEASERUNQUICKLYANDTAKECOVERHEHASBADINTENTIONS",
-      "provider": "7tv",
-      "provider_id": "01FW0QVM580005X0GSGVKFJ6WD",
-      "set_entry_id": "01FW0QVM580005X0GSGVKFJ6WD",
-      "sheetHeight": 256,
-      "sheetWidth": 1024,
-      "source": "https://7tv.app/emotes/01FW0QVM580005X0GSGVKFJ6WD",
-      "source_duration_ms": 6320.0,
-      "source_frames": 316,
-      "source_height": 128,
-      "source_sha256": "1aae2456d572d6d24a82fe6c35ca4572057c550b6bf951255a8ad1ee6a38ffc4",
-      "source_width": 128,
-      "texture": "Media/7tv/01FW0QVM580005X0GSGVKFJ6WD.blp",
-      "texture_sha256": "adeb80a9b0445b4dc309c84695548bc3cdf23b2f35a41fceef65bc5f9e9b7649",
-      "timing_normalized": false,
-      "width": 32
-    },
-    {
-      "attribution": "provider owner",
       "cellWidth": 64,
       "columns": 32,
       "creator": "iNSANEono",
@@ -33796,7 +33756,14 @@
       "width": 96
     }
   ],
-  "excluded": [],
+  "excluded": [
+    {
+      "id": "01FW0QVM580005X0GSGVKFJ6WD",
+      "name": "OhGodItsLacariChasingYouThroughTheBorealWinterPLEASERUNQUICKLYANDTAKECOVERHEHASBADINTENTIONS",
+      "reason": "removed from the bundled packs",
+      "source": "https://7tv.app/emotes/01FW0QVM580005X0GSGVKFJ6WD"
+    }
+  ],
   "generator": "scripts/build-7tv-pack.py",
   "group": "ahlaundoh",
   "groupTitle": "Ahlaundoh",

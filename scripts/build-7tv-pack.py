@@ -59,6 +59,9 @@ BUNDLED_FALLBACKS = (('bttv', 'pikabooirl', 'Pikabooirl'),
 ASSET_FIELDS = ('width', 'height', 'frames', 'fps', 'cellWidth', 'columns', 'sheetWidth', 'sheetHeight',
                 'source_width', 'source_height', 'source_frames', 'duration_ms', 'source_duration_ms',
                 'timing_normalized', 'sequence', 'lossless', 'texture', 'source_sha256', 'texture_sha256')
+# The owner removed every emote whose name contains one of these, in any letter case, from every pack.
+REMOVED_NAME_PARTS = ('lacari',)
+REMOVED_REASON = 'removed from the bundled packs'
 
 
 def safe_component(value):
@@ -460,9 +463,21 @@ def publish_files(files, stage):
         raise
 
 
+def drop_removed(pack):
+    removed = [record for record in pack['emotes']
+               if any(part in record['name'].casefold() for part in REMOVED_NAME_PARTS)]
+    if not removed:
+        return pack
+    return {**pack, 'emotes': [record for record in pack['emotes'] if record not in removed],
+            'excluded': pack.get('excluded', []) + [
+                {'id': record['provider_id'], 'name': record['name'], 'source': record['source'],
+                 'reason': REMOVED_REASON} for record in removed]}
+
+
 def build_packs(packs, addon_dir, manifest_dir, cache_dir, max_frames=MAX_FRAMES, workers=6, download=http_get):
     if not 2 <= max_frames <= MAX_FRAMES or not 1 <= workers <= 16:
         raise ValueError('max_frames must be 2..256 and workers must be 1..16')
+    packs = [drop_removed(pack) for pack in packs]
     if not packs or len(packs) > 100 or len({pack['id'].lower() for pack in packs}) != len(packs):
         raise ValueError('provide 1..100 uniquely named packs')
     unique, names_by_pack, path_ids = {}, {}, {}

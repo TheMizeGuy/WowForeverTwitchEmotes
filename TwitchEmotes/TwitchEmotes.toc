@@ -51,7 +51,6 @@ Packs\twitch_hydramist.lua
 Packs\twitch_imaqtpie.lua
 Packs\twitch_jessecox.lua
 Packs\twitch_joshog.lua
-Packs\twitch_lacari.lua
 Packs\twitch_legendarylea.lua
 Packs\twitch_lirik.lua
 Packs\twitch_loltyler1.lua
