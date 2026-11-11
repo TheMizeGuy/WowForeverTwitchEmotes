@@ -184,10 +184,16 @@ local function login()
     E:InitializeUI()
 end
 
+-- Cinematics, Alt-Z, the interface's return and death all close special windows, and dialogs sit beneath the panel.
+local function busy()
+    local dead,popup=UnitIsDeadOrGhost("player"),_G.StaticPopup_IsAnyDialogShown
+    return not UIParent:IsVisible() or (not E:IsRestricted(dead) and dead) or (popup~=nil and popup())
+end
+
 local function onboard()
-    frame:UnregisterEvent("PLAYER_REGEN_ENABLED")
     if onboarded or E.db.setupComplete then onboarded=true; return end
     if InCombatLockdown() then frame:RegisterEvent("PLAYER_REGEN_ENABLED"); return end
+    if busy() then C_Timer.After(2,onboard); return end
     onboarded=true
     if E.OpenFirstRun then E:OpenFirstRun() end
 end
@@ -221,7 +227,7 @@ frame:SetScript("OnEvent",function(_,event,...)
     elseif event=="LOADING_SCREEN_DISABLED" then
         frame:UnregisterEvent("LOADING_SCREEN_DISABLED")
         loadingScreenGone=true; armOnboarding()
-    elseif event=="PLAYER_REGEN_ENABLED" then onboard()
+    elseif event=="PLAYER_REGEN_ENABLED" then frame:UnregisterEvent("PLAYER_REGEN_ENABLED"); C_Timer.After(2,onboard)
     elseif event=="UPDATE_CHAT_WINDOWS" or event=="UPDATE_FLOATING_CHAT_WINDOWS" then E:AttachChatWindows()
     else record(event,...) end
 end)

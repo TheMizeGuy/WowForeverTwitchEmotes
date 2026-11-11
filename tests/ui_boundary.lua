@@ -265,6 +265,7 @@ function B.closeSpecialWindows()
 end
 _G.GetTime = function() return B.time end
 _G.UnitGUID = function(unit) assert(unit == "player"); return "Player-self" end
+_G.UnitIsDeadOrGhost = function(unit) assert(unit == "player"); return B.dead or false end
 _G.SlashCmdList = {}
 _G.C_Timer = { After = function(_, callback) B.after[#B.after + 1] = B.addon(callback) end, NewTicker = function(interval, callback)
     local ticker = { interval = interval, callback = B.addon(callback) }

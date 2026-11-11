@@ -713,8 +713,7 @@ local function createPanel()
         releaseKeyboardControl()
         ui.keyboardControl, ui.keyboardIndex = nil, nil
         if not inCombat() then panel:SetPropagateKeyboardInput(true) end
-        -- Still shown means UIParent hid it (a cinematic, Alt-Z); the picker returns with it.
-        if not panel:IsShown() then endFirstRun(true) end
+        endFirstRun(true)
     end)
     panel:Hide()
 end

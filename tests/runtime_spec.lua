@@ -41,6 +41,9 @@ local function setup(saved,options)
         world.frames[#world.frames+1]=f; return f
     end
     _G.InCombatLockdown=function() return world.combat or false end
+    _G.UIParent={IsVisible=function() return not world.uiHidden end}
+    _G.UnitIsDeadOrGhost=function(unit) assert(unit=="player"); return world.dead or false end
+    _G.StaticPopup_IsAnyDialogShown=function() return world.popup or false end
     _G.C_Timer={After=function(delay,fn) world.after[#world.after+1]=fn; world.delays[#world.delays+1]=delay end,NewTicker=function(interval,fn)
         local ticker={interval=interval,fn=fn}
         function ticker:Cancel() self.cancelled=true end
@@ -327,14 +330,32 @@ end)
 test("entering the world in combat waits for combat to end",function()
     local E,w=setup(); w.combat=true
     w:Enter(); equal(w.firstRuns,nil); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,true)
-    w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1)
+    w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); equal(w.firstRuns,nil,"a moment after combat, not at once")
     equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
-    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1)
+    equal(#w:Timers(),0); equal(w.firstRuns,1)
+    w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED"); w:Timers(); equal(w.firstRuns,1)
+end)
+test("combat that starts again before the picker opens is waited out too",function()
+    local E,w=setup(); w.combat=true; w:Enter()
+    w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); w.combat=true; w:Timers()
+    equal(w.firstRuns,nil); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,true)
+    w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); w:Timers(); equal(w.firstRuns,1)
 end)
 test("setup finished during that combat opens nothing afterwards",function()
     local E,w=setup(); w.combat=true; w:Enter()
-    E:SetOption("setupComplete",true); w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED")
+    E:SetOption("setupComplete",true); w.combat=false; w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); w:Timers()
     equal(w.firstRuns,nil); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+end)
+test("a hidden interface, death or an open dialog delays the picker until it is gone",function()
+    for _,state in ipairs({"uiHidden","dead","popup"}) do
+        local E,w=setup(); w[state]=true
+        w:Enter(); equal(w.firstRuns,nil,state)
+        equal(#w:Timers(),0); equal(w.firstRuns,nil,state.." is checked again later")
+        w[state]=false; w:Timers(); equal(w.firstRuns,1,state)
+        w:Timers(); equal(w.firstRuns,1,state)
+    end
+    local E,w,secret=setup(); w.dead=secret
+    w:Enter(); equal(w.firstRuns,1,"an unreadable death state does not hold the picker back")
 end)
 test("a client without the loading screen event opens the picker after world entry",function()
     local E,w=setup(nil,{unknown={LOADING_SCREEN_DISABLED=true}})
@@ -354,8 +375,8 @@ test("a failing first-run picker leaves chat rendering, links and the slash comm
     w.eventFrame.scripts.OnEvent(w.eventFrame,"PLAYER_REGEN_ENABLED"); equal(w.firstRuns,1,"a failure is not retried this session")
     -- The combat path fails the same way and leaves nothing registered.
     E,w=setup(nil,{firstRunError=true}); w.combat=true; w:Enter(); w.combat=false
-    local ok,err=pcall(w.eventFrame.Fire,w.eventFrame,"PLAYER_REGEN_ENABLED")
-    equal(ok,false); assert(tostring(err):find("onboarding failed",1,true)); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
+    w.eventFrame:Fire("PLAYER_REGEN_ENABLED"); errors=w:Timers()
+    equal(#errors,1); assert(errors[1]:find("onboarding failed",1,true)); equal(w.eventFrame.events.PLAYER_REGEN_ENABLED,nil)
     _,text=w.filters.CHAT_MSG_SAY({},"CHAT_MSG_SAY","KEKW"); assert(text:find("|T",1,true))
 end)
 

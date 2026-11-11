@@ -174,7 +174,7 @@ test("closing the first-run picker any other way finishes it and says once where
     local closers = {
         { "close button", function() E.ui.panel.CloseButton:Click() end },
         { "Escape", function() E.ui.panel:Run("OnKeyDown", "ESCAPE") end },
-        { "Blizzard closing special windows", B.closeSpecialWindows },
+        { "Blizzard closing special windows (world entry, death, cinematics, Alt-Z)", B.closeSpecialWindows },
     }
     for _, closer in ipairs(closers) do
         startFirstRun(); closer[2]()
@@ -182,6 +182,11 @@ test("closing the first-run picker any other way finishes it and says once where
         assert(B.messages[1]:find("/te", 1, true), closer[1])
         E:OpenPanel(); E.ui.panel:Hide(); equal(#B.messages, 1, closer[1] .. " prints the hint once")
     end
+    -- A movie hides UIParent without closing windows: the engine fires OnHide on the panel, which stays shown.
+    startFirstRun(); UIParent.shown = false; E.ui.panel:Run("OnHide")
+    equal(E.db.setupComplete, true, "a hidden interface ends it too"); equal(#B.messages, 1)
+    UIParent.shown = true; E:RefreshUI(); equal(E.ui.setupTitle:GetText(), "Choose your channels", "and it returns plain")
+    E.ui.panel:Hide(); equal(#B.messages, 1)
     startFirstRun(); E.ui.browseTab:Click()
     equal(E.db.setupComplete, true, "leaving for another tab finishes it"); equal(E.ui.panel:IsShown(), true); equal(#B.messages, 0)
     E.ui.panel:Hide(); equal(#B.messages, 0)
@@ -189,13 +194,10 @@ test("closing the first-run picker any other way finishes it and says once where
     equal(E.ui.tab, "settings"); equal(E.db.setupComplete, true); equal(#B.messages, 0)
 end)
 
-test("the slash command, the minimap button and a hidden interface keep the first-run picker", function()
+test("the slash command and the minimap button keep the first-run picker open", function()
     startFirstRun(); E:OpenPanel(); E.ui.minimap:Click()
     equal(E.ui.tab, "setup"); equal(E.ui.setupDone:GetText(), "Finish"); equal(E.db.setupComplete, false)
-    -- A cinematic or Alt-Z hides UIParent: the engine fires the panel's OnHide while the panel itself stays shown.
-    UIParent.shown = false; E.ui.panel:Run("OnHide")
-    equal(E.db.setupComplete, false); equal(#B.messages, 0)
-    UIParent.shown = true; equal(E.ui.panel:IsVisible(), true); equal(E.ui.setupTitle:GetText(), "Welcome to Twitch Emotes")
+    equal(E.ui.panel:IsShown(), true); equal(#B.messages, 0)
     E.ui.panel.CloseButton:Click(); equal(E.db.setupComplete, true); equal(#B.messages, 1)
 end)
 

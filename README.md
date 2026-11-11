@@ -10,7 +10,8 @@ search by name, save favorites, or revisit recently sent emotes. Each Twitch cha
 has one group; provider-wide emotes appear under **General**. General, Graycen,
 Forsen, Erobb221, xQc, and Asmongold start enabled. The first time you enter the world
 with the addon, the window opens on a welcome page with the channel picker, two seconds
-after the loading screen lifts (or once combat ends). Each channel shows how many emotes
+after the loading screen lifts; it waits out combat, a cinematic or hidden interface,
+death, and open dialogs. Each channel shows how many emotes
 it adds and a few samples; your current choices are already checked and every change
 applies at once. **Finish**, the close button, Escape, or switching tabs ends it for
 good; closing it also prints where to find the picker again. Players upgrading from an
