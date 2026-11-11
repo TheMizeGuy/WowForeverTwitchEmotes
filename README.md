@@ -8,8 +8,14 @@ Warcraft client: Retail, Mists of Pandaria Classic, Anniversary, Classic Era, an
 Open the window with `/te`, `/twitch`, or the minimap button. Browse channel groups,
 search by name, save favorites, or revisit recently sent emotes. Each Twitch channel
 has one group; provider-wide emotes appear under **General**. General, Graycen,
-Forsen, Erobb221, xQc, and Asmongold start enabled. There is no automatic first-run
-setup. Use **Channels** or **Settings > Choose channels** to change the selection.
+Forsen, Erobb221, xQc, and Asmongold start enabled. The first time you enter the world
+with the addon, the window opens on a welcome page with the channel picker, two seconds
+after the loading screen lifts (or once combat ends). Each channel shows how many emotes
+it adds and a few samples; your current choices are already checked and every change
+applies at once. **Finish**, the close button, Escape, or switching tabs ends it for
+good; closing it also prints where to find the picker again. Players upgrading from an
+earlier version who never pressed Done see it once too. Use **Channels** or
+**Settings > Choose channels** to change the selection later.
 Browse and search any installed channel, including disabled ones. Its **Enabled in
 chat** checkbox controls display without leaving Browse. Enabled channels have a
 purple highlight and checkmark in the group list.
@@ -63,12 +69,9 @@ restart. Preferences and usage are saved in `ForeverEmotesDB`, one table per cli
 3.0.1 the addon keeps existing 3.x preferences and usage counts and imports nothing from
 other emote addons.
 If preferences reset, `/te status` reports the settings received during startup and
-whether the active settings still match WoW's saved table.
-
-**Forever beta settings issue:** the current client can write addon settings without
-loading them again after a reload or restart. Until Blizzard fixes this, missing
-settings fall back to the six groups above. Manual changes work for the current
-session but may reset. Automatic first-run setup is postponed until saving works.
+whether the active settings still match WoW's saved table. Early WoW Forever beta
+clients never loaded saved addon settings; the live client does, so finishing the
+first-run picker is remembered there as on every other client.
 
 ## Development
 
