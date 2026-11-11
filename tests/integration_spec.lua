@@ -121,7 +121,7 @@ test("actual startup ignores legacy saved globals and initializes once", functio
     equal(Emoticons_Settings.MINIMAPBUTTON,false); equal(TwitchEmoteStatistics[seed.name][2],5)
     assert(#E.names > 50, "expected real provider catalog")
     assert(not panelShownAtLogin, "startup must not open a configuration window")
-    assert(not E.ui.panel or not E.ui.panel:IsShown(), "world entry must not open first-run setup")
+    assert(not E.ui.panel or not E.ui.panel:IsShown(), "nothing opens under the loading screen")
     local defaults = { general=true, graycen=true, forsen=true, erobb221=true, xqc=true, asmongold=true }
     local enabledGroups = {}
     for _, id in ipairs(E.packOrder) do
@@ -132,6 +132,26 @@ test("actual startup ignores legacy saved globals and initializes once", functio
     equal(count(enabledGroups), 6, "all requested groups exist and start enabled")
     B.event("PLAYER_LOGIN"); equal(B.categories, 1); equal(#B.filters.CHAT_MSG_SAY, 1)
     equal(#chat.displayCallbacks, 1); equal(B.liveTickers(), 0)
+    SlashCmdList.FOREVEREMOTES(""); assert(E.ui.panel:IsShown())
+end)
+
+test("the first-run picker opens after the loading screen with the release defaults and the Payo group off", function()
+    E.ui.panel:Hide(); equal(E.db.setupComplete, false)
+    B.event("LOADING_SCREEN_DISABLED"); B.nextFrame()
+    assert(E.ui.panel:IsShown(), "the picker opens once the loading screen lifts")
+    equal(E.ui.tab, "setup"); equal(E.ui.setupTitle:GetText(), "Welcome to Twitch Emotes")
+    equal(E.ui.setupCount:GetText(), "6 of " .. #E:GetGroups() .. " selected")
+    B.type(E.ui.setupSearch, "Payo")
+    local row = E.ui.setupRows[1]
+    equal(row.Text:GetText(), "Payo"); equal(row:GetChecked(), false); equal(E.ui.setupRows[2]:IsShown(), false)
+    equal(row.detail:GetText(), "564 emotes")
+    assert(row.samples:GetText():find("Media\\twitch\\", 1, true), "a channel's samples are its own Twitch emotes")
+    equal(E.db.packs.bttv_payo, false); equal(E.db.packs.twitch_payo, false)
+    row:Click(); equal(E.db.packs.bttv_payo, true); equal(E.db.packs.twitch_payo, true)
+    assert(E:GetEmote("payoKey") and E:GetEmote("payoGG"), "both Payo packs supply names once the group is ticked")
+    row:Click(); equal(E:GetEmote("payoKey"), nil)
+    E.ui.setupSearch:SetText(""); E.ui.setupDone:Click()
+    equal(E.ui.panel:IsShown(), false); equal(E.db.setupComplete, true)
     SlashCmdList.FOREVEREMOTES(""); assert(E.ui.panel:IsShown())
 end)
 

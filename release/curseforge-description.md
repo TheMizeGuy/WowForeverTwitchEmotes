@@ -1,11 +1,11 @@
 **Twitch Emotes WoW Forever** turns familiar emote names into images and animations in your chat. Find the expression you want in a purple visual browser, choose your channel groups, and autocomplete emotes as you type.
 
-The full collection includes **8,000+ emote names across 66 groups**, with artwork from Twitch, 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ). Everything is bundled in one **198 MB download**, with approximately **1.3 GB of disk space** needed after extraction.
+The full collection includes **8,000+ emote names across 67 groups**, with artwork from Twitch, 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ). Everything is bundled in one **200 MB download**, with approximately **1.3 GB of disk space** needed after extraction.
 
 ## Start using emotes
 
 1. Install it for **WoW Forever, Retail, Mists Classic, TBC Anniversary, or Classic Era**, then **fully exit and restart WoW**. `/reload` alone can leave new textures as green boxes after this update.
-2. Open **`/te`**, **`/twitch`**, or the minimap button. General and five channel groups start enabled, with no setup popup.
+2. The first time you log in, the window opens on a channel picker: tick the groups you want and press Done. General and five channel groups start ticked. Later, open it with **`/te`**, **`/twitch`**, or the minimap button.
 3. With the chat box open, click an emote in **Browse** to insert its name, or type `:` and part of a name for autocomplete with image previews. Up and Down move the highlight and Tab inserts the name; Enter always sends your message as typed.
 
 For manual installation, place the `TwitchEmotes` folder inside your client's `Interface/AddOns` folder and keep its name unchanged. The same folder works in every client. No companion addon or Twitch login is required.
