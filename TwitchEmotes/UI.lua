@@ -328,6 +328,8 @@ local function keyboard(_, key)
     if inCombat() then return end
     ui.panel:SetPropagateKeyboardInput(true)
     if keyboardFocus() then return end
+    -- The player did not open the first-run picker: every key stays the game's, and Escape closes it in Blizzard's own order.
+    if ui.firstRun then return end
     if key == "ESCAPE" then ui.panel:Hide()
     elseif not ui.keyboardControl then
         -- Until Tab starts navigation over the panel, Enter, Space and the arrows belong to the game.

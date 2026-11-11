@@ -173,7 +173,10 @@ end)
 test("closing the first-run picker any other way finishes it and says once where to find the channels", function()
     local closers = {
         { "close button", function() E.ui.panel.CloseButton:Click() end },
-        { "Escape", function() E.ui.panel:Run("OnKeyDown", "ESCAPE") end },
+        { "Escape, which the picker leaves to Blizzard's own order", function()
+            E.ui.panel:Run("OnKeyDown", "ESCAPE"); equal(E.ui.panel.propagate, true); equal(E.ui.panel:IsShown(), true)
+            B.closeSpecialWindows()
+        end },
         { "Blizzard closing special windows (world entry, death, cinematics, Alt-Z)", B.closeSpecialWindows },
     }
     for _, closer in ipairs(closers) do
@@ -220,11 +223,15 @@ test("an automatically opened picker leaves chat focus and the game's keys alone
     equal(B.editor:HasFocus(), true, "chat keeps focus"); equal(B.editor:GetText(), "typing at login")
     equal(E.ui.setupSearch:HasFocus(), false); clean(); equal(#B.tainted, 0)
     E.ui.panel:Run("OnKeyDown", "ESCAPE"); equal(E.ui.panel:IsShown(), true, "Escape belongs to the chat box while it has focus")
-    B.editor:ClearFocus(); E.ui.panel.mouseOver = false
-    for _, key in ipairs({ "W", "A", "S", "D", "SPACE", "ENTER", "UP", "DOWN", "LEFT", "RIGHT", "TAB" }) do
-        E.ui.panel:Run("OnKeyDown", key); equal(E.ui.panel.propagate, true, key .. " reaches the game")
+    B.editor:ClearFocus()
+    for _, over in ipairs({ false, true }) do
+        E.ui.panel.mouseOver = over
+        for _, key in ipairs({ "TAB", "W", "A", "S", "D", "SPACE", "ENTER", "UP", "DOWN", "LEFT", "RIGHT", "ESCAPE" }) do
+            E.ui.panel:Run("OnKeyDown", key); equal(E.ui.panel.propagate, true, key .. " reaches the game")
+        end
+        equal(E.ui.keyboardControl, nil); equal(E.ui.tab, "setup"); equal(E.ui.panel:IsShown(), true); equal(E.db.setupComplete, false)
     end
-    equal(E.ui.keyboardControl, nil); equal(E.db.setupComplete, false)
+    E.ui.panel.mouseOver = false
     E.ui.panel.CloseButton:Click(); equal(E.db.setupComplete, true)
     B.editor:Show(); B.editor:SetText(""); B.messages = {}
 end)
