@@ -567,6 +567,36 @@ class BuildTests(unittest.TestCase):
                      for p in (root / folder).rglob('*') if p.is_file()}
             self.assertEqual(after, before)
 
+    def test_new_pack_reuses_an_optimized_texture_another_pack_keeps(self):
+        first = seven_tv_pack(seven_tv_emote())
+        second = seven_tv_pack(seven_tv_emote('alias'), seven_tv_emote('fresh', 'DEF456'))
+        second['id'] = 'second_pack'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            addon, manifests = root / 'TwitchEmotes', root / 'packs'
+            builder.build_packs([first], addon, manifests, root / 'cache', download=lambda _url: png_bytes(), workers=1)
+            optimized = addon / 'Media/7tv/ABC123.blp'
+            (addon / 'Media/7tv/ABC123.tga').rename(optimized)
+            optimized.write_bytes(b'optimized')
+            manifest_path = manifests / 'channel.json'
+            manifest = json.loads(manifest_path.read_text())
+            lossless = {'sha256': manifest['emotes'][0]['texture_sha256'], 'height': 64}
+            manifest['emotes'][0].update(texture='Media/7tv/ABC123.blp', texture_sha256=builder.sha256(optimized),
+                                         height=32, lossless=lossless)
+            manifest_path.write_text(json.dumps(manifest))
+            before = {p.relative_to(root): p.read_bytes() for folder in ('TwitchEmotes', 'packs')
+                      for p in (root / folder).rglob('*') if p.is_file()}
+            builder.build_packs([second], addon, manifests, root / 'cache', download=lambda _url: png_bytes(), workers=1)
+            after = {p.relative_to(root): p.read_bytes() for folder in ('TwitchEmotes', 'packs')
+                     for p in (root / folder).rglob('*') if p.is_file()}
+            self.assertEqual({path: data for path, data in after.items() if path in before}, before)
+            self.assertFalse((addon / 'Media/7tv/ABC123.tga').exists())
+            entries = {entry['name']: entry for entry in json.loads((manifests / 'second_pack.json').read_text())['emotes']}
+            for field in ('texture', 'texture_sha256', 'source_sha256', 'height', 'lossless'):
+                self.assertEqual(entries['alias'][field], manifest['emotes'][0][field])
+            self.assertEqual(entries['fresh']['texture'], 'Media/7tv/DEF456.tga')
+            self.assertIn('Media\\\\7tv\\\\ABC123.blp', (addon / 'Packs/second_pack.lua').read_text())
+
     def test_case_colliding_provider_ids_cannot_overwrite_windows_texture(self):
         pack = seven_tv_pack(seven_tv_emote('upper', 'ABC'), seven_tv_emote('lower', 'abc'))
         with tempfile.TemporaryDirectory() as directory:

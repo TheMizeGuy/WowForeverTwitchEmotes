@@ -46,7 +46,7 @@ GLOBAL_APIS = {
 CHANNEL_IDS = {
     'graycen': '25743612', 'erobb221': '96858382', 'ahlaundoh': '32093909',
     'summit1g': '26490481', 'ziqoftw': '20567961', 'xaryu': '32085830',
-    'pikabooirl': '27992608', 'swifty': '23524577',
+    'pikabooirl': '27992608', 'swifty': '23524577', 'payo': '59624901',
 }
 BUNDLED_7TV_CHANNELS = (
     ('graycen', 'Graycen', 20), ('erobb221', 'erobb221', 30),
@@ -54,7 +54,11 @@ BUNDLED_7TV_CHANNELS = (
     ('ziqoftw', 'Ziqoftw', 20), ('xaryu', 'Xaryu', 20),
 )
 BUNDLED_FALLBACKS = (('bttv', 'pikabooirl', 'Pikabooirl'),
-                     ('ffz', 'pikabooirl', 'Pikabooirl'), ('bttv', 'swifty', 'Swifty'))
+                     ('ffz', 'pikabooirl', 'Pikabooirl'), ('bttv', 'swifty', 'Swifty'),
+                     ('bttv', 'payo', 'Payo'))
+ASSET_FIELDS = ('width', 'height', 'frames', 'fps', 'cellWidth', 'columns', 'sheetWidth', 'sheetHeight',
+                'source_width', 'source_height', 'source_frames', 'duration_ms', 'source_duration_ms',
+                'timing_normalized', 'sequence', 'lossless', 'texture', 'source_sha256', 'texture_sha256')
 
 
 def safe_component(value):
@@ -485,6 +489,16 @@ def build_packs(packs, addon_dir, manifest_dir, cache_dir, max_frames=MAX_FRAMES
         names_by_pack[pack['id']] = names
     addon_dir, manifest_dir, cache_dir = Path(addon_dir), Path(manifest_dir), Path(cache_dir)
     addon_dir.parent.mkdir(parents=True, exist_ok=True)
+    replaced = {pack['id'] for pack in packs}
+    old_textures, retained_textures, retained = set(), set(), {}
+    for existing in sorted(manifest_dir.glob('*.json')):
+        prior = json.loads(existing.read_text(encoding='utf-8'))
+        if existing.stem in replaced:
+            old_textures.update(record['texture'] for record in prior['emotes'])
+            continue
+        for record in prior['emotes']:
+            retained_textures.add(record['texture'])
+            retained.setdefault(record['id'], (existing.stem, record))
     with tempfile.TemporaryDirectory(prefix='.emote-build-', dir=addon_dir.parent) as directory:
         stage = Path(directory)
         assets = {}
@@ -494,6 +508,12 @@ def build_packs(packs, addon_dir, manifest_dir, cache_dir, max_frames=MAX_FRAMES
             for job in concurrent.futures.as_completed(jobs):
                 key, source = jobs[job], job.result()
                 record = unique[key]
+                owner, shared = retained.get(key, (None, None))
+                # A pack that keeps this artwork already ships its texture, possibly optimized: reuse it as built.
+                if (shared and shared.get('source_sha256') == sha256(source)
+                        and (addon_dir / shared['texture']).is_file()):
+                    assets[key] = {field: shared[field] for field in ASSET_FIELDS if field in shared}
+                    continue
                 relative = Path('Media') / record['provider'] / (record['provider_id'] + '.tga')
                 texture = stage / relative
                 texture.parent.mkdir(parents=True, exist_ok=True)
@@ -506,19 +526,9 @@ def build_packs(packs, addon_dir, manifest_dir, cache_dir, max_frames=MAX_FRAMES
                     metadata['sequence'] = steps
                 assets[key] = {**metadata, 'texture': relative.as_posix(), 'source_sha256': sha256(source),
                                'texture_sha256': sha256(texture)}
+                if shared and assets[key]['texture_sha256'] != shared['texture_sha256']:
+                    raise ValueError(f'shared texture {key} also requires rebuilding {owner}')
                 files.append((texture, addon_dir / relative))
-        replaced = {pack['id'] for pack in packs}
-        old_textures, retained_textures = set(), set()
-        for existing in manifest_dir.glob('*.json'):
-            prior = json.loads(existing.read_text(encoding='utf-8'))
-            if existing.stem in replaced:
-                old_textures.update(record['texture'] for record in prior['emotes'])
-                continue
-            for record in prior['emotes']:
-                retained_textures.add(record['texture'])
-                changed = assets.get(record['id'])
-                if changed and changed['texture_sha256'] != record['texture_sha256']:
-                    raise ValueError(f'shared texture {record["id"]} also requires rebuilding {existing.stem}')
         manifests = []
         for pack in packs:
             records = [{**record, **assets[record['id']]} for record in
