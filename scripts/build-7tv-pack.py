@@ -46,7 +46,7 @@ GLOBAL_APIS = {
 CHANNEL_IDS = {
     'graycen': '25743612', 'erobb221': '96858382', 'ahlaundoh': '32093909',
     'summit1g': '26490481', 'ziqoftw': '20567961', 'xaryu': '32085830',
-    'pikabooirl': '27992608', 'swifty': '23524577', 'payo': '59624901',
+    'pikabooirl': '27992608', 'swifty': '23524577', 'payo': '59624901', 'kamet0': '27115917',
 }
 BUNDLED_7TV_CHANNELS = (
     ('graycen', 'Graycen', 20), ('erobb221', 'erobb221', 30),
