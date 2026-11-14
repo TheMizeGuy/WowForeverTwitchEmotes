@@ -20,6 +20,7 @@ Packs\bttv_swifty.lua
 Packs\bttv_payo.lua
 Packs\graycen.lua
 Packs\summit1g.lua
+Packs\kameto.lua
 Packs\twitch_admiralbahroo.lua
 Packs\twitch_admiralbulldog.lua
 Packs\twitch_ahlaundoh.lua
